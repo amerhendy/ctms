@@ -1,0 +1,5 @@
+shared
+.env
+.pytest_cache
+storage
+node_modules

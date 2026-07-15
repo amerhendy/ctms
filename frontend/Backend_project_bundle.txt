@@ -1,0 +1,2162 @@
+﻿==============================================
+📦 FULL PROJECT STRUCTURE (backend):
+┣━ 📂 .pytest_cache
+┃   ┣━ 📂 v
+┃   ┃   ┗━ 📂 cache
+┃   ┃       ┣━ 📜 lastfailed
+┃   ┃       ┗━ 📜 nodeids
+┃   ┣━ 📜 .gitignore
+┃   ┣━ 📜 CACHEDIR.TAG
+┃   ┗━ 📜 README.md
+┣━ 📂 app
+┃   ┣━ 📂 api
+┃   ┃   ┣━ 📂 v1
+┃   ┃   ┃   ┣━ 📂 endpoints
+┃   ┃   ┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 auth.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 auth.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 auth_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 department_managers.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 department_managers_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 JobLevels.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 JobLevels_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 location.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 location_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 notifications.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 notifications.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 notifications_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 organization.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 organization.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 organization_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 Recurring.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 Recurring_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 search.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 search.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 search_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 shares_delegations.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 shares_delegations.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 shares_delegations_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 tasks.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 tasks.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 tasks_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 TaskWorkflowStep_route.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 TaskWorkflow_route.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_assigns.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_assigns_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_attachments.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_attachments_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_comments.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_comments_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_steps.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_steps_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 timeLog.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 timeLog_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 transfers.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 transfers.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 transfers_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 users.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 users.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 users_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 user_contacts.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 user_contacts_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 user_stats.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 user_stats_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStep_route.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 WorkflowTemplate_route.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 workflow_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┃   ┃   ┣━ 📜 auth.py
+┃   ┃   ┃   ┃   ┣━ 📜 auth_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 department_managers.py
+┃   ┃   ┃   ┃   ┣━ 📜 department_managers_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 JobLevels.py
+┃   ┃   ┃   ┃   ┣━ 📜 JobLevels_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 location.py
+┃   ┃   ┃   ┃   ┣━ 📜 location_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 notifications.py
+┃   ┃   ┃   ┃   ┣━ 📜 notifications_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 organization.py
+┃   ┃   ┃   ┃   ┣━ 📜 organization_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 Recurring.py
+┃   ┃   ┃   ┃   ┣━ 📜 Recurring_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 search.py
+┃   ┃   ┃   ┃   ┣━ 📜 search_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 shares_delegations.py
+┃   ┃   ┃   ┃   ┣━ 📜 shares_delegations_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 tasks.py
+┃   ┃   ┃   ┃   ┣━ 📜 tasks_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 TaskWorkflowStep_route.py
+┃   ┃   ┃   ┃   ┣━ 📜 TaskWorkflow_route.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_assigns.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_assigns_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_attachments.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_attachments_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_comments.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_comments_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_steps.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_steps_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 timeLog.py
+┃   ┃   ┃   ┃   ┣━ 📜 timeLog_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 transfers.py
+┃   ┃   ┃   ┃   ┣━ 📜 transfers_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 users.py
+┃   ┃   ┃   ┃   ┣━ 📜 users_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 user_contacts.py
+┃   ┃   ┃   ┃   ┣━ 📜 user_contacts_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 user_stats.py
+┃   ┃   ┃   ┃   ┣━ 📜 user_stats_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStep_route.py
+┃   ┃   ┃   ┃   ┣━ 📜 WorkflowTemplate_route.py
+┃   ┃   ┃   ┃   ┣━ 📜 workflow_router.py
+┃   ┃   ┃   ┃   ┗━ 📜 __init__.py
+┃   ┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.py
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 core
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 config.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 config.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 permissions.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 security.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 security.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 utils.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┣━ 📜 config.py
+┃   ┃   ┣━ 📜 permissions.py
+┃   ┃   ┣━ 📜 security.py
+┃   ┃   ┣━ 📜 utils.py
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 db
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 enums.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 session.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 session.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┣━ 📜 enums.py
+┃   ┃   ┣━ 📜 session.py
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 helpers
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┗━ 📜 dept_manager_helper.cpython-311.pyc
+┃   ┃   ┗━ 📜 dept_manager_helper.py
+┃   ┣━ 📂 models
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 Delegation.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 Department.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 DepartmentManager.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 Favorite.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 JobLevel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 Location.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 Notification.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 NotificationSettings.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 RecurringTask.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 RecurringTaskLog.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 Task.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskAssignment.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskAttachment.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskComment.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskLog.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskShare.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskStep.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskTimeLog.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskTransfer.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowModel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowStepDependency_Model.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowStepModel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 User.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 UserContact.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 UserLogs.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_contacts.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateModel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStepModel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┣━ 📜 Delegation.py
+┃   ┃   ┣━ 📜 Department.py
+┃   ┃   ┣━ 📜 DepartmentManager.py
+┃   ┃   ┣━ 📜 Favorite.py
+┃   ┃   ┣━ 📜 JobLevel.py
+┃   ┃   ┣━ 📜 Location.py
+┃   ┃   ┣━ 📜 Notification.py
+┃   ┃   ┣━ 📜 NotificationSettings.py
+┃   ┃   ┣━ 📜 RecurringTask.py
+┃   ┃   ┣━ 📜 RecurringTaskLog.py
+┃   ┃   ┣━ 📜 structure.txt
+┃   ┃   ┣━ 📜 Task.py
+┃   ┃   ┣━ 📜 TaskAssignment.py
+┃   ┃   ┣━ 📜 TaskAttachment.py
+┃   ┃   ┣━ 📜 TaskComment.py
+┃   ┃   ┣━ 📜 TaskLog.py
+┃   ┃   ┣━ 📜 TaskShare.py
+┃   ┃   ┣━ 📜 TaskStep.py
+┃   ┃   ┣━ 📜 TaskTimeLog.py
+┃   ┃   ┣━ 📜 TaskTransfer.py
+┃   ┃   ┣━ 📜 TaskWorkflowModel.py
+┃   ┃   ┣━ 📜 TaskWorkflowStepDependency_Model.py
+┃   ┃   ┣━ 📜 TaskWorkflowStepModel.py
+┃   ┃   ┣━ 📜 User.py
+┃   ┃   ┣━ 📜 UserContact.py
+┃   ┃   ┣━ 📜 UserLogs.py
+┃   ┃   ┣━ 📜 WorkflowTemplateModel.py
+┃   ┃   ┣━ 📜 WorkflowTemplateStepModel.py
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 repositories
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 auth_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 comment_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 delegation_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 department_manager_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 department_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 favorite_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 job_level_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 location_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 log_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 notification_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 recurring_task_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskAssignments_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 taskShare_rep.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 taskStep_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowStep_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 taskWorkFlow_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_analytics_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_step_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_contact_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStep_rep.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 WorkflowTemplate_repo.cpython-311.pyc
+┃   ┃   ┣━ 📜 auth_repository.py
+┃   ┃   ┣━ 📜 comment_repository.py
+┃   ┃   ┣━ 📜 delegation_repo.py
+┃   ┃   ┣━ 📜 department_manager_repository.py
+┃   ┃   ┣━ 📜 department_repository.py
+┃   ┃   ┣━ 📜 favorite_repo.py
+┃   ┃   ┣━ 📜 job_level_repository.py
+┃   ┃   ┣━ 📜 location_repository.py
+┃   ┃   ┣━ 📜 log_repo.py
+┃   ┃   ┣━ 📜 notification_repository.py
+┃   ┃   ┣━ 📜 recurring_task_repo.py
+┃   ┃   ┣━ 📜 TaskAssignments_repo.py
+┃   ┃   ┣━ 📜 taskShare_rep.py
+┃   ┃   ┣━ 📜 TaskWorkflowStepDependency_repo.py
+┃   ┃   ┣━ 📜 TaskWorkflowStep_repo.py
+┃   ┃   ┣━ 📜 taskWorkFlow_repo.py
+┃   ┃   ┣━ 📜 task_analytics_repository.py
+┃   ┃   ┣━ 📜 task_repo.py
+┃   ┃   ┣━ 📜 task_step_repo.py
+┃   ┃   ┣━ 📜 user_contact_repository.py
+┃   ┃   ┣━ 📜 user_repository.py
+┃   ┃   ┣━ 📜 WorkflowTemplateStep_rep.py
+┃   ┃   ┗━ 📜 WorkflowTemplate_repo.py
+┃   ┣━ 📂 schemas
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 attachments.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 auth.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 base.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 comments.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 delegations.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 departments.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 department_manager_sch.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 job_levels.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 locations.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 notifications.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 notification_settings.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 recurring_tasks.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 search.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 shares.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 tasks.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowStep_schema.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflow_schema.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_assignments.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_comment_sch.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_logs.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_steps.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 time_logs.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 transfers.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 urgency.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 users.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_contacts.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_logs.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_stats_schema.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStep_schema.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplate_schema.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc.135017202992272
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┣━ 📜 attachments.py
+┃   ┃   ┣━ 📜 auth.py
+┃   ┃   ┣━ 📜 base.py
+┃   ┃   ┣━ 📜 comments.py
+┃   ┃   ┣━ 📜 delegations.py
+┃   ┃   ┣━ 📜 departments.py
+┃   ┃   ┣━ 📜 department_manager_sch.py
+┃   ┃   ┣━ 📜 job_levels.py
+┃   ┃   ┣━ 📜 locations.py
+┃   ┃   ┣━ 📜 notifications.py
+┃   ┃   ┣━ 📜 notification_settings.py
+┃   ┃   ┣━ 📜 recurring_tasks.py
+┃   ┃   ┣━ 📜 search.py
+┃   ┃   ┣━ 📜 shares.py
+┃   ┃   ┣━ 📜 tasks.py
+┃   ┃   ┣━ 📜 TaskWorkflowStep_schema.py
+┃   ┃   ┣━ 📜 TaskWorkflow_schema.py
+┃   ┃   ┣━ 📜 task_assignments.py
+┃   ┃   ┣━ 📜 task_comment_sch.py
+┃   ┃   ┣━ 📜 task_logs.py
+┃   ┃   ┣━ 📜 task_steps.py
+┃   ┃   ┣━ 📜 time_logs.py
+┃   ┃   ┣━ 📜 transfers.py
+┃   ┃   ┣━ 📜 urgency.py
+┃   ┃   ┣━ 📜 users.py
+┃   ┃   ┣━ 📜 user_contacts.py
+┃   ┃   ┣━ 📜 user_logs.py
+┃   ┃   ┣━ 📜 user_stats_schema.py
+┃   ┃   ┣━ 📜 WorkflowTemplateStep_schema.py
+┃   ┃   ┣━ 📜 WorkflowTemplate_schema.py
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 services
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 access_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 auth_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 automation.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 delegation_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 department_manager_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 department_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 job_level_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 location_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 log_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 log_service.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 notification_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 notification_service.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 permission_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 permission_service.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 recurring_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 recurring_task_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 share_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 taskassignment_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowStep_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflow_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_comment_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_step_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_contact_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_stats_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateService.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStepService.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┣━ 📜 access_service.py
+┃   ┃   ┣━ 📜 auth_service.py
+┃   ┃   ┣━ 📜 automation.py
+┃   ┃   ┣━ 📜 delegation_service.py
+┃   ┃   ┣━ 📜 department_manager_service.py
+┃   ┃   ┣━ 📜 department_service.py
+┃   ┃   ┣━ 📜 job_level_service.py
+┃   ┃   ┣━ 📜 location_service.py
+┃   ┃   ┣━ 📜 log_service.py
+┃   ┃   ┣━ 📜 notification_service.py
+┃   ┃   ┣━ 📜 permission_service.py
+┃   ┃   ┣━ 📜 recurring_service.py
+┃   ┃   ┣━ 📜 recurring_task_service.py
+┃   ┃   ┣━ 📜 share_service.py
+┃   ┃   ┣━ 📜 taskassignment_service.py
+┃   ┃   ┣━ 📜 TaskWorkflowStep_service.py
+┃   ┃   ┣━ 📜 TaskWorkflow_service.py
+┃   ┃   ┣━ 📜 task_comment_service.py
+┃   ┃   ┣━ 📜 task_service.py
+┃   ┃   ┣━ 📜 task_step_service.py
+┃   ┃   ┣━ 📜 user_contact_service.py
+┃   ┃   ┣━ 📜 user_service.py
+┃   ┃   ┣━ 📜 user_stats_service.py
+┃   ┃   ┣━ 📜 WorkflowStepDependencyService.py
+┃   ┃   ┣━ 📜 WorkflowTemplateService.py
+┃   ┃   ┣━ 📜 WorkflowTemplateStepService.py
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 tests
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 conftest.cpython-311-pytest-9.0.3.pyc
+┃   ┃   ┃   ┣━ 📜 conftest.cpython-314-pytest-9.0.3.pyc
+┃   ┃   ┃   ┗━ 📜 test_user_repository.cpython-311-pytest-9.0.3.pyc
+┃   ┃   ┣━ 📜 conftest.py
+┃   ┃   ┗━ 📜 test_user_repository.py
+┃   ┣━ 📂 __pycache__
+┃   ┃   ┣━ 📜 main.cpython-311.pyc
+┃   ┃   ┣━ 📜 worker.cpython-311.pyc
+┃   ┃   ┗━ 📜 __init__.cpython-311.pyc
+┃   ┣━ 📜 main.py
+┃   ┣━ 📜 worker.py
+┃   ┗━ 📜 __init__.py
+┣━ 📂 celery_beat_schedule
+┣━ 📂 storage
+┃   ┗━ 📂 attachments
+┃       ┣━ 📜 task_1002_1780441648.319491.csv
+┃       ┣━ 📜 task_1002_1780441648.319491.docx
+┃       ┣━ 📜 task_1002_1780441648.319491.pdf
+┃       ┣━ 📜 task_1002_1780441648.319491.pptx
+┃       ┣━ 📜 task_1002_1780441648.319491.xlsx
+┃       ┣━ 📜 task_1_1779529557.12139.pdf
+┃       ┣━ 📜 task_1_1779529557.12139.png
+┃       ┣━ 📜 task_2_1778879524.106649.png
+┃       ┣━ 📜 task_2_1778879626.307254.png
+┃       ┣━ 📜 task_2_1778880050.6689.png
+┃       ┗━ 📜 task_9_1779808299.661803.pdf
+┣━ 📜 backend_file_tree.txt
+┣━ 📜 celerybeat-schedule
+┣━ 📜 Dockerfile
+┣━ 📜 permissions_bundle.txt
+┣━ 📜 powershel.ps1
+┣━ 📜 pyproject.toml
+┣━ 📜 requirements.txt
+┗━ 📜 seed.py
+==============================================
+
+================ SELECTED FILES CODE ===============
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\models\TaskWorkflowModel.py =====
+# app/models/TaskWorkflow.py
+from sqlalchemy import Column, Integer,ForeignKey, DateTime, Enum
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+from app.db.session import Base
+from app.db.enums import WorkflowStatus
+from sqlalchemy.dialects.postgresql import ENUM as PGEnum
+class TaskWorkflow(Base):
+    """
+    الـ Workflow المرتبط بمهمة معينة.
+    كل مهمة ممكن يكون ليها workflow واحد بس.
+    """
+    __tablename__ = "task_workflows"
+
+    id          = Column(Integer, primary_key=True, index=True)
+    task_id     = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"),
+                         nullable=False, unique=True)
+    template_id = Column(Integer, ForeignKey("workflow_templates.id", ondelete="SET NULL"),
+                         nullable=True)   # None = workflow مخصص بدون قالب
+    status = Column(
+        PGEnum(
+            "pending", "in_progress", "completed", "cancelled",
+            name="workflow_status",
+            create_type=True
+        ),
+        default="pending",  # استخدم القيمة الحرفية مباشرة
+        nullable=False
+    )
+    created_by  = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    created_at  = Column(DateTime, server_default=func.now(), nullable=False)
+    updated_at  = Column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=False)
+    deleted_at  = Column(DateTime, nullable=True)  # None = غير محذوف
+
+    # العلاقات
+    task     = relationship("Task", back_populates="workflow")
+    template = relationship("WorkflowTemplate")
+    steps    = relationship("TaskWorkflowStep", back_populates="workflow",
+                            order_by="TaskWorkflowStep.step_order",
+                            cascade="all, delete-orphan")
+    creator  = relationship("User", foreign_keys=[created_by])
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\models\TaskWorkflowStepDependency_Model.py =====
+from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+from app.db.session import Base
+
+class TaskWorkflowStepDependency(Base):
+    """
+    جدول يحدد الاعتماديات بين الخطوات (DAG).
+    الخطوة 'child' لا يمكنها البدء إلا إذا انتهت 'parent'.
+    """
+    __tablename__ = "task_workflow_step_dependencies"
+
+    id              = Column(Integer, primary_key=True, index=True)
+    parent_step_id  = Column(Integer, ForeignKey("task_workflow_steps.id", ondelete="CASCADE"), nullable=False)
+    child_step_id   = Column(Integer, ForeignKey("task_workflow_steps.id", ondelete="CASCADE"), nullable=False)
+
+    # العلاقات
+    parent_step = relationship("TaskWorkflowStep", foreign_keys=[parent_step_id])
+    child_step  = relationship("TaskWorkflowStep", foreign_keys=[child_step_id], back_populates="dependencies")
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\models\TaskWorkflowStepModel.py =====
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime, Text, Enum
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+from app.db.session import Base
+from app.db.enums import StepStatus
+from sqlalchemy.dialects.postgresql import ENUM as PGEnum
+
+class TaskWorkflowStep(Base):
+    """
+    خطوة فعلية في workflow مهمة معينة.
+
+    منطق التسلسل vs التوازي:
+    - step_order = 1, is_parallel = False → خطوة منفردة لازم تخلص قبل اللي بعدها
+    - step_order = 2, is_parallel = True  ┐ الاتنين بيبدأوا مع بعض
+    - step_order = 2, is_parallel = True  ┘ (نفس الـ order)
+    - step_order = 3, is_parallel = False → بتستنى كل خطوات order=2 تخلص
+    """
+    __tablename__ = "task_workflow_steps"
+
+    id                     = Column(Integer, primary_key=True, index=True)
+    workflow_id            = Column(Integer, ForeignKey("task_workflows.id", ondelete="CASCADE"),
+                                   nullable=False)
+    title                  = Column(String(255), nullable=False)
+    description            = Column(Text, nullable=True)
+    step_order             = Column(Integer, nullable=False)
+    is_parallel            = Column(Boolean, default=False, nullable=False)
+    version                = Column(Integer, default=1, nullable=False)
+    deleted_at             = Column(DateTime, nullable=True, index=True)
+    assigned_department_id = Column(Integer, ForeignKey("departments.id", ondelete="SET NULL"),
+                                   nullable=True)
+    assigned_user_id       = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"),
+                                   nullable=True)
+    status = Column(
+        PGEnum(
+            "pending", "in_progress", "completed", "cancelled",
+            name="step_status",
+            create_type=True
+        ),
+        default="pending",  # استخدم القيمة الحرفية مباشرة
+        nullable=False
+    )
+    notes                  = Column(Text, nullable=True)          # ملاحظة عند الإنهاء
+    completed_by           = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"),
+                                   nullable=True)
+    started_at             = Column(DateTime, nullable=True)
+    completed_at           = Column(DateTime, nullable=True)
+    created_at             = Column(DateTime, server_default=func.now(), nullable=False)
+    updated_at             = Column(DateTime, server_default=func.now(), onupdate=func.now(),
+                                   nullable=False)
+
+    # العلاقات
+    workflow            = relationship("TaskWorkflow", back_populates="steps")
+    dependencies        = relationship(
+        "TaskWorkflowStepDependency", 
+        foreign_keys="[TaskWorkflowStepDependency.child_step_id]",
+        back_populates="child_step"
+    )
+    assigned_department = relationship("Department", foreign_keys=[assigned_department_id])
+    assigned_user       = relationship("User", foreign_keys=[assigned_user_id])
+    completer           = relationship("User", foreign_keys=[completed_by])
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\models\WorkflowTemplateModel.py =====
+# app/models/WorkflowTemplate.py
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime, Text
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+from app.db.session import Base
+
+
+class WorkflowTemplate(Base):
+    """قالب Workflow جاهز يمكن تطبيقه على أي مهمة"""
+    __tablename__ = "workflow_templates"
+
+    id          = Column(Integer, primary_key=True, index=True)
+    name        = Column(String(255), nullable=False)
+    description = Column(Text, nullable=True)
+    is_active   = Column(Boolean, default=True, nullable=False)
+    created_by  = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    created_at  = Column(DateTime, server_default=func.now(), nullable=False)
+    updated_at  = Column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=False)
+    deleted_at  = Column(DateTime, nullable=True)
+
+    # العلاقات
+    steps   = relationship("WorkflowTemplateStep", back_populates="template",
+                           order_by="WorkflowTemplateStep.step_order",
+                           cascade="all, delete-orphan")
+    creator = relationship("User", foreign_keys=[created_by])
+
+
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\models\WorkflowTemplateStepModel.py =====
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime, Text
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+from app.db.session import Base
+
+class WorkflowTemplateStep(Base):
+    """خطوة داخل قالب الـ Workflow"""
+    __tablename__ = "workflow_template_steps"
+
+    id                     = Column(Integer, primary_key=True, index=True)
+    template_id            = Column(Integer, ForeignKey("workflow_templates.id", ondelete="CASCADE"), nullable=False)
+    title                  = Column(String(255), nullable=False)
+    description            = Column(Text, nullable=True)
+    step_order             = Column(Integer, nullable=False)          # ترتيب الخطوة
+    is_parallel            = Column(Boolean, default=False)           # True = يشتغل بالتوازي مع نفس الـ order
+    assigned_department_id = Column(Integer, ForeignKey("departments.id", ondelete="SET NULL"), nullable=True)
+    assigned_user_id       = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    created_at             = Column(DateTime, server_default=func.now(), nullable=False)
+    deleted_at             = Column(DateTime, nullable=True)  # Soft delete
+
+    # العلاقات
+    template            = relationship("WorkflowTemplate", back_populates="steps")
+    assigned_department = relationship("Department", foreign_keys=[assigned_department_id])
+    assigned_user       = relationship("User", foreign_keys=[assigned_user_id])
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\schemas\TaskWorkflow_schema.py =====
+# app/schemas/workflow.py
+from __future__ import annotations
+from typing import Optional, List
+from datetime import datetime
+from pydantic import BaseModel, model_validator
+from .TaskWorkflowStep_schema import WorkflowStepCreate,WorkflowStepOut
+from app.db.enums import WorkflowStatus,StepStatus
+class WorkflowCreate(BaseModel):
+    """إنشاء workflow لمهمة — إما من قالب أو من خطوات مخصصة"""
+    template_id : Optional[int] = None         # لو من قالب
+    steps       : Optional[List[WorkflowStepCreate]] = None   # لو مخصص
+
+    @model_validator(mode="after")
+    def template_or_steps(self):
+        if not self.template_id and not self.steps:
+            raise ValueError("لازم تحدد إما template_id أو steps")
+        if self.template_id and self.steps:
+            raise ValueError("حدد إما template_id أو steps — مش الاتنين مع بعض")
+        return self
+    
+class WorkflowOut(BaseModel):
+    id          : int
+    task_id     : int
+    template_id : Optional[int]
+    status      : WorkflowStatus
+    created_by  : Optional[int]
+    created_at  : datetime
+    steps       : List[WorkflowStepOut] = []
+
+    model_config = {"from_attributes": True}
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\schemas\TaskWorkflowStep_schema.py =====
+# app/schemas/TaskWorkflowStep_schema.py
+from __future__ import annotations
+from typing import Optional, List
+from datetime import datetime
+from app.db.enums import StepStatus
+from .users import UserSummary
+from .departments import DepartmentOut
+from pydantic import BaseModel, model_validator
+class WorkflowStepCreate(BaseModel):
+    title                  : str
+    description            : Optional[str] = None
+    step_order             : int
+    is_parallel            : bool = False
+    assigned_department_id : Optional[int] = None
+    assigned_user_id       : Optional[int] = None
+    # إضافة الاعتماديات عند الإنشاء
+    parent_step_ids        : Optional[List[int]] = [] 
+
+    @model_validator(mode="after")
+    def must_have_assignee(self):
+        if not self.assigned_department_id and not self.assigned_user_id:
+            raise ValueError("كل خطوة لازم يكون ليها إدارة أو موظف مسؤول")
+        return self
+
+
+class WorkflowStepUpdate(BaseModel):
+    title                  : Optional[str] = None
+    description            : Optional[str] = None
+    step_order             : Optional[int] = None
+    is_parallel            : Optional[bool] = None
+    assigned_department_id : Optional[int] = None
+    assigned_user_id       : Optional[int] = None
+
+
+class WorkflowStepComplete(BaseModel):
+    notes: Optional[str] = None    # ملاحظة اختيارية عند الإنهاء
+    
+class WorkflowStepOut(BaseModel):
+    id                     : int
+    title                  : str
+    version: Optional[int] = 1
+    description            : Optional[str]
+    step_order             : int
+    is_parallel            : bool
+    status                 : StepStatus
+    created_at             : datetime
+    updated_at             : datetime
+    assigned_department_id : Optional[int]
+    assigned_user_id       : Optional[int]
+    parent_step_ids        : List[int] = [] # قائمة الـ Parents لهذه الخطوة
+    assigned_user          : Optional[UserSummary] = None
+    assigned_department    : Optional[DepartmentOut] = None
+
+    class Config:
+        from_attributes = True
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\schemas\WorkflowTemplate_schema.py =====
+from __future__ import annotations
+from typing import Optional, List
+from datetime import datetime
+from pydantic import BaseModel, model_validator
+
+from .WorkflowTemplateStep_schema import TemplateStepCreate,TemplateStepOut
+class WorkflowTemplateCreate(BaseModel):
+    name        : str
+    description : Optional[str] = None
+    steps       : List[TemplateStepCreate]
+
+
+class WorkflowTemplateUpdate(BaseModel):
+    name        : Optional[str] = None
+    description : Optional[str] = None
+    is_active   : Optional[bool] = None
+
+
+class WorkflowTemplateOut(BaseModel):
+    id          : int
+    name        : str
+    description : Optional[str]
+    is_active   : bool
+    created_by  : Optional[int]
+    created_at  : datetime
+    steps       : List[TemplateStepOut] = []
+
+    model_config = {"from_attributes": True}
+
+class WorkflowTemplateSummary(BaseModel):
+    id          : int
+    name        : str
+    description : Optional[str]
+    is_active   : bool
+    created_by  : Optional[int]
+    created_at  : datetime
+
+    model_config = {"from_attributes": True}
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\schemas\WorkflowTemplateStep_schema.py =====
+from __future__ import annotations
+from typing import Optional
+from pydantic import BaseModel, model_validator
+
+class TemplateStepCreate(BaseModel):
+    title                  : str
+    description            : Optional[str] = None
+    step_order             : int
+    is_parallel            : bool = False
+    assigned_department_id : Optional[int] = None
+    assigned_user_id       : Optional[int] = None
+
+    @model_validator(mode="after")
+    def must_have_assignee(self):
+        if not self.assigned_department_id and not self.assigned_user_id:
+            raise ValueError("كل خطوة لازم يكون ليها إدارة أو موظف مسؤول")
+        return self
+
+
+class TemplateStepOut(BaseModel):
+    id                     : int
+    title                  : str
+    description            : Optional[str]
+    step_order             : int
+    is_parallel            : bool
+    assigned_department_id : Optional[int]
+    assigned_user_id       : Optional[int]
+
+    model_config = {"from_attributes": True}
+
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\services\TaskWorkflow_service.py =====
+from __future__ import annotations
+
+from datetime import datetime
+from typing import List, Optional
+
+from fastapi import HTTPException, status
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
+
+from app.models import (
+    TaskWorkflow, TaskWorkflowStep
+)
+from app.models.WorkflowTemplateModel import WorkflowTemplate
+from app.models.User import User
+from app.models.Task import Task
+from app.models.DepartmentManager import DepartmentManager
+from app.schemas.TaskWorkflow_schema import WorkflowCreate, WorkflowStepCreate
+from app.schemas.TaskWorkflowStep_schema import WorkflowStepUpdate
+from app.services.access_service import AccessService, has_delegated_permission
+from app.core.utils import logger
+from app.db.enums import WorkflowStatus, StepStatus,NotificationType
+from app.services.notification_service import NotificationService
+
+from .TaskWorkflowStep_service import TaskWorkflowStepService
+from app.repositories.taskWorkFlow_repo import TaskWorkflowRepository as taskWorkFlowRepository
+from .task_service import TaskService
+
+from app.schemas.WorkflowTemplate_schema import WorkflowTemplateOut
+class TaskWorkflowService:
+    @staticmethod
+    async def get_workflow_by_task_id(
+        db: AsyncSession, task_id: int,current_user: User
+    ) -> Optional[WorkflowTemplateOut]:
+        """جلب الـ workflow لمهمة معينة"""
+
+        task= await TaskService.get_task_or_404(db=db,task_id=task_id)
+
+        return await taskWorkFlowRepository.get_by_task_id(db, task_id)
+
+
+    @staticmethod
+    async def create_workflow(
+        db: AsyncSession,
+        task_id: int,
+        data: WorkflowCreate,
+        current_user: User,
+    ) -> TaskWorkflow:
+        """ينشئ Workflow لمهمة — إما من قالب أو خطوات مخصصة."""
+        task= await TaskService.get_task_or_404(db=db,task_id=task_id)
+        # تأكد مفيش workflow موجود للمهمة دي
+        existing = await taskWorkFlowRepository.get_by_task_id(db,task.id)
+        if existing:
+            raise HTTPException(status.HTTP_409_CONFLICT,
+                                "المهمة عندها Workflow بالفعل")
+
+        # تحقق من الصلاحية — بس منشئ المهمة أو PM/Admin
+        if not AccessService.is_pm_or_admin(current_user) and task.created_by != current_user.id:
+            raise HTTPException(status.HTTP_403_FORBIDDEN,
+                                "بس منشئ المهمة أو المدير يقدر يضيف Workflow")
+
+        steps_data: List[WorkflowStepCreate] = []
+        if data.template_id:
+            # جلب الخطوات من القالب
+            result = await db.execute(
+                select(WorkflowTemplate)
+                .options(selectinload(WorkflowTemplate.steps))
+                .where(WorkflowTemplate.id == data.template_id,
+                    WorkflowTemplate.is_active == True)
+            )
+            template = result.scalar_one_or_none()
+            if not template:
+                raise HTTPException(status.HTTP_404_NOT_FOUND, "القالب غير موجود أو غير نشط")
+
+            steps_data = [
+                WorkflowStepCreate(
+                    title=s.title,
+                    description=s.description,
+                    step_order=s.step_order,
+                    is_parallel=s.is_parallel,
+                    assigned_department_id=s.assigned_department_id,
+                    assigned_user_id=s.assigned_user_id,
+                )
+                for s in template.steps
+            ]
+        else:
+            steps_data = data.steps
+        # إنشاء الـ Workflow
+        workflow = TaskWorkflow(
+            task_id=task.id,
+            template_id=data.template_id,
+            status=WorkflowStatus.PENDING,
+            created_by=current_user.id,
+        )
+        db.add(workflow)
+        await db.flush()
+        # إضافة الخطوات
+        for s in steps_data:
+            step=await TaskWorkflowStepService.create_step(
+                db=db,
+                workflow=workflow,
+                step_data=s,
+                current_user=current_user,  
+            )
+        await db.flush()
+        # ابدأ الخطوة (أو الخطوات المتوازية) الأولى
+        await TaskWorkflowStepService._activate_next_steps(db, workflow)
+        return workflow
+
+        await db.refresh(workflow, ["steps"])
+        return workflow
+
+
+    @staticmethod
+    async def _get_workflow_with_steps(
+        db: AsyncSession, workflow_id: int
+    ) -> TaskWorkflow:
+        result = await db.execute(
+            select(TaskWorkflow)
+            .options(selectinload(TaskWorkflow.steps))
+            .where(TaskWorkflow.id == workflow_id)
+        )
+        workflow = result.scalar_one_or_none()
+        if not workflow:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "Workflow غير موجود")
+        return workflow
+
+    @staticmethod
+    async def _notify_workflow_completed(
+        db: AsyncSession,
+        workflow: TaskWorkflow,
+    ) -> None:
+        """يبعت إشعار اكتمال الـ workflow لمنشئ المهمة."""
+
+        task = await db.get(Task, workflow.task_id)
+        if not workflow.created_by:
+            return
+ 
+        try:
+            await NotificationService.create(
+                db=db,
+                user_id=workflow.created_by,
+                notification_type=NotificationType.WORKFLOW_COMPLETED,
+                title=f"اكتمل الـ Workflow للمهمة: {task.title}",
+                body="تم إنهاء جميع خطوات الـ Workflow بنجاح.",
+                related_task_id=task.id,
+            )
+        except Exception as e:
+            logger.warning(f"فشل إرسال إشعار اكتمال Workflow: {e}")
+
+    @staticmethod
+    async def get_workflow_or_404(db: AsyncSession, workflow_id: int) -> TaskWorkflow:
+        result = await db.execute(
+            select(TaskWorkflow).where(TaskWorkflow.id == workflow_id)
+        )
+        workflow = result.scalar_one_or_none()
+        if not workflow:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "Workflow غير موجود")
+        return workflow
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\services\TaskWorkflowStep_service.py =====
+# app/services/TaskWorkflowStep_service.py
+"""
+خدمة الـ Workflow للمهام.
+تتحكم في:
+  - إنشاء Workflow (من قالب أو مخصص)
+  - تقدم الخطوات (sequential / parallel)
+  - إرسال الإشعارات عند بدء / إنهاء كل خطوة
+  - التحقق من صلاحية إنهاء الخطوة
+"""
+from __future__ import annotations
+
+from datetime import datetime
+from typing import List, Optional
+
+from fastapi import HTTPException, status
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
+
+from app.models import (
+    TaskWorkflow, TaskWorkflowStep
+)
+from app.models.WorkflowTemplateModel import WorkflowTemplate
+from app.models.User import User
+from app.models.Task import Task
+from app.models.DepartmentManager import DepartmentManager
+
+from app.schemas.TaskWorkflow_schema import WorkflowCreate, WorkflowStepCreate
+from app.schemas.TaskWorkflowStep_schema import WorkflowStepUpdate,WorkflowStepOut
+
+from app.repositories.TaskWorkflowStep_repo import TaskWorkflowStepRepository
+
+from app.services.notification_service import NotificationService
+from app.services.access_service import AccessService, has_delegated_permission
+from app.db.enums import WorkflowStatus, StepStatus,NotificationType
+from app.core.utils import logger
+class TaskWorkflowStepService:
+    @staticmethod
+    async def complete_step(
+        db: AsyncSession,
+        step_id: int,
+        notes: Optional[str],
+        current_user: User,
+    ) -> WorkflowStepOut:
+        """يُنهي خطوة ويفعّل الخطوة التالية."""
+        #check if step exists
+        step= await TaskWorkflowStepRepository.get_step_by_id(db,step_id)
+        if not step:
+            raise HTTPException(status.HTTP_404_NOT_FOUND,
+                                "الخطوة مش موجودة")
+
+        if step.status != StepStatus.IN_PROGRESS:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST,
+                                "الخطوة مش في حالة تنفيذ — لا يمكن إنهاؤها الآن")
+        
+        # تحقق من صلاحية الإنهاء
+        await TaskWorkflowStepService._require_complete_permission(db, step, current_user)
+        if step.assigned_user_id != current_user.id:
+            # يمكنك رفع خطأ 403 Forbidden لأن المستخدم ليس لديه صلاحية
+            raise HTTPException(
+                status_code=403, 
+                detail="ليس لديك صلاحية لتنفيذ هذه الخطوة. هي مسندة لمستخدم آخر."
+            )
+
+        # 3. التحقق من أن جميع الأباء قد اكتملوا (المنطق السابق)
+        if not await TaskWorkflowStepService.are_all_parents_completed(db, step_id):
+            raise HTTPException(400, "لا يمكن إتمام الخطوة، الاعتماديات لم تكتمل بعد.")
+
+        step.status       = StepStatus.COMPLETED
+        step.notes        = notes
+        step.completed_by = current_user.id
+        step.completed_at = datetime.utcnow()
+        db.add(step)
+        await db.flush()
+
+        # جلب الـ workflow
+        from app.services.TaskWorkflow_service import TaskWorkflowService
+        workflow = await TaskWorkflowService._get_workflow_with_steps(db, step.workflow_id)
+        print(step)
+        return step
+
+        # هل كل خطوات نفس الـ order خلصت？
+        same_order_steps = [s for s in workflow.steps if s.step_order == step.step_order]
+        all_done = all(s.status == StepStatus.COMPLETED for s in same_order_steps)
+
+        if all_done:
+            activated = await TaskWorkflowStepService._activate_next_steps(db, workflow)
+            if not activated:
+                # مفيش خطوات تانية — الـ workflow خلص
+                workflow.status = WorkflowStatus.COMPLETED
+                db.add(workflow)
+
+                # إشعار اكتمال الـ workflow
+                await TaskWorkflowService._notify_workflow_completed(db, workflow)
+
+        return step
+    
+
+    @staticmethod
+    async def update_step(
+        db: AsyncSession,
+        step: TaskWorkflowStep,
+        data: WorkflowStepUpdate,
+        current_user: User,
+    ) -> TaskWorkflowStep:
+        from app.services.TaskWorkflow_service import TaskWorkflowService
+        workflow = await TaskWorkflowService._get_workflow_with_steps(db, step.workflow_id)
+        task = await db.get(Task, workflow.task_id)
+
+        if not AccessService.is_pm_or_admin(current_user) and task.created_by != current_user.id:
+            raise HTTPException(status.HTTP_403_FORBIDDEN,
+                                "بس منشئ المهمة أو المدير يقدر يعدل الخطوات")
+
+        if step.status != StepStatus.PENDING:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST,
+                                "لا يمكن تعديل خطوة بدأت أو انتهت")
+
+        for field, value in data.model_dump(exclude_none=True).items():
+            setattr(step, field, value)
+
+        db.add(step)
+        return step
+    
+    @staticmethod
+    async def delete_step(
+        db: AsyncSession,
+        step: TaskWorkflowStep,
+        current_user: User,
+    ) -> None:
+        from app.services.TaskWorkflow_service import TaskWorkflowService
+        workflow = await TaskWorkflowService._get_workflow_with_steps(db, step.workflow_id)
+        task = await db.get(Task, workflow.task_id)
+
+        if not AccessService.is_pm_or_admin(current_user) and task.created_by != current_user.id:
+            raise HTTPException(status.HTTP_403_FORBIDDEN,
+                                "بس منشئ المهمة أو المدير يقدر يحذف الخطوات")
+
+        if step.status != StepStatus.PENDING:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST,
+                                "لا يمكن حذف خطوة بدأت أو انتهت")
+
+        await db.delete(step)
+    
+    @staticmethod
+    async def get_step_by_id(
+        db: AsyncSession, step_id: int
+    ) -> Optional[TaskWorkflowStep]:
+        result = await db.execute(
+            select(TaskWorkflowStep)
+            .options(
+                selectinload(TaskWorkflowStep.assigned_department),
+                selectinload(TaskWorkflowStep.assigned_user),
+            )
+            .where(TaskWorkflowStep.id == step_id)
+        )
+        return result.scalar_one_or_none()
+    
+    @staticmethod
+    async def _activate_next_steps(
+        db: AsyncSession, workflow: TaskWorkflow
+    ) -> bool:
+        """
+        يفعّل الخطوة (أو الخطوات المتوازية) التالية في الـ workflow.
+        يُرجع True لو في خطوات اتفعلت، False لو الـ workflow خلص.
+        """
+        
+        # الخطوات اللسه pending مرتبة بالـ order
+        pending = sorted(
+            [s for s in workflow.steps if s.status == StepStatus.PENDING],
+            key=lambda s: s.step_order
+        )
+        logger.debug(pending)
+        return 
+        if not pending:
+            return False
+
+        next_order = pending[0].step_order
+
+        # كل الخطوات اللي ليها نفس الـ order (parallel group)
+        next_group = [s for s in pending if s.step_order == next_order]
+
+        for step in next_group:
+            step.status     = StepStatus.IN_PROGRESS
+            step.started_at = datetime.utcnow()
+            db.add(step)
+
+        await db.flush()
+
+        # إشعار لكل خطوة اتفعلت
+        for step in next_group:
+            await TaskWorkflowStepService._notify_step_started(db, workflow, step)
+
+        return True
+
+
+    @staticmethod
+    async def _require_complete_permission(
+        db: AsyncSession,
+        step: WorkflowStepOut,
+        user: User,
+    ) -> None:
+        """
+        يتحقق أن المستخدم يملك صلاحية إنهاء الخطوة.
+        المسموح لهم:
+        ١. منشئ المهمة
+        ٢. PM / Admin
+        ٣. الموظف المعين على الخطوة
+        ٤. مدير الإدارة المعينة على الخطوة
+        ٥. من معه تفويض على الإدارة دي
+        """
+        if AccessService.is_pm_or_admin(user):
+            return
+
+        # جلب المهمة للتحقق من المنشئ
+        workflow = await db.get(TaskWorkflow, step.workflow_id)
+        task = await db.get(Task, workflow.task_id)
+        if task.created_by == user.id:
+            return
+
+        # الموظف المعين مباشرة
+        if step.assigned_user_id == user.id:
+            return
+
+        # مدير الإدارة المعينة
+        if step.assigned_department_id:
+            result = await db.execute(
+                select(DepartmentManager).where(
+                    DepartmentManager.department_id == step.assigned_department_id,
+                    DepartmentManager.user_id == user.id,
+                    DepartmentManager.deleted_at.is_(None),
+                )
+            )
+            if result.scalar_one_or_none():
+                return
+
+            # تفويض
+            if await has_delegated_permission(db, user.id, step.assigned_department_id, "complete_step"):
+                return
+
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            "لا تملك صلاحية إنهاء هذه الخطوة"
+        )
+    
+    @staticmethod
+    async def _notify_step_started(
+        db: AsyncSession,
+        workflow: TaskWorkflow,
+        step: TaskWorkflowStep,
+    ) -> None:
+        """
+        يبعت إشعار لـ:
+        - الموظف المعين على الخطوة (لو موجود)
+        - مديري الإدارة المعينة (لو موجودة)
+        - منشئ المهمة دائماً
+        """
+
+        task = await db.get(Task, workflow.task_id)
+        recipient_ids: set[int] = set()
+
+        # منشئ المهمة
+        if workflow.created_by:
+            recipient_ids.add(workflow.created_by)
+
+        # الموظف المعين
+        if step.assigned_user_id:
+            recipient_ids.add(step.assigned_user_id)
+
+        # مديري الإدارة المعينة
+        if step.assigned_department_id:
+            result = await db.execute(
+                select(DepartmentManager.user_id).where(
+                    DepartmentManager.department_id == step.assigned_department_id,
+                    DepartmentManager.deleted_at.is_(None),
+                )
+            )
+            for row in result.fetchall():
+                recipient_ids.add(row[0])
+
+        for uid in recipient_ids:
+            try:
+                await NotificationService.create(
+                    db=db,
+                    user_id=uid,
+                    notification_type=NotificationType.WORKFLOW_STEP_STARTED,
+                    title=f"خطوة جديدة تحتاج تنفيذك: {step.title}",
+                    body=f"المهمة: {task.title}\nالخطوة: {step.title}",
+                    related_task_id=task.id,
+                )
+            except Exception as e:
+                logger.warning(f"فشل إرسال إشعار بدء الخطوة للمستخدم {uid}: {e}")
+
+    @staticmethod
+    async def create_step(
+        db: AsyncSession,
+        workflow_id: int,
+        step_data: WorkflowStepCreate,
+        current_user: User,
+    ):
+        """ينشئ خطوة جديدة في الـ workflow."""
+        from app.services.TaskWorkflow_service import TaskWorkflowService
+        from app.repositories.TaskWorkflowStepDependency_repo import TaskWorkflowStepDependencyRepository
+        workflow = await TaskWorkflowService.get_workflow_or_404(db, workflow_id)
+        step_payload = step_data.model_dump(exclude={'parent_step_ids'})
+        step_payload["workflow_id"] = workflow.id
+        step_payload["status"] = "pending"
+        step_payload["version"] = 1
+        new_step = await TaskWorkflowStepRepository.create(db, step_payload)
+        if step_data.parent_step_ids:
+            for parent_id in step_data.parent_step_ids:
+                # التأكد أن الـ Parent ينتمي لنفس الـ Workflow (اختياري للسلامة)
+                await TaskWorkflowStepDependencyRepository.create_dependency(
+                    db, 
+                    child_step_id=new_step.id, 
+                    parent_step_id=parent_id
+                )
+        
+        await db.commit()
+        await db.refresh(new_step)
+        return new_step
+
+    @staticmethod
+    async def validate_no_circular_dependency(db: AsyncSession, child_id: int, parent_id: int):
+        """
+        تتأكد من أن parent_id لا يعتمد بشكل غير مباشر على child_id،
+        مما يمنع حدوث دائرة مغلقة (Circular Dependency).
+        """
+        # إذا كان الخطوة هي نفسها الأب (حالة بديهية)
+        if child_id == parent_id:
+            raise HTTPException(400, "لا يمكن للخطوة أن تعتمد على نفسها")
+
+        # 1. جلب كل الـ Ancestors (الأجداد) الخاصين بالـ parent_id
+        # نحتاج دالة في الـ Repository تجلب سلسلة الاعتماديات كاملة
+        from app.repositories.TaskWorkflowStepDependency_repo import TaskWorkflowStepDependencyRepository
+        visited = await TaskWorkflowStepDependencyRepository.get_all_ancestors(db, parent_id)
+        
+        # 2. إذا كان child_id موجوداً ضمن الأجداد، فهذا يعني وجود دائرة
+        if child_id in visited:
+            raise HTTPException(400, "هذا الربط يسبب دائرة مغلقة (Circular Dependency)")
+
+        return True
+    
+    @staticmethod
+    async def add_dependency_to_step(db: AsyncSession, child_step_id: int, parent_step_id: int):
+        # 1. التحقق من عدم وجود دائرة مغلقة
+        await TaskWorkflowStepService.validate_no_circular_dependency(db, child_step_id, parent_step_id)
+        
+        # 2. إذا مر التحقق بنجاح، نقوم بإنشاء الاعتمادية
+        from app.repositories.TaskWorkflowStepDependency_repo import TaskWorkflowStepDependencyRepository
+        return await TaskWorkflowStepDependencyRepository.create_dependency(
+            db, 
+            child_step_id=child_step_id, 
+            parent_step_id=parent_step_id
+        )
+    
+    @staticmethod
+    async def complete_step(db: AsyncSession, step_id: int, current_user: User):
+        # 1. جلب الخطوة
+        step = await TaskWorkflowStepRepository.get_step_by_id(db, step_id)
+        if not step:
+            raise HTTPException(404, "الخطوة غير موجودة")
+
+        # 2. التحقق من أن جميع الأباء قد اكتملوا
+        # نجلب كل الـ IDs للخطوات الأب
+        from app.repositories.TaskWorkflowStepDependency_repo import TaskWorkflowStepDependencyRepository
+        parent_ids = await TaskWorkflowStepDependencyRepository.get_parent_step_ids(db, step_id)
+        
+        for parent_id in parent_ids:
+            parent_step = await TaskWorkflowStepRepository.get_step_by_id(db, parent_id)
+            if parent_step.status != "completed":
+                raise HTTPException(
+                    400, 
+                    f"لا يمكن إتمام الخطوة، الخطوة السابقة '{parent_step.title}' لم تكتمل بعد"
+                )
+
+        # 3. تحديث حالة الخطوة الحالية
+        step.status = "completed"
+        await NotificationService.trigger_next_steps_notifications(db, step.workflow_id)
+        # ممكن إضافة تاريخ الانتهاء أو المستخدم المنفذ هنا
+        await db.flush()
+        await db.commit()
+        
+        return step
+    
+    @staticmethod
+    async def are_all_parents_completed(db: AsyncSession, step_id: int) -> bool:
+        """تتأكد من أن جميع الأباء (Dependencies) قد تم إنهاؤهم."""
+        # جلب الـ parent_ids
+        from app.repositories.TaskWorkflowStepDependency_repo import TaskWorkflowStepDependencyRepository
+        parent_ids = await TaskWorkflowStepDependencyRepository.get_parent_step_ids(db, step_id)
+        
+        for p_id in parent_ids:
+            parent_step = await TaskWorkflowStepRepository.get_step_by_id(db, p_id)
+            if not parent_step or parent_step.status != "completed":
+                return False
+        return True
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\services\WorkflowStepDependencyService.py =====
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\services\WorkflowTemplateService.py =====
+from fastapi import HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.models.WorkflowTemplateModel import WorkflowTemplate
+from app.repositories.WorkflowTemplate_repo import WorkflowTemplateRepository
+from app.schemas.WorkflowTemplate_schema import WorkflowTemplateCreate, WorkflowTemplateUpdate
+from app.services.access_service import AccessService # افترضنا وجود خدمة للصلاحيات
+
+class WorkflowTemplateService:
+
+    @staticmethod
+    async def create_template(db: AsyncSession, data: WorkflowTemplateCreate, current_user):
+        # 1. التأكد من الصلاحيات (مثلاً: فقط المدير أو الـ Admin)
+        AccessService.require_pm_or_admin(current_user)
+
+        # 2. التأكد من عدم وجود قالب بنفس الاسم لتجنب التكرار
+        existing = await WorkflowTemplateRepository.get_by_name(db, data.name)
+        if existing:
+            raise HTTPException(status_code=400, detail="يوجد قالب بهذا الاسم بالفعل")
+
+        # 3. إنشاء القالب (سيتم استدعاء الـ Repo)
+        template_data = data.model_dump(exclude={'steps'})
+        template_data['created_by'] = current_user.id  # افترضنا أن المستخدم الحالي لديه معرف
+        templateData = await WorkflowTemplateRepository.create(db, template_data)
+        template = await WorkflowTemplateRepository.get_by_id(db, templateData.id)
+        return template
+        
+
+    @staticmethod
+    async def get_template(db: AsyncSession, template_id: int):
+        template = await WorkflowTemplateRepository.get_by_id(db, template_id)
+        if not template:
+            raise HTTPException(status_code=404, detail="القالب غير موجود")
+        return template
+
+    @staticmethod
+    async def update_template(db: AsyncSession, template_id: int, data: WorkflowTemplateUpdate, current_user):
+        AccessService.require_pm_or_admin(current_user)
+
+        template = await WorkflowTemplateService.get_template(db, template_id)
+        
+        # تحديث البيانات
+        updated_template = await WorkflowTemplateRepository.update(db, template, data)
+        await db.commit()
+        return updated_template
+
+    @staticmethod
+    async def list_templates(db: AsyncSession):
+        return await WorkflowTemplateRepository.list_all(db)
+
+    @staticmethod
+    async def delete_template(db: AsyncSession, template_id: int, current_user):
+        AccessService.require_pm_or_admin(current_user)
+        
+        template = await WorkflowTemplateService.get_template(db, template_id)
+        
+        # تنفيذ الـ Soft Delete
+        await WorkflowTemplateRepository.delete(db, template)
+        await db.commit()
+        return {"detail": "تم حذف القالب بنجاح"}
+
+    @staticmethod
+    async def toggle_template(db: AsyncSession, template_id: int, current_user):
+        AccessService.require_pm_or_admin(current_user)
+        
+        template = await WorkflowTemplateService.get_template(db, template_id)
+        
+        # التبديل بين Active/Inactive
+        toggled = await WorkflowTemplateRepository.toggle_active(db, template)
+        await db.commit()
+        return toggled
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\services\WorkflowTemplateStepService.py =====
+from typing import List
+
+from fastapi import HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.repositories.WorkflowTemplateStep_rep import WorkflowTemplateStepRepository
+from app.repositories.WorkflowTemplate_repo import WorkflowTemplateRepository
+from app.schemas.WorkflowTemplateStep_schema import TemplateStepCreate
+from app.services.access_service import AccessService
+
+class WorkflowTemplateStepService:
+
+    @staticmethod
+    async def add_step_to_template(db: AsyncSession, template_id: int, data: TemplateStepCreate, current_user):
+        # 1. التحقق من الصلاحيات
+        AccessService.require_pm_or_admin(current_user)
+        
+        # 2. التأكد من أن القالب موجود
+        template = await WorkflowTemplateRepository.get_by_id(db, template_id)
+        if not template:
+            raise HTTPException(status_code=404, detail="القالب غير موجود")
+
+        # 3. إنشاء الخطوة
+        step_data = data.model_dump()
+        step_data["template_id"] = template_id
+        return await WorkflowTemplateStepRepository.create(db, step_data)
+
+    @staticmethod
+    async def add_multiple_steps(db: AsyncSession, template_id: int, steps: List[TemplateStepCreate], user):
+        created_steps = []
+        for step_data in steps:
+            # تحويل البيانات وإضافة الـ template_id
+            step_dict = step_data.model_dump()
+            step_dict['template_id'] = template_id
+            
+            # استدعاء الـ Repository لإضافة خطوة واحدة
+            step = await WorkflowTemplateStepRepository.createMultiple(db, step_dict)
+            created_steps.append(step)
+        
+        await db.commit() # الحفظ النهائي لجميع الخطوات
+        return created_steps
+    
+    @staticmethod
+    async def get_template_steps(db: AsyncSession, template_id: int):
+        return await WorkflowTemplateStepRepository.get_steps_by_template(db, template_id)
+
+    @staticmethod
+    async def update_step(db: AsyncSession, step_id: int, data, current_user):
+        AccessService.require_pm_or_admin(current_user)
+        
+        step = await WorkflowTemplateStepRepository.get_step_by_id(db, step_id)
+        if not step:
+            raise HTTPException(status_code=404, detail="الخطوة غير موجودة")
+        
+        updated_step = await WorkflowTemplateStepRepository.update(db, step, data)
+        return updated_step
+
+    @staticmethod
+    async def delete_step(db: AsyncSession, step_id: int, current_user):
+        AccessService.require_pm_or_admin(current_user)
+        
+        step = await WorkflowTemplateStepRepository.get_step_by_id(db, step_id)
+        if not step:
+            raise HTTPException(status_code=404, detail="الخطوة غير موجودة")
+            
+        await WorkflowTemplateStepRepository.delete(db, step)
+        return {"detail": "تم حذف الخطوة بنجاح"}
+
+    @staticmethod
+    async def reorder_steps(db: AsyncSession, template_id: int, new_order: list[int], current_user):
+        """
+        دالة لترتيب الخطوات: تستقبل قائمة بـ IDs مرتبة حسب الترتيب الجديد
+        """
+        AccessService.require_pm_or_admin(current_user)
+        
+        steps = await WorkflowTemplateStepRepository.get_steps_by_template(db, template_id)
+        # منطق التحقق: هل كل الـ IDs المبعوثة تنتمي للقالب؟
+        step_map = {step.id: step for step in steps}
+        
+        if set(step_map.keys()) != set(new_order):
+            raise HTTPException(status_code=400, detail="قائمة الخطوات غير متطابقة مع خطوات القالب")
+
+        # تحديث الترتيب
+        for index, step_id in enumerate(new_order):
+            step = step_map[step_id]
+            step.step_order = index + 1
+            
+        return {"detail": "تم تحديث ترتيب الخطوات بنجاح"}
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\repositories\taskWorkFlow_repo.py =====
+from sqlalchemy import select
+from sqlalchemy.orm import selectinload
+from app.models.TaskWorkflowModel import TaskWorkflow
+from app.models.TaskWorkflowStepModel import TaskWorkflowStep
+from app.models.User import User
+class TaskWorkflowRepository:
+    @staticmethod
+    def base_query():
+        return select(TaskWorkflow).where(TaskWorkflow.deleted_at.is_(None))
+
+    @staticmethod
+    async def create(db, data):
+        workflow = TaskWorkflow(**data)
+        db.add(workflow)
+        await db.flush()
+        return workflow
+
+    @staticmethod
+    async def get_with_steps(db, workflow_id: int):
+        stmt = TaskWorkflowRepository.base_query().where(
+            TaskWorkflow.id == workflow_id
+        ).options(selectinload(TaskWorkflow.steps))
+        result = await db.execute(stmt)
+        return result.scalar_one_or_none()
+    
+    @staticmethod
+    async def get_by_task_id(db, task_id: int):
+        stmt = TaskWorkflowRepository.base_query().options(
+            selectinload(TaskWorkflow.steps).selectinload(TaskWorkflowStep.assigned_user).selectinload(User.contacts)
+        ).where(
+            TaskWorkflow.task_id == task_id
+        )
+        result = await db.execute(stmt)
+        return result.scalar_one_or_none()
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\repositories\TaskWorkflowStep_repo.py =====
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, and_
+from sqlalchemy.orm import selectinload
+from app.models.TaskWorkflowStepModel import TaskWorkflowStep
+from app.models.TaskWorkflowStepDependency_Model import TaskWorkflowStepDependency
+
+class TaskWorkflowStepRepository:
+
+    @staticmethod
+    async def create(db: AsyncSession, step_payload: dict) -> TaskWorkflowStep:
+        """
+        تقوم بإنشاء خطوة جديدة في قاعدة البيانات.
+        تستخدم flush لجلب الـ id الخاص بالخطوة قبل إنهاء الـ Transaction.
+        """
+        # 1. إنشاء كائن الموديل من البيانات المرسلة
+        new_step = TaskWorkflowStep(**step_payload)
+        
+        # 2. إضافة الكائن للـ Session
+        db.add(new_step)
+        
+        # 3. عمل flush لجلب الـ ID وللتأكد من سلامة البيانات في قاعدة البيانات
+        # بدون إنهاء الـ Transaction (يترك الـ commit لمستوى الـ Service)
+        await db.flush()
+        
+        # 4. تحديث الكائن بالقيم التي قد تولدها قاعدة البيانات (مثل id)
+        await db.refresh(new_step)
+        
+        return new_step
+    
+
+    @staticmethod
+    def base_query():
+        return select(TaskWorkflowStep).where(TaskWorkflowStep.deleted_at.is_(None)).options(
+            selectinload(TaskWorkflowStep.dependencies),
+            selectinload(TaskWorkflowStep.assigned_user),
+            selectinload(TaskWorkflowStep.assigned_department)
+        )
+
+    @staticmethod
+    async def get_step_by_id(db: AsyncSession, step_id: int):
+        stmt = TaskWorkflowStepRepository.base_query().where(TaskWorkflowStep.id == step_id)
+        result = await db.execute(stmt)
+        return result.scalar_one_or_none()
+
+    @staticmethod
+    async def get_parent_dependencies(db: AsyncSession, step_id: int):
+        """جلب كل الـ Parent IDs لخطوة معينة للتحقق من الحالة"""
+        stmt = select(TaskWorkflowStepDependency.parent_step_id).where(
+            TaskWorkflowStepDependency.child_step_id == step_id
+        )
+        result = await db.execute(stmt)
+        return result.scalars().all()
+
+    @staticmethod
+    async def update_step_status(db: AsyncSession, step: TaskWorkflowStep, new_status: str, new_version: int):
+        """تحديث الحالة مع الـ Optimistic Locking"""
+        step.status = new_status
+        step.version = new_version
+        await db.flush()
+        return step
+    
+    @staticmethod
+    async def get_pending_steps(db: AsyncSession, workflow_id: int):
+        """جلب الخطوات التي لم تكتمل في الـ Workflow."""
+        stmt = select(TaskWorkflowStep).where(
+            and_(
+                TaskWorkflowStep.workflow_id == workflow_id,
+                TaskWorkflowStep.status != "completed",
+                TaskWorkflowStep.deleted_at.is_(None)
+            )
+        )
+        result = await db.execute(stmt)
+        return result.scalars().all()
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\repositories\TaskWorkflowStepDependency_repo.py =====
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.models.TaskWorkflowStepDependency_Model import TaskWorkflowStepDependency
+from sqlalchemy import select
+
+class TaskWorkflowStepDependencyRepository:
+    @staticmethod
+    async def get_parents(db: AsyncSession, child_step_id: int):
+        stmt = select(TaskWorkflowStepDependency).where(TaskWorkflowStepDependency.child_step_id == child_step_id)
+        result = await db.execute(stmt)
+        return result.scalars().all()
+    
+    @staticmethod
+    async def create_dependency(db: AsyncSession, child_step_id: int, parent_step_id: int):
+        """
+        تقوم بإنشاء اعتمادية (Dependency) بين خطوتين في الـ Workflow.
+        """
+        # 1. إنشاء كائن الاعتمادية
+        new_dependency = TaskWorkflowStepDependency(
+            child_step_id=child_step_id,
+            parent_step_id=parent_step_id
+        )
+        
+        # 2. إضافة الكائن للـ Session
+        db.add(new_dependency)
+        
+        # 3. عمل flush لضمان تنفيذ الإضافة في قاعدة البيانات قبل انتهاء العملية
+        await db.flush()
+        
+        return new_dependency
+    
+    @staticmethod
+    async def get_all_ancestors(db: AsyncSession, step_id: int) -> set:
+        """
+        ترجع مجموعة (set) بكل الـ IDs التي تعتمد عليها هذه الخطوة (بشكل مباشر أو غير مباشر).
+        """
+        ancestors = set()
+        stack = [step_id]
+        
+        while stack:
+            current = stack.pop()
+            # جلب الـ parents المباشرين للخطوة الحالية
+            stmt = select(TaskWorkflowStepDependency.parent_step_id).where(
+                TaskWorkflowStepDependency.child_step_id == current
+            )
+            result = await db.execute(stmt)
+            parents = result.scalars().all()
+            
+            for p in parents:
+                if p not in ancestors:
+                    ancestors.add(p)
+                    stack.append(p)
+                    
+        return ancestors
+    
+    @staticmethod
+    async def get_parent_step_ids(db: AsyncSession, child_step_id: int) -> list[int]:
+        stmt = select(TaskWorkflowStepDependency.parent_step_id).where(
+            TaskWorkflowStepDependency.child_step_id == child_step_id
+        )
+        result = await db.execute(stmt)
+        return result.scalars().all()
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\repositories\WorkflowTemplate_repo.py =====
+from sqlalchemy import select, update,func
+from app.models.WorkflowTemplateModel import WorkflowTemplate
+from sqlalchemy.orm import selectinload,joinedload
+class WorkflowTemplateRepository:
+    @staticmethod
+    def base_query():
+        return select(WorkflowTemplate).options(
+            selectinload(WorkflowTemplate.steps),
+            joinedload(WorkflowTemplate.creator)
+        ).where(WorkflowTemplate.deleted_at.is_(None))
+
+    @staticmethod
+    async def create(db, template_data: dict):
+        template = WorkflowTemplate(**template_data)
+        db.add(template)
+        await db.flush()
+        return template
+
+    @staticmethod
+    async def get_by_id(db, template_id: int):
+        stmt = WorkflowTemplateRepository.base_query().where(WorkflowTemplate.id == template_id)
+        result = await db.execute(stmt)
+        return result.scalar_one_or_none()
+    
+    @staticmethod
+    async def get_by_name(db, name: str):
+        stmt = WorkflowTemplateRepository.base_query().where(WorkflowTemplate.name == name)
+        result = await db.execute(stmt)
+        return result.scalar_one_or_none()
+
+    @staticmethod
+    async def list_all(db):
+        stmt = WorkflowTemplateRepository.base_query()
+        result = await db.execute(stmt)
+        return result.scalars().all()
+
+    @staticmethod
+    async def update(db, template, data):
+        for key, value in data.model_dump(exclude_unset=True).items():
+            setattr(template, key, value)
+        return template
+
+    @staticmethod
+    async def toggle_active(db, template):
+        template.is_active = not template.is_active
+        return template
+    
+    @staticmethod
+    async def delete(db, template):
+        template.deleted_at = func.now()
+        return template
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\repositories\WorkflowTemplateStep_rep.py =====
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, delete,func
+from app.models.WorkflowTemplateStepModel import WorkflowTemplateStep
+
+class WorkflowTemplateStepRepository:
+    @staticmethod
+    def base_query():
+        return select(WorkflowTemplateStep).where(WorkflowTemplateStep.deleted_at.is_(None))
+    
+    @staticmethod
+    async def get_step_by_id(db, step_id: int):
+        stmt = WorkflowTemplateStepRepository.base_query().where(WorkflowTemplateStep.id == step_id)
+        result = await db.execute(stmt)
+        return result.scalar_one_or_none()
+
+    @staticmethod
+    async def create(db, step_data):
+        step = WorkflowTemplateStep(**step_data)
+        db.add(step)
+        await db.flush()
+        return step
+    
+    @staticmethod
+    async def createMultiple(db: AsyncSession, data: dict) -> WorkflowTemplateStep:
+        data.pop('id', None) 
+        step = WorkflowTemplateStep(**data)
+        db.add(step)
+        await db.flush() # يقوم بتوليد الـ ID في الذاكرة دون حفظه نهائياً في قاعدة البيانات حتى الآن
+        await db.refresh(step)
+        return step
+
+    @staticmethod
+    async def get_steps_by_template(db, template_id: int):
+        stmt = WorkflowTemplateStepRepository.base_query().where(
+            WorkflowTemplateStep.template_id == template_id
+        ).order_by(WorkflowTemplateStep.step_order)
+        result = await db.execute(stmt)
+        return result.scalars().all()
+
+    @staticmethod
+    async def update(db, step, data):
+        for key, value in data.model_dump(exclude_unset=True).items():
+            setattr(step, key, value)
+        return step
+
+    @staticmethod
+    async def delete(db, step):
+        step.deleted_at = func.now() # Soft delete
+        return step
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\db\enums.py =====
+# db/enums.py
+import enum
+
+
+class GlobalRole(str, enum.Enum):
+    GLOBAL_ADMIN = "global_admin"
+    PROGRAM_MANAGER = "program_manager"
+    USER = "user"
+
+
+class TaskStatus(str, enum.Enum):
+    NOT_STARTED = "not_started"
+    IN_PROGRESS = "in_progress"
+    COMPLETED = "completed"
+    CANCELLED = "cancelled"
+
+class WorkflowStatus(str, enum.Enum):
+    PENDING     = "pending"
+    IN_PROGRESS = "in_progress"
+    COMPLETED   = "completed"
+    CANCELLED   = "cancelled"
+ 
+ 
+class StepStatus(str, enum.Enum):
+    PENDING     = "pending"
+    IN_PROGRESS = "in_progress"
+    COMPLETED   = "completed"
+    SKIPPED     = "skipped"
+    
+class TaskPriority(str, enum.Enum):
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+    CRITICAL = "critical"
+
+
+class UrgencyStatus(str, enum.Enum):
+    PENDING = "pending"
+    APPROVED = "approved"
+    REJECTED = "rejected"
+
+
+class AssignmentType(str, enum.Enum):
+    ASSIGNEE = "assignee"        # منفذ
+    COLLABORATOR = "collaborator" # متعاون
+    VIEWER = "viewer"            # مشاهد
+
+
+class TransferStatus(str, enum.Enum):
+    PENDING = "pending"
+    ACCEPTED = "accepted"
+    REJECTED = "rejected"
+    TRANSFERRED_AGAIN = "transferred_again"
+
+
+class SharePermission(str, enum.Enum):
+    VIEW = "view"
+    EDIT = "edit"
+    MANAGE = "manage"
+    ADMIN = "admin"
+
+
+class RecurrencePattern(str, enum.Enum):
+    DAILY = "daily"
+    WEEKLY = "weekly"
+    MONTHLY = "monthly"
+    QUARTERLY = "quarterly"
+    YEARLY = "yearly"
+
+class NotificationType(str, enum.Enum):
+    TRANSFER_REQUEST = "transfer_request"
+    TRANSFER_ACCEPTED = "transfer_accepted"
+    TRANSFER_REJECTED = "transfer_rejected"
+    URGENT_REQUEST = "urgent_request"
+    URGENT_APPROVED = "urgent_approved"
+    URGENT_REJECTED = "urgent_rejected"
+    TASK_ASSIGNED = "task_assigned"
+    TASK_UPDATED = "task_updated"
+    STEP_COMPLETED = "step_completed"
+    SHARE_GRANTED = "share_granted"
+    DELEGATION_GRANTED = "delegation_granted"
+    DELEGATION_REVOKED = "delegation_revoked"
+    EXTERNAL_SHARE_REQUESTED = "external_share_requested"
+    REMINDER = "reminder"
+    NEW_COMMENT = "new_comment"
+    NEW_ATTACHMENT = "new_attachment"
+    WORKFLOW_COMPLETED = "workflow_completed"
+    WORKFLOW_STEP_STARTED= "workflow_step_started"
+
+class UserNotificationSettings(str, enum.Enum):
+    UPDATE = "user changed their notification settings"
+    CREATE = "user created new notification settings"
+    DELETE = "user deleted their notification settings"
+    
+class userLogSettings(str,enum.Enum):
+    CREATED="user_created"
+    EDITED="user_edited"
+    PWDCHANGE="password_change"
+
+class TaskActionType(str, enum.Enum):
+    CREATED = "created"
+    EDITED = "edited"
+    DELETED = "deleted"
+    SOFT_DELETED = "soft_deleted"
+    
+    STATUS_CHANGED = "status_changed"
+    PROGRESS_UPDATED = "progress_updated"
+    
+    STEP_ADDED = "step_added"
+    STEP_UPDATED = "step_updated"
+    STEP_COMPLETED = "step_completed"
+    STEP_UNCOMPLETED = "step_uncompleted"
+    STEP_DELETED = "step_deleted"
+    STEPS_REORDERED = "steps_reordered"
+    
+    ASSIGNED = "assigned"
+    UNASSIGNED = "unassigned"
+    ASSIGN_RESTORED = "assign_restored"
+    
+    TRANSFER_REQUESTED = "transfer_requested"
+    TRANSFER_ACCEPTED = "transfer_accepted"
+    TRANSFER_REJECTED = "transfer_rejected"
+    
+    SHARE_GRANTED = "share_granted"
+    SHARE_REVOKED = "share_revoked"
+    SHARE_REQUESTED = "share_requested"
+    SHARE_UPDATED = "share_updated"
+    
+    URGENCY_REQUESTED = "urgent_requested"
+    URGENCY_APPROVED = "urgent_approved"
+    URGENCY_REJECTED = "urgent_rejected"
+    
+    DELEGATED = "delegated"
+    DELEGATION_REVOKED = "delegation_revoked"
+    
+    COMMENTED = "commented"
+    COMMENT_ADDED = "comment_added"
+    COMMENT_UPDATED = "comment_updated"
+    COMMENT_DELETED = "comment_deleted"
+
+    FILE_ATTACHED = "file_attached"
+    ATTACHMENT_ADDED = "attachment_added"
+    ATTACHMENT_DELETED = "attachment_deleted"
+    ATTACHMENT_DOWNLOADED = "attachment_downloaded"
+    
+    REMINDER_SET = "reminder_set"
+    FAVORITE_ADDED = "favorite_added"
+    FAVORITE_REMOVED = "favorite_removed"
+
+    RECURRING_TEMPLATE_CREATED = "recurring_template_created"
+    RECURRING_TEMPLATE_EDITED = "recurring_template_edited"
+    RECURRING_TEMPLATE_DELETED = "recurring_template_deleted"
+
+    TIME_LOG_STARTED = "time_log_started"
+    TIME_LOG_STOPPED = "time_log_stopped"
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\api\v1\endpoints\TaskWorkflow_route.py =====
+# app/api/v1/endpoints/workflow.py
+from fastapi import APIRouter, Depends, HTTPException, status
+
+from app.models import User
+from app.services.TaskWorkflow_service import TaskWorkflowService
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.schemas.TaskWorkflow_schema import WorkflowOut,WorkflowCreate
+from app.db.session import get_db
+from app.core.security import get_current_user
+router = APIRouter(prefix="/workflow", tags=["Workflow"])
+
+@router.get("/{task_id}", response_model=WorkflowOut)
+async def get_workflow_by_task_id(
+    task_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    return await TaskWorkflowService.get_workflow_by_task_id(db, task_id,current_user)
+
+
+@router.post("/tasks/{task_id}", response_model=WorkflowOut, status_code=201)
+async def create_task_workflow(
+    task_id: int,
+    data: WorkflowCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """إنشاء Workflow لمهمة — من قالب أو خطوات مخصصة"""
+    return await TaskWorkflowService.create_workflow(db, task_id, data, current_user)
+    await db.commit()
+    await db.refresh(workflow, ["steps"])
+    return workflow
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\api\v1\endpoints\TaskWorkflowStep_route.py =====
+# app/api/v1/endpoints/workflow.py
+from typing import Optional
+
+from fastapi import APIRouter, Depends, HTTPException, status
+
+from app.models import User
+from app.services.TaskWorkflowStep_service import TaskWorkflowStepService
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.schemas.TaskWorkflowStep_schema import WorkflowStepOut,WorkflowStepComplete,WorkflowStepUpdate, WorkflowStepCreate
+from app.db.session import get_db
+from app.core.security import get_current_user
+router = APIRouter(prefix="/workflow-Steps", tags=["Workflow Steps"])
+
+@router.post("/{workflow_id}", response_model=WorkflowStepOut, status_code=201)
+async def create_workflow_step(
+    workflow_id: int,
+    data: WorkflowStepCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user)):
+    """إنشاء خطوة جديدة في Workflow"""
+    return await TaskWorkflowStepService.create_step(db, workflow_id, data, current_user)
+
+
+@router.post("/{step_id}/complete", response_model=WorkflowStepOut)
+async def complete_step(
+    step_id: int,
+    notes: Optional[str],
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    """
+    Endpoint لإتمام خطوة في الـ Workflow.
+    سيتأكد تلقائياً من الاعتماديات (Dependencies) ويرسل التنبيهات.
+    """
+    try:
+        updated_step = await TaskWorkflowStepService.complete_step(
+            db=db,
+            step_id=step_id,
+            notes=notes,
+            current_user=current_user
+        )
+        return updated_step
+        
+    except HTTPException as e:
+        # إعادة رسالة الخطأ (مثل: "الخطوة السابقة لم تكتمل") كما هي
+        raise e
+    except Exception as e:
+        # معالجة أي خطأ غير متوقع
+        raise HTTPException(status_code=500, detail="حدث خطأ داخلي أثناء معالجة الخطوة")
+    
+@router.patch("/{step_id}", response_model=WorkflowStepOut)
+async def update_step(
+    step_id: int,
+    data: WorkflowStepUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """تعديل خطوة (قبل ما تبدأ فقط)"""
+    step = await TaskWorkflowStepService.get_step_by_id(db, step_id)
+    if not step:
+        raise HTTPException(404, "الخطوة غير موجودة")
+
+    step = await TaskWorkflowStepService.update_step(db, step, data, current_user)
+    await db.commit()
+    return step
+
+@router.delete("/{step_id}", status_code=204)
+async def delete_step(
+    step_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """حذف خطوة (قبل ما تبدأ فقط)"""
+    step = await TaskWorkflowStepService.get_step_by_id(db, step_id)
+    if not step:
+        raise HTTPException(404, "الخطوة غير موجودة")
+
+    await TaskWorkflowStepService.delete_step(db, step, current_user)
+    await db.commit()
+
+@router.get("/{step_id}", response_model=WorkflowStepOut)
+async def get_step_by_id(
+    step_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """جلب خطوة معينة بالـ ID"""
+    step = await TaskWorkflowStepService.get_step_by_id(db, step_id)
+    if not step:
+        raise HTTPException(404, "الخطوة غير موجودة")
+    return step
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\api\v1\endpoints\workflow_router.py =====
+# app/api/v1/endpoints/workflow.py
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.db.session import get_db
+from app.core.security import get_current_user
+from app.models.User import User
+from app.models import (WorkflowTemplate, WorkflowTemplateStep)
+from app.schemas.WorkflowTemplate_schema import WorkflowTemplateCreate,WorkflowTemplateOut,WorkflowTemplateUpdate
+from app.schemas.WorkflowTemplateStep_schema import TemplateStepCreate
+from app.schemas.TaskWorkflow_schema import WorkflowCreate,WorkflowOut,WorkflowStepOut
+from app.schemas.TaskWorkflowStep_schema import WorkflowStepOut,WorkflowStepComplete,WorkflowStepUpdate
+from app.services.TaskWorkflow_service import TaskWorkflowService
+from app.services.TaskWorkflowStep_service import TaskWorkflowStepService
+from app.services.access_service import AccessService
+from app.repositories.task_repo import TaskRepository
+from sqlalchemy import select
+from sqlalchemy.orm import selectinload
+
+router = APIRouter(prefix="/workflow", tags=["Workflow"])
+# ══════════════════════════════════════════════════════════════════════════════
+# خطوات الـ Workflow
+# ══════════════════════════════════════════════════════════════════════════════
+#عمل روت لتغيير حالة الخطوة
+@router.post("/test/{step_id}", status_code=204)
+async def test(
+    step_id: int,
+    notes:str | None = None,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """اختبارات"""
+    return await TaskWorkflowStepService.complete_step(db,step_id,notes,current_user)
+    
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\api\v1\endpoints\WorkflowTemplate_route.py =====
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.db.session import get_db
+from app.core.security import get_current_user
+from app.schemas.WorkflowTemplate_schema import WorkflowTemplateCreate, WorkflowTemplateOut, WorkflowTemplateSummary, WorkflowTemplateUpdate
+from app.services.WorkflowTemplateService import WorkflowTemplateService
+
+router = APIRouter(prefix="/workflow-templates", tags=["Workflow Templates"])
+
+@router.post("/", response_model=WorkflowTemplateOut)
+async def create_template(data: WorkflowTemplateCreate, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    return await WorkflowTemplateService.create_template(db, data, user)
+
+@router.get("/", response_model=list[WorkflowTemplateSummary])
+async def list_templates(db: AsyncSession = Depends(get_db)):
+    return await WorkflowTemplateService.list_templates(db)
+
+@router.patch("/{template_id}", response_model=WorkflowTemplateOut)
+async def update_template(template_id: int, data: WorkflowTemplateUpdate, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    return await WorkflowTemplateService.update_template(db, template_id, data, user)
+
+@router.delete("/{template_id}")
+async def delete_template(template_id: int, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    return await WorkflowTemplateService.delete_template(db, template_id, user)
+
+@router.patch("/{template_id}/toggle", response_model=WorkflowTemplateOut)
+async def toggle_template(template_id: int, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    return await WorkflowTemplateService.toggle_template(db, template_id, user)
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\backend\app\api\v1\endpoints\WorkflowTemplateStep_route.py =====
+from typing import List
+
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.db.session import get_db
+from app.core.security import get_current_user
+from app.schemas.WorkflowTemplateStep_schema import TemplateStepCreate, TemplateStepOut
+from app.services.WorkflowTemplateStepService import WorkflowTemplateStepService
+
+router = APIRouter(prefix="/workflow-templates/{template_id}/steps", tags=["Workflow Template Steps"])
+
+@router.post("/", response_model=TemplateStepOut)
+async def add_step(template_id: int, data: TemplateStepCreate, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    return await WorkflowTemplateStepService.add_step_to_template(db, template_id, data, user)
+
+@router.post("/bulk", response_model=List[TemplateStepOut])
+async def add_steps(
+    template_id: int, 
+    data: List[TemplateStepCreate],
+    db: AsyncSession = Depends(get_db), 
+    user = Depends(get_current_user)
+):
+    return await WorkflowTemplateStepService.add_multiple_steps(db, template_id, data, user)
+
+@router.patch("/{step_id}")
+async def update_step(step_id: int, data: TemplateStepCreate, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    # ملاحظة: يمكنك إنشاء Schema خاص للتحديث
+    return await WorkflowTemplateStepService.update_step(db, step_id, data, user)
+
+@router.delete("/{step_id}")
+async def delete_step(step_id: int, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    return await WorkflowTemplateStepService.delete_step(db, step_id, user)
+
+@router.post("/reorder")
+async def reorder_steps(template_id: int, new_order: list[int], db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    return await WorkflowTemplateStepService.reorder_steps(db, template_id, new_order, user)
