@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict sKAQQYfOSVm1xXMmga294NrlhU392tyXjU9EVDJC0WlkhcRLpLTEwYHldCdMLFE
+\restrict co2SYtapLo8THSa5G9MwSAsg1OeLkopchtmpSc8YSbPySd6ICX7WQ2TM7cPAebd
 
 -- Dumped from database version 16.14
 -- Dumped by pg_dump version 16.14
@@ -2525,6 +2525,9 @@ COPY public.notifications (id, user_id, type, title, body, related_task_id, extr
 950	1061	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	11	{"automation": true, "template_id": 154}	\N	2026-07-15 16:28:59.210499	\N
 951	2	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	11	{"automation": true, "template_id": 154}	\N	2026-07-15 16:28:59.210499	\N
 952	1	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	11	{"automation": true, "template_id": 154}	\N	2026-07-15 16:28:59.210499	\N
+953	1061	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	12	{"automation": true, "template_id": 154}	\N	2026-07-15 19:28:57.688626	\N
+954	2	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	12	{"automation": true, "template_id": 154}	\N	2026-07-15 19:28:57.688626	\N
+955	1	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	12	{"automation": true, "template_id": 154}	\N	2026-07-15 19:28:57.688626	\N
 \.
 
 
@@ -2549,6 +2552,7 @@ COPY public.recurring_task_logs (id, recurring_task_id, status, generated_task_i
 9	154	success	9	\N	2026-07-14 17:49:01.431472
 10	154	success	10	\N	2026-07-14 19:31:14.813108
 11	154	success	11	\N	2026-07-15 16:28:58.514313
+12	154	success	12	\N	2026-07-15 19:28:57.296161
 \.
 
 
@@ -2557,7 +2561,7 @@ COPY public.recurring_task_logs (id, recurring_task_id, status, generated_task_i
 --
 
 COPY public.recurring_tasks (id, title, description, department_id, created_by, priority, recurrence_pattern, interval_value, day_of_week, day_of_month, next_run_date, is_active, run_time, created_at, updated_at, deleted_at) FROM stdin;
-154	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	104	1	MEDIUM	DAILY	1	\N	\N	2026-06-20	t	08:00:00	2026-06-28 22:40:16.678744	2026-07-15 16:28:58.514313	\N
+154	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	104	1	MEDIUM	DAILY	1	\N	\N	2026-06-21	t	08:00:00	2026-06-28 22:40:16.678744	2026-07-15 19:28:57.296161	\N
 \.
 
 
@@ -2731,6 +2735,7 @@ COPY public.tasks (id, title, description, file_number, start_date, due_date, re
 9	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	104	\N	\N	\N	2026-07-14 17:49:01.431472	2026-07-14 17:49:01.775817	\N
 10	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	104	\N	\N	\N	2026-07-14 19:31:14.813108	2026-07-14 19:31:20.445403	\N
 11	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	104	\N	\N	\N	2026-07-15 16:28:58.514313	2026-07-15 16:28:59.210499	\N
+12	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	104	\N	\N	\N	2026-07-15 19:28:57.296161	2026-07-15 19:28:57.688626	\N
 \.
 
 
@@ -2865,14 +2870,14 @@ SELECT pg_catalog.setval('public.notification_settings_id_seq', 1, false);
 -- Name: notifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifications_id_seq', 952, true);
+SELECT pg_catalog.setval('public.notifications_id_seq', 955, true);
 
 
 --
 -- Name: recurring_task_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.recurring_task_logs_id_seq', 11, true);
+SELECT pg_catalog.setval('public.recurring_task_logs_id_seq', 12, true);
 
 
 --
@@ -2963,7 +2968,7 @@ SELECT pg_catalog.setval('public.task_workflows_id_seq', 53, true);
 -- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tasks_id_seq', 11, true);
+SELECT pg_catalog.setval('public.tasks_id_seq', 12, true);
 
 
 --
@@ -3859,5 +3864,5 @@ ALTER TABLE ONLY public.workflow_templates
 -- PostgreSQL database dump complete
 --
 
-\unrestrict sKAQQYfOSVm1xXMmga294NrlhU392tyXjU9EVDJC0WlkhcRLpLTEwYHldCdMLFE
+\unrestrict co2SYtapLo8THSa5G9MwSAsg1OeLkopchtmpSc8YSbPySd6ICX7WQ2TM7cPAebd
 

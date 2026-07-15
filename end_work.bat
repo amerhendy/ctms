@@ -34,7 +34,7 @@ echo ===================================================
 if not exist .\db_sync mkdir .\db_sync
 
 docker exec -e PGPASSWORD=%DB_PASSWORD% -i %DB_CONTAINER% pg_dump -U %DB_USER% -d %DB_NAME% -F p > .\db_sync\latest_db.sql 2>.\db_sync\export_error.log
-pause
+
 if %ERRORLEVEL% EQU 0 (
     echo  Backup Exported Successfully! [OK]
     if exist .\db_sync\export_error.log del .\db_sync\export_error.log
@@ -48,27 +48,31 @@ if %ERRORLEVEL% EQU 0 (
 )
 echo ===================================================
 echo.
-
 echo ===================================================
 echo 🛑 STEP 4: Stopping Docker Containers...
 echo ===================================================
 :: تحديد ملف اليامل المناسب لتجنب خطأ الـ not found
 if exist docker-compose.yml (
     docker compose -f docker-compose.yml down
-) else if exist docker-compose.services.yml (
+) else (
+    :: إذا لم يجد ملف يامل، سيقوم بإيقاف الحاوية مباشرة عن طريق اسمها
+    echo  No docker-compose file found. Stopping container %DB_CONTAINER% directly...
+    docker stop %DB_CONTAINER%
+)
+
+if exist docker-compose.services.yml (
     docker compose -f docker-compose.services.yml down
 ) else (
     :: إذا لم يجد ملف يامل، سيقوم بإيقاف الحاوية مباشرة عن طريق اسمها
     echo  No docker-compose file found. Stopping container %DB_CONTAINER% directly...
     docker stop %DB_CONTAINER%
 )
+
 echo ===================================================
 echo.
-
 echo ===================================================
 echo 🚀 STEP 5: Pushing Code and Database to GitHub...
 echo ===================================================
-:: التحقق أولاً هل المجلد الحالي هو مستودع جيت أم لا
 if not exist .git (
     echo ❌ WARNING: This directory is not a Git repository!
     echo Skip pushing to GitHub. Please initialize Git first using: git init
@@ -76,9 +80,13 @@ if not exist .git (
     pause
     exit /b
 )
-
+:: إضافة كافة التعديلات وملف قاعدة البيانات إلى الـ Git
 git add .
+
+:: توليد رسالة Commit تلقائية تحتوي على التاريخ والوقت الحاليين
 set "commit_msg=Automatic backup and sync - %DATE% %TIME%"
+
+:: تنفيذ الحفظ والرفع إلى المستودع
 git commit -m "%commit_msg%"
 git push origin main
 
@@ -86,4 +94,28 @@ echo.
 echo ===================================================
 echo 🏁 ALL DONE! Work saved, DB exported, and pushed to GitHub.
 echo ===================================================
+echo ===================================================
+echo 🏁 ALL DONE! running Docker Containers...
+echo ===================================================
+
+if exist docker-compose.yml (
+    docker compose -f docker-compose.yml up
+) else (
+    :: إذا لم يجد ملف يامل، سيقوم بإيقاف الحاوية مباشرة عن طريق اسمها
+    echo  No docker-compose file found. Stopping container %DB_CONTAINER% directly...
+    docker stop %DB_CONTAINER%
+)
+
+if exist docker-compose.services.yml (
+    docker compose -f docker-compose.services.yml up
+) else (
+    :: إذا لم يجد ملف يامل، سيقوم بإيقاف الحاوية مباشرة عن طريق اسمها
+    echo  No docker-compose file found. Stopping container %DB_CONTAINER% directly...
+    docker stop %DB_CONTAINER%
+)
+
+echo ===================================================
+echo 🏁 ALL DONE! Work saved
+echo ===================================================
+
 pause
