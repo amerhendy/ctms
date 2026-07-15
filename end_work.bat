@@ -34,7 +34,7 @@ echo ===================================================
 if not exist .\db_sync mkdir .\db_sync
 
 docker exec -e PGPASSWORD=%DB_PASSWORD% -i %DB_CONTAINER% pg_dump -U %DB_USER% -d %DB_NAME% -F p > .\db_sync\latest_db.sql 2>.\db_sync\export_error.log
-
+pause
 if %ERRORLEVEL% EQU 0 (
     echo  Backup Exported Successfully! [OK]
     if exist .\db_sync\export_error.log del .\db_sync\export_error.log
