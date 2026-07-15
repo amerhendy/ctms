@@ -1,0 +1,1846 @@
+﻿==============================================
+📦 FULL PROJECT STRUCTURE (frontend):
+┣━ 📂 assets
+┃   ┣━ 📜 icon.ico
+┃   ┣━ 📜 logo.png
+┃   ┗━ 📜 logo.webp
+┣━ 📂 src
+┃   ┣━ 📂 api
+┃   ┃   ┣━ 📜 index.js
+┃   ┃   ┗━ 📜 workflow.js
+┃   ┣━ 📂 components
+┃   ┃   ┣━ 📂 common
+┃   ┃   ┃   ┣━ 📜 DepartmentTreeModal.jsx
+┃   ┃   ┃   ┣━ 📜 ErrorBoundary.jsx
+┃   ┃   ┃   ┣━ 📜 index.jsx
+┃   ┃   ┃   ┣━ 📜 pageheader.jsx
+┃   ┃   ┃   ┣━ 📜 PaginationProvider.jsx
+┃   ┃   ┃   ┣━ 📜 TaskCard.jsx
+┃   ┃   ┃   ┗━ 📜 TaskTimerControl.jsx
+┃   ┃   ┣━ 📂 dashboard
+┃   ┃   ┃   ┣━ 📜 AlertsSidebar.jsx
+┃   ┃   ┃   ┣━ 📜 DepartmentDistribution.jsx
+┃   ┃   ┃   ┣━ 📜 EisenhowerChart.jsx
+┃   ┃   ┃   ┣━ 📜 StatDisplayCard.jsx
+┃   ┃   ┃   ┗━ 📜 StatsGrid.jsx
+┃   ┃   ┣━ 📂 layout
+┃   ┃   ┃   ┣━ 📜 Header.jsx
+┃   ┃   ┃   ┣━ 📜 MainLayout.jsx
+┃   ┃   ┃   ┗━ 📜 Sidebar.jsx
+┃   ┃   ┣━ 📂 profile
+┃   ┃   ┃   ┣━ 📜 ProfileContactsManager.jsx
+┃   ┃   ┃   ┗━ 📜 ProfileDetailsGrid.jsx
+┃   ┃   ┣━ 📂 shared
+┃   ┃   ┃   ┗━ 📜 UserContactPopover.jsx
+┃   ┃   ┣━ 📜 NotificationToast.jsx
+┃   ┃   ┗━ 📜 ShareResponseModal.jsx
+┃   ┣━ 📂 constants
+┃   ┃   ┗━ 📜 theme.js
+┃   ┣━ 📂 hooks
+┃   ┃   ┣━ 📜 useDashboardData.js
+┃   ┃   ┣━ 📜 useDashboardStats.js
+┃   ┃   ┣━ 📜 useDashboardTasks.js
+┃   ┃   ┣━ 📜 useKanban.js
+┃   ┃   ┣━ 📜 useTheme.js
+┃   ┃   ┗━ 📜 useWebSocket.js
+┃   ┣━ 📂 modals
+┃   ┃   ┣━ 📜 CreateLocationFormModal.jsx
+┃   ┃   ┣━ 📜 DepartmentFormModal.jsx
+┃   ┃   ┣━ 📜 DepartmentTreeModal.jsx
+┃   ┃   ┣━ 📜 DeptUsersModal.jsx
+┃   ┃   ┣━ 📜 LevelFormModal.jsx
+┃   ┃   ┣━ 📜 LocationDepartmentsModal.jsx
+┃   ┃   ┣━ 📜 LocationUsersModal.jsx
+┃   ┃   ┣━ 📜 ManagerAssignmentModal.jsx
+┃   ┃   ┣━ 📜 RecurringTaskFormModal.jsx
+┃   ┃   ┣━ 📜 SubordinatesModal.jsx
+┃   ┃   ┣━ 📜 UserFormModal.jsx
+┃   ┃   ┗━ 📜 UserSearchSelect.jsx
+┃   ┣━ 📂 pages
+┃   ┃   ┣━ 📂 admin
+┃   ┃   ┃   ┣━ 📜 AdminLevelsPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminLocationPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminOrgPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminRecurringTasksPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminUsersPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminWorkflowMonitorPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminWorkflowTemplatesPage.jsx
+┃   ┃   ┃   ┣━ 📜 RecurringTaskFormModal.jsx
+┃   ┃   ┃   ┣━ 📜 RecurringTasksLogs.jsx
+┃   ┃   ┃   ┣━ 📜 RecurringTasksLogsModal.jsx
+┃   ┃   ┃   ┗━ 📜 UserFormModal.jsx
+┃   ┃   ┣━ 📂 auth
+┃   ┃   ┃   ┗━ 📜 LoginPage.jsx
+┃   ┃   ┣━ 📂 dashboard
+┃   ┃   ┃   ┣━ 📜 DashboardPage.jsx
+┃   ┃   ┃   ┗━ 📜 SidebarTree.jsx
+┃   ┃   ┣━ 📂 notifications
+┃   ┃   ┃   ┣━ 📜 NotificationDropdown.jsx
+┃   ┃   ┃   ┗━ 📜 NotificationsPage.jsx
+┃   ┃   ┣━ 📂 tasks
+┃   ┃   ┃   ┣━ 📂 TaskDetail
+┃   ┃   ┃   ┃   ┣━ 📂 TaskModels
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 AddStepModal.jsx
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 CreateWorkflowModal.jsx
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 KanbanBoard.jsx
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 KanbanColumn.jsx
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 TransferRespondModal.jsx
+┃   ┃   ┃   ┃   ┃   ┗━ 📜 UrgencyResponseModal.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 SidebarTree.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskAssignmentsSection.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskAttachmentsSection.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskCommentsSection.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskDetailPage.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskLogsSection.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskSharesSection.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskStepsSection.jsx
+┃   ┃   ┃   ┃   ┗━ 📜 WorkflowSection.jsx
+┃   ┃   ┃   ┣━ 📜 DelegationsPage.jsx
+┃   ┃   ┃   ┣━ 📜 SearchPage.jsx
+┃   ┃   ┃   ┣━ 📜 ShareModal.jsx
+┃   ┃   ┃   ┣━ 📜 TaskFormModal.jsx
+┃   ┃   ┃   ┣━ 📜 TasksListPage.jsx
+┃   ┃   ┃   ┣━ 📜 TaskStepsManager.jsx
+┃   ┃   ┃   ┣━ 📜 TransferModal.jsx
+┃   ┃   ┃   ┗━ 📜 TransfersPage.jsx
+┃   ┃   ┗━ 📜 UserProfilePage.jsx
+┃   ┣━ 📂 stores
+┃   ┃   ┣━ 📜 authStore.js
+┃   ┃   ┗━ 📜 dashboardStore.js
+┃   ┣━ 📂 styles
+┃   ┃   ┗━ 📜 index.css
+┃   ┣━ 📂 utils
+┃   ┃   ┣━ 📜 db.js
+┃   ┃   ┣━ 📜 helpers.js
+┃   ┃   ┗━ 📜 transformers.js
+┃   ┣━ 📂 {api,components
+┃   ┃   ┗━ 📂 {common,tasks,layout,notifications},pages
+┃   ┃       ┗━ 📂 {auth,tasks,admin,dashboard},stores,hooks,utils,styles}
+┃   ┣━ 📜 App.jsx
+┃   ┗━ 📜 main.jsx
+┣━ 📜 .dockerignore
+┣━ 📜 app.ico
+┣━ 📜 Backend_project_bundle.txt
+┣━ 📜 BundlerTool.exe
+┣━ 📜 Dockerfile
+┣━ 📜 files.ps1
+┣━ 📜 index.html
+┣━ 📜 package-lock.json
+┣━ 📜 package.json
+┣━ 📜 postcss.config.js
+┣━ 📜 tailwind.config.js
+┗━ 📜 vite.config.js
+==============================================
+
+================ SELECTED FILES CODE ===============
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\frontend\src\pages\tasks\TaskDetail\WorkflowSection.jsx =====
+// src/pages/tasks/TaskDetail/WorkflowSection.jsx
+import { useState } from 'react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import {
+  Plus, Check, ChevronDown, ChevronUp, Loader2, Trash2,
+  Edit3, X, GitBranch, Users, Building2, Zap, CheckCircle2,
+  Clock, CircleDot, SkipForward, AlertCircle, LayoutTemplate
+} from 'lucide-react'
+import toast from 'react-hot-toast'
+import clsx from 'clsx'
+import { theme } from '@/constants/theme'
+import { Modal } from '@/components/common'
+import { workflowApi, workflowTemplatesApi } from '@/api/workflow'
+import { getApiError } from '@/utils/helpers'
+import CreateWorkflowModal from '@/pages/tasks/TaskDetail/TaskModels/CreateWorkflowModal'
+// ── ألوان حالة الخطوة ────────────────────────────────────────────
+const stepStatusConfig = {
+  pending:     { label: 'في الانتظار', color: 'text-slate-400',  bg: 'bg-slate-100 dark:bg-slate-800',   icon: CircleDot,     ring: 'ring-slate-300 dark:ring-slate-600' },
+  in_progress: { label: 'جارٍ التنفيذ', color: 'text-blue-600',  bg: 'bg-blue-50 dark:bg-blue-900/30',   icon: Zap,           ring: 'ring-blue-400 dark:ring-blue-500' },
+  completed:   { label: 'مكتملة',       color: 'text-green-600', bg: 'bg-green-50 dark:bg-green-900/30', icon: CheckCircle2,  ring: 'ring-green-400 dark:ring-green-500' },
+  skipped:     { label: 'متخطاة',       color: 'text-slate-400', bg: 'bg-slate-50 dark:bg-slate-800',    icon: SkipForward,   ring: 'ring-slate-300 dark:ring-slate-600' },
+}
+
+// ── مكوّن خطوة واحدة ────────────────────────────────────────────
+function WorkflowStep({ step, canComplete, canEdit, onComplete, onEdit, onDelete, isLast }) {
+  const [showNotes, setShowNotes]   = useState(false)
+  const [notes, setNotes]           = useState('')
+  const [confirmDel, setConfirmDel] = useState(false)
+
+  const cfg        = stepStatusConfig[step.status] || stepStatusConfig.pending
+  const StatusIcon = cfg.icon
+  const isActive   = step.status === 'in_progress'
+  const isDone     = step.status === 'completed'
+  const isPending  = step.status === 'pending'
+
+  return (
+    <div className="relative flex gap-3">
+      {/* الخط الرأسي */}
+      {!isLast && (
+        <div className="absolute right-[18px] rtl:right-auto rtl:left-[18px] top-10 bottom-0 w-px bg-slate-200 dark:bg-slate-700" />
+      )}
+
+      {/* أيقونة الحالة */}
+      <div className={clsx(
+        'relative z-10 flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center ring-2',
+        cfg.bg, cfg.ring
+      )}>
+        <StatusIcon className={clsx('w-4 h-4', cfg.color)} />
+      </div>
+
+      {/* محتوى الخطوة */}
+      <div className={clsx(
+        'flex-1 mb-4 rounded-xl border transition-all duration-200',
+        isActive
+          ? 'border-blue-300 dark:border-blue-700 bg-blue-50/50 dark:bg-blue-900/10 shadow-sm'
+          : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50'
+      )}>
+        <div className="p-3 flex items-start gap-3">
+          {/* رقم الخطوة */}
+          <span className="text-xs font-bold text-slate-400 dark:text-slate-500 mt-0.5 min-w-[20px]">
+            {step.step_order}
+          </span>
+
+          <div className="flex-1 min-w-0">
+            {/* العنوان والحالة */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className={clsx(
+                'text-sm font-medium',
+                isDone ? 'line-through text-slate-400' : 'text-slate-800 dark:text-slate-100'
+              )}>
+                {step.title}
+              </span>
+
+              {step.is_parallel && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400">
+                  <GitBranch className="w-2.5 h-2.5" /> متوازي
+                </span>
+              )}
+
+              <span className={clsx('text-[10px] font-medium px-1.5 py-0.5 rounded-full', cfg.bg, cfg.color)}>
+                {cfg.label}
+              </span>
+            </div>
+
+            {/* الوصف */}
+            {step.description && (
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{step.description}</p>
+            )}
+
+            {/* المسؤول */}
+            <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+              {step.assigned_user_id && (
+                <span className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+                  <Users className="w-3 h-3" />
+                  {step.assigned_user?.full_name || `موظف #${step.assigned_user_id}`}
+                </span>
+              )}
+              {step.assigned_department_id && (
+                <span className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+                  <Building2 className="w-3 h-3" />
+                  {step.assigned_department?.name || `إدارة #${step.assigned_department_id}`}
+                </span>
+              )}
+              {step.completed_at && (
+                <span className="inline-flex items-center gap-1 text-xs text-green-600 dark:text-green-400">
+                  <Clock className="w-3 h-3" />
+                  {new Date(step.completed_at).toLocaleDateString('ar-EG')}
+                </span>
+              )}
+            </div>
+
+            {/* ملاحظة الإنهاء */}
+            {isDone && step.notes && (
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/40 rounded-lg px-2.5 py-1.5 border border-slate-100 dark:border-slate-700">
+                {step.notes}
+              </p>
+            )}
+          </div>
+
+          {/* أزرار الإجراءات */}
+          <div className="flex items-center gap-1 flex-shrink-0">
+            {isActive && canComplete && (
+              <button
+                onClick={() => setShowNotes(true)}
+                className="inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
+              >
+                <Check className="w-3.5 h-3.5" /> إنهاء
+              </button>
+            )}
+            {isPending && canEdit && (
+              <>
+                <button
+                  onClick={() => onEdit(step)}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                >
+                  <Edit3 className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => setConfirmDel(true)}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* نموذج إضافة ملاحظة عند الإنهاء */}
+        {showNotes && (
+          <div className="border-t border-slate-200 dark:border-slate-700 p-3 space-y-2">
+            <textarea
+              value={notes}
+              onChange={e => setNotes(e.target.value)}
+              placeholder="ملاحظة عند الإنهاء (اختياري)..."
+              rows={2}
+              className={clsx(theme.input.base, 'resize-none text-sm')}
+            />
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowNotes(false)}
+                className="text-xs px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              >
+                إلغاء
+              </button>
+              <button
+                onClick={() => { onComplete(step.id, notes); setShowNotes(false) }}
+                className="text-xs px-3 py-1.5 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
+              >
+                تأكيد الإنهاء
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* تأكيد الحذف */}
+        {confirmDel && (
+          <div className="border-t border-red-100 dark:border-red-900/30 p-3 bg-red-50/50 dark:bg-red-900/10 rounded-b-xl">
+            <p className="text-xs text-red-600 dark:text-red-400 mb-2">هل تريد حذف هذه الخطوة؟</p>
+            <div className="flex gap-2">
+              <button
+                onClick={() => { onDelete(step.id); setConfirmDel(false) }}
+                className="text-xs px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-medium transition-colors"
+              >
+                حذف
+              </button>
+              <button
+                onClick={() => setConfirmDel(false)}
+                className="text-xs px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              >
+                إلغاء
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ── مودال إنشاء Workflow ─────────────────────────────────────────
+
+
+// ── المكوّن الرئيسي ───────────────────────────────────────────────
+export default function WorkflowSection({ taskId, taskPermissions }) {
+  const queryClient                       = useQueryClient()
+  const [showCreate, setShowCreate]       = useState(false)
+  const [editingStep, setEditingStep]     = useState(null)
+
+  const canEdit     = taskPermissions?.can_edit_task ?? false
+  const canComplete = true  // الـ backend هو اللي بيتحقق من الصلاحية التفصيلية
+
+  // جلب الـ Workflow
+  const { data: workflow, isLoading, isError } = useQuery({
+    queryKey: ['task-workflow', parseInt(taskId)],
+    queryFn: () => workflowApi.getByTask(taskId).then(r => r.data),
+    retry: (count, err) => err?.response?.status !== 404 && count < 2,
+  })
+
+  const noWorkflow = isError || !workflow
+
+  // إنهاء خطوة
+  const completeMutation = useMutation({
+    mutationFn: ({ stepId, notes }) => workflowApi.completeStep(stepId, notes),
+    onSuccess: () => {
+      toast.success('تم إنهاء الخطوة بنجاح')
+      queryClient.invalidateQueries({ queryKey: ['task-workflow', parseInt(taskId)] })
+    },
+    onError: (err) => toast.error(getApiError(err) || 'فشل إنهاء الخطوة'),
+  })
+
+  // حذف خطوة
+  const deleteMutation = useMutation({
+    mutationFn: (stepId) => workflowApi.deleteStep(stepId),
+    onSuccess: () => {
+      toast.success('تم حذف الخطوة')
+      queryClient.invalidateQueries({ queryKey: ['task-workflow', parseInt(taskId)] })
+    },
+    onError: (err) => toast.error(getApiError(err) || 'فشل حذف الخطوة'),
+  })
+
+  // ── حساب التقدم ──────────────────────────────────────────────
+  const steps       = workflow?.steps || []
+  const total       = steps.length
+  const completed   = steps.filter(s => s.status === 'completed').length
+  const progress    = total > 0 ? Math.round((completed / total) * 100) : 0
+  const wfStatus    = workflow?.status
+
+  const statusColors = {
+    pending:     'text-slate-500 bg-slate-100 dark:bg-slate-800',
+    in_progress: 'text-blue-600 bg-blue-50 dark:bg-blue-900/30',
+    completed:   'text-green-600 bg-green-50 dark:bg-green-900/30',
+    cancelled:   'text-red-500 bg-red-50 dark:bg-red-900/20',
+  }
+  const statusLabels = {
+    pending: 'في الانتظار', in_progress: 'جارٍ', completed: 'مكتمل', cancelled: 'ملغي'
+  }
+
+  if (isLoading) return (
+    <div className="flex items-center justify-center py-12 gap-2 text-slate-400">
+      <Loader2 className="w-5 h-5 animate-spin" />
+      <span className="text-sm">جاري تحميل الـ Workflow...</span>
+    </div>
+  )
+
+  // ── لا يوجد Workflow بعد ─────────────────────────────────────
+  if (noWorkflow) return (
+    <div className="flex flex-col items-center justify-center py-12 gap-4">
+      <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+        <GitBranch className="w-7 h-7 text-slate-400" />
+      </div>
+      <div className="text-center">
+        <p className="text-sm font-medium text-slate-700 dark:text-slate-300">لا يوجد Workflow لهذه المهمة</p>
+        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">أضف Workflow لتنظيم تسلسل التنفيذ</p>
+      </div>
+      {canEdit && (
+        <button
+          onClick={() => setShowCreate(true)}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium transition-colors"
+        >
+          <Plus className="w-4 h-4" /> إنشاء Workflow
+        </button>
+      )}
+      {showCreate && (
+        <CreateWorkflowModal
+          taskId={taskId}
+          onClose={() => setShowCreate(false)}
+          onSuccess={() => setShowCreate(false)}
+        />
+      )}
+    </div>
+  )
+
+  // ── Workflow موجود ───────────────────────────────────────────
+  return (
+    <div className="space-y-4">
+      {/* رأس الـ Workflow */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center">
+            <GitBranch className="w-4 h-4 text-violet-600 dark:text-violet-400" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                Workflow المهمة
+              </span>
+              {wfStatus && (
+                <span className={clsx('text-[10px] font-medium px-2 py-0.5 rounded-full', statusColors[wfStatus])}>
+                  {statusLabels[wfStatus]}
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-slate-400 dark:text-slate-500">
+              {completed} من {total} خطوة مكتملة
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* شريط التقدم */}
+      {total > 0 && (
+        <div className="space-y-1.5">
+          <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span>التقدم الكلي</span>
+            <span className="font-medium">{progress}%</span>
+          </div>
+          <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-l from-primary-500 to-primary-600 rounded-full transition-all duration-500"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* الخطوات */}
+      <div className="pt-1">
+        {steps.length === 0 ? (
+          <p className="text-sm text-slate-400 dark:text-slate-500 text-center py-6">لا توجد خطوات</p>
+        ) : (
+          steps.map((step, idx) => (
+            <WorkflowStep
+              key={step.id}
+              step={step}
+              isLast={idx === steps.length - 1}
+              canComplete={canComplete}
+              canEdit={canEdit}
+              onComplete={(stepId, notes) => completeMutation.mutate({ stepId, notes })}
+              onEdit={setEditingStep}
+              onDelete={(stepId) => deleteMutation.mutate(stepId)}
+            />
+          ))
+        )}
+      </div>
+
+      {/* مودال تعديل خطوة */}
+      {editingStep && (
+        <EditStepModal
+          step={editingStep}
+          taskId={taskId}
+          onClose={() => setEditingStep(null)}
+        />
+      )}
+
+      {showCreate && (
+        <CreateWorkflowModal
+          taskId={taskId}
+          onClose={() => setShowCreate(false)}
+          onSuccess={() => setShowCreate(false)}
+        />
+      )}
+    </div>
+  )
+}
+
+// ── مودال تعديل خطوة ────────────────────────────────────────────
+function EditStepModal({ step, taskId, onClose }) {
+  const queryClient = useQueryClient()
+  const [form, setForm] = useState({
+    title: step.title || '',
+    description: step.description || '',
+    step_order: step.step_order,
+    is_parallel: step.is_parallel,
+    assigned_department_id: step.assigned_department_id || '',
+    assigned_user_id: step.assigned_user_id || '',
+  })
+
+  const updateMutation = useMutation({
+    mutationFn: (data) => workflowApi.updateStep(step.id, data),
+    onSuccess: () => {
+      toast.success('تم تعديل الخطوة')
+      queryClient.invalidateQueries({ queryKey: ['task-workflow', parseInt(taskId)] })
+      onClose()
+    },
+    onError: (err) => toast.error(getApiError(err) || 'فشل التعديل'),
+  })
+
+  return (
+    <Modal onClose={onClose} title="تعديل الخطوة">
+      <div className="space-y-3">
+        <div className={theme.field.wrapper}>
+          <label className={theme.field.label}>العنوان</label>
+          <input value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))}
+            className={clsx(theme.input.base, 'text-sm')} />
+        </div>
+        <div className={theme.field.wrapper}>
+          <label className={theme.field.label}>الوصف</label>
+          <input value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))}
+            className={clsx(theme.input.base, 'text-sm')} />
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div className={theme.field.wrapper}>
+            <label className={theme.field.label}>رقم الإدارة</label>
+            <input type="number" value={form.assigned_department_id}
+              onChange={e => setForm(p => ({ ...p, assigned_department_id: e.target.value }))}
+              className={clsx(theme.input.base, 'text-sm')} />
+          </div>
+          <div className={theme.field.wrapper}>
+            <label className={theme.field.label}>رقم الموظف</label>
+            <input type="number" value={form.assigned_user_id}
+              onChange={e => setForm(p => ({ ...p, assigned_user_id: e.target.value }))}
+              className={clsx(theme.input.base, 'text-sm')} />
+          </div>
+        </div>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" checked={form.is_parallel}
+            onChange={e => setForm(p => ({ ...p, is_parallel: e.target.checked }))}
+            className="rounded border-slate-300 dark:border-slate-600 text-primary-600" />
+          <span className="text-sm text-slate-600 dark:text-slate-400">تنفيذ بالتوازي</span>
+        </label>
+      </div>
+      <div className={theme.form.footer}>
+        <button onClick={onClose}
+          className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+          إلغاء
+        </button>
+        <button
+          onClick={() => updateMutation.mutate({
+            ...form,
+            assigned_department_id: form.assigned_department_id ? parseInt(form.assigned_department_id) : null,
+            assigned_user_id: form.assigned_user_id ? parseInt(form.assigned_user_id) : null,
+          })}
+          disabled={updateMutation.isPending}
+          className="px-5 py-2 rounded-xl bg-primary-600 hover:bg-primary-700 disabled:opacity-50 text-white text-sm font-medium transition-colors flex items-center gap-2"
+        >
+          {updateMutation.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
+          حفظ التعديلات
+        </button>
+      </div>
+    </Modal>
+  )
+}
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\frontend\src\pages\tasks\TaskDetail\TaskModels\CreateWorkflowModal.jsx =====
+// pages/tasks/TaskDetail/TaskModels/CreateWorkflowModal
+import { useState } from 'react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import {
+  Plus,  Loader2, X, GitBranch, LayoutTemplate
+} from 'lucide-react'
+import toast from 'react-hot-toast'
+import clsx from 'clsx'
+import { theme } from '@/constants/theme'
+import { Modal } from '@/components/common'
+import { workflowApi, workflowTemplatesApi } from '@/api/workflow'
+import { getApiError } from '@/utils/helpers'
+import SidebarTree from '@/pages/tasks/TaskDetail/SidebarTree'
+export default function CreateWorkflowModal({ taskId, onClose, onSuccess }) {
+  const [mode, setMode]           = useState('custom') // 'template' | 'custom'
+  const [templateId, setTemplateId] = useState('')
+  const [steps, setSteps]         = useState([
+    { title: '', description: '', step_order: 1, is_parallel: false, assigned_department_id: '', assigned_user_id: '' }
+  ])
+   const [showPickerModal, setShowPickerModal] = useState(false);
+    const[stepIndex,setStepIndex]=useState(0)
+  const { data: templates = [], isLoading: loadingTemplates } = useQuery({
+    queryKey: ['workflow-templates'],
+    queryFn: () => workflowTemplatesApi.list().then(r => r.data),
+  })
+
+  const queryClient = useQueryClient()
+  const createMutation = useMutation({
+    mutationFn: (data) => workflowApi.create(taskId, data),
+    onSuccess: () => {
+      toast.success('تم إنشاء الـ Workflow بنجاح')
+      queryClient.invalidateQueries({ queryKey: ['task-workflow', taskId] })
+      onSuccess()
+    },
+    onError: (err) => toast.error(getApiError(err) || 'فشل إنشاء الـ Workflow'),
+  })
+
+  const addStep = () => setSteps(prev => [
+    ...prev,
+    { title: '', description: '', step_order: prev.length + 1, is_parallel: false, assigned_department_id: '', assigned_user_id: '' }
+  ])
+
+  const removeStep = (idx) => setSteps(prev => prev.filter((_, i) => i !== idx).map((s, i) => ({ ...s, step_order: i + 1 })))
+
+  const updateStep = (idx, field, value) => setSteps(prev =>
+    prev.map((s, i) => i === idx ? { ...s, [field]: value } : s)
+  )
+
+  const handleSubmit = () => {
+    if (mode === 'template') {
+      if (!templateId) return toast.error('اختر قالباً')
+      createMutation.mutate({ template_id: parseInt(templateId) })
+    } else {
+      const invalid = steps.find(s => !s.title || (!s.assigned_department_id && !s.assigned_user_id))
+      if (invalid) return toast.error('كل خطوة لازم يكون ليها عنوان ومسؤول')
+      createMutation.mutate({
+        steps: steps.map(({ assigned_name, ...s }) => ({
+          ...s,
+          assigned_department_id: s.assigned_department_id ? parseInt(s.assigned_department_id) : null,
+          assigned_user_id: s.assigned_user_id ? parseInt(s.assigned_user_id) : null,
+        }))
+      })
+    }
+  }
+
+  return (
+    <Modal open={true} onClose={onClose} title="إنشاء Workflow للمهمة" size="lg">
+      {/* اختيار الطريقة */}
+      <div className="flex gap-2 mb-5">
+        {[
+          { key: 'custom', label: 'خطوات مخصصة', icon: GitBranch },
+          { key: 'template', label: 'من قالب', icon: LayoutTemplate },
+        ].map(({ key, label, icon: Icon }) => (
+          <button
+            key={key}
+            onClick={() => setMode(key)}
+            className={clsx(
+              'flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium border transition-all',
+              mode === key
+                ? 'bg-primary-600 border-primary-600 text-white'
+                : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+            )}
+          >
+            <Icon className="w-4 h-4" /> {label}
+          </button>
+        ))}
+      </div>
+
+      {/* من قالب */}
+      {mode === 'template' && (
+        <div className={theme.field.wrapper}>
+          <label className={theme.field.label}>اختر القالب</label>
+          {loadingTemplates ? (
+            <div className="flex items-center gap-2 text-sm text-slate-400 py-3">
+              <Loader2 className="w-4 h-4 animate-spin" /> جاري التحميل...
+            </div>
+          ) : templates.length === 0 ? (
+            <p className="text-sm text-slate-400 dark:text-slate-500 py-3 text-center">لا توجد قوالب متاحة</p>
+          ) : (
+            <div className="space-y-2">
+              {templates.map(t => (
+                <button
+                  key={t.id}
+                  onClick={() => setTemplateId(String(t.id))}
+                  className={clsx(
+                    'w-full text-right rtl:text-right p-3 rounded-xl border text-sm transition-all',
+                    templateId === String(t.id)
+                      ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                      : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
+                  )}
+                >
+                  <div className="font-medium">{t.name}</div>
+                  {t.description && <div className="text-xs text-slate-400 mt-0.5">{t.description}</div>}
+                  <div className="text-xs text-slate-400 mt-1">{t.steps?.length || 0} خطوة</div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* خطوات مخصصة */}
+      {mode === 'custom' && (
+        <div className="space-y-3">
+          {steps.map((step, idx) => (
+            <div key={idx} className="border border-slate-200 dark:border-slate-700 rounded-xl p-3 space-y-2.5 bg-slate-50/50 dark:bg-slate-800/30">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-bold text-slate-500">خطوة {idx + 1}</span>
+                {steps.length > 1 && (
+                  <button onClick={() => removeStep(idx)} className="text-slate-400 hover:text-red-500 transition-colors">
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+
+              <input
+                value={step.title}
+                onChange={e => updateStep(idx, 'title', e.target.value)}
+                placeholder="عنوان الخطوة *"
+                className={clsx(theme.input.base, 'text-sm')}
+              />
+
+              <input
+                value={step.description}
+                onChange={e => updateStep(idx, 'description', e.target.value)}
+                placeholder="وصف الخطوة (اختياري)"
+                className={clsx(theme.input.base, 'text-sm')}
+              />
+              
+                <div className="flex gap-2">
+                  <input 
+                      type="hidden" 
+                      name={`steps[${idx}].assigned_id`} 
+                      value={step.assigned_user_id || step.assigned_department_id || ''} 
+                    />
+                  <div className={clsx(
+                      "flex-1 h-9 flex items-center px-3 text-sm rounded-lg border",
+                      "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700",
+                      step.assigned_name ? "text-slate-800 dark:text-slate-200" : "text-slate-400"
+                    )}>
+                      {step.assigned_name || "لم يتم تحديد مسؤول بعد..."}
+                  </div>
+                  
+                  {/* هنا يمكنك وضع زر يفتح "مودال" (Modal) يحتوي على SidebarTree لاختيار الموظف */}
+                  <button 
+                    onClick={() => {setShowPickerModal(true); setStepIndex(idx);}} 
+                    className="h-9 px-3 text-xs bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200"
+                  >
+                    تحديد
+                  </button>
+                </div>
+
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={step.is_parallel}
+                  onChange={e => updateStep(idx, 'is_parallel', e.target.checked)}
+                  className="rounded border-slate-300 dark:border-slate-600 text-primary-600"
+                />
+                <span className="text-xs text-slate-600 dark:text-slate-400 flex items-center gap-1">
+                  <GitBranch className="w-3 h-3 text-violet-500" />
+                  تنفيذ بالتوازي مع الخطوة السابقة
+                </span>
+              </label>
+            </div>
+          ))}
+
+          <button
+            onClick={addStep}
+            className="w-full py-2 rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 text-sm text-slate-500 dark:text-slate-400 hover:border-primary-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center justify-center gap-2"
+          >
+            <Plus className="w-4 h-4" /> إضافة خطوة
+          </button>
+        </div>
+      )}
+
+      {/* أزرار التأكيد */}
+      <div className={theme.form.footer}>
+        <button
+          onClick={onClose}
+          className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+        >
+          إلغاء
+        </button>
+        <button
+          onClick={handleSubmit}
+          disabled={createMutation.isPending}
+          className="px-5 py-2 rounded-xl bg-primary-600 hover:bg-primary-700 disabled:opacity-50 text-white text-sm font-medium transition-colors flex items-center gap-2"
+        >
+          {createMutation.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
+          إنشاء الـ Workflow
+        </button>
+      </div>
+      {showPickerModal &&(
+                <Modal 
+                  open={showPickerModal} 
+                  onClose={() => setShowPickerModal(false)} 
+                  title="اختر المسؤول عن هذه الخطوة"
+                  size="md"
+                >
+                  <div className="h-[400px] overflow-y-auto">
+                    <SidebarTree 
+                      onSelectNode={(node) => {
+                        const isEmployee = !!node.full_name;
+                        const update = {
+                          assigned_department_id: isEmployee ? '' : node.id,
+                          assigned_user_id:       isEmployee ? node.id : '',
+                          assigned_name:          node.full_name || node.name
+                        };
+                        
+                        // تحديث الخطوة المختارة فقط
+                        setSteps(prev => prev.map((s, i) => i === stepIndex ? { ...s, ...update } : s));
+                        setShowPickerModal(false);
+                      }} 
+                    />
+                  </div>
+                </Modal>
+            )}
+    </Modal>
+  )
+}   
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\frontend\src\pages\admin\AdminWorkflowMonitorPage.jsx =====
+// src/pages/admin/AdminWorkflowMonitorPage.jsx
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { Link } from 'react-router-dom'
+import {
+  GitBranch, Search, CheckCircle2, Zap, CircleDot,
+  XCircle, ChevronDown, ChevronRight, Building2, Users,
+  Clock, ExternalLink, Filter, Loader2
+} from 'lucide-react'
+import clsx from 'clsx'
+import { workflowApi } from '@/api/workflow'
+import { tasksApi } from '@/api'
+import { getApiError, formatDate } from '@/utils/helpers'
+import { PageLoader } from '@/components/common'
+import PageHeader from '@/components/common/pageheader'
+import { theme } from '@/constants/theme'
+
+// ── إعدادات حالة الـ Workflow ────────────────────────────────────
+const WF_STATUS = {
+  pending:     { label: 'في الانتظار', color: 'text-slate-500',  bg: 'bg-slate-100 dark:bg-slate-800',    icon: CircleDot,    dot: 'bg-slate-400' },
+  in_progress: { label: 'جارٍ',        color: 'text-blue-600',   bg: 'bg-blue-50 dark:bg-blue-900/30',    icon: Zap,          dot: 'bg-blue-500 animate-pulse' },
+  completed:   { label: 'مكتمل',       color: 'text-green-600',  bg: 'bg-green-50 dark:bg-green-900/30',  icon: CheckCircle2, dot: 'bg-green-500' },
+  cancelled:   { label: 'ملغي',        color: 'text-red-500',    bg: 'bg-red-50 dark:bg-red-900/20',      icon: XCircle,      dot: 'bg-red-500' },
+}
+
+const STEP_STATUS = {
+  pending:     { label: 'انتظار',  color: 'text-slate-400',  bg: 'bg-slate-100 dark:bg-slate-800' },
+  in_progress: { label: 'جارٍ',   color: 'text-blue-600',   bg: 'bg-blue-50 dark:bg-blue-900/30' },
+  completed:   { label: 'مكتملة', color: 'text-green-600',  bg: 'bg-green-50 dark:bg-green-900/30' },
+  skipped:     { label: 'متخطاة', color: 'text-slate-400',  bg: 'bg-slate-50 dark:bg-slate-700' },
+}
+
+// ── بطاقة مهمة مع الـ Workflow ──────────────────────────────────
+function WorkflowMonitorCard({ task }) {
+  const [expanded, setExpanded] = useState(false)
+  const wf = task.workflow
+  if (!wf) return null
+
+  const cfg      = WF_STATUS[wf.status] || WF_STATUS.pending
+  const StatusIcon = cfg.icon
+  const steps    = wf.steps || []
+  const total    = steps.length
+  const done     = steps.filter(s => s.status === 'completed').length
+  const progress = total > 0 ? Math.round((done / total) * 100) : 0
+  const activeStep = steps.find(s => s.status === 'in_progress')
+
+  return (
+    <div className={clsx(
+      'border rounded-2xl transition-all duration-200 overflow-hidden',
+      'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50'
+    )}>
+      {/* رأس البطاقة */}
+      <div className="p-4 flex items-start gap-3">
+        {/* حالة الـ Workflow */}
+        <div className={clsx('w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0', cfg.bg)}>
+          <StatusIcon className={clsx('w-4 h-4', cfg.color)} />
+        </div>
+
+        <div className="flex-1 min-w-0">
+          {/* عنوان المهمة */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <Link
+              to={`/tasks/${task.id}`}
+              className="text-sm font-semibold text-slate-800 dark:text-slate-100 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center gap-1 truncate"
+            >
+              {task.title}
+              <ExternalLink className="w-3 h-3 flex-shrink-0" />
+            </Link>
+            <span className={clsx('text-[10px] font-medium px-2 py-0.5 rounded-full flex items-center gap-1', cfg.bg, cfg.color)}>
+              <span className={clsx('w-1.5 h-1.5 rounded-full', cfg.dot)} />
+              {cfg.label}
+            </span>
+          </div>
+
+          {/* تفاصيل سريعة */}
+          <div className="flex items-center gap-3 mt-1 flex-wrap">
+            {task.department?.name && (
+              <span className="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1">
+                <Building2 className="w-3 h-3" /> {task.department.name}
+              </span>
+            )}
+            {wf.template_id && (
+              <span className="text-xs text-violet-500 dark:text-violet-400 flex items-center gap-1">
+                <GitBranch className="w-3 h-3" /> من قالب
+              </span>
+            )}
+            <span className="text-xs text-slate-400 dark:text-slate-500">
+              {done}/{total} خطوة
+            </span>
+          </div>
+
+          {/* شريط التقدم */}
+          {total > 0 && (
+            <div className="mt-2 space-y-1">
+              <div className="h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div
+                  className={clsx(
+                    'h-full rounded-full transition-all duration-500',
+                    wf.status === 'completed'
+                      ? 'bg-green-500'
+                      : 'bg-gradient-to-l from-primary-500 to-primary-600'
+                  )}
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-[10px] text-slate-400">
+                <span>{activeStep ? `الخطوة الحالية: ${activeStep.title}` : ''}</span>
+                <span>{progress}%</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* زر التوسيع */}
+        <button
+          onClick={() => setExpanded(p => !p)}
+          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors flex-shrink-0"
+        >
+          {expanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+        </button>
+      </div>
+
+      {/* تفاصيل الخطوات */}
+      {expanded && steps.length > 0 && (
+        <div className="border-t border-slate-100 dark:border-slate-700 px-4 py-3">
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2">الخطوات التفصيلية</p>
+          <div className="space-y-2">
+            {steps.map((step, idx) => {
+              const sCfg = STEP_STATUS[step.status] || STEP_STATUS.pending
+              return (
+                <div key={step.id} className="flex items-center gap-3">
+                  {/* رقم */}
+                  <span className={clsx(
+                    'w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center flex-shrink-0',
+                    sCfg.bg, sCfg.color
+                  )}>
+                    {step.step_order}
+                  </span>
+
+                  {/* عنوان */}
+                  <span className={clsx(
+                    'text-xs flex-1 truncate',
+                    step.status === 'completed'
+                      ? 'line-through text-slate-400'
+                      : 'text-slate-700 dark:text-slate-300'
+                  )}>
+                    {step.title}
+                    {step.is_parallel && (
+                      <span className="mr-1.5 text-[9px] text-violet-500">(متوازي)</span>
+                    )}
+                  </span>
+
+                  {/* مسؤول */}
+                  <span className="text-[10px] text-slate-400 flex items-center gap-1 flex-shrink-0">
+                    {step.assigned_department_id && <Building2 className="w-2.5 h-2.5" />}
+                    {step.assigned_user_id && <Users className="w-2.5 h-2.5" />}
+                  </span>
+
+                  {/* حالة */}
+                  <span className={clsx('text-[10px] font-medium px-1.5 py-0.5 rounded-full flex-shrink-0', sCfg.bg, sCfg.color)}>
+                    {sCfg.label}
+                  </span>
+
+                  {/* تاريخ الإنهاء */}
+                  {step.completed_at && (
+                    <span className="text-[10px] text-slate-400 flex items-center gap-1 flex-shrink-0">
+                      <Clock className="w-2.5 h-2.5" />
+                      {formatDate(step.completed_at)}
+                    </span>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════
+// الصفحة الرئيسية
+// ══════════════════════════════════════════════════════════════════
+export default function AdminWorkflowMonitorPage() {
+  const [search, setSearch]           = useState('')
+  const [filterStatus, setFilterStatus] = useState('all')
+  const [page, setPage]               = useState(1)
+
+  // جلب المهام التي عندها workflow
+  const { data, isLoading } = useQuery({
+    queryKey: ['tasks-with-workflow', search, filterStatus, page],
+    queryFn: () => tasksApi.list({
+      q:            search || undefined,
+      has_workflow: true,
+      page,
+      page_size:    20,
+    }).then(r => r.data),
+    keepPreviousData: true,
+  })
+
+  const tasks      = data?.items || []
+  const totalPages = data?.pages || 1
+
+  // فلترة محلية بحالة الـ workflow
+  const filtered = filterStatus === 'all'
+    ? tasks
+    : tasks.filter(t => t.workflow?.status === filterStatus)
+
+  // إحصائيات
+  const stats = tasks.reduce((acc, t) => {
+    const s = t.workflow?.status
+    if (s) acc[s] = (acc[s] || 0) + 1
+    return acc
+  }, {})
+
+  return (
+    <div className="space-y-5 text-right" dir="rtl">
+      {/* الترويسة */}
+      <PageHeader title="مراقبة الـ Workflows" icon={GitBranch} />
+
+      {/* إحصائيات سريعة */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {[
+          { key: 'all',        label: 'إجمالي',      value: tasks.length,            ...WF_STATUS.pending    },
+          { key: 'in_progress',label: 'جارٍ التنفيذ', value: stats.in_progress || 0,  ...WF_STATUS.in_progress },
+          { key: 'completed',  label: 'مكتملة',       value: stats.completed || 0,    ...WF_STATUS.completed  },
+          { key: 'pending',    label: 'في الانتظار',  value: stats.pending || 0,      ...WF_STATUS.pending    },
+        ].map(stat => (
+          <button
+            key={stat.key}
+            onClick={() => setFilterStatus(stat.key)}
+            className={clsx(
+              'rounded-xl p-3 text-center transition-all border',
+              filterStatus === stat.key
+                ? clsx(stat.bg, 'border-current', stat.color, 'shadow-sm ring-1 ring-current/20')
+                : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50'
+            )}
+          >
+            <div className={clsx('text-2xl font-bold', filterStatus === stat.key ? stat.color : 'text-slate-700 dark:text-slate-300')}>
+              {stat.value}
+            </div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{stat.label}</div>
+          </button>
+        ))}
+      </div>
+
+      {/* البحث */}
+      <div className="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+        <div className="relative">
+          <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
+          <input
+            className="input pr-9 text-sm bg-gray-50/50 dark:bg-gray-900 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
+            placeholder="ابحث بعنوان المهمة..."
+            value={search}
+            onChange={e => { setSearch(e.target.value); setPage(1) }}
+          />
+        </div>
+      </div>
+
+      {/* القائمة */}
+      {isLoading ? (
+        <div className="flex items-center justify-center py-12 gap-2 text-slate-400">
+          <Loader2 className="w-5 h-5 animate-spin" />
+          <span className="text-sm">جاري التحميل...</span>
+        </div>
+      ) : filtered.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-16 gap-3">
+          <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+            <GitBranch className="w-7 h-7 text-slate-400" />
+          </div>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            لا توجد مهام بـ Workflow {filterStatus !== 'all' ? `بحالة "${WF_STATUS[filterStatus]?.label}"` : ''}
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {filtered.map(task => (
+            <div  key={task.id}>
+              <WorkflowMonitorCard key={task.id} task={task} />
+            </div>
+            
+          ))}
+        </div>
+      )}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-2 pt-2">
+          <button
+            onClick={() => setPage(p => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            السابق
+          </button>
+          <span className="text-sm text-slate-500 dark:text-slate-400">
+            {page} / {totalPages}
+          </span>
+          <button
+            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            التالي
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\frontend\src\pages\admin\AdminWorkflowTemplatesPage.jsx =====
+// src/pages/admin/AdminWorkflowTemplatesPage.jsx
+import { useState } from 'react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import {
+  GitBranch, Plus, Edit, Trash2, ChevronDown, ChevronRight,
+  ToggleLeft, ToggleRight, Building2, Users, Search,
+  GripVertical, ArrowUp, ArrowDown, X, Loader2, LayoutTemplate
+} from 'lucide-react'
+import toast from 'react-hot-toast'
+import clsx from 'clsx'
+import { workflowTemplatesApi } from '@/api/workflow'
+import { getApiError } from '@/utils/helpers'
+import { PageLoader, Modal } from '@/components/common'
+import PageHeader from '@/components/common/pageheader'
+import { theme } from '@/constants/theme'
+import useAuthStore from '@/stores/authStore'
+import SidebarTree from '@/pages/tasks/TaskDetail/SidebarTree'
+// ══════════════════════════════════════════════════════════════════
+// مودال إنشاء / تعديل القالب
+// ══════════════════════════════════════════════════════════════════
+function TemplateFormModal({ template, onClose }) {
+  
+  const qc = useQueryClient()
+  const isEdit = !!template
+
+  const [showPickerModal, setShowPickerModal] = useState(false);
+  const[stepIndex,setStepIndex]=useState(0)
+
+  const [form, setForm] = useState({
+    name:        template?.name        || '',
+    description: template?.description || '',
+  })
+
+  const [steps, setSteps] = useState(
+    template?.steps?.length
+      ? template.steps.map(s => ({
+          title:                  s.title,
+          description:            s.description || '',
+          step_order:             s.step_order,
+          is_parallel:            s.is_parallel,
+          assigned_department_id: s.assigned_department_id || '',
+          assigned_user_id:       s.assigned_user_id || '',
+        }))
+      : [{ title: '', description: '', step_order: 1, is_parallel: false, assigned_department_id: '', assigned_user_id: '' }]
+  )
+
+  const createMutation = useMutation({
+    mutationFn: (data) => workflowTemplatesApi.create(data),
+    onSuccess: () => {
+      toast.success('تم إنشاء القالب بنجاح')
+      qc.invalidateQueries({ queryKey: ['workflow-templates'] })
+      onClose()
+    },
+    onError: (err) => toast.error(getApiError(err) || 'فشل إنشاء القالب'),
+  })
+
+  const updateMutation = useMutation({
+    mutationFn: (data) => workflowTemplatesApi.update(template.id, data),
+    onSuccess: () => {
+      toast.success('تم تحديث القالب')
+      qc.invalidateQueries({ queryKey: ['workflow-templates'] })
+      onClose()
+    },
+    onError: (err) => toast.error(getApiError(err) || 'فشل تحديث القالب'),
+  })
+
+  const isPending = createMutation.isPending || updateMutation.isPending
+
+  const addStep = () => setSteps(prev => [
+    ...prev,
+    { title: '', description: '', step_order: prev.length + 1, is_parallel: false, assigned_department_id: '', assigned_user_id: '' }
+  ])
+
+  const removeStep = (idx) =>
+    setSteps(prev => prev.filter((_, i) => i !== idx).map((s, i) => ({ ...s, step_order: i + 1 })))
+
+  const updateStep = (idx, field, value) =>
+    setSteps(prev => prev.map((s, i) => i === idx ? { ...s, [field]: value } : s))
+
+  const moveStep = (idx, dir) => {
+    const next = [...steps]
+    const swap = idx + dir
+    if (swap < 0 || swap >= next.length) return
+    ;[next[idx], next[swap]] = [next[swap], next[idx]]
+    setSteps(next.map((s, i) => ({ ...s, step_order: i + 1 })))
+  }
+
+  const handleSubmit = () => {
+    //console.log(assignedTo);
+    
+    if (!form.name.trim()) return toast.error('اسم القالب مطلوب')
+    const invalid = steps.find(s => !s.title.trim() || (!s.assigned_department_id && !s.assigned_user_id))
+    if (invalid) return toast.error('كل خطوة لازم يكون ليها عنوان ومسؤول (إدارة أو موظف)')
+
+    const payload = {
+      ...form,
+      steps: steps.map(s => ({
+        title:                  s.title,
+        description:            s.description || null,
+        step_order:             s.step_order,
+        is_parallel:            s.is_parallel,
+        assigned_department_id: s.assigned_department_id ? parseInt(s.assigned_department_id) : null,
+        assigned_user_id:       s.assigned_user_id       ? parseInt(s.assigned_user_id)       : null,
+      }))
+    }
+
+    isEdit ? updateMutation.mutate(payload) : createMutation.mutate(payload)
+  }
+
+  return (
+    <Modal open="true" onClose={onClose} title={isEdit ? 'تعديل القالب' : 'إنشاء قالب Workflow جديد'} size="lg">
+      <div className="space-y-4">
+
+        {/* معلومات القالب */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className={theme.field.wrapper}>
+            <label className={theme.field.label}>اسم القالب <span className="text-red-500">*</span></label>
+            <input
+              value={form.name}
+              onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
+              placeholder="مثال: دورة الموافقة الإدارية"
+              className={clsx(theme.input.base, 'text-sm')}
+            />
+          </div>
+          <div className={theme.field.wrapper}>
+            <label className={theme.field.label}>الوصف</label>
+            <textarea
+              value={form.description}
+              onChange={e => setForm(p => ({ ...p, description: e.target.value }))}
+              placeholder="وصف مختصر للقالب..."
+              rows={2}
+              className={clsx(theme.input.base, 'text-sm resize-none')}
+            />
+          </div>
+        </div>
+        
+
+        {/* الخطوات */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+              الخطوات ({steps.length})
+            </span>
+            <button
+              onClick={addStep}
+              className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors font-medium"
+            >
+              <Plus className="w-3.5 h-3.5" /> إضافة خطوة
+            </button>
+          </div>
+
+          <div className="space-y-2.5 max-h-[400px] overflow-y-auto pe-1">
+            {steps.map((step, idx) => (
+              <div
+                key={idx}
+                className="border border-slate-200 dark:border-slate-700 rounded-xl p-3 bg-slate-50/50 dark:bg-slate-800/30 space-y-2.5"
+              >
+                {/* رأس الخطوة */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-bold flex items-center justify-center flex-shrink-0">
+                      {idx + 1}
+                    </span>
+                    {step.is_parallel && (
+                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 flex items-center gap-1">
+                        <GitBranch className="w-2.5 h-2.5" /> متوازي
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <button onClick={() => moveStep(idx, -1)} disabled={idx === 0}
+                      className="p-1 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 disabled:opacity-30 transition-colors">
+                      <ArrowUp className="w-3.5 h-3.5" />
+                    </button>
+                    <button onClick={() => moveStep(idx, 1)} disabled={idx === steps.length - 1}
+                      className="p-1 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 disabled:opacity-30 transition-colors">
+                      <ArrowDown className="w-3.5 h-3.5" />
+                    </button>
+                    {steps.length > 1 && (
+                      <button onClick={() => removeStep(idx)}
+                        className="p-1 rounded text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition-colors">
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* بيانات الخطوة */}
+                <input
+                  value={step.title}
+                  onChange={e => updateStep(idx, 'title', e.target.value)}
+                  placeholder="عنوان الخطوة *"
+                  className={clsx(theme.input.base, 'text-sm')}
+                />
+                <input
+                  value={step.description}
+                  onChange={e => updateStep(idx, 'description', e.target.value)}
+                  placeholder="وصف الخطوة (اختياري)"
+                  className={clsx(theme.input.base, 'text-sm')}
+                />
+                <div className="flex gap-2">
+                  <input 
+                      type="hidden" 
+                      name={`steps[${idx}].assigned_id`} 
+                      value={step.assigned_user_id || step.assigned_department_id || ''} 
+                    />
+                  <div className={clsx(
+                      "flex-1 h-9 flex items-center px-3 text-sm rounded-lg border",
+                      "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700",
+                      step.assigned_name ? "text-slate-800 dark:text-slate-200" : "text-slate-400"
+                    )}>
+                      {step.assigned_name || "لم يتم تحديد مسؤول بعد..."}
+                  </div>
+                  
+                  {/* هنا يمكنك وضع زر يفتح "مودال" (Modal) يحتوي على SidebarTree لاختيار الموظف */}
+                  <button 
+                    onClick={() => {setShowPickerModal(true); setStepIndex(idx);}} 
+                    className="h-9 px-3 text-xs bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200"
+                  >
+                    تحديد
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div className={theme.field.wrapper}>
+                    <label className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                      <Building2 className="w-3 h-3" /> ID الإدارة
+                    </label>
+                    <input
+                      type="number"
+                      value={step.assigned_department_id}
+                      onChange={e => updateStep(idx, 'assigned_department_id', e.target.value)}
+                      placeholder="رقم الإدارة"
+                      className={clsx(theme.input.base, 'text-sm')}
+                    />
+                  </div>
+                  <div className={theme.field.wrapper}>
+                    <label className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                      <Users className="w-3 h-3" /> ID الموظف
+                    </label>
+                    <input
+                      type="number"
+                      value={step.assigned_user_id}
+                      onChange={e => updateStep(idx, 'assigned_user_id', e.target.value)}
+                      placeholder="رقم الموظف"
+                      className={clsx(theme.input.base, 'text-sm')}
+                    />
+                  </div>
+                </div>
+
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={step.is_parallel}
+                    onChange={e => updateStep(idx, 'is_parallel', e.target.checked)}
+                    className="rounded border-slate-300 dark:border-slate-600 text-primary-600"
+                  />
+                  <span className="text-xs text-slate-600 dark:text-slate-400">
+                    تنفيذ بالتوازي مع الخطوة السابقة (نفس الـ order)
+                  </span>
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className={theme.form.footer}>
+        <button
+          onClick={onClose}
+          className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+        >
+          إلغاء
+        </button>
+        <button
+          onClick={handleSubmit}
+          disabled={isPending}
+          className="px-5 py-2 rounded-xl bg-primary-600 hover:bg-primary-700 disabled:opacity-50 text-white text-sm font-medium transition-colors flex items-center gap-2"
+        >
+          {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
+          {isEdit ? 'حفظ التعديلات' : 'إنشاء القالب'}
+        </button>
+      </div>
+      {showPickerModal &&(
+                <Modal 
+                  open={showPickerModal} 
+                  onClose={() => setShowPickerModal(false)} 
+                  title="اختر المسؤول عن هذه الخطوة"
+                  size="md"
+                >
+                  <div className="h-[400px] overflow-y-auto">
+                    <SidebarTree 
+                      onSelectNode={(node) => {
+                        const isEmployee = !!node.full_name;
+                        const update = {
+                          assigned_department_id: isEmployee ? '' : node.id,
+                          assigned_user_id:       isEmployee ? node.id : '',
+                          assigned_name:          node.full_name || node.name
+                        };
+                        
+                        // تحديث الخطوة المختارة فقط
+                        setSteps(prev => prev.map((s, i) => i === stepIndex ? { ...s, ...update } : s));
+                        setShowPickerModal(false);
+                      }} 
+                    />
+                  </div>
+                </Modal>
+            )}
+    </Modal>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════
+// بطاقة قالب واحد
+// ══════════════════════════════════════════════════════════════════
+function TemplateCard({ template, onEdit, onToggle, onDelete }) {
+  const [expanded, setExpanded] = useState(false)
+
+  const statusColors = {
+    true:  'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800',
+    false: 'bg-slate-50 dark:bg-slate-800 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-700',
+  }
+
+  return (
+    <div className={clsx(
+      'border rounded-2xl transition-all duration-200 overflow-hidden',
+      template.is_active
+        ? 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50'
+        : 'border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 opacity-70'
+    )}>
+      {/* رأس البطاقة */}
+      <div className="p-4 flex items-start gap-3">
+        {/* أيقونة */}
+        <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center flex-shrink-0">
+          <LayoutTemplate className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+        </div>
+
+        {/* المعلومات */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">
+              {template.name}
+            </h3>
+            <span className={clsx('text-[10px] font-medium px-2 py-0.5 rounded-full border', statusColors[template.is_active])}>
+              {template.is_active ? 'نشط' : 'معطل'}
+            </span>
+          </div>
+          {template.description && (
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">{template.description}</p>
+          )}
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+            {template.steps?.length || 0} خطوة
+          </p>
+        </div>
+
+        {/* الأزرار */}
+        <div className="flex items-center gap-1 flex-shrink-0">
+          <button
+            onClick={() => setExpanded(p => !p)}
+            className="p-2 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+            title="عرض الخطوات"
+          >
+            {expanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+          </button>
+          <button
+            onClick={() => onEdit(template)}
+            className="p-2 rounded-lg text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+            title="تعديل"
+          >
+            <Edit className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => onToggle(template)}
+            className={clsx(
+              'p-2 rounded-lg transition-colors',
+              template.is_active
+                ? 'text-green-500 hover:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700'
+                : 'text-slate-400 hover:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20'
+            )}
+            title={template.is_active ? 'تعطيل' : 'تفعيل'}
+          >
+            {template.is_active
+              ? <ToggleRight className="w-4 h-4" />
+              : <ToggleLeft  className="w-4 h-4" />}
+          </button>
+          <button
+            onClick={() => onDelete(template)}
+            className="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+            title="حذف"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* خطوات القالب (قابلة للطي) */}
+      {expanded && template.steps?.length > 0 && (
+        <div className="border-t border-slate-100 dark:border-slate-700 px-4 py-3 space-y-2">
+          {template.steps.map((step, idx) => (
+            <div key={step.id} className="flex items-start gap-3">
+              {/* رقم + خط */}
+              <div className="flex flex-col items-center gap-1 flex-shrink-0">
+                <div className={clsx(
+                  'w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold',
+                  step.is_parallel
+                    ? 'bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400'
+                    : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400'
+                )}>
+                  {step.step_order}
+                </div>
+                {idx < template.steps.length - 1 && (
+                  <div className="w-px h-3 bg-slate-200 dark:bg-slate-700" />
+                )}
+              </div>
+
+              {/* محتوى */}
+              <div className="flex-1 pb-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{step.title}</span>
+                  {step.is_parallel && (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-500 flex items-center gap-1">
+                      <GitBranch className="w-2.5 h-2.5" /> متوازي
+                    </span>
+                  )}
+                </div>
+                <div className="flex gap-3 mt-0.5">
+                  {step.assigned_department_id && (
+                    <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                      <Building2 className="w-3 h-3" /> إدارة #{step.assigned_department_id}
+                    </span>
+                  )}
+                  {step.assigned_user_id && (
+                    <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                      <Users className="w-3 h-3" /> موظف #{step.assigned_user_id}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════
+// الصفحة الرئيسية
+// ══════════════════════════════════════════════════════════════════
+export default function AdminWorkflowTemplatesPage() {
+  const { isAdmin, isPM } = useAuthStore()
+  const qc = useQueryClient()
+  const [showModal, setShowModal]       = useState(false)
+  const [editTemplate, setEditTemplate] = useState(null)
+  const [search, setSearch]             = useState('')
+  const [filterActive, setFilterActive] = useState(null)
+  const [confirmDelete, setConfirmDelete] = useState(null)
+
+  const { data: templates = [], isLoading } = useQuery({
+    queryKey: ['workflow-templates'],
+    queryFn: () => workflowTemplatesApi.list().then(r => r.data),
+  })
+
+  const toggleMutation = useMutation({
+    mutationFn: ({ id, is_active }) => workflowTemplatesApi.update(id, { is_active }),
+    onSuccess: (_, vars) => {
+      toast.success(vars.is_active ? 'تم تفعيل القالب' : 'تم تعطيل القالب')
+      qc.invalidateQueries({ queryKey: ['workflow-templates'] })
+    },
+    onError: (err) => toast.error(getApiError(err)),
+  })
+
+  // فلترة محلية
+  const filtered = templates.filter(t => {
+    const matchSearch = !search || t.name.toLowerCase().includes(search.toLowerCase())
+    const matchActive = filterActive === null || t.is_active === filterActive
+    return matchSearch && matchActive
+  })
+
+  const activeCount   = templates.filter(t => t.is_active).length
+  const inactiveCount = templates.length - activeCount
+
+  if (isLoading) return <PageLoader />
+
+  return (
+    <div className="space-y-5 text-right" dir="rtl">
+      {/* الترويسة */}
+      <PageHeader title="قوالب الـ Workflow" icon={LayoutTemplate}>
+        <button
+          onClick={() => { setEditTemplate(null); setShowModal(true) }}
+          className="btn-primary w-full sm:w-auto justify-center"
+        >
+          <Plus className="w-4 h-4" />
+          <span>قالب جديد</span>
+        </button>
+      </PageHeader>
+
+      {/* إحصائيات سريعة */}
+      <div className="grid grid-cols-3 gap-3">
+        {[
+          { label: 'إجمالي القوالب', value: templates.length, color: 'text-slate-700 dark:text-slate-300', bg: 'bg-slate-100 dark:bg-slate-800' },
+          { label: 'نشطة',           value: activeCount,       color: 'text-green-700 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20' },
+          { label: 'معطلة',          value: inactiveCount,     color: 'text-slate-400 dark:text-slate-500', bg: 'bg-slate-50 dark:bg-slate-800/50' },
+        ].map(stat => (
+          <div key={stat.label} className={clsx('rounded-xl p-3 text-center', stat.bg)}>
+            <div className={clsx('text-2xl font-bold', stat.color)}>{stat.value}</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* البحث والفلترة */}
+      <div className="flex flex-col gap-3 bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+        <div className="relative">
+          <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
+          <input
+            className="input pr-9 text-sm bg-gray-50/50 dark:bg-gray-900 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
+            placeholder="ابحث باسم القالب..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center gap-1.5">
+          {[
+            { label: 'الكل',    value: null  },
+            { label: 'النشطة',  value: true  },
+            { label: 'المعطلة', value: false },
+          ].map(tab => (
+            <button
+              key={String(tab.value)}
+              onClick={() => setFilterActive(tab.value)}
+              className={clsx(
+                'px-3.5 py-1.5 text-xs font-semibold rounded-lg border whitespace-nowrap transition-all duration-150',
+                filterActive === tab.value
+                  ? 'bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 border-primary-200 dark:border-primary-900 shadow-sm'
+                  : 'bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800'
+              )}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* القائمة */}
+      {filtered.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-16 gap-3">
+          <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+            <LayoutTemplate className="w-7 h-7 text-slate-400" />
+          </div>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            {search ? 'لا توجد نتائج للبحث' : 'لا توجد قوالب بعد'}
+          </p>
+          {!search && (
+            <button
+              onClick={() => setShowModal(true)}
+              className="text-sm text-primary-600 dark:text-primary-400 hover:underline"
+            >
+              أنشئ أول قالب الآن
+            </button>
+          )}
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {filtered.map(template => (
+            <TemplateCard
+              key={template.id}
+              template={template}
+              onEdit={(t) => { setEditTemplate(t); setShowModal(true) }}
+              onToggle={(t) => toggleMutation.mutate({ id: t.id, is_active: !t.is_active })}
+              onDelete={(t) => setConfirmDelete(t)}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* مودال الإنشاء / التعديل */}
+      {showModal && (
+        <TemplateFormModal
+          template={editTemplate}
+          onClose={() => { setShowModal(false); setEditTemplate(null) }}
+        />
+      )}
+
+      {/* تأكيد الحذف */}
+      {confirmDelete && (
+        <Modal onClose={() => setConfirmDelete(null)} title="تأكيد الحذف">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+            هل تريد حذف قالب <span className="font-semibold text-slate-800 dark:text-slate-200">"{confirmDelete.name}"</span> نهائياً؟
+            <br />
+            <span className="text-xs text-red-500 mt-1 block">لا يمكن التراجع عن هذا الإجراء.</span>
+          </p>
+          <div className={theme.form.footer}>
+            <button
+              onClick={() => setConfirmDelete(null)}
+              className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            >
+              إلغاء
+            </button>
+            <button
+              onClick={() => {
+                // اضف deleteTemplate للـ API لو محتاجه
+                toast.error('حذف القوالب غير مدعوم — عطّل القالب بدلاً من ذلك')
+                setConfirmDelete(null)
+              }}
+              className="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-medium transition-colors"
+            >
+              حذف
+            </button>
+          </div>
+        </Modal>
+      )}
+    </div>
+  )
+}
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\frontend\src\api\workflow.js =====
+// src/api/workflow.js
+// أضف هذا في api/index.js أو استورده من هنا مباشرة
+
+import api from '@/api'
+
+// ── Workflow Templates ────────────────────────────────────────────
+export const workflowTemplatesApi = {
+  list: ()                    => api.get('/workflow/templates'),
+  create: (data)              => api.post('/workflow/templates', data),
+  update: (id, data)          => api.patch(`/workflow/templates/${id}`, data),
+  addStep: (id, data)         => api.post(`/workflow/templates/${id}/steps`, data),
+}
+
+// ── Task Workflow ─────────────────────────────────────────────────
+export const workflowApi = {
+  // جلب workflow المهمة
+  getByTask: (taskId)         => api.get(`/workflow/tasks/${taskId}`),
+
+  // إنشاء workflow (من قالب أو خطوات مخصصة)
+  create: (taskId, data)      => api.post(`/workflow/tasks/${taskId}`, data),
+
+  // إنهاء خطوة
+  completeStep: (stepId, notes) =>
+    api.post(`/workflow/steps/${stepId}/complete`, { notes }),
+
+  // تعديل خطوة
+  updateStep: (stepId, data)  => api.patch(`/workflow/steps/${stepId}`, data),
+
+  // حذف خطوة
+  deleteStep: (stepId)        => api.delete(`/workflow/steps/${stepId}`),
+}
+
+
+===== Src: C:\Users\sinaiwater\Desktop\Docker\frontend\package.json =====
+{
+  "name": "corporate-task-management-frontend",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .js,.jsx"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.1.0",
+    "@hookform/resolvers": "^3.6.0",
+    "@radix-ui/react-popover": "^1.1.15",
+    "@tanstack/react-query": "^5.40.0",
+    "axios": "^1.7.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "file-saver": "^2.0.5",
+    "idb": "^8.0.3",
+    "lucide-react": "^0.383.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-hook-form": "^7.51.0",
+    "react-hot-toast": "^2.4.1",
+    "react-router-dom": "^6.23.0",
+    "reactflow": "^11.11.4",
+    "recharts": "^2.12.0",
+    "zod": "^3.23.0",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.0",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^3.4.19",
+    "vite": "^5.2.0"
+  }
+}
+

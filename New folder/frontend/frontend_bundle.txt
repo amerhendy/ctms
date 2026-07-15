@@ -1,0 +1,2078 @@
+
+
+===== constants\theme.js =====
+/**
+ * ============================================================================
+ *  theme.js — Enterprise Dashboard Design System
+ * ============================================================================
+ *  نظام تصميم موحّد لمشروع React + Tailwind CSS
+ *  يدعم: الوضع الداكن (Dark Mode) عبر كلاس "dark" على <html>
+ *  يعتمد على: clsx لدمج الكلاسات بشكل نظيف وآمن
+ *
+ *  طريقة الاستخدام:
+ *    import { theme } from './utils/theme';
+ *    import clsx from 'clsx';
+ *    <input className={clsx(theme.input.base, errors.title && theme.input.error)} />
+ * ============================================================================
+ */
+
+import clsx from 'clsx';
+
+/* ============================================================================
+ * 1) TOKENS — الألوان / التايبوجرافي / المسافات / الظلال / الحدود
+ * ============================================================================
+ * هذه القيم الخام (Design Tokens) المستخدمة في بناء بقية الكائنات بالأسفل.
+ * عدّل هنا فقط إذا أردت تغيير هوية الموقع البصرية بالكامل.
+ */
+
+export const tokens = {
+  // ألوان العلامة الأساسية (Brand / Primary)
+  colors: {
+    primary: {
+      50: '#eff6ff',
+      100: '#dbeafe',
+      200: '#bfdbfe',
+      300: '#93c5fd',
+      400: '#60a5fa',
+      500: '#3b82f6',
+      600: '#2563eb',
+      700: '#1d4ed8',
+      800: '#1e40af',
+      900: '#1e3a8a',
+    },
+    // ألوان الحالة (Success / Warning / Danger / Info)
+    success: { light: '#22c55e', dark: '#4ade80' },
+    warning: { light: '#f59e0b', dark: '#fbbf24' },
+    danger: { light: '#ef4444', dark: '#f87171' },
+    info: { light: '#06b6d4', dark: '#22d3ee' },
+  },
+
+  // التايبوجرافي (الخطوط والأحجام)
+  typography: {
+    fontFamily: 'font-sans', // اربطها بخط عربي مثل "Tajawal" أو "Cairo" في tailwind.config.js
+    sizes: {
+      xs: 'text-xs',
+      sm: 'text-sm',
+      base: 'text-base',
+      lg: 'text-lg',
+      xl: 'text-xl',
+      '2xl': 'text-2xl',
+      '3xl': 'text-3xl',
+    },
+    weights: {
+      normal: 'font-normal',
+      medium: 'font-medium',
+      semibold: 'font-semibold',
+      bold: 'font-bold',
+    },
+  },
+
+  // المسافات الموحدة (Spacing Scale)
+  spacing: {
+    fieldGap: 'space-y-1.5', // المسافة بين label و input ورسالة الخطأ
+    sectionGap: 'space-y-6', // المسافة بين أقسام النموذج
+    cardPadding: 'p-5 md:p-6',
+    inputPaddingY: 'py-2.5',
+    inputPaddingX: 'px-3.5',
+  },
+
+  // نصف القطر والظلال (Radius / Shadow)
+  radius: {
+    sm: 'rounded-md',
+    md: 'rounded-lg',
+    lg: 'rounded-xl',
+    full: 'rounded-full',
+  },
+  shadow: {
+    sm: 'shadow-sm',
+    md: 'shadow-md dark:shadow-black/30',
+    lg: 'shadow-lg dark:shadow-black/40',
+  },
+
+  // مدة الانتقالات (Transitions)
+  transition: 'transition-all duration-150 ease-in-out',
+};
+
+/* ============================================================================
+ * 2) HELPERS — أنماط مشتركة تُستخدم داخل عدة مكونات لتجنب التكرار
+ * ============================================================================
+ */
+
+// الحلقة الموحّدة عند التركيز (Focus Ring) لكل عناصر الإدخال
+const focusRing =
+  'focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 dark:focus:ring-primary-400/40 dark:focus:border-primary-400';
+
+// الخلفية والحدود الأساسية المشتركة لحقول الإدخال في الوضعين
+const fieldSurface =
+  'bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500';
+
+/* ============================================================================
+ * 3) THEME OBJECT — الكائن الرئيسي المُصدَّر
+ * ============================================================================
+ */
+
+export const theme = {
+  
+  
+  /* ---------------------------------------------------------------------
+   * 3.1) النصوص العامة (Typography helpers جاهزة للاستخدام في الصفحات)
+   * --------------------------------------------------------------------- */
+  text: {
+    pageTitle: clsx('text-2xl font-bold text-slate-900 dark:text-white'),
+    sectionTitle: clsx('text-lg font-semibold text-slate-800 dark:text-slate-100'),
+    label: clsx('block text-sm font-medium text-slate-700 dark:text-slate-300'),
+    helper: clsx('text-xs text-slate-500 dark:text-slate-400'),
+    error: clsx('text-xs font-medium text-red-600 dark:text-red-400'),
+    muted: clsx('text-sm text-slate-500 dark:text-slate-400'),
+  },
+  field: {
+    wrapper: clsx('w-full flex flex-col', tokens.spacing.fieldGap),
+    label: clsx('block text-sm font-medium text-slate-700 dark:text-slate-300'),
+    error: clsx('text-xs font-medium text-red-600 dark:text-red-400'),
+  },
+  /* ---------------------------------------------------------------------
+   * 3.2) Input — حقول نصية / أرقام / إيميل / تاريخ
+   * --------------------------------------------------------------------- */
+  input: {
+    // التنسيق الأساسي (Default state) يُستخدم كقاعدة لكل الحقول
+    base: clsx(
+      'w-full',
+      tokens.spacing.inputPaddingX,
+      tokens.spacing.inputPaddingY,
+      tokens.radius.sm,
+      'text-sm',
+      fieldSurface,
+      tokens.transition,
+      focusRing
+    ),
+    time: clsx(
+      "w-full border rounded-lg p-2 text-sm transition-all focus:outline-none",
+      "bg-white border-slate-200 text-slate-900 focus:border-primary-600",
+      "dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:focus:border-primary-500 dark:[color-scheme:dark]"
+    ),
+    // حالة الخطأ — تُدمج فوق base عند وجود error
+    error: clsx(
+      'border-red-500 dark:border-red-500',
+      'focus:ring-red-500/40 focus:border-red-500',
+      'dark:focus:ring-red-500/30'
+    ),
+    // حالة التعطيل
+    disabled: clsx(
+      'opacity-60 cursor-not-allowed bg-slate-100 dark:bg-slate-800',
+      'text-slate-400 dark:text-slate-500'
+    ),
+    // حالة القراءة فقط (مختلفة عن disabled بصرياً: بلا تعتيم كامل)
+    readOnly: clsx(
+      'bg-slate-50 dark:bg-slate-800/60 cursor-default',
+      'text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700'
+    ),
+    // تنسيق مخصص لحقول التاريخ والوقت (date / datetime-local)
+    // لإصلاح لون أيقونة التقويم في الوضع الداكن
+    dateTime: clsx('[color-scheme:light] dark:[color-scheme:dark]'),
+    // حاوية الحقل مع أيقونة (مثال: أيقونة بحث أو عملة داخل الحقل)
+    withIconWrapper: clsx('relative'),
+    withIcon: "w-full ps-10 pe-4 py-2 border rounded-lg transition-all text-sm focus:outline-none bg-white border-slate-200 text-slate-900 focus:border-primary-600 dark:bg-slate-900 dark:border-slate-700 dark:text-white dark:placeholder-slate-600 dark:focus:border-primary-500",
+    icon: clsx(
+      'absolute top-1/2 -translate-y-1/2 left-3 rtl:left-auto rtl:right-3',
+      'text-slate-400 dark:text-slate-500 pointer-events-none'
+    ),
+    iconPaddingStart: clsx('ps-10'), // استخدمها مع base عند وجود أيقونة بداية الحقل
+  },
+  form: {
+    footer: "flex justify-end gap-2 border-t border-slate-200 dark:border-slate-700 pt-4 mt-6"
+  },
+  /* ---------------------------------------------------------------------
+   * 3.3) Select — قائمة منسدلة عادية + Multi-select مع badges
+   * --------------------------------------------------------------------- */
+  select: {
+    base: clsx(
+      'w-full appearance-none',
+      tokens.spacing.inputPaddingX,
+      tokens.spacing.inputPaddingY,
+      'pe-9', // مساحة لسهم القائمة
+      tokens.radius.sm,
+      'text-sm cursor-pointer',
+      fieldSurface,
+      tokens.transition,
+      focusRing
+    ),
+    error: clsx('border-red-500 dark:border-red-500 focus:ring-red-500/40'),
+    disabled: clsx('opacity-60 cursor-not-allowed bg-slate-100 dark:bg-slate-800'),
+    // أيقونة السهم (توضع داخل wrapper مع position: relative)
+    chevron: clsx(
+      'absolute top-1/2 -translate-y-1/2 end-3 pointer-events-none',
+      'text-slate-400 dark:text-slate-500'
+    ),
+    wrapper: clsx('relative'),
+
+    // ----- Multi-select مع badges (يُستخدم غالباً مع مكتبة مثل react-select أو حل مخصص) -----
+    multi: {
+      // الحاوية الخارجية التي تحتضن البادجات + input البحث
+      container: clsx(
+        'w-full min-h-[42px] flex flex-wrap items-center gap-1.5',
+        tokens.spacing.inputPaddingX,
+        'py-1.5',
+        tokens.radius.sm,
+        fieldSurface,
+        tokens.transition,
+        'focus-within:ring-2 focus-within:ring-primary-500/50 focus-within:border-primary-500',
+        'dark:focus-within:ring-primary-400/40'
+      ),
+      // شكل البادج الواحد (العنصر المختار)
+      badge: clsx(
+        'inline-flex items-center gap-1 ps-2.5 pe-1.5 py-1 text-xs font-medium',
+        tokens.radius.full,
+        'bg-primary-50 text-primary-700 dark:bg-primary-500/15 dark:text-primary-300'
+      ),
+      badgeRemoveBtn: clsx(
+        'hover:bg-primary-100 dark:hover:bg-primary-500/25 rounded-full p-0.5',
+        tokens.transition
+      ),
+      // حقل البحث الداخلي الصغير داخل الحاوية
+      searchInput: clsx(
+        'flex-1 min-w-[80px] bg-transparent border-none outline-none text-sm',
+        'text-slate-900 dark:text-slate-100 placeholder:text-slate-400'
+      ),
+      // قائمة الخيارات المنسدلة (Dropdown panel)
+      panel: clsx(
+        'absolute z-20 mt-1 w-full max-h-60 overflow-auto',
+        tokens.radius.sm,
+        tokens.shadow.lg,
+        'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700'
+      ),
+      option: clsx(
+        'px-3.5 py-2 text-sm cursor-pointer text-slate-700 dark:text-slate-200',
+        'hover:bg-slate-50 dark:hover:bg-slate-800'
+      ),
+      optionSelected: clsx('bg-primary-50 dark:bg-primary-500/10 font-medium'),
+    },
+  },
+
+  /* ---------------------------------------------------------------------
+   * 3.4) Textarea — قابلة للتمدد أو ثابتة الحجم
+   * --------------------------------------------------------------------- */
+  textarea: {
+    base: clsx(
+      'w-full',
+      tokens.spacing.inputPaddingX,
+      tokens.spacing.inputPaddingY,
+      tokens.radius.sm,
+      'text-sm leading-relaxed',
+      fieldSurface,
+      tokens.transition,
+      focusRing
+    ),
+    resizable: clsx('resize-y min-h-[100px]'),
+    fixed: clsx('resize-none h-32'),
+    error: clsx('border-red-500 dark:border-red-500 focus:ring-red-500/40'),
+    disabled: clsx('opacity-60 cursor-not-allowed bg-slate-100 dark:bg-slate-800'),
+    // عداد الأحرف الاختياري أسفل الحقل
+    counter: clsx('text-xs text-slate-400 dark:text-slate-500 text-end mt-1'),
+  },
+
+  /* ---------------------------------------------------------------------
+   * 3.5) Checkbox & Radio — تنسيقات مخصصة بديلة عن الافتراضي
+   * --------------------------------------------------------------------- */
+  checkboxCard: {
+    base: "flex items-center gap-3 p-3 rounded-xl border select-none cursor-pointer transition-all bg-white border-slate-200 hover:bg-slate-50 dark:bg-slate-800/50 dark:border-slate-700 dark:hover:bg-slate-800",
+    title: "font-semibold text-slate-900 dark:text-slate-100",
+    description: "text-slate-500 dark:text-slate-400"
+  },
+  checkbox: {
+    base: "w-4 h-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500 transition-all dark:border-slate-600 dark:bg-slate-900",
+    wrapper: clsx('flex items-center gap-2 cursor-pointer select-none'),
+    input: clsx(
+      'h-4 w-4 rounded border-slate-300 dark:border-slate-600',
+      'text-primary-600 dark:text-primary-500',
+      'bg-white dark:bg-slate-800',
+      'focus:ring-2 focus:ring-primary-500/40 focus:ring-offset-0',
+      'dark:focus:ring-primary-400/30',
+      'cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed'
+    ),
+    label: clsx('text-sm text-slate-700 dark:text-slate-300'),
+    error: clsx('border-red-500 dark:border-red-500'),
+  },
+
+  radio: {
+    wrapper: clsx('flex items-center gap-2 cursor-pointer select-none'),
+    input: clsx(
+      'h-4 w-4 border-slate-300 dark:border-slate-600',
+      'text-primary-600 dark:text-primary-500',
+      'bg-white dark:bg-slate-800',
+      'focus:ring-2 focus:ring-primary-500/40',
+      'dark:focus:ring-primary-400/30',
+      'cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed'
+      // ملاحظة: shape دائري يأتي تلقائياً من type="radio" في Tailwind forms plugin
+    ),
+    label: clsx('text-sm text-slate-700 dark:text-slate-300'),
+  },
+
+  /* ---------------------------------------------------------------------
+   * 3.6) Toggle Switch — مفتاح التبديل (On / Off)
+   * --------------------------------------------------------------------- */
+  toggle: {
+      base: "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none overflow-hidden",
+      active: "bg-primary-600 dark:bg-primary-500",
+      inactive: "bg-slate-200 dark:bg-slate-700",
+      disabled: "opacity-50 cursor-not-allowed",
+      thumb: "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+    },
+  switch: {
+    // الحاوية الخارجية (label) — استخدم state عبر aria أو data attribute في الكومبوننت
+    wrapper: clsx('inline-flex items-center gap-2.5 cursor-pointer select-none'),
+    // المسار (Track) — مرر شرط checked/unchecked من الكومبوننت عبر clsx خارجياً
+    track: {
+      base: clsx(
+        'relative inline-flex h-6 w-11 items-center rounded-full',
+        tokens.transition,
+        'focus-within:ring-2 focus-within:ring-primary-500/40'
+      ),
+      on: clsx('bg-primary-600 dark:bg-primary-500'),
+      off: clsx('bg-slate-300 dark:bg-slate-700'),
+      disabled: clsx('opacity-50 cursor-not-allowed'),
+    },
+    // الدائرة المتحركة (Thumb)
+    thumb: {
+      base: clsx(
+        'inline-block h-4.5 w-4.5 transform rounded-full bg-white shadow',
+        tokens.transition
+      ),
+      on: clsx('translate-x-6 rtl:-translate-x-6'),
+      off: clsx('translate-x-1 rtl:-translate-x-1'),
+    },
+    label: clsx('text-sm text-slate-700 dark:text-slate-300'),
+  },
+
+  /* ---------------------------------------------------------------------
+   * 3.7) File Dropzone — حاوية رفع الملفات بحدود متقطعة
+   * --------------------------------------------------------------------- */
+  dropzone: {
+    base: clsx(
+      'flex flex-col items-center justify-center text-center',
+      'border-2 border-dashed rounded-lg',
+      'border-slate-300 dark:border-slate-700',
+      'bg-slate-50/50 dark:bg-slate-900/40',
+      'px-6 py-10',
+      tokens.transition,
+      'cursor-pointer'
+    ),
+    // حالة السحب فوق المنطقة (Drag-over)
+    active: clsx('border-primary-500 bg-primary-50 dark:bg-primary-500/10'),
+    error: clsx('border-red-400 bg-red-50/50 dark:bg-red-500/10'),
+    disabled: clsx('opacity-50 cursor-not-allowed'),
+    icon: clsx('h-9 w-9 text-slate-400 dark:text-slate-500 mb-2'),
+    title: clsx('text-sm font-medium text-slate-700 dark:text-slate-300'),
+    subtitle: clsx('text-xs text-slate-400 dark:text-slate-500 mt-1'),
+    // قائمة الملفات المرفوعة (preview list)
+    fileItem: clsx(
+      'flex items-center justify-between gap-3 px-3 py-2 mt-2 rounded-md',
+      'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm'
+    ),
+    fileRemoveBtn: clsx(
+      'text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400',
+      tokens.transition
+    ),
+  },
+
+  /* ---------------------------------------------------------------------
+   * 3.8) Rich Text Wrapper — حاوية محرر نصوص غني (مثل Tiptap / Quill)
+   * --------------------------------------------------------------------- */
+  richText: {
+    wrapper: clsx(
+      tokens.radius.sm,
+      'border border-slate-300 dark:border-slate-700 overflow-hidden',
+      'focus-within:ring-2 focus-within:ring-primary-500/50 focus-within:border-primary-500',
+      tokens.transition
+    ),
+    toolbar: clsx(
+      'flex flex-wrap items-center gap-1 px-2 py-1.5',
+      'bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700'
+    ),
+    toolbarBtn: clsx(
+      'h-8 w-8 inline-flex items-center justify-center rounded',
+      'text-slate-600 dark:text-slate-300',
+      'hover:bg-slate-200 dark:hover:bg-slate-700',
+      tokens.transition
+    ),
+    toolbarBtnActive: clsx('bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-300'),
+    editor: clsx(
+      'min-h-[160px] px-4 py-3 text-sm leading-relaxed',
+      'bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100',
+      'prose prose-sm dark:prose-invert max-w-none focus:outline-none'
+    ),
+    error: clsx('border-red-500 dark:border-red-500'),
+  },
+kanban: {
+  column: {
+    container: "flex-shrink-0 w-72 rounded-xl p-3 h-full flex flex-col border min-h-[500px] transition-all",
+    header: "font-bold p-2 text-slate-700 dark:text-slate-200 capitalize flex items-center justify-between",
+    list: "flex-1 overflow-y-auto space-y-3 pt-2 scrollbar-hide",
+    backlog: { border: "border-t-slate-400", bg: "bg-slate-50" },
+    
+    review: { border: "border-t-purple-500", bg: "bg-purple-50/50" },
+    done: { border: "border-t-emerald-500", bg: "bg-emerald-50/50" },
+    pending:      { border: "border-l-4 border-l-pink-500", bg: "bg-pink-500", hover:"hover:bg-rose-500 hover:border-l-4 hover: border-l-pink-900" },
+    in_progress:  { border: "border-l-4 border-l-teal-500", bg: "bg-teal-500", hover:"hover:bg-cyan-500" },
+    completed:    { border: "border-l-4 border-l-emerald-500", bg: "bg-emerald-500", hover:"hover:bg-emerald-900" },
+    skipped:      { border: "border-l-4 border-l-amber-500 border-t-amber-500", bg: "bg-amber-500", hover:"hover:bg-amber-900" },
+
+  }
+},
+  /* ---------------------------------------------------------------------
+   * 3.9) Button — موحّد لكل الأزرار (مفيد لتطابق التصميم مع النماذج)
+   * --------------------------------------------------------------------- */
+  
+  button: {
+    base: clsx(
+      'inline-flex items-center justify-center gap-2',
+      'px-4 py-2.5 text-sm font-medium',
+      tokens.radius.sm,
+      tokens.transition,
+      'focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900',
+      'disabled:opacity-50 disabled:cursor-not-allowed'
+    ),
+    primary: clsx(
+      'bg-primary-600 text-white hover:bg-primary-700',
+      'focus:ring-primary-500 dark:bg-primary-500 dark:hover:bg-primary-600'
+    ),
+    secondary: clsx(
+      'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50',
+      'dark:bg-slate-800 dark:text-slate-200 dark:border-slate-600 dark:hover:bg-slate-700',
+      'focus:ring-slate-400'
+    ),
+    danger: clsx(
+      'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+      'dark:bg-red-500 dark:hover:bg-red-600'
+    ),
+    ghost: clsx(
+      'bg-transparent text-slate-600 hover:bg-slate-100',
+      'dark:text-slate-300 dark:hover:bg-slate-800 focus:ring-slate-400'
+    ),
+    icon: "w-3.5 h-3.5",
+    iconAction: "p-2 rounded-lg transition-all duration-200 text-primary-600 hover:bg-primary-50 dark:text-primary-400 dark:hover:bg-primary-950/40",
+    iconAbsolute: "absolute start-auto end-2 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-primary-600 transition-colors",
+    iconHint: "text-slate-400 hover:text-primary-600 transition-colors",
+    selectTrigger: "w-full ps-10 pe-3 py-2 border rounded-lg shadow-sm flex items-center justify-between text-sm transition-all bg-white border-slate-300 hover:bg-slate-50 text-slate-900 dark:bg-slate-900 dark:border-slate-700 dark:hover:bg-slate-800 dark:text-white",
+    ghostAction: "text-[10px] text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400 underline mt-1 block w-fit ms-auto",
+    variants: {
+      primary: "text-primary-600 hover:bg-primary-50 dark:text-primary-400 dark:hover:bg-primary-950/40",
+      blue: "text-blue-500 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-950/40",
+      danger: "text-red-500 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/40"
+    },
+  },
+
+  /* ---------------------------------------------------------------------
+   * 3.10) Card — حاوية المحتوى الأساسية في لوحة التحكم
+   * --------------------------------------------------------------------- */
+  card: {
+    base: clsx(
+      'bg-white dark:bg-slate-900',
+      'border border-slate-200 dark:border-slate-800',
+      tokens.radius.md,
+      tokens.shadow.sm,
+      tokens.spacing.cardPadding
+    ),
+    header: clsx(
+      'flex items-center justify-between pb-4 mb-4',
+      'border-b border-slate-100 dark:border-slate-800'
+    ),
+  },
+
+  /* ---------------------------------------------------------------------
+   * 3.11) Badge — وسوم الحالة (مفيدة لعرض حالة المهام/الأدوار الوظيفية)
+   * --------------------------------------------------------------------- */
+  badge: {
+    base: clsx(
+      'inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium',
+      tokens.radius.full
+    ),
+    success: clsx('bg-green-50 text-green-700 dark:bg-green-500/15 dark:text-green-400'),
+    warning: clsx('bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400'),
+    danger: clsx('bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-400'),
+    info: clsx('bg-sky-50 text-sky-700 dark:bg-sky-500/15 dark:text-sky-400'),
+    neutral: clsx('bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'),
+    action: "text-[10px] px-2 py-0.5 rounded-md font-semibold shrink-0 ms-1 border text-primary-600 bg-primary-50 border-primary-100 dark:text-primary-400 dark:bg-primary-950/50 dark:border-primary-900/50"
+  },
+  status: {
+    toggle: {
+      base: "flex items-center gap-1.5 text-xs font-semibold transition-colors",
+      active: "text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300",
+      inactive: "text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400"
+    },
+    variants: {
+      completed: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-400",
+      pending: "bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-400",
+      overdue: "bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-400",
+      active: "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-400",
+      default: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-400"
+    },
+  },
+  pagination: {
+    container: "flex items-center justify-between p-4 bg-slate-50 border-t border-slate-100 text-xs sm:text-sm dark:bg-slate-900 dark:border-slate-800",
+    button: "flex items-center gap-1 px-3 py-1.5 bg-white border border-slate-200 rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 text-slate-700 font-medium dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700",
+    info: "text-slate-500 font-semibold dark:text-slate-400"
+  },
+  modal: {
+    footer: "mt-5 pt-3 border-t border-slate-100 dark:border-slate-800"
+  },
+  tabs: {
+    filter: {
+      base: "px-3.5 py-1.5 text-xs font-semibold rounded-lg border whitespace-nowrap transition-all duration-150",
+      inactive: "bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800",
+      active: "bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 border-primary-200 dark:border-primary-900 shadow-sm"
+    },
+    base: "px-4 py-2 text-sm font-medium transition-all duration-200 border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 dark:text-slate-400 dark:hover:text-slate-200",
+    active: "border-primary-600 text-primary-600 dark:border-primary-500 dark:text-primary-500",
+  },
+  alert: {
+    // الحالة المعلوماتية (إرشادات وقواعد)
+    info: "p-3 bg-blue-50 border border-blue-200 rounded-xl text-sm text-blue-700 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-300",
+    
+    // حالة النجاح (تأكيد إجراء)
+    success: "p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-sm text-emerald-700 dark:bg-emerald-900/20 dark:border-emerald-800 dark:text-emerald-300",
+    
+    // حالة التحذير (تنبيهات مهمة)
+    warning: "p-3 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-700 dark:bg-amber-900/20 dark:border-amber-800 dark:text-amber-300",
+    
+    // حالة الخطأ (رسائل الفشل)
+    danger: "p-3 bg-rose-50 border border-rose-200 rounded-xl text-sm text-rose-700 dark:bg-rose-900/20 dark:border-rose-800 dark:text-rose-300",
+    bonus: "p-3 bg-violet-50 border border-violet-200 rounded-xl text-sm text-violet-700 dark:bg-violet-900/20 dark:border-violet-800 dark:text-violet-300",
+  },
+  emptyState: {
+    base: "flex flex-col items-center justify-center py-8 text-center space-y-2",
+    icon: "p-3 bg-slate-50 rounded-full dark:bg-slate-800",
+    text: "text-sm text-slate-400 font-medium"
+  },
+  list: {
+    item: {
+      base: "flex items-center gap-3 p-3 rounded-xl border transition-all cursor-pointer",
+      idle: "border-slate-100 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700",
+      selected: "border-primary-300 bg-primary-50/60 dark:bg-primary-900/20 dark:border-primary-800"
+    },
+    draggableItem: "flex items-center gap-3 p-3 rounded-xl border border-slate-200 bg-white dark:bg-slate-800 cursor-grab active:cursor-grabbing hover:shadow-sm transition-all"
+  }
+};
+
+/* ============================================================================
+ * 4) FIELD STATE RESOLVER — دالة مساعدة لتحديد التنسيق النهائي حسب الحالة
+ * ============================================================================
+ * تستخدم لتفادي تكرار شروط if/else داخل كل مكون. مثال الاستخدام:
+ *
+ *   const cls = resolveFieldState(theme.input, { error, disabled, readOnly });
+ *   <input className={cls} />
+ */
+export function resolveFieldState(fieldTheme, { error, disabled, readOnly } = {}) {
+  return clsx(
+    fieldTheme.base,
+    error && fieldTheme.error,
+    disabled && fieldTheme.disabled,
+    readOnly && fieldTheme.readOnly
+  );
+}
+
+/**
+ * تقوم بدمج التنسيق الأساسي مع حالة التفعيل للتبويبات.
+ * @param {string} baseStyle - التنسيق الأساسي للتبويب (من الثيم).
+ * @param {boolean} isActive - حالة التفعيل.
+ * @param {string} activeStyle - التنسيق الخاص بالتبويب النشط.
+ * @returns {string} - الكلاسات النهائية المدمجة.
+ */
+export function resolveTabState (baseStyle, isActive, activeStyle) {
+  return isActive 
+    ? `${baseStyle} ${activeStyle}` 
+    : baseStyle;
+};
+
+/**
+ * تقوم بإرجاع الكلاسات الخاصة بالحالة بناءً على نظام الثيم الموحد.
+ * @param {string} status - الحالة (مثلاً: 'completed', 'pending', 'overdue').
+ * @param {object} theme - كائن الثيم الخاص بك.
+ * @returns {string} - الكلاسات النهائية.
+ */
+export function resolveStatusState(status, theme) {
+  const base = "px-2 py-1 text-[10px] font-bold uppercase rounded-full flex items-center justify-center w-fit";
+  const variants = theme.status.variants; // سنعرفها في الأسفل
+
+  return `${base} ${variants[status] || variants.default}`;
+};
+
+/**
+ * ترجع التنسيق الخاص بالتنبيه بناءً على النوع.
+ * @param {'info'|'success'|'warning'|'danger'} type 
+ * @param {object} theme 
+ */
+export const resolveAlertState = (type, theme) => {
+  return theme.alert[type] || theme.alert.info;
+};
+export const resolveListItemState = (itemTheme, { isSelected }) => {
+  return `${itemTheme.base} ${isSelected ? itemTheme.selected : itemTheme.idle}`;
+};
+export default theme;
+
+
+===== pages\tasks\TaskDetail\TaskStepsSection.jsx =====
+import { useState, useEffect } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { Plus, Check, Loader2, Trash2, ArrowDownCircle, Edit3, ArrowUp, ArrowDown, X,ClipboardList } from 'lucide-react'
+import toast from 'react-hot-toast'
+import { TaskStepsApi } from '@/api' 
+import { getApiError, formatDate } from '@/utils/helpers'
+import clsx from 'clsx'
+import { theme, resolveFieldState } from '@/constants/theme';
+import {Modal} from '@/components/common'
+import SidebarTree from '@/pages/tasks/TaskDetail/SidebarTree'
+export default function TaskStepsSection({ taskId, taskPermissions, task: initialTask }) {
+  const queryClient = useQueryClient()
+  const [addStepText, setAddStepText] = useState('')
+  const [showAddStep, setShowAddStep] = useState(false)
+  // أضف هذه الأسطر مع تعريفات الـ useState في بداية الكومبوننت
+  const [addStepTitle, setAddStepTitle] = useState(''); // هذا هو المسؤول عن العنوان
+  const [addStepDesc, setAddStepDesc] = useState('');   // هذا للوصف
+  const [isParallel, setIsParallel] = useState(false);  // هذا للمتوازي
+  const [assignedTo, setAssignedTo] = useState({ type: null, id: null, name: '' });
+  // إدارة التعديل المحلي لنص الخطوة
+  const [editingStepId, setEditingStepId] = useState(null)
+  const [editingText, setEditingText] = useState('')
+
+  // إدارة رقم الصفحة محلياً بناءً على نظام apply_pagination الموحد
+  const [stepsPage, setStepsPage] = useState(1)
+  const [allSteps, setAllSteps] = useState([]) 
+
+  const [showPickerModal, setShowPickerModal] = useState(false);
+
+  const canAddStep = taskPermissions?.can_add_step ?? false
+  const canEditStep = taskPermissions?.can_edit_step ?? false
+  
+  // جلب خطوات المهمة من الـ Endpoint المنفصل الجديد بناءً على الصفحة الحالية
+  const { data: stepsPaginationData, isLoading: is_LoadingMore } = useQuery({
+    queryKey: ['task-steps', parseInt(taskId), { stepsPage }],
+    queryFn: () => TaskStepsApi.listSteps(taskId, { page: stepsPage, limit: 20 }).then(r => r.data),
+    placeholderData: (keepPreviousData) => keepPreviousData,
+  })
+
+  // استخراج البيانات ومؤشرات الصفحات من هيكل الـ apply_pagination الراجع
+  const totalSteps = stepsPaginationData?.total || initialTask?.steps?.total || 0
+  const hasMoreSteps = stepsPaginationData ? stepsPaginationData.has_more : (initialTask?.steps?.has_more ?? false)
+
+  // تأثير (Effect) للمزامنة الأولية عند فتح الصفحة من الـ initialTask الممرر
+  useEffect(() => {
+    if (initialTask?.steps?.items && stepsPage === 1) {
+      setAllSteps(initialTask.steps.items)
+    }
+  }, [initialTask, stepsPage])
+
+  // التأثير المعدل لدمج البيانات حسب طلبك بالظبط
+  useEffect(() => {
+    if (stepsPaginationData?.items) {
+      if (stepsPage === 1) {
+        setAllSteps(stepsPaginationData.items)
+      } else {
+        setAllSteps(prev => {
+          const existingIds = new Set(prev.map(item => item.id))
+          const newItems = stepsPaginationData.items.filter(item => !existingIds.has(item.id))
+          return [...prev, ...newItems]
+        })
+      }
+    }
+  }, [stepsPaginationData, stepsPage])
+
+  const completedSteps = allSteps.filter(s => s.is_completed).length || 0
+  const progressPercentage = totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0
+
+  // تحديث حالة الخطوة أو نصها (مكتملة / غير مكتملة / تعديل وصف)
+  const stepMutation = useMutation({
+    mutationFn: ({ stepId, data }) => TaskStepsApi.updateStep(taskId, stepId, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['task', parseInt(taskId)] })
+      queryClient.invalidateQueries({ queryKey: ['task-steps', parseInt(taskId)] })
+      setEditingStepId(null)
+    },
+    onError: (err) => toast.error(getApiError(err) || 'فشل تحديث الخطوة'),
+  })
+
+  // ميزة إعادة الترتيب الجماعي (Bulk Reorder Mutation)
+  const reorderMutation = useMutation({
+    mutationFn: (stepsOrderList) => TaskStepsApi.reorderSteps(taskId, stepsOrderList),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['task-steps', parseInt(taskId)] })
+      toast.success('تم تحديث ترتيب الخطوات')
+    },
+    onError: (err) => {
+      toast.error(getApiError(err) || 'فشل حفظ الترتيب الجديد')
+      // إعادة جلب البيانات الأصلية في حال حدوث خطأ بالسيرفر للتراجع عن التغيير المحلي
+      queryClient.invalidateQueries({ queryKey: ['task-steps', parseInt(taskId)] })
+    }
+  })
+
+  // إضافة خطوة فرعية جديدة
+  const addStepMutation = useMutation({
+    mutationFn: (data) => TaskStepsApi.addStep(taskId, data),
+    onSuccess: () => {
+      setStepsPage(1) // تصفير الـ pagination للعودة لأول صفحة وعرض العنصر الجديد
+      queryClient.invalidateQueries({ queryKey: ['task', parseInt(taskId)] })
+      queryClient.invalidateQueries({ queryKey: ['task-steps', parseInt(taskId)] })
+      setAddStepTitle('')
+      setAddStepDesc('')
+      setIsParallel(false)
+      setAssignedTo({ type: null, id: null, name: '' })
+      setShowAddStep(false)
+      toast.success('تم إضافة الخطوة بنجاح')
+    },
+    onError: (err) => toast.error(getApiError(err) || 'فشلت عملية إضافة الخطوة'),
+  })
+
+  // حذف الخطوة الفرعية
+  const deleteStepMutation = useMutation({
+    mutationFn: (stepId) => TaskStepsApi.deleteStep(taskId, stepId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['task', parseInt(taskId)] })
+      queryClient.invalidateQueries({ queryKey: ['task-steps', parseInt(taskId)] })
+      setAllSteps(prev => prev.filter(item => item.id !== deleteStepMutation.variables))
+      toast.success('تم حذف الخطوة بنجاح')
+    },
+    onError: (err) => toast.error(getApiError(err) || 'فشلت عملية حذف الخطوة'),
+  })
+
+  const handleLoadMore = () => {
+    if (is_LoadingMore || !hasMoreSteps) return
+    setStepsPage(prev => prev + 1)
+  }
+
+  const handleDeleteStep = (stepId) => {
+    if (!canEditStep) {
+      toast.error('غير مصرح لك بحذف الخطوات الفرعية')
+      return
+    }
+    if (window.confirm('هل أنت متأكد من رغبتك في حذف هذه الخطوة؟')) {
+      deleteStepMutation.mutate(stepId)
+    }
+  }
+
+  const handleToggleStep = (stepId, isCompleted) => {
+    if (!canEditStep) {
+      toast.error('غير مصرح لك بتعديل حالة الخطوات الفرعية')
+      return
+    }
+    if (stepMutation.isPending) return
+    
+    // Optimistic UI update لتجربة مستخدم فورية فائقة السرعة
+    setAllSteps(prev => prev.map(s => s.id === stepId ? { ...s, is_completed: !isCompleted } : s))
+    stepMutation.mutate({ stepId, data: { is_completed: !isCompleted } })
+  }
+
+  const handleAddStep = () => {
+    if (!addStepTitle.trim() || addStepMutation.isPending) return
+
+    const payload = {
+      title: addStepTitle.trim(),
+      description: addStepDesc.trim(), // أو حقل الوصف الخاص بك
+      is_parallel: isParallel,
+      assigned_user_id: assignedTo.type === 'employee' ? assignedTo.id : null,
+      assigned_department_id: assignedTo.type === 'department' ? assignedTo.id : null,
+      status: 'pending' // ثابت كما طلبت
+    }
+    
+    addStepMutation.mutate(payload)
+  }
+
+  // تفعيل وضع التعديل للخطوة
+  const startEditing = (step) => {
+    setEditingStepId(step.id)
+    setEditingText(step.description)
+  }
+
+  // حفظ النص الجديد للخطوة
+  const handleSaveDescription = (stepId) => {
+    if (!editingText.trim() || stepMutation.isPending) return
+    
+    // تحديث محلي فوري (Optimistic)
+    setAllSteps(prev => prev.map(s => s.id === stepId ? { ...s, description: editingText.trim() } : s))
+    stepMutation.mutate({ stepId, data: { description: editingText.trim() } })
+  }
+
+  // منطق تحريك الخطوات (لأعلى / لأسفل) مع الحفظ التلقائي الجماعي
+  const handleMoveStep = (index, direction) => {
+    if (!canEditStep || reorderMutation.isPending) return
+    
+    const targetIndex = direction === 'up' ? index - 1 : index + 1
+    if (targetIndex < 0 || targetIndex >= allSteps.length) return
+
+    const updatedSteps = [...allSteps]
+    // تبديل العناصر في المصفوفة المحلية
+    const [movedItem] = updatedSteps.splice(index, 1)
+    updatedSteps.splice(targetIndex, 0, movedItem)
+
+    // إعادة حساب الـ step_order بناءً على المؤشر الجديد (Index) لضمان تتابع صحيح للباك آند
+    const reorderedPayload = updatedSteps.map((step, idx) => ({
+        id: step.id,
+        step_order: idx + 1
+      }));
+
+    // تحديث الحالة محلياً فوراً لتوفير تجربة سريعة جداً
+    setAllSteps(updatedSteps)
+    
+    // إرسال المصفوفة المرتبة بالكامل للباك آند دفعة واحدة
+    reorderMutation.mutate(reorderedPayload)
+  }
+
+  return (
+    <div className={clsx("p-4 sm:p-5 space-y-4", theme.card.base)}>
+      {/* الترويسة وقسم إحصاءات الإنجاز */}
+      <div className={clsx("flex items-center justify-between border-b pb-3", theme.card.border)}>
+        <div className="space-y-1 min-w-0 flex-1">
+          <h3 className={clsx("text-xs sm:text-sm font-bold flex items-center gap-1.5", theme.text.primary)}>
+            <span className="w-1.5 h-3 bg-primary-600 rounded-sm inline-block" />
+            <span>الخطوات الفرعية والمهام المصغرة ({completedSteps}/{totalSteps})</span>
+          </h3>
+          {totalSteps > 0 && (
+            <div className="flex items-center gap-2 max-w-xs">
+              <div className="w-24 bg-gray-200 dark:bg-slate-700 h-1 rounded-full overflow-hidden">
+                <div className="bg-green-500 h-full transition-all duration-300" style={{ width: `${progressPercentage}%` }} />
+              </div>
+              <span className={clsx("text-[10px] font-bold", theme.text.muted)}>{progressPercentage}%</span>
+            </div>
+          )}
+        </div>
+
+        {canAddStep && (
+          <button
+            onClick={() => setShowAddStep(!showAddStep)}
+            className={clsx(
+              "flex items-center gap-1 text-xs font-bold transition-all px-2.5 py-1.5 rounded-lg border",
+              // نستخدم نمط "Ghost" أو "Subtle" من الثيم للحصول على مظهر متناسق
+              "text-primary-600 dark:text-primary-400",
+              "bg-primary-50 dark:bg-primary-900/20",
+              "border-primary-100 dark:border-primary-800",
+              "hover:bg-primary-100 dark:hover:bg-primary-900/40"
+            )}
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>إضافة خطوة</span>
+          </button>
+        )}
+      </div>
+
+      {/* حقل إنشاء خطوة جديدة */}
+      {showAddStep && (
+        <div className={clsx("flex flex-col gap-3 p-4 rounded-xl border", theme.card.subtle)}>
+  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">إضافة خطوة جديدة</h4>
+  
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    {/* العنوان */}
+    <input
+      className={clsx("h-9 px-3 text-sm rounded-lg border bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500", theme.text.primary)}
+      placeholder="عنوان الخطوة..."
+      value={addStepTitle} // تأكد من إنشاء state لهذا
+      onChange={(e) => setAddStepTitle(e.target.value)}
+      maxLength={255}
+    />
+
+    {/* الوصف */}
+    <input
+      className={clsx("h-9 px-3 text-sm rounded-lg border bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500", theme.text.primary)}
+      placeholder="وصف إضافي (اختياري)..."
+      value={addStepDesc}
+      onChange={(e) => setAddStepDesc(e.target.value)}
+    />
+
+    {/* المسؤولين (Department / User) */}
+    <div className="flex gap-2">
+      <div className={clsx(
+        "flex-1 h-9 flex items-center px-3 text-sm rounded-lg border",
+        "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700",
+        "text-slate-500"
+      )}>
+        {assignedTo.id ? assignedTo.name : "لم يتم تحديد مسؤول بعد..."}
+      </div>
+      
+      {/* هنا يمكنك وضع زر يفتح "مودال" (Modal) يحتوي على SidebarTree لاختيار الموظف */}
+      <button 
+        onClick={() => setShowPickerModal(true)} 
+        className="h-9 px-3 text-xs bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200"
+      >
+        تحديد
+      </button>
+    </div>
+    {/* خيار متوازي */}
+    <label className="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-300 cursor-pointer">
+      <input type="checkbox" className="rounded border-slate-300 text-primary-600 focus:ring-primary-500" onChange={(e) => setIsParallel(e.target.checked)} />
+      تنفيذ متوازي (Parallel)
+    </label>
+  </div>
+
+  <div className="flex items-center justify-between pt-2">
+    
+
+    {/* الأزرار */}
+    <div className="flex gap-2">
+      <button
+        className="h-9 px-4 text-xs font-bold rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
+        onClick={() => setShowAddStep(false)}
+      >
+        إلغاء
+      </button>
+      <button
+        className="h-9 px-6 text-xs font-bold rounded-lg bg-primary-600 hover:bg-primary-700 text-white"
+        disabled={addStepMutation.isPending}
+        onClick={handleAddStep}
+      >
+        {addStepMutation.isPending ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'حفظ الخطوة'}
+      </button>
+    </div>
+  </div>
+</div>
+      )}
+
+      {/* عرض القائمة والمصفوفة */}
+      {allSteps.length === 0 ? (
+        <div className={clsx(
+          "text-center py-10 px-4 rounded-xl border border-dashed transition-colors",
+          // استخدام التوكنز لضمان التوافق مع الثيم
+          theme.card.subtle, // خلفية خفيفة
+          "border-slate-300 dark:border-slate-700", // حدود منقطة مناسبة للوضع النهاري والليلي
+          theme.text.muted // لون نص ثانوي مريح للعين
+        )}>
+          <div className="flex flex-col items-center gap-2">
+            {/* أيقونة اختيارية لتعزيز التجربة البصرية */}
+            <ClipboardList className="w-8 h-8 opacity-20" />
+            <span className="text-xs font-medium">
+              لا توجد أي خطوات فرعية مجدولة لتنفيذ هذه المهمة.
+            </span>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col space-y-3">
+          {/* حاوية التمرير (Scroll) للخطوات فقط */}
+          <div className="space-y-2 max-h-80 overflow-y-auto pl-1 custom-scrollbar">
+            {allSteps.map((step, index) => {
+              const isCurrentStepMutating = stepMutation.isPending && stepMutation.variables?.stepId === step.id;
+              const isCurrentStepDeleting = deleteStepMutation.isPending && deleteStepMutation.variables === step.id;
+              const isEditing = editingStepId === step.id;
+
+              return (
+                <div
+                  key={step.id}
+                  className={clsx(
+                    'flex items-center gap-3 p-3 rounded-xl border text-xs sm:text-sm transition-all group',
+                    // الحالة المكتملة
+                    step.is_completed 
+                      ? 'bg-green-50/40 dark:bg-green-900/10 border-green-200 dark:border-green-900/30' 
+                      // الحالة العادية (استخدام theme.card.subtle للتناغم)
+                      : clsx(theme.card.subtle, "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-sm"),
+                    // حالة الحذف (تأثير مرئي)
+                    isCurrentStepDeleting && 'opacity-50 pointer-events-none bg-red-50/20 dark:bg-red-900/20'
+                  )}
+                >
+                  {/* أزرار الأسهم لإعادة الترتيب (تظهر فقط عند صلاحية التعديل وبدون قفل التحميل) */}
+                  {canEditStep && !isEditing && (
+                    <div className={clsx(
+                      "flex flex-col items-center gap-0.5 flex-shrink-0 transition-opacity",
+                      // استخدام التوكنز للتحكم في الظهور
+                      "opacity-0 group-hover:opacity-100",
+                      "focus-within:opacity-100" // لضمان ظهورها أيضاً عند التنقل عبر لوحة المفاتيح
+                    )}>
+                      <button
+                        onClick={() => handleMoveStep(index, 'up')}
+                        disabled={index === 0 || reorderMutation.isPending}
+                        className={clsx(
+                          "p-0.5 transition-colors",
+                          "text-slate-400 dark:text-slate-500",
+                          "hover:text-primary-600 dark:hover:text-primary-400",
+                          "disabled:opacity-20"
+                        )}
+                        title="تحريك لأعلى"
+                      >
+                        <ArrowUp className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleMoveStep(index, 'down')}
+                        disabled={index === allSteps.length - 1 || reorderMutation.isPending}
+                        className={clsx(
+                          "p-0.5 transition-colors",
+                          "text-slate-400 dark:text-slate-500",
+                          "hover:text-primary-600 dark:hover:text-primary-400",
+                          "disabled:opacity-20"
+                        )}
+                        title="تحريك لأسفل"
+                      >
+                        <ArrowDown className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
+
+                  {/* الدائرة التفاعلية لتبديل الحالة */}
+                  {canEditStep ? (
+                    <>
+                    <select
+                        className="h-8 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 outline-none cursor-pointer"
+                        value={step.status}
+                        onChange={(e) => handleToggleStep(step.id, step.is_completed)}
+                        disabled={isCurrentStepMutating || isCurrentStepDeleting || isEditing}
+                      >
+                        <option value="pending">معلقة</option>
+                        <option value="in_progress">قيد التنفيذ</option>
+                        <option value="completed">مكتملة</option>
+                        <option value="cancelled">ملغاة</option>
+                      </select>
+                      
+                    <button
+                      onClick={() => handleToggleStep(step.id, step.is_completed)}
+                      disabled={isCurrentStepMutating || isCurrentStepDeleting || isEditing}
+                      className={clsx(
+                        'w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all focus:outline-none focus:ring-2 focus:ring-offset-1',
+                        // الألوان بناءً على الحالة
+                        step.is_completed
+                          ? 'bg-green-500 border-green-500 text-white focus:ring-green-400 dark:focus:ring-green-800'
+                          : clsx(
+                              'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900',
+                              'hover:border-primary-500 focus:ring-primary-400'
+                            ),
+                        // حالة التحميل أو التعديل
+                        (isCurrentStepMutating || isEditing) && 'opacity-60 cursor-not-allowed',
+                        // تحسين حالة الـ Offset في الوضع الليلي
+                        'focus:ring-offset-white dark:focus:ring-offset-slate-800'
+                      )}
+                      title={step.is_completed ? 'تعيين كغير مكتملة' : 'تعيين كمكتملة'}
+                    >
+                      {isCurrentStepMutating ? (
+                        <Loader2 className="w-2.5 h-2.5 animate-spin text-current" />
+                      ) : (
+                        step.is_completed && <Check className="w-3 h-3 stroke-[3]" />
+                      )}
+                    </button>
+                    </>
+                  ) : (
+                    <div 
+                      className={clsx(
+                        'w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors',
+                        // الحالة المكتملة
+                        step.is_completed 
+                          ? 'bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-800 text-green-600 dark:text-green-400' 
+                          // الحالة غير المكتملة
+                          : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700'
+                      )}
+                    >
+                      {step.is_completed && <Check className="w-3 h-3 stroke-[3]" />}
+                    </div>
+                  )}
+
+                  {/* نص وصف الإجراء أو حقل إدخال التعديل */}
+                  {isEditing ? (
+                    <div className="flex-1 flex gap-1.5 items-center">
+                      <input
+                        className={clsx(
+                          "flex-1 h-8 rounded-lg px-2 text-xs font-medium border transition-all",
+                          "bg-white dark:bg-slate-950",
+                          "border-primary-400 focus:ring-1 focus:ring-primary-500",
+                          "text-slate-900 dark:text-slate-100"
+                        )}
+                        value={editingText}
+                        onChange={(e) => setEditingText(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSaveDescription(step.id)}
+                        maxLength={255}
+                        autoFocus
+                      />
+                      {/* زر الحفظ */}
+                      <button
+                        onClick={() => handleSaveDescription(step.id)}
+                        disabled={isCurrentStepMutating || !editingText.trim()}
+                        className={clsx(
+                          "p-1.5 rounded-md transition-colors",
+                          "text-white bg-green-600 hover:bg-green-700",
+                          "disabled:opacity-50"
+                        )}
+                        title="حفظ التعديل"
+                      >
+                        {isCurrentStepMutating ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
+                      </button>
+                      {/* زر الإلغاء */}
+                      <button
+                        onClick={() => setEditingStepId(null)}
+                        className={clsx(
+                          "p-1.5 rounded-md transition-colors",
+                          "text-slate-500 dark:text-slate-400",
+                          "bg-slate-100 dark:bg-slate-800",
+                          "hover:bg-slate-200 dark:hover:bg-slate-700"
+                        )}
+                        title="إلغاء التعديل"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ) : (
+                    <span
+                      className={clsx(
+                        'flex-1 min-w-0 font-medium break-words leading-relaxed transition-colors',
+                        step.is_completed 
+                          ? 'line-through text-slate-400 dark:text-slate-600 font-normal' 
+                          : 'text-slate-700 dark:text-slate-300'
+                      )}
+                    >
+                      {step.description}
+                    </span>
+                  )}
+
+                  {/* أدوات التحكم الجانبية الحذف والتعديل والوقت */}
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    {step.is_completed && step.completed_at && (
+                      <span className={clsx(
+                        "text-[10px] sm:text-xs px-2 py-0.5 rounded-md font-semibold whitespace-nowrap border transition-colors",
+                        "bg-green-50 dark:bg-green-900/20",
+                        "text-green-600 dark:text-green-400",
+                        "border-green-200 dark:border-green-800"
+                      )}>
+                        اكتملت: {formatDate(step.completed_at)}
+                      </span>
+                    )}
+
+                    {/* زر تشغيل وضع التعديل للنص */}
+                    {canEditStep && !isEditing && (
+                      <button
+                        onClick={() => startEditing(step)}
+                        className={clsx(
+                          "p-1 rounded-md transition-all duration-200",
+                          // الألوان (Text & Hover)
+                          "text-slate-400 dark:text-slate-500",
+                          "hover:text-primary-600 dark:hover:text-primary-400",
+                          "hover:bg-slate-100 dark:hover:bg-slate-800",
+                          // التحكم في الظهور
+                          "opacity-0 group-hover:opacity-100 focus:opacity-100"
+                        )}
+                        title="تعديل نص الخطوة"
+                      >
+                        <Edit3 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+
+                    {/* زر الحذف الفني */}
+                    {canEditStep && !isEditing && (
+                      <button
+                        onClick={() => handleDeleteStep(step.id)}
+                        disabled={isCurrentStepDeleting}
+                        className={clsx(
+                          "p-1 rounded-md transition-all duration-200",
+                          // الألوان (Text & Hover)
+                          "text-slate-400 dark:text-slate-500",
+                          "hover:text-red-600 dark:hover:text-red-400",
+                          "hover:bg-red-50 dark:hover:bg-red-900/20",
+                          // التحكم في الظهور
+                          "opacity-0 group-hover:opacity-100 focus:opacity-100",
+                          "disabled:opacity-50 disabled:cursor-not-allowed"
+                        )}
+                        title="حذف هذه الخطوة"
+                      >
+                        {isCurrentStepDeleting ? (
+                          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        ) : (
+                          <Trash2 className="w-3.5 h-3.5" />
+                        )}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+
+            {/* زر تحميل المزيد */}
+            {hasMoreSteps && (
+              <div className={clsx(
+                "pt-3 flex justify-center border-t",
+                theme.card.border, // توحيد لون الحدود
+                theme.card.subtle  // توحيد الخلفية الموحدة
+              )}>
+                <button
+                  onClick={handleLoadMore}
+                  disabled={is_LoadingMore}
+                  className={clsx(
+                    "inline-flex items-center gap-1.5 text-xs font-bold px-5 py-2.5 rounded-xl transition-all group",
+                    // الألوان والحدود
+                    "bg-white dark:bg-slate-900",
+                    "border border-slate-200 dark:border-slate-700",
+                    "text-slate-500 dark:text-slate-400",
+                    // تأثيرات التفاعل
+                    "hover:text-primary-600 dark:hover:text-primary-400",
+                    "hover:border-primary-200 dark:hover:border-primary-800",
+                    "hover:bg-slate-50 dark:hover:bg-slate-800",
+                    "disabled:opacity-60"
+                  )}
+                >
+                  {is_LoadingMore ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-primary-500" />
+                  ) : (
+                    <ArrowDownCircle className="w-3.5 h-3.5 text-slate-400 group-hover:text-primary-500 transition-colors" />
+                  )}
+                  <span>عرض المزيد من الخطوات</span>
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+            {showPickerModal &&(
+                <Modal 
+                  open={showPickerModal} 
+                  onClose={() => setShowPickerModal(false)} 
+                  title="اختر المسؤول عن هذه الخطوة"
+                  size="md"
+                >
+                  <div className="h-[400px] overflow-y-auto">
+                    <SidebarTree 
+                      onSelectNode={(node) => {
+                        // إذا كان المود يحتوي على خاصية full_name فهو موظف، وإلا فهو قسم
+                        const type = node.full_name ? 'employee' : 'department';
+                        console.log(node);
+                        
+                        setAssignedTo({
+                          type: type,
+                          id: node.id,
+                          name: node.full_name || node.name
+                        });
+                        setShowPickerModal(false);
+                      }} 
+                    />
+                  </div>
+                </Modal>
+            )}
+    </div>
+  )
+} 
+
+===== api\index.js =====
+  import axios from 'axios'
+
+  const BASE_URL = import.meta.env.VITE_API_URL || '/api/v1'
+
+  const api = axios.create({
+    baseURL: BASE_URL,
+    headers: { 'Content-Type': 'application/json' },
+    withCredentials: true,
+  })
+
+  // ── Request interceptor: attach token ──────────────────────────
+  api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('access_token')
+    if (token) config.headers.Authorization = `Bearer ${token}`
+    return config
+  })
+
+  // ── Response interceptor: handle 401 ──────────────────────────
+  api.interceptors.response.use(
+    (res) => res,
+    async (err) => {
+      const original = err.config
+      if (err.response?.status === 401 && !original._retry) {
+        original._retry = true
+        const refresh = localStorage.getItem('refresh_token')
+        if (refresh) {
+          try {
+            const { data } = await axios.post(`${BASE_URL}/auth/refresh`, {
+              refresh_token: refresh,
+            })
+            localStorage.setItem('access_token', data.access_token)
+            localStorage.setItem('refresh_token', data.refresh_token)
+            original.headers.Authorization = `Bearer ${data.access_token}`
+            return api(original)
+          } catch {
+            localStorage.clear()
+            window.location.href = '/login'
+          }
+        } else {
+          localStorage.clear()
+          window.location.href = '/login'
+        }
+      }
+      return Promise.reject(err)
+    }
+  )
+
+// ── Auth ────────────────────────────────────────────────────────
+export const authApi = {
+  login: (data) => api.post('/auth/login', data),
+  me: () => api.get('/auth/me'),
+  
+  // 🌟 تسجيل الدخول عبر جوجل (صفحة LoginPage)
+  googleLogin: (idTokenStr) => api.post('/auth/google', { id_token_str: idTokenStr }),
+
+  // 🌟 ربط الحساب الحالي بجوجل (صفحة UserProfilePage)
+  linkGoogle: (idTokenStr) => api.post('/auth/google/link', { id_token_str: idTokenStr }),
+
+  // 🔄 إلغاء ربط الحساب الحالي بجوجل (مستحدثة للأمان والمرونة)
+  // تقوم بمسح الـ google_id من قاعدة البيانات ليعود الحساب تقليدياً فقط
+  unlinkGoogle: () => api.post('/auth/google/unlink'), 
+}
+export const statsApi = {
+  getme: () => api.get(`/stats/me`),
+  getuser: (id) => api.get(`/stats/users/${id}`),
+  getdepartment: (id) => api.get(`/stats/department/${id}`),
+}
+  // ── Tasks ───────────────────────────────────────────────────────
+  export const tasksApi = {
+    list: (params) => api.get('/tasks', { params }),
+    get: (id) => api.get(`/tasks/${id}`),
+    create: (data) => api.post('/tasks', data),
+    update: (id, data) => api.patch(`/tasks/${id}`, data),
+    delete: (id) => api.delete(`/tasks/${id}`),
+  
+  
+    // Urgency
+    requestUrgency: (taskId, data) => api.post(`/tasks/${taskId}/request-urgency`, data),
+    respondUrgency: (taskId, data) => api.post(`/tasks/${taskId}/respond-urgency`, data),
+    // Favorite
+    toggleFavorite: (taskId) => api.post(`/tasks/${taskId}/favorite`),
+    // Logs
+    getLogs: (taskId,params) => api.get(`/tasks/${taskId}/logs`,{params}),
+    
+    
+    
+  } 
+  // ─── مؤقت الوقت الفعلي (Time Logs) ──────────────────────────────────
+    // بدء المؤقت يستقبل note اختيارية عبر الـ Query
+  export const taskTimeLogApi={
+    startTimeLog: (taskId, note = null) => api.post(`/TimeLog/${taskId}/start`, null, { params: { note } }),
+    // تعديل: تحويلها إلى post لتطابق الباك إند تماماً
+    stopTimeLog: (taskId) => api.post(`/TimeLog/${taskId}/stop`),
+    getTimeLogs: (taskId) => api.get(`/TimeLog/${taskId}/logs`),
+  }
+
+  export const taskAssignsApi = {
+    listAssignments: (taskId) => api.get(`/assignment/${taskId}`),
+    // جلب قائمة المرؤوسين مع دعم الترقيم والبحث الموحد (q)
+    getSubordinates: (userId, params) => 
+      api.get(`/users/${userId}/subordinates`, { 
+        params: {
+          page: params?.page || 1,
+          page_size: params?.page_size || 10,
+          q: params?.q || undefined,
+          sort_by: 'full_name',
+          sort_order: 'asc'
+        } 
+      }),
+
+    // تعيين عضو جديد (Query Params متوافقة 100% مع الباك آند)
+    assign: (taskId, userId, type) => 
+      api.post(`/assignment/${taskId}`, null, { 
+        params: { 
+          user_id: userId, 
+          assignment_type: type 
+        } 
+      }),
+
+    // إلغاء التعيين الرسمي (Soft Delete)
+    unassign: (taskId, userId) => 
+      api.delete(`/assignment/${taskId}/${userId}`),
+  } 
+  // ─── خطوات المهام TaskSteps ──────────────────────────
+  export const TaskStepsApi = {
+    listSteps: (taskId) => api.get(`/Steps/${taskId}`),
+    addStep: (taskId, data) => api.post(`/Steps/${taskId}`, data),
+    updateStep: (taskId, stepId, data) => api.patch(`/Steps/${taskId}/${stepId}`, data),
+    deleteStep: (taskId, stepId) => api.delete(`/Steps/${taskId}/${stepId}`),
+    reorderSteps: (taskId, stepsOrderList) => api.put(`/Steps/${taskId}/reorder`, stepsOrderList),
+  }
+  // ─── المهام المتكررة (Recurring Tasks CRUD) ──────────────────────────
+  export const recurringTasksApi = {
+    // تعديل: إضافة الـ / في البداية وتمرير البيانات في الـ params بناءً على دالة الباك إند
+    ///api/v1/recurrTasks/recurring
+    createRecurringTask: (data) => api.post('/recurrTasks/recurring', data),
+    // تعديل: إضافة الـ / وتمرير الفلاتر إن وجدت
+    listRecurringTasks: (params = {}) => api.get('/recurrTasks/recurring/', { params }),
+    // تعديل: تصحيح اسم المتغير من templateId إلى id
+    getRecurringTask: (id) => api.get(`/recurrTasks/recurring/${id}`),
+    // تعديل: تصحيح اسم المتغير وتمرير البيانات في الـ params
+    updateRecurringTask: (id, data) => api.patch(`/recurrTasks/recurring/${id}`, data),
+    // تعديل: تصحيح اسم المتغير ليكون id
+    deleteRecurringTask: (id) => api.delete(`/recurrTasks/recurring/${id}`),
+
+    triggerAutomation: (data) => api.post('/recurrTasks/recurring/trigger-automation'),
+
+    getRecurringTasksLog: (params = {}) => api.get('/recurrTasks/recurring/logs', { params }),
+
+  }
+  // ─── التعليقات (Comments) ───────────────────────────────────────────
+  // نرسل البيانات بداخل params لأن الباك إند يستقبلها كـ Query Parameters
+  export const commentsApi = {
+    addComment: (taskId, text) => api.post(`/comments/${taskId}`, null, { params: { comment_text: text } }),
+    listComments: (taskId,params) => api.get(`/comments/${taskId}`, { params }),
+    // نرسل النص الجديد أيضاً في الـ params كما هو محدد في الباك إند
+    updateComment: (taskId, commentId, text) => api.patch(`/comments/${taskId}/${commentId}`, null, { params: { comment_text: text } }),
+    deleteComment: (taskId, commentId) => api.delete(`/comments/${taskId}/${commentId}`),
+  }
+    
+    // ─── المرفقات (Attachments) ─────────────────────────────────────────
+    // المرفقات تستقبل معاملاها كـ Query， نمرر كائن الـ data بداخل الـ params
+  export const attachmentsApi = {
+    addAttachment: (taskId, file) => {
+      const formData = new FormData();
+      formData.append('file', file); // 'file' يجب أن تطابق اسم المعامل في الباك إند
+      return api.post(`/taskAttachments/${taskId}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+    },
+    listAttachments: (taskId,params) => api.get(`/taskAttachments/${taskId}`,{params}),
+    deleteAttachment: (taskId, attachmentId) => api.delete(`/taskAttachments/${taskId}/${attachmentId}`),
+    downloadAttachment: (taskId, attachmentId) => {
+      try {
+        return api.get(`/taskAttachments/${taskId}/${attachmentId}/getItem`)
+      } catch (error) {
+        console.log(error);
+      }
+      
+      
+    },
+
+  }
+  // ── Transfers ───────────────────────────────────────────────────
+  export const transfersApi = {
+    create: (data) => api.post('/transfers', data),
+    pending: () => api.get('/transfers/pending'),
+    respond: (id, data) => api.post(`/transfers/${id}/respond`, data),
+    history: (taskId) => api.get(`/transfers/history/${taskId}`),
+  }
+
+  // ── Shares ──────────────────────────────────────────────────────
+  export const sharesApi = {
+    share: (data) => api.post('/shares', data),
+    getForTask: (taskId) => api.get(`/shares/task/${taskId}`),
+    revoke: (shareId) => api.delete(`/shares/${shareId}`),
+    updateShare: (shareId, permission, expiresAt) => 
+      api.put(`/shares/${shareId}`, { 
+        permission: permission || undefined, 
+        expires_at: expiresAt || undefined 
+      }),
+  }
+
+  // ── Delegations ─────────────────────────────────────────────────
+  export const delegationsApi = {
+    create: (data) => api.post('/delegations', data),
+    my: () => api.get('/delegations/my'),
+    revoke: (id) => api.delete(`/delegations/${id}`),
+  }
+
+  // ── Notifications ───────────────────────────────────────────────
+  export const notificationsApi = {
+    list: (params) => api.get('/notifications', { params }),
+    markRead: (id) => api.post(`/notifications/${id}/read`),
+    markAllRead: () => api.post('/notifications/mark-all-read'),
+    unreadCount: () => api.get('/notifications/unread-count'),
+    delete: (id) => api.delete(`/notifications/${id}`),
+    clearAllRead: () => api.delete('/notifications/clear-read'),
+  }
+
+  // ── Organization ─────────────────────────────────────────────────
+  export const orgApi = {
+    // Departments
+    listDepts: (params) => {api.get('/departments', { params })},
+    list_departments_kv:()=>api.get('/departments/kv'),
+    getDeptTree: (params) => api.get('/departments/tree', {params} ),
+    usersDept: (id,data) => api.get(`/departments/${id}/users`,data),
+    createDept: (data) => api.post('/departments', data),
+    updateDept: (id, data) => api.patch(`/departments/${id}`, data),
+    deleteDept: (id) => api.delete(`/departments/${id}`),
+    // Job Levels
+    listLevels: () => api.get('/job-levels'),
+    createLevel: (data) => api.post('/job-levels', data),
+    updateLevel: (id, data) => api.put(`/job-levels/${id}`, data),
+    deleteLevel: (id) => api.delete(`/job-levels/${id}`),
+    
+  }
+  export const ManagerApi={
+    assignManager:(data)=>api.post('/department-managers',data),
+    removeManager:(dept_id,user_id)=>api.delete(`/department-managers/${dept_id}/${user_id}`,),
+  }
+  // Locations
+  export const LocationApi = {
+    list: (params) => api.get('/locations', { params }),
+    getUsers: (deptId, page = 1, pageSize = 20) => 
+        api.get(`/locations/${deptId}/users`, { 
+            params: { page, page_size: pageSize } 
+        }),
+    getDepartments: (deptId, page = 1, pageSize = 20) => 
+        api.get(`/locations/${deptId}/departments`, { 
+            params: { page, page_size: pageSize } 
+        }),
+    createLocation: (data) => api.post('/locations', data),
+    updateLocation: (id, data) => api.put(`/locations/${id}`, data),
+    deleteLocation: (id) => api.delete(`/locations/${id}`),             // إضافة هذه لاحقاً إذا احتجتها
+  }
+  // ── Users ────────────────────────────────────────────────────────
+  export const usersApi = {
+    list: (params) => api.get('/users', { params }),
+    get: (id) => api.get(`/users/${id}`),
+    create: (data) => api.post('/users', data),
+    update: (id, data) => api.patch(`/users/${id}`, data),
+    changePassword: (id, data) => api.post(`/users/${id}/change-password`, data),
+    subordinates: (id) => api.get(`/users/${id}/subordinates`),
+    me:()=>api.get(`/users/me`),
+    updatenotification:(userid,data)=>api.patch(`/users/${userid}/notification-settings`,data),
+    updateContract:(userid,params)=>{api.put(`/users/${userid}/contacts`,params)},
+    getContacts:(userid)=>{api.get(`/users/${userid}/contacts`)}
+  }
+
+  // ── Search ───────────────────────────────────────────────────────
+  export const searchApi = {
+    advanced: (params) => api.get('/search', { params }),
+  }
+
+  export default api
+
+
+===== pages\tasks\TaskDetail\TaskDetailPage.jsx =====
+// TaskDetailPage.jsx (نسخة UI/UX احترافية معدلة ومحصنة برمجياً)
+import clsx from 'clsx'
+import { useState } from 'react'
+import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import {
+  ArrowRight, Edit, Trash2, Star, StarOff, Zap, ArrowLeftRight,
+  Share2, FileText, CheckCircle, Building2, User, Calendar, Bell, Clock, ListTodo, Users, MessageSquare, Paperclip, History,
+  Inbox
+} from 'lucide-react'
+import toast from 'react-hot-toast'
+import { tasksApi } from '@/api'
+import {
+  PriorityBadge, StatusBadge, ProgressBar, PageLoader,
+  ConfirmDialog, UrgencyBadge
+} from '@/components/common'
+import {
+  formatDate, formatDateTime, daysUntilDue, dueDateColor,
+  EISENHOWER_CONFIG, getApiError
+} from '@/utils/helpers'
+import { theme, resolveFieldState } from '@/constants/theme';
+import useAuthStore from '@/stores/authStore'
+import TaskFormModal from '../TaskFormModal'
+import TransferModal from '../TransferModal'
+import ShareModal from '../ShareModal'
+import TaskCommentsSection from './TaskCommentsSection'
+import TaskAttachmentsSection from './TaskAttachmentsSection'
+import TaskAssignmentsSection from './TaskAssignmentsSection'
+import TaskStepsSection from './TaskStepsSection'
+import TaskSharesSection from './TaskSharesSection'
+import TaskLogsSection from './TaskLogsSection'
+import UrgencyResponseModal from './TaskModels/UrgencyResponseModal'
+import TaskTimerControl from '@/components/common/TaskTimerControl'
+import TransferRespondModal from './TaskModels/TransferRespondModal'
+import KanbanBoard from './TaskModels/KanbanBoard'
+import { Avatar } from '@/components/common'
+import UserContactPopover from '@/components/shared/UserContactPopover'
+export default function TaskDetailPage() {
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const { user } = useAuthStore()
+  const queryClient = useQueryClient()
+  const [activeTab, setActiveTab] = useState('steps')
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [showTransfer, setShowTransfer] = useState(false)
+  const [showShare, setShowShare] = useState(false)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [showUrgencyModal, setShowUrgencyModal] = useState(false)
+  const [transferModalOpen, setTransferModalOpen] = useState(false)
+
+  const { data: task, isLoading } = useQuery({
+    queryKey: ['task', parseInt(id)],
+    queryFn: () => tasksApi.get(id).then(r => r.data),
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: () => tasksApi.delete(id),
+    onSuccess: () => {
+      toast.success('تم حذف المهمة بنجاح')
+      navigate('/tasks')
+    },
+    onError: (err) => toast.error(getApiError(err)),
+  })
+
+  const favMutation = useMutation({
+    mutationFn: () => tasksApi.toggleFavorite(id),
+    onSuccess: (res) => {
+      toast.success(res.data.message)
+      queryClient.invalidateQueries(['task', parseInt(id)])
+    },
+  })
+
+  const requestUrgencyMutation = useMutation({
+    mutationFn: () => tasksApi.requestUrgency(id, {}),
+    onSuccess: () => {
+      toast.success('تم إرسال طلب استعجال المهمة بنجاح')
+      queryClient.invalidateQueries(['task', parseInt(id)])
+    },
+    onError: (err) => toast.error(getApiError(err)),
+  })
+
+  const currentUserId = user?.id
+  
+  // حماية وتحليل طلب التحويل الوارد للمستخدم الحالي من كائن الترقيم
+  const userPendingTransfer = (Array.isArray(task?.transfers?.items) 
+    ? task.transfers.items.find((t) => t.to_user_id === currentUserId && t.status === 'pending')
+    : null) || {};
+
+  if (isLoading) return <PageLoader />
+  if (!task) return <div className="text-center py-16 text-gray-400 text-sm">المهمة غير موجودة</div>
+
+  const perms = task.permissions || {}
+  const canEditTask = perms.can_edit_task ?? false
+  const canDelete = perms.can_delete_task ?? false
+  const canRequestUrgency = perms.can_request_urgency ?? false
+  const canRespondUrgency = perms.can_respond_urgency ?? false
+  const canTransfare = perms.can_transfer_task ?? false; // تصحيح التسمية لتتطابق مع الـ Permissions الموحدة
+  const canShare = perms.can_share_add ?? false;
+  const canChangeStatus = perms.can_change_status ?? false;
+
+  const days = daysUntilDue(task.due_date)
+  const eisConfig = EISENHOWER_CONFIG[task.eisenhower_quadrant]
+  
+  // الحسابات الذكية بعد التحويل لكائنات الترقيم (Micro-Pagination)
+  const completedSteps = task.steps?.items?.filter(s => s.is_completed).length || 0;
+  const totalSteps = task.steps?.total || 0; // 🌟 تم تعديلها لتجلب الإجمالي الكلي من قاعدة البيانات مباشرة
+
+  // تبويبات احترافية مع أيقونات
+  const tabs = [
+    { key: 'steps', label: 'الخطوات', icon: <ListTodo className="w-4 h-4" /> },
+    { key: 'assignments', label: 'المنفذون', icon: <Users className="w-4 h-4" /> },
+    { key: 'shares', label: 'المشاركون', icon: <Share2 className="w-4 h-4" /> },
+    { key: 'comments', label: 'التعليقات', icon: <MessageSquare className="w-4 h-4" /> },
+    { key: 'attachments', label: 'المرفقات', icon: <Paperclip className="w-4 h-4" /> },
+    { key: 'history', label: 'السجل', icon: <History className="w-4 h-4" /> },
+  ]
+task.creator = task?.creator ?? task?.created_by_user ?? null;
+
+  return (
+    <div className={clsx(
+        "min-h-screen transition-colors duration-300",
+        "bg-slate-50 dark:bg-slate-950 pb-12"
+      )}>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+        
+        {/* Breadcrumb عصري */}
+        <nav className={clsx("flex items-center gap-1", theme.text.muted)}>
+          <Link 
+            to="/tasks" 
+            className={clsx(
+              "flex items-center gap-1.5 px-2 py-1 rounded-md transition-all",
+              "hover:bg-slate-200/50 dark:hover:bg-slate-800/50 hover:text-primary-600 dark:hover:text-primary-400"
+            )}
+          >
+            <ArrowRight className="w-3.5 h-3.5" />
+            <span>المهام</span>
+          </Link>
+          
+          {/* الفاصل */}
+          <span className="text-slate-300 dark:text-slate-600">/</span>
+          
+          {/* العنوان الحالي */}
+          <span 
+            className={clsx(
+              "font-medium truncate max-w-[250px] sm:max-w-md",
+              "text-slate-800 dark:text-slate-200"
+            )} 
+            title={task.title}
+          >
+            {task.title}
+          </span>
+        </nav>
+
+        {/* البطاقة الرئيسية للمهمة */}
+        <div className={clsx(
+          theme.card.base, // يستبدل bg-white, border, shadow-sm, rounded-2xl
+          "overflow-hidden transition-all",
+          task.urgency_request_status === 'approved' && "border-r-4 border-r-red-500"
+        )}>
+          {/* الرأس: الشارات + العنوان + الأزرار الإدارية */}
+          <div className={clsx("p-5 sm:p-6", theme.card.border)}>
+            <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
+              <div className="flex-1 space-y-4">
+                {/* قسم الوسوم */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <PriorityBadge priority={task.priority} />
+                  <StatusBadge status={task.status} />
+                  {task.urgency_request_status === 'approved' && <UrgencyBadge status="approved" />}
+                  {task.urgency_request_status === 'pending' && (
+                    <span className={clsx(theme.badge.base, theme.badge.warning, "animate-pulse")}>
+                      <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                      استعجال قيد الانتظار
+                    </span>
+                  )}
+                  {eisConfig && (
+                    <span className={clsx('text-xs font-medium px-2.5 py-1 rounded-full', eisConfig.color, eisConfig.text)}>
+                      {eisConfig.label}
+                    </span>
+                  )}
+                </div>
+                {/* العنوان ومعلومات المبدع */}
+
+                <div>
+                  <h1 className={clsx("text-2xl sm:text-3xl font-bold tracking-tight", theme.text.primary)}>
+                    {task.title}
+                  </h1>
+                  <div className="flex flex-wrap items-center gap-4 mt-3">
+                  
+                  {task.creator && (
+                    <div className={clsx("inline-flex items-center px-3 py-1 rounded-full border", theme.card.subtle)}>
+                      <UserContactPopover user={task.creator} taskId={task.id} taskTitle={task.title}>
+                        <Avatar 
+                          name={task.creator.full_name || ''} 
+                          src={task.creator.avatar_url || task.creator.user?.avatar_url} 
+                          size="sm" 
+                          className="cursor-pointer hover:opacity-80 transition-opacity"
+                        />
+                      </UserContactPopover>
+                      <div className="mr-2">
+                        <p className={clsx("text-xs sm:text-sm font-bold", theme.text.primary)}>{task.creator?.full_name}</p>
+                        <p className={clsx("text-[11px] font-medium mt-0.5", theme.text.muted)}>{task.creator?.job_title}</p>  
+                      </div>
+                      
+                    </div>
+                  )}
+                  {task.file_number && (
+                    <div className={clsx("inline-flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full border", theme.card.subtle)}>
+                      <FileText className={clsx("w-3.5 h-3.5", theme.text.muted)} />
+                      <span className={theme.text.muted}>رقم الملف:</span>
+                      <span className={clsx("font-mono font-semibold", theme.text.primary)}>{task.file_number}</span>
+                    </div>
+                  )}
+                  </div>
+                </div>
+
+                {/* الوصف */}
+                {task.description && (
+                  <div className={clsx("prose prose-sm max-w-none rounded-xl p-4 border", theme.card.subtle)}>
+                    <p className={clsx("whitespace-pre-line leading-relaxed", theme.text.secondary)}>{task.description}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* أزرار التحكم الرأسية والمفضلة */}
+              <div className={clsx("flex items-center gap-2 self-start lg:self-center p-1.5 rounded-xl", theme.card.subtle)}>
+                <button
+                  onClick={() => favMutation.mutate()}
+                  className={clsx(
+                        "p-2 rounded-lg transition-all duration-200",
+                        task.is_favorite 
+                          ? "text-amber-500 bg-amber-500/10" 
+                          : "text-slate-400 hover:text-amber-500 hover:bg-slate-200/50"
+                      )}
+                  title={task.is_favorite ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+                >
+                  {task.is_favorite ? <Star className="w-5 h-5 fill-current" /> : <StarOff className="w-5 h-5" />}
+                </button>
+
+                {/* صندوق طلبات التحويل الواردة المعلق والذكي */}
+                {Object.keys(userPendingTransfer).length > 0 ? (
+                  <button
+                    onClick={() => setTransferModalOpen(true)}
+                    className="p-2 rounded-lg text-blue-600 bg-blue-500/10 border border-blue-500/20 animate-bounce"
+                    title="اتخاذ إجراء بشأن طلب التحويل الوارد"
+                  >
+                    <Inbox className="w-5 h-5" />
+                  </button>
+                ) : (
+                  <span className={clsx("text-xs font-medium italic px-2 py-1 rounded-md select-none", theme.text.muted)}>
+                    التحويل: لا يوجد
+                  </span>
+                )}
+
+                {(canEditTask || canDelete) && <div className="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-0.5" />}
+
+                {canEditTask && (
+                  <button
+                    onClick={() => setShowEditModal(true)}
+                    className={clsx(theme.button.base, theme.button.primary, "px-3 py-1.5")}
+                  >
+                    <Edit className="w-4 h-4" />
+                    <span className="hidden sm:inline">تعديل</span>
+                  </button>
+                )}
+                {canDelete && (
+                  <button
+                    onClick={() => setShowDeleteConfirm(true)}
+                    className={clsx(theme.button.ghost, "text-red-500 hover:text-red-600")}
+                    title="حذف المهمة"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* قسم مؤشر التقدم وعداد الخطوات */}
+          <div className={clsx("p-5 sm:p-6 border-b", theme.card.border, theme.card.subtle)}>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center text-sm">
+                <span className={clsx("font-medium flex items-center gap-1.5", theme.text.primary)}>
+                  <span className="w-2 h-2 rounded-full bg-primary-500" />
+                  نسبة الإنجاز الإجمالية
+                </span>
+                <span className={clsx("font-bold px-2.5 py-0.5 rounded-full text-xs border", theme.card.base, theme.text.primary)}>
+                  {task.progress_percentage}%
+                </span>
+              </div>
+              <ProgressBar value={task.progress_percentage} />
+              {totalSteps > 0 && (
+                <div className="flex justify-between items-center text-xs text-gray-500 mt-1">
+                  <span className={clsx("flex items-center gap-1", theme.text.muted)}>
+                    <CheckCircle className="w-3.5 h-3.5 text-green-500" />
+                    تم إنجاز {completedSteps} من {totalSteps} خطوات كليّة
+                  </span>
+                  {task.progress_percentage < 100 && (
+                    <span className="text-primary-600 dark:text-primary-400 font-medium">
+                      متبقي في السجل {totalSteps - completedSteps} خطوة
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* شبكة المعلومات والبيانات الوصفية (Metadata) */}
+          <div className={clsx("p-5 sm:p-6 border-b", theme.card.border)}>
+                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 text-sm">
+                  <InfoItem 
+                    icon={<Building2 className={clsx("w-4 h-4", theme.text.muted)} />} 
+                    label="الإدارة المستلمة" 
+                    value={task.department_name || task?.department?.name || '—'} 
+                    iconColor="text-amber-500" 
+                    labelColor="text-amber-600"
+                  />
+                  <InfoItem 
+                    icon={<User className={clsx("w-4 h-4", theme.text.muted)} />} 
+                    label="منشئ المهمة" 
+                    value={task.creator?.full_name || '—'} 
+                    iconColor="text-purple-500" 
+                    labelColor="text-purple-600"
+                  />
+                  {task.start_date && (
+                    <InfoItem 
+                      icon={<Calendar className={clsx("w-4 h-4", theme.text.muted)} />} 
+                      label="تاريخ البدء" 
+                      value={formatDate(task.start_date)} 
+                      iconColor="text-blue-500" 
+                      labelColor="text-blue-600"
+                    />
+                  )}
+                  {task.due_date && (
+                    <InfoItem
+                      icon={<Calendar className={clsx("w-4 h-4", theme.text.muted)} />}
+                      label="تاريخ الاستحقاق"
+                      iconColor={days < 0 ? "text-red-500" : "text-blue-500"}
+                      labelColor={days < 0 ? "text-red-600" : "text-slate-500"}
+                      value={
+                        <div className="flex items-center gap-1">
+                          <span className={clsx("font-semibold", dueDateColor(days))}>
+                            {formatDate(task.due_date)}
+                          </span>
+                          {days !== null && days < 0 && (
+                            <span className="text-red-500 text-xs animate-pulse" title="المهمة متأخرة عن موعدها!">
+                              &#9888;
+                            </span>
+                          )}
+                        </div>
+                      }
+                    />
+                  )}
+                  {task.reminder_datetime && (
+                    <InfoItem 
+                      icon={<Bell className={clsx("w-4 h-4", theme.text.muted)} />} 
+                      label="موعد التذكير" 
+                      value={formatDateTime(task.reminder_datetime)} 
+                      iconColor="text-sky-500"
+                      labelColor="text-sky-600"
+                    />
+                  )}
+                </div>
+              </div>
+
+          {/* قسم التحكم بالوقت والـ Time Tracking الفعلي */}
+          {canChangeStatus && (
+            <div className={clsx(
+              "px-5 sm:px-6 pt-5 border-b",
+              theme.card.border, // يوحد الحدود مع باقي البطاقات
+              theme.card.subtle   // خلفية متوافقة مع الوضع الليلي والنهاري
+            )}>
+              <TaskTimerControl 
+                taskId={task.id} 
+                canChangeStatus={canChangeStatus} 
+              />
+            </div>
+          )}
+
+          {/* أزرار العمليات الإدارية السريعة */}
+          <div className={clsx(
+            "p-5 sm:p-6 flex flex-wrap gap-2 border-b",
+            theme.card.subtle, // الخلفية الموحدة المتوافقة مع Dark Mode
+            theme.card.border
+          )}>
+            {canTransfare && (
+              <ActionButton 
+                icon={<ArrowLeftRight className="w-4 h-4" />} 
+                onClick={() => setShowTransfer(true)}
+              >
+                تحويل المهمة لإدارة أخرى
+              </ActionButton>
+            )}
+            {canShare && (
+              <ActionButton 
+                icon={<Share2 className="w-4 h-4" />} 
+                onClick={() => setShowShare(true)}
+              >
+                مشاركة الصلاحيات
+              </ActionButton>
+            )}
+            {task.urgency_request_status !== 'pending' && canRespondUrgency && (
+              <ActionButton 
+                icon={<Zap className="w-4 h-4" />} 
+                onClick={() => requestUrgencyMutation.mutate()} 
+                variant="urgent"
+              >
+                طلب استعجال فوري
+              </ActionButton>
+            )}
+            {task.urgency_request_status === 'pending' && canRequestUrgency && (
+              <ActionButton 
+                icon={<Clock className="w-4 h-4" />} 
+                onClick={() => setShowUrgencyModal(true)} 
+                variant="warning"
+              >
+                الرد على طلب الاستعجال
+              </ActionButton>
+            )}
+          </div>
+        </div>
+
+        {/* شاشة التبويبات السفلية الذكية وعرض القوائم الرقمية */}
+        <div className={clsx(
+            "rounded-2xl border overflow-hidden",
+            theme.card.base // يستبدل shadow-sm, bg-white, border
+          )}>
+            <div className={clsx("border-b px-4 sm:px-6", theme.card.border)}>
+              <div className="flex gap-1 overflow-x-auto no-scrollbar">
+                {tabs.map(tab => (
+                  <button
+                    key={tab.key}
+                    onClick={() => setActiveTab(tab.key)}
+                    className={clsx(
+                      "flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px whitespace-nowrap",
+                      activeTab === tab.key
+                        ? "border-primary-500 text-primary-600 dark:text-primary-400"
+                        : clsx("border-transparent", theme.text.muted, "hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300")
+                    )}
+                  >
+                    {tab.icon}
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* عرض محتويات الأقسام */}
+            <div className={clsx("p-5 sm:p-6", theme.card.subtle)}>
+              {activeTab === 'steps' && <KanbanBoard taskId={task.id} taskPermissions={perms} task={task} />}
+              {activeTab === 'assignments' && <TaskAssignmentsSection taskId={task.id} taskPermissions={perms} task={task} />}
+              {activeTab === 'shares' && <TaskSharesSection taskId={task.id} taskPermissions={perms} task={task} />}
+              {activeTab === 'comments' && <TaskCommentsSection taskId={task.id} taskPermissions={perms} task={task} />}
+              {activeTab === 'attachments' && <TaskAttachmentsSection taskId={task.id} taskPermissions={perms} task={task} />}
+              {activeTab === 'history' && <TaskLogsSection taskId={task.id} taskPermissions={perms} task={task} />}
+            </div>
+          </div>
+      </div>
+
+      {/* نوافذ التأكيد والمودالات المنبثقة */}
+      {showEditModal && (
+        <TaskFormModal
+          task={task}
+          onClose={() => setShowEditModal(false)}
+          onSuccess={() => {
+            setShowEditModal(false)
+            queryClient.invalidateQueries(['task', parseInt(id)])
+          }}
+        />
+      )}
+      {showTransfer && (
+        <TransferModal
+          taskId={task.id}
+          currentDeptId={task.department_id}
+          onClose={() => setShowTransfer(false)}
+          onSuccess={() => {
+            setShowTransfer(false)
+            queryClient.invalidateQueries(['task', parseInt(id)])
+          }}
+        />
+      )}
+      {showShare && (
+        <ShareModal
+          taskId={task.id}
+          onClose={() => setShowShare(false)}
+          onSuccess={() => {
+            setShowShare(false)
+            queryClient.invalidateQueries(['task-shares', id])
+          }}
+        />
+      )}
+      <ConfirmDialog
+        open={showDeleteConfirm}
+        onClose={() => setShowDeleteConfirm(false)}
+        onConfirm={() => deleteMutation.mutate()}
+        title="حذف المهمة نهائياً"
+        message={`هل أنت متأكد من رغبتك في حذف "${task.title}"؟ لا يمكن التراجع عن هذا الإجراء الإداري الرقابي بعد التنفيذ.`}
+        danger
+      />
+      {showUrgencyModal && (
+        <UrgencyResponseModal
+          task={task}
+          onClose={() => setShowUrgencyModal(false)}
+        />
+      )}
+      {transferModalOpen && (
+        <TransferRespondModal
+          isOpen={transferModalOpen}
+          onClose={() => setTransferModalOpen(false)}
+          transferData={userPendingTransfer}
+          taskTitle={task.title}
+        />
+      )}
+    </div>
+  )
+}
+
+// مكونات مساعدة داخلية لعرض البيانات الهيكلية
+function InfoItem({ icon, label, value, iconColor = "text-slate-400", labelColor = "text-slate-500" }) {
+  return (
+    <div className={clsx(
+      "flex flex-col gap-1.5 p-3 rounded-xl border transition-all duration-200",
+      theme.card.subtle // الخلفية الموحدة من الثيم
+    )}>
+      {/* الجزء العلوي: أيقونة + عنوان */}
+      <div className={clsx("flex items-center gap-1.5 text-xs font-semibold", labelColor)}>
+        <span className={iconColor}>{icon}</span>
+        <span>{label}</span>
+      </div>
+      
+      {/* الجزء السفلي: القيمة */}
+      <div className={clsx("text-sm font-bold truncate", theme.text.primary)}>
+        {value}
+      </div>
+    </div>
+  )
+}
+
+
+function ActionButton({ icon, onClick, children, variant = 'default' }) {
+  // تعريف الأنماط باستخدام توكنز الثيم
+  const variants = {
+    default: clsx(theme.button.ghost, "border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"),
+    urgent: "bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40",
+    warning: "bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/40"
+  };
+
+  return (
+    <button 
+      onClick={onClick} 
+      className={clsx(
+        "inline-flex items-center gap-2 px-3.5 py-2 text-sm font-medium rounded-xl transition-all duration-200",
+        variants[variant] || variants.default
+      )}
+    >
+      {icon}
+      {children}
+    </button>
+  );
+}
