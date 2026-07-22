@@ -11,7 +11,7 @@ export default function LocationDepartmentsModal({ loc, onClose }) {
     queryKey: ['loc-depts', loc?.id],
     queryFn: () => orgApi.getDeptTree({ location_id: loc.id }).then(r => r.data),
     enabled: !!loc?.id,
-  });
+  }); 
 
   // فلترة البيانات: نبحث في الاسم
   const filteredData = useMemo(() => {

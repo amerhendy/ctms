@@ -16,6 +16,7 @@ from app.models.Favorite import Favorite
 from app.repositories.task_repo import TaskRepository
 from app.core.utils import logger
 from sqlalchemy.ext.asyncio import AsyncSession
+from app.schemas.tasks import EisenhowerDistributionItem
 from typing import List,Dict
 class TaskAnalyticsRepository:
 
@@ -477,18 +478,22 @@ class TaskAnalyticsRepository:
         return result.scalar() or 0
 
     @staticmethod
-    async def count_tasks_by_eisenhower(db: AsyncSession, task_ids: List[int]) -> Dict[str, int]:
+    async def count_tasks_by_eisenhower(db: AsyncSession, task_ids: List[int]) -> List[EisenhowerDistributionItem]:
         if not task_ids:
-            return {"Q1_DO_FIRST": 0, "Q2_SCHEDULE": 0, "Q3_DELEGATE": 0, "Q4_ELIMINATE": 0}
+            # إرجاع القائمة وفقاً للـ Schema الجديد في حالة عدم وجود مهام
+            return [
+                EisenhowerDistributionItem(quadrant="Q1_DO_FIRST", count=0),
+                EisenhowerDistributionItem(quadrant="Q2_SCHEDULE", count=0),
+                EisenhowerDistributionItem(quadrant="Q3_DELEGATE", count=0),
+                EisenhowerDistributionItem(quadrant="Q4_ELIMINATE", count=0),
+            ]
 
-        # ترجمة منطق الـ property إلى SQL Case expression
-        # ملاحظة: تأكد من تطابق الشروط مع المنطق الفعلي لديك
         quadrant_case = case(
-                (Task.is_urgent & Task.is_important, "Q1_DO_FIRST"),
-                (~Task.is_urgent & Task.is_important, "Q2_SCHEDULE"),
-                (Task.is_urgent & ~Task.is_important, "Q3_DELEGATE"),
-                else_="Q4_ELIMINATE"
-            ).label("quadrant")
+            (Task.is_urgent & Task.is_important, "Q1_DO_FIRST"),
+            (~Task.is_urgent & Task.is_important, "Q2_SCHEDULE"),
+            (Task.is_urgent & ~Task.is_important, "Q3_DELEGATE"),
+            else_="Q4_ELIMINATE"
+        ).label("quadrant")
 
         stmt = select(quadrant_case, func.count(Task.id)).where(
             Task.id.in_(task_ids)
@@ -497,12 +502,14 @@ class TaskAnalyticsRepository:
         result = await db.execute(stmt)
         data = result.all()
         
-        # تهيئة القاموس بالقيم الافتراضية
+        # تهيئة القاموس بالقيم الافتراضية للنتائج
         counts = {"Q1_DO_FIRST": 0, "Q2_SCHEDULE": 0, "Q3_DELEGATE": 0, "Q4_ELIMINATE": 0}
         for quadrant, count in data:
             if quadrant in counts:
                 counts[quadrant] = count
-        return [{"quadrant": k, "count": v} for k, v in counts.items()]
+                
+        # التحويل النهائي إلى قائمة من كائنات الـ Pydantic Model
+        return [EisenhowerDistributionItem(quadrant=k, count=v) for k, v in counts.items()]
     
     @staticmethod
     async def get_latest_active_tasks(db: AsyncSession, task_ids: List[int], limit: int = 5) -> List[Task]:

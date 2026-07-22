@@ -4,6 +4,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { UserCheck,Trash } from 'lucide-react'
 import { Modal, FormField } from '@/components/common'
+import UserContactPopover from '@/components/shared/UserContactPopover'
+
 import UserSearchInput from '@/modals/UserSearchSelect'
 import { Avatar } from '@/components/common'
 import {ManagerApi} from '@/api'
@@ -61,7 +63,12 @@ export default function ManagerAssignmentModal({ dept, onClose }) {
                 >
                 <div className="flex items-center gap-3">
                     <div className="">
+                      <UserContactPopover user={m}>
                         <Avatar name={m.full_name} src={m.avatar_url} />
+                      </UserContactPopover>
+                        <div className="leading-tight min-w-0">
+                          <p className="text-xs text-gray-400 mt-0.5">{m?.job_title}</p>
+                        </div>
                     </div>
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{m.full_name}</span>
                 </div>

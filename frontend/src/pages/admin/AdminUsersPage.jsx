@@ -5,6 +5,7 @@ import { Users, Plus, Edit, ToggleLeft, ToggleRight, Search, Briefcase, ChevronR
 import toast from 'react-hot-toast'
 import { usersApi } from '@/api'
 import { PageLoader, Modal, Avatar } from '@/components/common'
+import UserContactPopover from '@/components/shared/UserContactPopover'
 import { getApiError, ROLE_LABELS } from '@/utils/helpers'
 import useAuthStore from '@/stores/authStore'
 import PageHeader from '@/components/common/pageheader'
@@ -14,7 +15,7 @@ import clsx from 'clsx'
 import UserFormModal from '@/modals/UserFormModal'
 import SubordinatesModal from '@/modals/SubordinatesModal'
 export default function AdminUsersPage() {
-  const { isAdmin, isDepartmentManager } = useAuthStore();
+  const { isAdmin, isDepartmentManager,isAdminOrPM } = useAuthStore();
   const managedIds = isDepartmentManager();
   const qc = useQueryClient()
   const [search, setSearch] = useState('')
@@ -133,7 +134,9 @@ export default function AdminUsersPage() {
                   <tr key={u.id} className="hover:bg-gray-50/70 dark:hover:bg-gray-700/30 transition-colors">
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
-                        <Avatar name={u.full_name} size="sm" src={u.avatar_url} className="border border-gray-100 dark:border-gray-600" />
+                        <UserContactPopover user={u}>
+                          <Avatar name={u.full_name} size="sm" src={u.avatar_url} className="border border-gray-100 dark:border-gray-600" />
+                        </UserContactPopover>
                         <div className="leading-tight">
                           <p className="font-semibold text-gray-950 dark:text-white">{u.full_name}</p>
                           <p className="text-xs text-gray-400 mt-0.5">{u.email}</p>
@@ -156,7 +159,6 @@ export default function AdminUsersPage() {
                       </span>
                     </td>
                     <td className="py-3.5 px-4">
-                      {isAdmin() && (
                       <button
                         onClick={() => toggleActive.mutate({ id: u.id, is_active: !u.is_active })}
                         className={clsx(
@@ -165,6 +167,7 @@ export default function AdminUsersPage() {
                             ? 'text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300' 
                             : 'text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400'
                         )}
+                        disabled={!isAdminOrPM()}
                       >
                         {u.is_active ? (
                           <>
@@ -178,7 +181,7 @@ export default function AdminUsersPage() {
                           </>
                         )}
                       </button>
-                      )}
+                      
                     </td>
                     <td className="py-3.5 px-4 text-left pl-5">
                       <div className="flex items-center justify-end gap-1">

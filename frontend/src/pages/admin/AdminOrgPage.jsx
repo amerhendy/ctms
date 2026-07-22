@@ -142,6 +142,8 @@ export default function AdminOrgPage() {
           <div className="flex items-center gap-1.5 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
             
             {/* زر إدارة المديرين */}
+            
+            {isAdminOrPM() && 
             <button 
               onClick={() => { setSelectedDept(dept); setShowManagerModal(true); }}
               className="p-1.5 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30 rounded-lg transition-colors"
@@ -149,6 +151,7 @@ export default function AdminOrgPage() {
             >
               <UserCheck className="w-4 h-4" /> 
             </button>
+            }
             {/* زر عرض الموظفين الجديد */}
             <button 
               onClick={() => { setSelectedDept(dept); setShowUsersModal(true); }}

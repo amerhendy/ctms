@@ -19,7 +19,7 @@ class UserCreate(BaseModel):
     email: EmailStr
     password: str = Field(..., min_length=6)
     work_location_id: Optional[int] = None
-    manager_id: Optional[int] = None
+    #manager_id: Optional[int] = None
     job_level_id: Optional[int] = None
     department_id: Optional[int] = None
     global_role: GlobalRole = GlobalRole.USER
@@ -33,7 +33,7 @@ class UserUpdate(BaseModel):
     email: Optional[EmailStr] = None
     password: Optional[str] = Field(None, min_length=6, description="كلمة المرور الجديدة اختياري")
     work_location_id: Optional[int] = None
-    manager_id: Optional[int] = None
+    #manager_id: Optional[int] = None
     job_level_id: Optional[int] = None
     department_id: Optional[int] = None
     global_role: Optional[GlobalRole] = None

@@ -132,3 +132,8 @@ class TaskListItem(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class EisenhowerDistributionItem(BaseModel):
+    quadrant: str
+    count: int

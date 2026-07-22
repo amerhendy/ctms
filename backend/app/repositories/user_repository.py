@@ -3,7 +3,7 @@
 from typing import List, Optional
 from sqlalchemy import select, func,  or_,asc
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload,joinedload
+from sqlalchemy.orm import selectinload,joinedload,defer
 from sqlalchemy import Integer, Table, Column, select, text
 from sqlalchemy.dialects.postgresql import array  # إذا كنت تستخدم PostgreSQL
 from app.models.User import User  # تأكد من المسار الصحيح لنموذج User
@@ -30,6 +30,7 @@ class UserRepository:
             selectinload(User.logs),
             selectinload(User.contacts),
             selectinload(User.managed_departments),
+            defer(User.password_hash)
         ]
         query = select(User).options(*base_options)
         return query
@@ -97,7 +98,6 @@ class UserRepository:
         query=UserRepository.get_Base()
         if user_id is not None:
             query = query.where(User.id == user_id)
-
         return query
 
 

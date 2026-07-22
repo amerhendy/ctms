@@ -257,7 +257,6 @@ task.creator = task?.creator ?? task?.created_by_user ?? null;
                 )}
 
                 {(canEditTask || canDelete) && <div className="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-0.5" />}
-
                 {canEditTask && (
                   <button
                     onClick={() => setShowEditModal(true)}

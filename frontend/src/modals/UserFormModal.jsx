@@ -62,8 +62,7 @@ export default function UserFormModal({ user, onClose, onSuccess }) {
                       can_transfer_external: !!user?.can_transfer_external,
                       is_active: user !== null ? !!user?.is_active : true,
                       work_location_id: user?.work_location_id?.toString() || '',
-                      avatar_url:user?.avatar_url || 'full_name',
-                      manager_id: user?.manager_id?.toString() || '',
+                      avatar_url:user?.avatar_url || ''
                     }
   })
 
@@ -87,8 +86,7 @@ export default function UserFormModal({ user, onClose, onSuccess }) {
         can_transfer_external: !!user.can_transfer_external,
         is_active: !!user.is_active,
         work_location_id: user.work_location_id?.toString() || '',
-        avatar_url:user?.avatar_url || 'full_name',
-        manager_id: user?.manager_id?.toString() || '',
+        avatar_url:user?.avatar_url || '',
       })
 
       // العثور على اسم الإدارة الحالي لعرضه للمستخدم بدلاً من المعرف الرقمي
@@ -112,7 +110,7 @@ const handleDepartmentSelect = (node) => {
     
     setValue('department_id', deptId ? deptId.toString() : '', { shouldValidate: true });
     // مسح المدير المباشر عند تغيير القسم لأن القائمة ستتغير
-    setValue('manager_id', ''); 
+
     setSelectedDeptName(deptName || '— لا توجد (إدارة عليا / رئيسية) —');
 }
   const onSubmitForm = (data) => {
@@ -120,7 +118,7 @@ const handleDepartmentSelect = (node) => {
     const payload = { ...data };
 
     // 2. قائمة الحقول الرقمية التي يجب تحويلها إلى null عند الفراغ
-    const numericFields = ['department_id', 'job_level_id', 'work_location_id', 'manager_id'];
+    const numericFields = ['department_id', 'job_level_id', 'work_location_id'];
     
     numericFields.forEach(field => {
       const val = payload[field];
@@ -347,38 +345,6 @@ const { data: departmentUsers, isLoading: isUsersLoading } = useQuery({
                   >
                     تعيين كإدارة عليا رئيسية
                   </button>
-                )}
-              </div>
-            </FormField>
-            <FormField label="المدير المباشر" className="dark:text-gray-200">
-              <div className="relative">
-                <User className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none" />
-                <select 
-                  className={clsx(
-                    "input w-full pr-9 text-base sm:text-sm border rounded-lg appearance-none transition-colors",
-                    // التنسيق النهاري
-                    "bg-white border-gray-300 text-gray-900",
-                    // التنسيق الليلي
-                    "dark:bg-gray-900 dark:border-gray-700 dark:text-white",
-                    // الحالة المعطلة
-                    !currentDeptId || isUsersLoading 
-                      ? "bg-gray-50 dark:bg-gray-800/50 cursor-not-allowed opacity-70" 
-                      : "hover:border-primary-400"
-                  )}
-                  {...register('manager_id')}
-                  disabled={!currentDeptId || isUsersLoading}
-                >
-                  <option value="">— اختر المدير المباشر —</option>
-                  {departmentUsers?.map(m => (
-                    <option key={m.id} value={m.id}>{m.full_name}</option>
-                  ))}
-                </select>
-                
-                {/* مؤشر التحميل */}
-                {isUsersLoading && (
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-indigo-500 dark:text-indigo-400 bg-white dark:bg-gray-900 px-1">
-                    جاري التحميل...
-                  </span>
                 )}
               </div>
             </FormField>

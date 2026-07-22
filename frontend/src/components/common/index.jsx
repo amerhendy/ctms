@@ -1,6 +1,6 @@
 //components\common\index.jsx
 import clsx from 'clsx'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef,forwardRef } from 'react'
 import { Loader2, X, HelpCircle } from 'lucide-react'
 import { PRIORITY_CONFIG, STATUS_CONFIG, URGENCY_CONFIG } from '@/utils/helpers'
 import { theme } from '@/constants/theme';
@@ -364,5 +364,41 @@ export function ToggleSwitch({ checked, onChange, disabled }) {
         )}
       />
     </button>
+  );
+}
+
+export function TextArea({ className = '', value, onChange, ...props }) {
+  const textareaRef = useRef(null);
+
+  const adjustHeight = () => {
+    if (textareaRef.current) {
+      // إعادة تعيين الارتفاع للحساب الصحيح بناءً على المحتوى
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
+
+  // التمدد التلقائي عند تغير الـ value القادم من الـ props أو عند الرندر
+  useEffect(() => {
+    adjustHeight();
+  }, [value]);
+
+  return (
+    <textarea
+      ref={textareaRef}
+      value={value}
+      onChange={(e) => {
+        adjustHeight(); // التمدد أثناء الإدخال
+        if (onChange) onChange(e);
+      }}
+      className={clsx(
+        theme.input.base,
+        'min-h-[2.5rem] py-2',  
+        'max-h-60', 
+         "focus:ring-2 focus:ring-indigo-500/20",
+        className
+      )}
+      {...props}
+    />
   );
 }

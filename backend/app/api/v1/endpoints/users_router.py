@@ -84,8 +84,27 @@ async def list_users(
     # تنسيق النتيجة
     #result["items"] = [UserOut.model_validate(u).model_dump() for u in result["items"]]
     return result
-
-
+#اخراج الاشخاص ببيانات بسيطة
+@router.get("/UserListForOthers", response_model=dict, operation_id="UserListForOthers")
+async def list_users(
+    department_id: Optional[List[int]] = Query(None),
+    is_active: Optional[bool] = None,
+    q: Optional[str] = None,
+    page: int = Query(1, ge=1),
+    page_size: int = Query(20, ge=1, le=100),
+    sort_by: str = "created_at",
+    sort_order: str = "desc",
+    target: str =None,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    filters = {"department_id": department_id, "is_active": is_active, "q": q}
+    print("AAAAAAAAAAA")
+    result = await UserService.list_users_for_others_service(db,current_user, filters, page, page_size, sort_by, sort_order)
+    
+    # تنسيق النتيجة
+    #result["items"] = [UserOut.model_validate(u).model_dump() for u in result["items"]]
+    return result
 
 
 # 6. جلب مستخدم محدد بالـ ID
@@ -180,3 +199,4 @@ async def update_user_notifications(
         db, current_user, user_id, data.model_dump(exclude_unset=True)
     )
     return updated_settings
+

@@ -4,7 +4,7 @@ import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tansta
 import { Plus, Trash2, Network } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { tasksApi } from '@/api'
-import { Modal, FormField,ToggleSwitch } from '@/components/common'
+import { Modal, FormField,ToggleSwitch,TextArea } from '@/components/common'
 import { getApiError } from '@/utils/helpers'
 import useAuthStore from '@/stores/authStore'
 import { theme } from '@/constants/theme';
@@ -22,15 +22,19 @@ export default function TaskFormModal({ task, onClose, onSuccess }) {
   // حالات التحكم بمودل الشجرة وعرض اسم الإدارة المختار نصياً
   const [isTreeOpen, setIsTreeOpen] = useState(false)
   const [selectedDeptName, setSelectedDeptName] = useState('')
-
+  const sliceDate=(dateInfo,length)=>{
+    if(dateInfo == null){return null;}
+    return dateInfo.slice(0,length)
+  }
   // 2. إعدادات نموذج react-hook-form
   const { register, handleSubmit, control, watch, setValue, trigger, formState: { errors } } = useForm({
+    
     defaultValues: task ? {
       title: task.title,
       description: task.description || '',
       file_number: task.file_number || '',
-      start_date: task.start_date.slice(0, 10) || '',
-      due_date: task.due_date.slice(0, 10) || '',
+      start_date: sliceDate(task?.start_date,10) || '',
+      due_date: sliceDate(task?.due_date,10)  || '',
       reminder_datetime: task.reminder_datetime
         ? task.reminder_datetime.slice(0, 16) : '',
       is_urgent: task.is_urgent,
@@ -46,8 +50,6 @@ export default function TaskFormModal({ task, onClose, onSuccess }) {
       department_id: user?.department_id || '',
     },
   })
-  console.log(task.due_date.slice(0, 10));
-
   // مراقبة حقل معرف القسم لمعرفة القيمة الحالية
   const currentDeptId = watch('department_id')
 
@@ -133,16 +135,15 @@ export default function TaskFormModal({ task, onClose, onSuccess }) {
 
           {/* Description */}
           <FormField label="الوصف">
-            <textarea
-              placeholder="وصف تفصيلي للمهمة (اختياري)..."
-              {...register('description')}
-              className={clsx(
-                theme.input.base,        // التنسيق الأساسي (خلفية، حدود، ألوان)
-                "resize-none h-24 py-2", // الحجم والتخصيص
-                "focus:ring-2 focus:ring-indigo-500/20" // تركيز مخصص للأناقة
-              )}
-            />
-          </FormField>
+          <TextArea
+            placeholder="وصف تفصيلي للمهمة (اختياري)..."
+            {...register('description')}
+            className={clsx(
+              "focus:ring-2 focus:ring-indigo-500/20", // التنسيق المخصص الذي تفضله
+              "w-full" // ضمان ملء المساحة
+            )}
+          />
+        </FormField>
 
           <div className="grid grid-cols-2 gap-3">
             {/* File number */}

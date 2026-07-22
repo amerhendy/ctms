@@ -2,10 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 import { LocationApi } from '@/api'
 import { useState,useEffect } from 'react'
 import { X, Users, Loader2, Search } from 'lucide-react'
-import { PageLoader,  Avatar } from '@/components/common'
+import { PageLoader, Modal, Avatar } from '@/components/common'
 
 export default function LocationUsersModal({ loc, onClose }) {
-  console.log("تحميل المستخدمين")
   if (!loc) return null;
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('') // إضافة حالة البحث
@@ -14,22 +13,15 @@ export default function LocationUsersModal({ loc, onClose }) {
   const { data, isLoading } = useQuery({
     // أضفنا search لـ queryKey ليعيد جلب البيانات عند البحث
     queryKey: ['loc-users', loc.id, page, search],
-    queryFn: () => LocationApi.getUsers(loc.id, { 
-      params: { page, page_size: 10, search } 
-    }).then(r => r.data),
+    queryFn: async () => {
+      const response = await LocationApi.getUsers(loc.id, page, 10, search);
+      return response.data;
+    },
     keepPreviousData: true,
-  })
+  }) 
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-lg shadow-xl border dark:border-gray-800 p-6">
-        
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg font-bold dark:text-white">موظفو {loc.name}</h2>
-          <button onClick={onClose} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full">
-            <X className="w-5 h-5 dark:text-gray-400" />
-          </button>
-        </div>
+    <Modal open onClose={onClose} title={`العاملين في: ${loc.name}`} size="md">
 
         {/* حقل البحث */}
         <div className="relative mb-4">
@@ -42,7 +34,7 @@ export default function LocationUsersModal({ loc, onClose }) {
             className="w-full pl-4 pr-10 py-2 border rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white text-sm outline-none focus:ring-2 focus:ring-primary-500"
           />
         </div>
-
+        
         <div className="space-y-3 min-h-[300px]">
           {isLoading ? (
             <div className="flex justify-center items-center h-40">
@@ -79,7 +71,6 @@ export default function LocationUsersModal({ loc, onClose }) {
             >التالي</button>
           </div>
         )}
-      </div>
-    </div>
+    </Modal>
   )
 }

@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict mCzwXzGx6t76DhX2EwHW8BfhJQTHts2juA1L3hcus3Pie3sYIhvJKqg4FwevqJy
+\restrict nhlpsh3deDD3Zfg6nQ5Y1VSfgPrSMTnl497cJwdvAGfsIpE7e1YJEJsvr5oPjS3
 
 -- Dumped from database version 16.14
 -- Dumped by pg_dump version 16.14
@@ -400,7 +400,8 @@ ALTER SEQUENCE public.job_levels_id_seq OWNED BY public.job_levels.id;
 CREATE TABLE public.locations (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    is_active boolean NOT NULL
+    is_active boolean NOT NULL,
+    parent_id integer
 );
 
 
@@ -1517,7 +1518,9 @@ COPY public.delegations (id, delegator_id, delegate_id, permission_types, start_
 COPY public.department_managers (id, user_id, department_id, is_primary, created_at, updated_at, deleted_at) FROM stdin;
 1	1060	105	t	2026-06-16 20:56:58.528199	2026-06-16 20:56:58.528199	\N
 2	2	104	t	2026-07-13 19:09:58.878	2026-07-13 19:10:01.308	\N
-3	1067	104	f	2026-07-13 19:10:56.607995	2026-07-13 19:10:56.607995	\N
+3	1067	104	f	2026-07-13 19:10:56.607995	2026-07-20 17:29:04.926787	2026-07-20 17:29:04.951072
+4	1071	106	t	2026-07-20 18:23:59.394068	2026-07-20 18:23:59.394068	\N
+5	1072	109	t	2026-07-20 18:31:38.69948	2026-07-20 18:31:38.69948	\N
 \.
 
 
@@ -1598,27 +1601,27 @@ COPY public.job_levels (id, level_number, title, description) FROM stdin;
 -- Data for Name: locations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.locations (id, name, is_active) FROM stdin;
-17	دهب	t
-18	نويبع	t
-10	سانت كاترين	t
-11	شرم الشيخ	t
-19	stringaaaa	f
-20	stringaaaasssssssss	f
-15	شمال سيناء	t
-14	جنوب سيناء	t
-16	بئر العبد	t
-1	العريش	t
-2	الشيخ زويد	t
-6	رفح	t
-3	نخل	t
-5	تاحسنة	t
-7	ابورديس	t
-4	رأس سدر	t
-8	ابوزنيمة	t
-9	طور سيناء	t
-12	طابا	t
-13	الديوان العام	t
+COPY public.locations (id, name, is_active, parent_id) FROM stdin;
+13	الديوان العام	t	\N
+14	جنوب سيناء	t	\N
+12	string	t	14
+5	الحسنة	t	15
+17	دهب	t	14
+18	نويبع	t	14
+10	سانت كاترين	t	14
+11	شرم الشيخ	t	14
+16	بئر العبد	t	15
+2	الشيخ زويد	t	15
+6	رفح	t	15
+3	نخل	t	15
+7	ابورديس	t	14
+4	رأس سدر	t	14
+8	ابوزنيمة	t	14
+9	طور سيناء	t	14
+1	العريش	t	15
+20	رمانة	t	16
+19	بالوظة	t	16
+15	شمال سيناء	t	\N
 \.
 
 
@@ -2153,6 +2156,17 @@ COPY public.notifications (id, user_id, type, title, body, related_task_id, extr
 552	1071	step_updated	تم تعديل خطوة	تم تعديل تفاصيل الخطوة 'خطوة 12' في المهمة 'These utilities only support the browser keywords auto, thin, and none.\n\n'	1	\N	\N	2026-07-13 20:25:09.149815	\N
 555	1061	step_updated	تم تعديل خطوة	تم تعديل تفاصيل الخطوة 'خطوة 10' في المهمة 'These utilities only support the browser keywords auto, thin, and none.\n\n'	1	\N	\N	2026-07-13 20:25:14.733263	\N
 558	1070	step_updated	تم تعديل خطوة	تم تعديل تفاصيل الخطوة 'خطوة 10' في المهمة 'These utilities only support the browser keywords auto, thin, and none.\n\n'	1	\N	\N	2026-07-13 20:25:14.778454	\N
+956	1061	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	13	{"automation": true, "template_id": 154}	\N	2026-07-19 15:19:23.994529	\N
+957	2	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	13	{"automation": true, "template_id": 154}	\N	2026-07-19 15:19:23.994529	\N
+958	1	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	13	{"automation": true, "template_id": 154}	\N	2026-07-19 15:19:23.994529	\N
+959	1061	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	14	{"automation": true, "template_id": 154}	\N	2026-07-20 14:56:34.142073	\N
+961	2	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	14	{"automation": true, "template_id": 154}	\N	2026-07-20 14:56:34.142073	\N
+960	1	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	14	{"automation": true, "template_id": 154}	2026-07-20 15:37:21.254871	2026-07-20 14:56:34.142073	\N
+962	1061	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	15	{"automation": true, "template_id": 154}	\N	2026-07-20 17:10:51.258586	\N
+963	1	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	15	{"automation": true, "template_id": 154}	\N	2026-07-20 17:10:51.258586	\N
+964	2	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (These utilities only support the browser keywords auto, thin, and none.\n\n). يرجى المتابعة والبدء في التنفيذ.	15	{"automation": true, "template_id": 154}	2026-07-20 17:13:43.853925	2026-07-20 17:10:51.258586	\N
+965	1072	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (مهمة مكررة). يرجى المتابعة والبدء في التنفيذ.	16	{"automation": true, "template_id": 154}	\N	2026-07-21 13:53:22.3106	\N
+966	1072	task_assigned	📅 مهمة دورية تلقائية	قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: (مهمة مكررة). يرجى المتابعة والبدء في التنفيذ.	17	{"automation": true, "template_id": 154}	\N	2026-07-22 00:16:12.561075	\N
 543	1067	step_updated	تم تعديل خطوة	تم تعديل تفاصيل الخطوة 'خطوة 11' في المهمة 'These utilities only support the browser keywords auto, thin, and none.\n\n'	1	\N	\N	2026-07-13 20:25:00.854563	\N
 547	2	step_updated	تم تعديل خطوة	تم تعديل تفاصيل الخطوة 'خطوة 12' في المهمة 'These utilities only support the browser keywords auto, thin, and none.\n\n'	1	\N	\N	2026-07-13 20:25:09.094809	\N
 550	1067	step_updated	تم تعديل خطوة	تم تعديل تفاصيل الخطوة 'خطوة 12' في المهمة 'These utilities only support the browser keywords auto, thin, and none.\n\n'	1	\N	\N	2026-07-13 20:25:09.129487	\N
@@ -2553,6 +2567,11 @@ COPY public.recurring_task_logs (id, recurring_task_id, status, generated_task_i
 10	154	success	10	\N	2026-07-14 19:31:14.813108
 11	154	success	11	\N	2026-07-15 16:28:58.514313
 12	154	success	12	\N	2026-07-15 19:28:57.296161
+13	154	success	13	\N	2026-07-19 15:19:22.724027
+14	154	success	14	\N	2026-07-20 14:56:33.609567
+15	154	success	15	\N	2026-07-20 17:10:50.206623
+16	154	success	16	\N	2026-07-21 13:53:21.972718
+17	154	success	17	\N	2026-07-22 00:16:12.240382
 \.
 
 
@@ -2561,7 +2580,7 @@ COPY public.recurring_task_logs (id, recurring_task_id, status, generated_task_i
 --
 
 COPY public.recurring_tasks (id, title, description, department_id, created_by, priority, recurrence_pattern, interval_value, day_of_week, day_of_month, next_run_date, is_active, run_time, created_at, updated_at, deleted_at) FROM stdin;
-154	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	104	1	MEDIUM	DAILY	1	\N	\N	2026-06-21	t	08:00:00	2026-06-28 22:40:16.678744	2026-07-15 19:28:57.296161	\N
+154	مهمة مكررة	sdf	109	1	MEDIUM	DAILY	1	\N	\N	2026-06-26	t	08:00:00	2026-06-28 22:40:16.678744	2026-07-22 00:16:12.240382	\N
 \.
 
 
@@ -2736,6 +2755,11 @@ COPY public.tasks (id, title, description, file_number, start_date, due_date, re
 10	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	104	\N	\N	\N	2026-07-14 19:31:14.813108	2026-07-14 19:31:20.445403	\N
 11	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	104	\N	\N	\N	2026-07-15 16:28:58.514313	2026-07-15 16:28:59.210499	\N
 12	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	104	\N	\N	\N	2026-07-15 19:28:57.296161	2026-07-15 19:28:57.688626	\N
+13	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	104	\N	\N	\N	2026-07-19 15:19:22.724027	2026-07-19 15:19:23.994529	\N
+14	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	104	\N	\N	\N	2026-07-20 14:56:33.609567	2026-07-20 14:56:34.142073	\N
+15	These utilities only support the browser keywords auto, thin, and none.\n\n	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	104	\N	\N	\N	2026-07-20 17:10:50.206623	2026-07-20 17:10:51.258586	\N
+16	مهمة مكررة	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	109	\N	\N	\N	2026-07-21 13:53:21.972718	2026-07-21 13:53:22.3106	\N
+17	مهمة مكررة	sdf	\N	\N	\N	\N	\N	f	t	MEDIUM	0	NOT_STARTED	1	109	\N	\N	\N	2026-07-22 00:16:12.240382	2026-07-22 00:16:12.561075	\N
 \.
 
 
@@ -2744,8 +2768,9 @@ COPY public.tasks (id, title, description, file_number, start_date, due_date, re
 --
 
 COPY public.user_contacts (id, user_id, phone_number, whatsapp_number, telegram_username, extension_number, is_private, created_at, updated_at) FROM stdin;
-1002	1	01090018329	01090018329	as	\N	t	2026-06-10 17:23:43.889257	2026-06-10 17:23:43.889257
 1004	2	01090018255	01090018251	sdsd	110	f	2026-06-23 01:50:47.911512	2026-06-23 01:50:47.911512
+1002	1	01090018329	01090018329	hjg	67678	t	2026-06-10 17:23:43.889257	2026-07-19 15:29:42.470145
+1	1060	\N	\N	\N	\N	f	2026-07-20 18:21:16.534151	2026-07-20 18:21:16.534151
 \.
 
 
@@ -2774,6 +2799,32 @@ COPY public.user_logs (id, user_id, action, old_data, new_data, created_at) FROM
 30	1060	user_edited	null	{"full_name": "\\u062e\\u0627\\u0644\\u062f", "updated_by": 1060}	2026-06-28 07:21:32.852536
 31	1060	user_edited	null	{"full_name": "Amer Hendy", "updated_by": 1060}	2026-06-28 07:21:46.133113
 32	1060	user changed their notification settings	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	2026-06-28 07:39:14.710266
+1	1	user changed their notification settings	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	2026-07-19 15:29:42.498135
+2	1	user changed their notification settings	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	2026-07-19 15:29:52.588833
+34	2	user_edited	null	{"is_active": false, "updated_by": 1}	2026-07-20 17:14:41.61374
+35	2	user_edited	null	{"is_active": true, "updated_by": 1}	2026-07-20 17:14:43.98553
+36	2	user_edited	null	{"employee_number": "00000010", "full_name": "\\u062e\\u0627\\u0644\\u062f \\u0627\\u0644\\u0639\\u0645\\u0631\\u0649", "job_title": "\\u0631\\u0626\\u064a\\u0633 \\u0645\\u062c\\u0644\\u0633 \\u0627\\u0644\\u0627\\u062f\\u0627\\u0631\\u0629", "email": "chairman.sinaiwater@outlook.com", "work_location_id": 13, "manager_id": null, "job_level_id": 14, "department_id": 104, "global_role": "user", "can_transfer_external": true, "is_active": true, "avatar_url": "full_name", "password_hash": "$2b$12$jc0xwHA1OYSA5qj3lRA.WexVVMowQuqpjny7YEJ.4IKWSOk0ypa2G", "updated_by": 1}	2026-07-20 17:15:03.462155
+37	2	user_edited	null	{"employee_number": "00000010", "full_name": "\\u062e\\u0627\\u0644\\u062f \\u0627\\u0644\\u0639\\u0645\\u0631\\u0649", "job_title": "\\u0631\\u0626\\u064a\\u0633 \\u0645\\u062c\\u0644\\u0633 \\u0627\\u0644\\u0627\\u062f\\u0627\\u0631\\u0629", "email": "chairman.sinaiwater@outlook.com", "work_location_id": 13, "manager_id": null, "job_level_id": 14, "department_id": 104, "global_role": "user", "can_transfer_external": true, "is_active": true, "avatar_url": "full_name", "updated_by": 1}	2026-07-20 17:23:44.49358
+38	2	user_edited	null	{"employee_number": "00000010", "full_name": "\\u062e\\u0627\\u0644\\u062f \\u0627\\u0644\\u0639\\u0645\\u0631\\u0649", "job_title": "\\u0631\\u0626\\u064a\\u0633 \\u0645\\u062c\\u0644\\u0633 \\u0627\\u0644\\u0627\\u062f\\u0627\\u0631\\u0629", "email": "chairman.sinaiwater@outlook.com", "work_location_id": 13, "manager_id": null, "job_level_id": 14, "department_id": 104, "global_role": "user", "can_transfer_external": true, "is_active": true, "avatar_url": "full_name", "updated_by": 1}	2026-07-20 17:24:03.273578
+39	2	user_edited	null	{"employee_number": "00000010", "full_name": "\\u062e\\u0627\\u0644\\u062f \\u0627\\u0644\\u0639\\u0645\\u0631\\u0649", "job_title": "\\u0631\\u0626\\u064a\\u0633 \\u0645\\u062c\\u0644\\u0633 \\u0627\\u0644\\u0627\\u062f\\u0627\\u0631\\u0629", "email": "chairman.sinaiwater@outlook.com", "work_location_id": 13, "manager_id": null, "job_level_id": 14, "department_id": 104, "global_role": "user", "can_transfer_external": true, "is_active": true, "avatar_url": "full_name", "updated_by": 1}	2026-07-20 17:24:21.90091
+40	2	user_edited	null	{"employee_number": "00000010", "full_name": "\\u062e\\u0627\\u0644\\u062f \\u0627\\u0644\\u0639\\u0645\\u0631\\u0649", "job_title": "\\u0631\\u0626\\u064a\\u0633 \\u0645\\u062c\\u0644\\u0633 \\u0627\\u0644\\u0627\\u062f\\u0627\\u0631\\u0629", "email": "chairman.sinaiwater@outlook.com", "work_location_id": 13, "manager_id": null, "job_level_id": 14, "department_id": 104, "global_role": "user", "can_transfer_external": true, "is_active": true, "avatar_url": "", "updated_by": 1}	2026-07-20 17:26:10.140225
+41	2	user_edited	null	{"employee_number": "00000010", "full_name": "\\u062e\\u0627\\u0644\\u062f \\u0627\\u0644\\u0639\\u0645\\u0631\\u0649", "job_title": "\\u0631\\u0626\\u064a\\u0633 \\u0645\\u062c\\u0644\\u0633 \\u0627\\u0644\\u0627\\u062f\\u0627\\u0631\\u0629", "email": "chairman.sinaiwater@outlook.com", "work_location_id": 13, "manager_id": 2, "job_level_id": 14, "department_id": 104, "global_role": "user", "can_transfer_external": true, "is_active": true, "avatar_url": "", "updated_by": 1}	2026-07-20 17:27:05.561845
+42	1	remove_manager	null	{"department_id": 104, "user_id": 1067}	2026-07-20 17:29:04.969277
+43	2	user_edited	null	{"is_active": false, "updated_by": 1}	2026-07-20 18:14:26.27232
+44	2	user_edited	null	{"is_active": true, "updated_by": 1}	2026-07-20 18:14:38.471083
+45	1067	user_edited	null	{"is_active": false, "updated_by": 1}	2026-07-20 18:14:43.442293
+46	1067	user_edited	null	{"is_active": true, "updated_by": 1}	2026-07-20 18:15:06.399363
+47	1067	user_edited	null	{"is_active": false, "updated_by": 1}	2026-07-20 18:15:13.340326
+48	1067	user_edited	null	{"is_active": true, "updated_by": 1}	2026-07-20 18:19:30.471891
+49	1060	user_edited	null	{"full_name": "Amer Hendy", "email": "amerhendyali@gmail.com", "password_hash": "$2b$12$lmO5ra/c05cFYyntnnLEbu.63mcjuVIp9Uhq.HUIPVVIKpmOJhaGO", "updated_by": 1060}	2026-07-20 18:20:23.919328
+50	1060	user changed their notification settings	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	2026-07-20 18:21:16.561485
+51	1060	user changed their notification settings	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	{"browser": true, "email": false, "whatsapp": true, "telegram": true, "sms": true, "google": true}	2026-07-20 18:21:27.878422
+52	1060	user changed their notification settings	{"browser": true, "email": false, "whatsapp": true, "telegram": true, "sms": true, "google": true}	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	2026-07-20 18:21:32.890015
+53	1060	user changed their notification settings	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	{"browser": true, "email": false, "whatsapp": true, "telegram": true, "sms": true, "google": true}	2026-07-20 18:21:39.187783
+55	1	assign_manager	null	{"department_id": 106, "user_id": 1071, "is_primary": true}	2026-07-20 18:23:59.462083
+54	1060	user changed their notification settings	{"browser": true, "email": false, "whatsapp": true, "telegram": true, "sms": true, "google": true}	{"browser": true, "email": true, "whatsapp": true, "telegram": true, "sms": true, "google": true}	2026-07-20 18:21:45.762215
+56	1	user_created	null	{"employee_number": "000258", "full_name": "\\u0646\\u0647\\u0644\\u0629 \\u0633\\u064a\\u062f", "job_title": "\\u0631\\u0626\\u064a\\u0633 \\u0642\\u0637\\u0627\\u0639 \\u0627\\u0644\\u0645\\u0634\\u0631\\u0648\\u0639\\u0627\\u062a", "email": "nahla@gmail.com", "work_location_id": 13, "job_level_id": 19, "department_id": 109, "global_role": "user", "can_transfer_external": true, "created_by": 1, "user_id": 1072}	2026-07-20 18:31:18.738544
+57	1	assign_manager	null	{"department_id": 109, "user_id": 1072, "is_primary": true}	2026-07-20 18:31:38.769882
 \.
 
 
@@ -2785,12 +2836,13 @@ COPY public.users (id, employee_number, full_name, job_title, work_location_id, 
 1069	000009	medhat	مدير مكتب فنى للشئون قانونية	13	emai2l@mail.com	$2b$12$nglcaVjYXzB2zK.FfifAgOC.SpOHVvDLAg4Mo6vy2Add3tKHXgaR2	\N	22	132	USER	f	t	\N	\N	2026-06-23 17:12:41.415383	2026-06-23 17:12:41.415383
 1062	000007	ابراهيم عيد	amer.hendy@yahoo.com	13	ebrahimeid@gmail.com	$2b$12$z8Ot90eIoruZ/QKfQbJo8eADvxhUWatFQQUUHv4pfVXXxPY0N/jei	\N	22	105	USER	t	t	\N	2026-06-23 16:14:18.545151	2026-06-16 19:21:47.307083	2026-06-23 16:14:18.277359
 1070	000010	aburaia	lسكرتير	13	ema3il@mail.com	$2b$12$nglcaVjYXzB2zK.FfifAgOC.SpOHVvDLAg4Mo6vy2Add3tKHXgaR2	\N	29	129	USER	f	t	\N	2026-06-28 07:16:25.022432	2026-06-23 17:12:41.419671	2026-06-28 07:16:24.73676
-1060	1040	Amer Hendy	chairman office manager	1	amerhendyali@gmail.com	$2b$12$gCk5VKoaBItDPpnVLly1JemHeIlRuWvmFG4oXpiaSlnI/tL0SStIK	\N	20	105	USER	f	t	full_name	2026-06-28 07:17:47.252122	2026-06-10 16:52:18.151675	2026-06-28 07:21:46.10737
 1061	100000	Amer Hendy	مدير عام النظام	10	amer.hendy@yahoo.com	$2b$12$c4i9DuQdcSN0sTfK6VVlXOVgY6dXALgGSyr4SQeNMnOZo0c2Vh5AG	\N	16	104	GLOBAL_ADMIN	t	t		2026-07-01 21:26:57.167381	2026-06-10 17:25:30.65198	2026-07-01 21:26:56.504245
-2	00000010	خالد العمرى	رئيس مجلس الادارة	13	chairman.sinaiwater@outlook.com	$2b$12$nglcaVjYXzB2zK.FfifAgOC.SpOHVvDLAg4Mo6vy2Add3tKHXgaR2	\N	14	104	USER	t	t	\N	\N	2026-07-13 19:09:19.136077	2026-07-13 19:09:19.136077
-1	0000001	System Developer	System Developer	13	global.admin@company.com	$2b$12$nglcaVjYXzB2zK.FfifAgOC.SpOHVvDLAg4Mo6vy2Add3tKHXgaR2	\N	17	104	GLOBAL_ADMIN	f	t	https://randomuser.me/api/portraits/men/0.jpg	2026-07-14 17:02:17.849037	2026-06-02 00:25:31.840789	2026-07-14 17:02:17.51165
-1067	000008	tarsk agrody	مدير عام ش ق	13	emai1l@mail.com	$2b$12$nglcaVjYXzB2zK.FfifAgOC.SpOHVvDLAg4Mo6vy2Add3tKHXgaR2	\N	20	105	USER	f	t	\N	2026-07-14 21:16:37.07178	2026-06-23 17:12:28.039991	2026-07-14 21:16:36.815343
+1067	000008	tarsk agrody	مدير عام ش ق	13	emai1l@mail.com	$2b$12$nglcaVjYXzB2zK.FfifAgOC.SpOHVvDLAg4Mo6vy2Add3tKHXgaR2	\N	20	105	USER	f	t	\N	2026-07-14 21:16:37.07178	2026-06-23 17:12:28.039991	2026-07-20 18:19:30.400771
+1060	1040	Amer Hendy	chairman office manager	1	amerhendyali@gmail.com	$2b$12$lmO5ra/c05cFYyntnnLEbu.63mcjuVIp9Uhq.HUIPVVIKpmOJhaGO	\N	20	105	USER	f	t		2026-07-20 18:08:08.641301	2026-06-10 16:52:18.151675	2026-07-20 18:20:23.528392
+1	0000001	System Developer	System Developer	13	global.admin@company.com	$2b$12$nglcaVjYXzB2zK.FfifAgOC.SpOHVvDLAg4Mo6vy2Add3tKHXgaR2	\N	17	104	GLOBAL_ADMIN	f	t	https://randomuser.me/api/portraits/men/0.jpg	2026-07-22 00:17:05.310791	2026-06-02 00:25:31.840789	2026-07-22 00:17:05.072257
 1071	0000011	mido	رئيس قطاع	13	ema4il@mail.com	$2b$12$nglcaVjYXzB2zK.FfifAgOC.SpOHVvDLAg4Mo6vy2Add3tKHXgaR2	\N	19	106	USER	f	t	\N	2026-07-14 21:17:54.052301	2026-06-23 17:12:41.423605	2026-07-14 21:17:53.796469
+2	00000010	خالد العمرى	رئيس مجلس الادارة	13	chairman.sinaiwater@outlook.com	$2b$12$jc0xwHA1OYSA5qj3lRA.WexVVMowQuqpjny7YEJ.4IKWSOk0ypa2G	\N	14	104	USER	t	t		2026-07-20 14:58:41.02671	2026-07-13 19:09:19.136077	2026-07-20 18:14:38.426509
+1072	000258	نهلة سيد	رئيس قطاع المشروعات	13	nahla@gmail.com	$2b$12$ZqGghuvEcsVBbkOhjytoEOYT9HXmFXMW4yMDKa0PYsssXRlgsxroW	\N	19	109	USER	t	t	\N	\N	2026-07-20 18:31:18.336354	2026-07-20 18:31:18.336354
 \.
 
 
@@ -2828,7 +2880,7 @@ SELECT pg_catalog.setval('public.delegations_id_seq', 1, false);
 -- Name: department_managers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.department_managers_id_seq', 1, true);
+SELECT pg_catalog.setval('public.department_managers_id_seq', 5, true);
 
 
 --
@@ -2856,7 +2908,7 @@ SELECT pg_catalog.setval('public.job_levels_id_seq', 1, false);
 -- Name: locations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.locations_id_seq', 1, false);
+SELECT pg_catalog.setval('public.locations_id_seq', 1, true);
 
 
 --
@@ -2870,14 +2922,14 @@ SELECT pg_catalog.setval('public.notification_settings_id_seq', 1, false);
 -- Name: notifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifications_id_seq', 955, true);
+SELECT pg_catalog.setval('public.notifications_id_seq', 966, true);
 
 
 --
 -- Name: recurring_task_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.recurring_task_logs_id_seq', 12, true);
+SELECT pg_catalog.setval('public.recurring_task_logs_id_seq', 17, true);
 
 
 --
@@ -2912,7 +2964,7 @@ SELECT pg_catalog.setval('public.task_comments_id_seq', 1, false);
 -- Name: task_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.task_logs_id_seq', 44, true);
+SELECT pg_catalog.setval('public.task_logs_id_seq', 45, true);
 
 
 --
@@ -2968,28 +3020,28 @@ SELECT pg_catalog.setval('public.task_workflows_id_seq', 53, true);
 -- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tasks_id_seq', 12, true);
+SELECT pg_catalog.setval('public.tasks_id_seq', 17, true);
 
 
 --
 -- Name: user_contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_contacts_id_seq', 1, false);
+SELECT pg_catalog.setval('public.user_contacts_id_seq', 1, true);
 
 
 --
 -- Name: user_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_logs_id_seq', 1, false);
+SELECT pg_catalog.setval('public.user_logs_id_seq', 57, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_id_seq', 1072, true);
 
 
 --
@@ -3437,6 +3489,14 @@ ALTER TABLE ONLY public.favorites
 
 
 --
+-- Name: locations fk_location_parent; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.locations
+    ADD CONSTRAINT fk_location_parent FOREIGN KEY (parent_id) REFERENCES public.locations(id) ON DELETE SET NULL;
+
+
+--
 -- Name: task_logs fk_task_logs_recurring_task; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3864,5 +3924,5 @@ ALTER TABLE ONLY public.workflow_templates
 -- PostgreSQL database dump complete
 --
 
-\unrestrict mCzwXzGx6t76DhX2EwHW8BfhJQTHts2juA1L3hcus3Pie3sYIhvJKqg4FwevqJy
+\unrestrict nhlpsh3deDD3Zfg6nQ5Y1VSfgPrSMTnl497cJwdvAGfsIpE7e1YJEJsvr5oPjS3
 
