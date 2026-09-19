@@ -1,0 +1,125 @@
+# ────────────────────────────────────────────────────────────────
+# Services Container - Shared Infrastructure for Multiple Projects
+# ────────────────────────────────────────────────────────────────
+# This compose file provides:
+# - PostgreSQL (port 5433)
+# - pgAdmin (port 5050)
+# - Redis (port 6379)
+# - Celery Worker
+# - Celery Beat
+#
+# To use with your project:
+# 1. docker-compose -f docker-compose.services.yml up -d
+# 2. In your project, use these connection strings:
+#    - Database: postgresql://postgres:password@localhost:5433/your_db_name
+#    - Redis: redis://localhost:6379/0
+
+services:
+  # ─── PostgreSQL Database ─────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: services_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-corporate_tasks}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ─── pgAdmin - PostgreSQL Management UI ──────────────────────
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: services_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: 'False'
+      PGADMIN_CONFIG_CONSOLE_LOG_LEVEL: 10
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ─── Redis Cache & Message Broker ────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: services_redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ─── Celery Worker ──────────────────────────────────────────
+  celery_worker:
+    image: python:3.11-slim
+    container_name: services_celery_worker
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://postgres:password@postgres:5432/corporate_tasks}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL:-redis://redis:6379/1}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND:-redis://redis:6379/2}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    command: >
+      bash -c "pip install -q -r requirements.txt &&
+               celery -A app.worker.celery_app worker --loglevel=info -c 2"
+    restart: unless-stopped
+
+  # ─── Celery Beat (Task Scheduler) ───────────────────────────
+  celery_beat:
+    image: python:3.11-slim
+    container_name: services_celery_beat
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://postgres:password@postgres:5432/corporate_tasks}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL:-redis://redis:6379/1}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND:-redis://redis:6379/2}
+    depends_on:
+      - redis
+      - celery_worker
+    volumes:
+      - ./backend:/app
+      - celery_beat_schedule:/app/celery_beat_schedule
+    working_dir: /app
+    command: >
+      bash -c "pip install -q -r requirements.txt &&
+               celery -A app.worker.celery_app beat --loglevel=info"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+  celery_beat_schedule:
+    driver: local

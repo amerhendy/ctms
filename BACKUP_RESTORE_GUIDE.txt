@@ -1,0 +1,104 @@
+═══════════════════════════════════════════════════════════════════════════
+         PostgreSQL Backup & Restore Guide
+═══════════════════════════════════════════════════════════════════════════
+
+📌 الملفات المطلوبة:
+- backup.sh     → لإنشاء backup
+- restore.sh    → لاستعادة البيانات
+
+═══════════════════════════════════════════════════════════════════════════
+🔐 BACKUP (إنشاء نسخة احتياطية)
+═══════════════════════════════════════════════════════════════════════════
+
+الطريقة 1: من داخل container (الأسهل)
+─────────────────────────────────────
+
+# شغّل هذا الأمر من PowerShell:
+docker compose exec services_postgres pg_dump -U postgres -d corporate_tasks > backup.sql
+
+# مثال عملي:
+docker compose exec services_postgres pg_dump -U postgres -d ctms > C:\Users\sinaiwater\Desktop\Docker\backup.sql
+
+الطريقة 2: استخدام script
+─────────────────────────────────────
+
+docker compose exec services_postgres bash /backup.sh corporate_tasks /shared/backup.sql
+
+مثال:
+docker compose exec services_postgres bash /backup.sh ctms /shared/my_backup.sql
+
+الطريقة 3: مباشر من الـ host (Windows)
+─────────────────────────────────────
+
+# تأكد أن PostgreSQL installed على الـ Windows، أو:
+docker run -v "C:\Users\sinaiwater\Desktop\Docker:/shared" --network ctms_network postgres:16-alpine \
+  pg_dump -h services_postgres -U postgres -d your_database > /shared/backup.sql
+
+═══════════════════════════════════════════════════════════════════════════
+♻️ RESTORE (استعادة البيانات)
+═══════════════════════════════════════════════════════════════════════════
+
+الطريقة 1: من داخل container
+─────────────────────────────────────
+
+docker compose exec services_postgres psql -U postgres -d your_database < backup.sql
+
+مثال:
+docker compose exec services_postgres psql -U postgres -d ctms < C:\Users\sinaiwater\Desktop\Docker\backup.sql
+
+الطريقة 2: استخدام script
+─────────────────────────────────────
+
+docker compose exec services_postgres bash /restore.sh your_database /shared/backup.sql
+
+مثال:
+docker compose exec services_postgres bash /restore.sh ctms /shared/my_backup.sql
+
+═══════════════════════════════════════════════════════════════════════════
+⚙️ متغيرات البيئة (إذا احتجت تغييرها)
+═══════════════════════════════════════════════════════════════════════════
+
+DB_HOST=localhost          # عنوان السيرفر
+DB_PORT=5432              # البورت
+DB_USER=postgres          # اسم المستخدم
+DB_NAME=your_database     # اسم الـ database
+
+مثال مع متغيرات مخصصة:
+DB_USER=admin DB_HOST=db.example.com docker compose exec services_postgres pg_dump -d mydb > backup.sql
+
+═══════════════════════════════════════════════════════════════════════════
+📋 أوامر مهمة إضافية
+═══════════════════════════════════════════════════════════════════════════
+
+# شوف قائمة الـ databases:
+docker compose exec services_postgres psql -U postgres -l
+
+# شوف قائمة الـ tables:
+docker compose exec services_postgres psql -U postgres -d your_database -c "\dt"
+
+# إنشاء backup مع ضغط:
+docker compose exec services_postgres pg_dump -U postgres -d your_database | gzip > backup.sql.gz
+
+# استعادة من ملف مضغوط:
+docker compose exec services_postgres gunzip -c /shared/backup.sql.gz | psql -U postgres -d your_database
+
+# Backup كامل (كل databases):
+docker compose exec services_postgres pg_dumpall -U postgres > /shared/full_backup.sql
+
+# Restore كامل:
+docker compose exec services_postgres psql -U postgres < /shared/full_backup.sql
+
+═══════════════════════════════════════════════════════════════════════════
+🔍 استكشاف الأخطاء
+═══════════════════════════════════════════════════════════════════════════
+
+❌ خطأ: "FATAL: Ident authentication failed"
+✅ الحل: استخدم -U postgres أو أضف كلمة السر
+
+❌ خطأ: "database does not exist"
+✅ الحل: شُف اسم الـ database الصحيح باستخدام: psql -U postgres -l
+
+❌ خطأ: "permission denied"
+✅ الحل: تأكد أن لديك صلاحيات على الفولدر /shared
+
+═══════════════════════════════════════════════════════════════════════════

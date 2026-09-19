@@ -1,0 +1,32 @@
+Folder PATH listing
+Volume serial number is 766D-2D99
+C:.
+³   Delegation.py
+³   Department.py
+³   Favorite.py
+³   JobLevel.py
+³   Location.py
+³   Notification.py
+³   RecurringTask.py
+³   RecurringTaskLog.py
+³   structure.txt
+³   Task.py
+³   TaskAssignment.py
+³   TaskAttachment.py
+³   TaskComment.py
+³   TaskLog.py
+³   TaskShare.py
+³   TaskStep.py
+³   TaskTimeLog.py
+³   TaskTransfer.py
+³   User.py
+³   user_contacts.py
+³   __init__.py
+³   
+ÀÄÄÄ__pycache__
+        Department.cpython-311.pyc
+        User.cpython-311.pyc
+        user_contacts.cpython-311.pyc
+        __init__.cpython-311.pyc
+        __init__.cpython-312.pyc
+        
