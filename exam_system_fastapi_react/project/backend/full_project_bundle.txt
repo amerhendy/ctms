@@ -1,0 +1,2106 @@
+﻿==============================================
+📦 FULL PROJECT STRUCTURE (backend):
+┣━ 📂 api
+┃   ┣━ 📂 v1
+┃   ┃   ┣━ 📂 endpoints
+┃   ┃   ┃   ┣━ 📜 applicants.py
+┃   ┃   ┃   ┣━ 📜 auth.py
+┃   ┃   ┃   ┣━ 📜 exam.py
+┃   ┃   ┃   ┣━ 📜 job_models.py
+┃   ┃   ┃   ┣━ 📜 questions.py
+┃   ┃   ┃   ┗━ 📜 __init__.py
+┃   ┃   ┣━ 📜 router.py
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┗━ 📜 __init__.py
+┣━ 📂 assets
+┃   ┗━ 📂 fonts
+┃       ┣━ 📜 NotoNaskhArabic-Bold.ttf
+┃       ┗━ 📜 NotoNaskhArabic-Regular.ttf
+┣━ 📂 core
+┃   ┣━ 📜 config.py
+┃   ┣━ 📜 deps.py
+┃   ┣━ 📜 security.py
+┃   ┗━ 📜 __init__.py
+┣━ 📂 db
+┃   ┣━ 📂 data
+┃   ┃   ┣━ 📜 .gitkeep
+┃   ┃   ┗━ 📜 exam_system.db
+┃   ┣━ 📜 base.py
+┃   ┣━ 📜 init_db.py
+┃   ┣━ 📜 session.py
+┃   ┗━ 📜 __init__.py
+┣━ 📂 helpers
+┃   ┣━ 📜 grading_helpers.py
+┃   ┣━ 📜 pdf_helpers.py
+┃   ┗━ 📜 __init__.py
+┣━ 📂 models
+┃   ┣━ 📜 admin.py
+┃   ┣━ 📜 applicant.py
+┃   ┣━ 📜 job_model.py
+┃   ┣━ 📜 mixins.py
+┃   ┣━ 📜 question.py
+┃   ┣━ 📜 response.py
+┃   ┣━ 📜 session.py
+┃   ┣━ 📜 violation.py
+┃   ┗━ 📜 __init__.py
+┣━ 📂 repositories
+┃   ┣━ 📜 admin_repository.py
+┃   ┣━ 📜 applicant_repository.py
+┃   ┣━ 📜 base_repository.py
+┃   ┣━ 📜 job_model_repository.py
+┃   ┣━ 📜 question_repository.py
+┃   ┣━ 📜 response_repository.py
+┃   ┣━ 📜 session_repository.py
+┃   ┣━ 📜 violation_repository.py
+┃   ┗━ 📜 __init__.py
+┣━ 📂 schemas
+┃   ┣━ 📜 admin.py
+┃   ┣━ 📜 applicant.py
+┃   ┣━ 📜 exam.py
+┃   ┣━ 📜 job_model.py
+┃   ┣━ 📜 question.py
+┃   ┗━ 📜 __init__.py
+┣━ 📂 services
+┃   ┣━ 📜 applicant_service.py
+┃   ┣━ 📜 auth_service.py
+┃   ┣━ 📜 exam_service.py
+┃   ┣━ 📜 pdf_service.py
+┃   ┣━ 📜 sync_service.py
+┃   ┗━ 📜 __init__.py
+┣━ 📂 tests
+┃   ┣━ 📜 conftest.py
+┃   ┣━ 📜 test_auth.py
+┃   ┣━ 📜 test_exam_flow.py
+┃   ┗━ 📜 __init__.py
+┣━ 📂 uploads
+┃   ┗━ 📂 reports
+┃       ┗━ 📜 .gitkeep
+┣━ 📜 .env
+┣━ 📜 .env.example
+┣━ 📜 Dockerfile
+┣━ 📜 files.ps1
+┣━ 📜 main.py
+┣━ 📜 New Text Document.txt
+┗━ 📜 requirements.txt
+==============================================
+
+================ SELECTED FILES CODE ===============
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\api\v1\router.py =====
+from fastapi import APIRouter
+from core.config import settings
+
+from api.v1.endpoints import applicants, auth, exam, job_models, questions
+from api.v1.endpoints.auth import router as auth_router
+from api.v1.endpoints.job_models import router as job_models_router
+from api.v1.endpoints.applicants import router as application_router
+from api.v1.endpoints.questions import router as questions_router
+from api.v1.endpoints.exam import router as exam_router
+api_router = APIRouter(prefix=settings.API_V1_PREFIX)
+api_router.include_router(auth_router)
+api_router.include_router(job_models_router)
+api_router.include_router(application_router)
+api_router.include_router(questions_router)
+api_router.include_router(exam_router)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\api\v1\endpoints\applicants.py =====
+import os
+from typing import List, Optional
+
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import FileResponse
+from sqlalchemy.orm import Session as OrmSession
+
+from core.config import settings
+from core.deps import get_current_admin
+from core.security import generate_access_code
+from db.session import get_db
+from repositories.applicant_repository import ApplicantRepository
+from repositories.job_model_repository import JobModelRepository
+from schemas.applicant import ApplicantCreate, ApplicantCreatedOut, ApplicantWithJobOut
+from services.applicant_service import ApplicantService
+from services.exam_service import ExamService
+from services.pdf_service import generate_result_pdf
+
+router = APIRouter(prefix="/applicants", tags=["Applicants"])
+
+
+@router.get("", response_model=List[ApplicantWithJobOut])
+def list_applicants(
+    job_model_id: Optional[str] = None,
+    db: OrmSession = Depends(get_db),
+    admin=Depends(get_current_admin),
+):
+    filters = {"job_model_id": job_model_id} if job_model_id else {}
+    applicants = ApplicantRepository(db).get_all(limit=5000, **filters)
+    jm_repo = JobModelRepository(db)
+
+    result = []
+    for a in applicants:
+        jm = jm_repo.get(a.job_model_id)
+        item = ApplicantWithJobOut.model_validate(a)
+        item.job_model_name = jm.name if jm else None
+        result.append(item)
+    return result
+
+
+@router.post("", response_model=ApplicantCreatedOut)
+def create_applicant(payload: ApplicantCreate, db: OrmSession = Depends(get_db), admin=Depends(get_current_admin)):
+    repo = ApplicantRepository(db)
+    if repo.get_by_national_id(payload.national_id):
+        raise HTTPException(status_code=400, detail="الرقم القومي مسجل بالفعل")
+
+    access_code = None
+    for _ in range(10):
+        candidate = generate_access_code()
+        if not repo.get_by(access_code=candidate):
+            access_code = candidate
+            break
+    if not access_code:
+        raise HTTPException(status_code=500, detail="تعذر توليد كود دخول فريد، حاول مرة أخرى")
+
+    applicant = repo.create({
+        "national_id": payload.national_id,
+        "full_name": payload.full_name,
+        "phone": payload.phone,
+        "job_model_id": payload.job_model_id,
+        "access_code": access_code,
+        "status": "pending",
+    })
+    return ApplicantCreatedOut(id=applicant.id, access_code=applicant.access_code)
+
+
+@router.delete("/{applicant_id}")
+def delete_applicant(applicant_id: str, db: OrmSession = Depends(get_db), admin=Depends(get_current_admin)):
+    ok = ApplicantService(db).delete_applicant(applicant_id)
+    if not ok:
+        raise HTTPException(status_code=404, detail="المتقدم غير موجود")
+    return {"success": True}
+
+
+@router.get("/{applicant_id}/result")
+def get_applicant_result(applicant_id: str, db: OrmSession = Depends(get_db), admin=Depends(get_current_admin)):
+    try:
+        result = ExamService(db).get_result(applicant_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+    applicant = result["applicant"]
+    return {
+        "applicant": {
+            "id": applicant.id,
+            "full_name": applicant.full_name,
+            "national_id": applicant.national_id,
+            "status": applicant.status,
+            "total_score": applicant.total_score,
+            "max_score": applicant.max_score,
+            "exam_started_at": applicant.exam_started_at,
+            "exam_finished_at": applicant.exam_finished_at,
+        },
+        "job_model_name": result["job_model_name"],
+        "details": result["details"],
+        "violations": [
+            {"violation_type": v.violation_type, "details": v.details, "occurred_at": v.occurred_at}
+            for v in result["violations"]
+        ],
+    }
+
+
+@router.get("/{applicant_id}/pdf")
+def download_pdf(applicant_id: str, db: OrmSession = Depends(get_db), admin=Depends(get_current_admin)):
+    os.makedirs(settings.REPORTS_DIR, exist_ok=True)
+    output_path = os.path.join(settings.REPORTS_DIR, f"result_{applicant_id}.pdf")
+    try:
+        generate_result_pdf(db, applicant_id, output_path)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+    return FileResponse(output_path, media_type="application/pdf", filename=f"exam_result_{applicant_id}.pdf")
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\api\v1\endpoints\auth.py =====
+from typing import Optional
+
+from fastapi import APIRouter, Cookie, Depends, Header, HTTPException, Response, status
+from sqlalchemy.orm import Session as OrmSession
+
+from core.config import settings
+from core.deps import get_current_admin
+from db.session import get_db
+from schemas.admin import AdminLogin, AdminLoginResponse, AdminOut
+from services.auth_service import AuthService
+
+router = APIRouter(prefix="/auth", tags=["Auth"])
+
+
+@router.post("/login", response_model=AdminLoginResponse)
+def login(payload: AdminLogin, response: Response, db: OrmSession = Depends(get_db)):
+    admin, token = AuthService(db).login_admin(payload.username, payload.password)
+    if not admin:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="اسم المستخدم أو كلمة المرور غير صحيحة")
+
+    response.set_cookie(
+        key="admin_session",
+        value=token,
+        httponly=True,
+        samesite="lax",
+        max_age=settings.SESSION_EXPIRE_HOURS * 3600,
+    )
+    return AdminLoginResponse(token=token, admin=AdminOut.model_validate(admin))
+
+
+@router.post("/logout")
+def logout(
+    response: Response,
+    db: OrmSession = Depends(get_db),
+    authorization: Optional[str] = Header(default=None),
+    admin_session: Optional[str] = Cookie(default=None),
+):
+    token = None
+    if authorization and authorization.lower().startswith("bearer "):
+        token = authorization[7:].strip()
+    else:
+        token = admin_session
+
+    if token:
+        AuthService(db).logout(token)
+
+    response.delete_cookie("admin_session")
+    return {"success": True}
+
+
+@router.get("/me", response_model=AdminOut)
+def me(admin=Depends(get_current_admin)):
+    return AdminOut.model_validate(admin)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\api\v1\endpoints\exam.py =====
+import json
+from datetime import datetime
+from typing import Any, Dict
+
+from fastapi import APIRouter, Depends, HTTPException, Response
+from sqlalchemy.orm import Session as OrmSession
+
+from core.config import settings
+from core.deps import get_current_applicant
+from db.session import get_db
+from repositories.applicant_repository import ApplicantRepository
+from repositories.job_model_repository import JobModelRepository
+from repositories.question_repository import QuestionRepository
+from repositories.response_repository import ResponseRepository
+from repositories.violation_repository import ViolationRepository
+from schemas.exam import ExamLoginRequest, SaveBatchRequest, SaveResponseRequest, ViolationRequest
+from services.auth_service import AuthService
+from services.exam_service import ExamService
+from services.sync_service import process_batch, process_single_answer
+
+router = APIRouter(prefix="/exam", tags=["Exam"])
+
+
+@router.post("/login")
+def exam_login(payload: ExamLoginRequest, response: Response, db: OrmSession = Depends(get_db)):
+    applicant_repo = ApplicantRepository(db)
+    applicant = applicant_repo.get_by(access_code=payload.access_code.strip().upper())
+    if not applicant:
+        raise HTTPException(status_code=404, detail="كود الدخول غير صحيح")
+    if applicant.status == "finished":
+        raise HTTPException(status_code=403, detail="لقد قمت بتأدية هذا الاختبار من قبل")
+
+    job_model = JobModelRepository(db).get(applicant.job_model_id)
+
+    if applicant.status == "pending":
+        applicant.status = "in_progress"
+    if not applicant.exam_started_at:
+        applicant.exam_started_at = datetime.utcnow()
+    db.commit()
+    db.refresh(applicant)
+
+    token = AuthService(db).create_applicant_session(applicant.id)
+    response.set_cookie(
+        key="applicant_session",
+        value=token,
+        httponly=True,
+        samesite="lax",
+        max_age=settings.SESSION_EXPIRE_HOURS * 3600,
+    )
+
+    questions = QuestionRepository(db).list_by_job_model(applicant.job_model_id)
+    saved_responses = {r.question_id: r for r in ResponseRepository(db).list_by_user(applicant.id)}
+
+    questions_payload = []
+    for q in questions:
+        data = json.loads(q.question_data)
+        safe_data = {k: v for k, v in data.items() if k not in ("correct_index", "answer_keywords")}
+        saved = saved_responses.get(q.id)
+        questions_payload.append({
+            "id": q.id,
+            "q_type": q.q_type,
+            "question_text": q.question_text,
+            "question_data": safe_data,
+            "image_path": q.image_path,
+            "points": q.points,
+            "saved_answer": json.loads(saved.answer_data) if saved and saved.answer_data else None,
+        })
+
+    return {
+        "token": token,
+        "user": {
+            "id": applicant.id,
+            "full_name": applicant.full_name,
+            "job_model_name": job_model.name if job_model else "",
+            "duration_minutes": job_model.duration_minutes if job_model else 60,
+            "exam_started_at": applicant.exam_started_at,
+        },
+        "questions": questions_payload,
+    }
+
+
+@router.post("/save-response")
+def save_response(
+    payload: SaveResponseRequest,
+    db: OrmSession = Depends(get_db),
+    applicant=Depends(get_current_applicant),
+):
+    return process_single_answer(db, applicant.id, payload.question_id, payload.answer_data)
+
+
+@router.post("/save-batch")
+def save_batch(
+    payload: SaveBatchRequest,
+    db: OrmSession = Depends(get_db),
+    applicant=Depends(get_current_applicant),
+):
+    results = process_batch(db, applicant.id, payload.answers)
+    return {"success": True, "results": results}
+
+
+@router.post("/log-violation")
+def log_violation(
+    payload: ViolationRequest,
+    db: OrmSession = Depends(get_db),
+    applicant=Depends(get_current_applicant),
+):
+    ViolationRepository(db).create({
+        "user_id": applicant.id,
+        "violation_type": payload.violation_type,
+        "details": payload.details,
+    })
+    return {"success": True}
+
+
+@router.post("/finish")
+def finish_exam(response: Response, db: OrmSession = Depends(get_db), applicant=Depends(get_current_applicant)):
+    try:
+        result = ExamService(db).finalize_exam(applicant.id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+    response.delete_cookie("applicant_session")
+    return {"success": True, "result": result}
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\api\v1\endpoints\job_models.py =====
+from typing import List
+
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session as OrmSession
+
+from core.deps import get_current_admin
+from db.session import get_db
+from repositories.job_model_repository import JobModelRepository
+from schemas.job_model import JobModelCreate, JobModelOut, JobModelUpdate
+
+router = APIRouter(prefix="/job-models", tags=["Job Models"])
+
+
+@router.get("", response_model=List[JobModelOut])
+def list_job_models(db: OrmSession = Depends(get_db), admin=Depends(get_current_admin)):
+    return JobModelRepository(db).get_all()
+
+
+@router.post("", response_model=JobModelOut)
+def create_job_model(payload: JobModelCreate, db: OrmSession = Depends(get_db), admin=Depends(get_current_admin)):
+    return JobModelRepository(db).create(payload.model_dump())
+
+
+@router.put("/{job_model_id}", response_model=JobModelOut)
+def update_job_model(
+    job_model_id: str,
+    payload: JobModelUpdate,
+    db: OrmSession = Depends(get_db),
+    admin=Depends(get_current_admin),
+):
+    repo = JobModelRepository(db)
+    obj = repo.get(job_model_id)
+    if not obj:
+        raise HTTPException(status_code=404, detail="نموذج الوظيفة غير موجود")
+    return repo.update(obj, payload.model_dump(exclude_unset=True))
+
+
+@router.delete("/{job_model_id}")
+def delete_job_model(job_model_id: str, db: OrmSession = Depends(get_db), admin=Depends(get_current_admin)):
+    ok = JobModelRepository(db).delete(job_model_id)
+    if not ok:
+        raise HTTPException(status_code=404, detail="نموذج الوظيفة غير موجود")
+    return {"success": True}
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\api\v1\endpoints\questions.py =====
+import json
+import os
+import uuid
+from typing import List
+
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from sqlalchemy.orm import Session as OrmSession
+
+from core.config import settings
+from core.deps import get_current_admin
+from db.session import get_db
+from repositories.question_repository import QuestionRepository
+from repositories.response_repository import ResponseRepository
+from schemas.question import QuestionCreate, QuestionOut, QuestionUpdate
+
+router = APIRouter(prefix="/questions", tags=["Questions"])
+
+ALLOWED_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
+
+
+def _to_out(q) -> QuestionOut:
+    return QuestionOut(
+        id=q.id,
+        job_model_id=q.job_model_id,
+        q_type=q.q_type,
+        question_text=q.question_text,
+        question_data=json.loads(q.question_data),
+        image_path=q.image_path,
+        points=q.points,
+        order_index=q.order_index,
+    )
+
+
+@router.get("", response_model=List[QuestionOut])
+def list_questions(job_model_id: str, db: OrmSession = Depends(get_db), admin=Depends(get_current_admin)):
+    questions = QuestionRepository(db).list_by_job_model(job_model_id)
+    return [_to_out(q) for q in questions]
+
+
+@router.post("", response_model=QuestionOut)
+def create_question(payload: QuestionCreate, db: OrmSession = Depends(get_db), admin=Depends(get_current_admin)):
+    q = QuestionRepository(db).create({
+        "job_model_id": payload.job_model_id,
+        "q_type": payload.q_type,
+        "question_text": payload.question_text,
+        "question_data": json.dumps(payload.question_data, ensure_ascii=False),
+        "points": payload.points,
+        "order_index": payload.order_index,
+        "image_path": payload.image_path,
+    })
+    return _to_out(q)
+
+
+@router.put("/{question_id}", response_model=QuestionOut)
+def update_question(
+    question_id: str,
+    payload: QuestionUpdate,
+    db: OrmSession = Depends(get_db),
+    admin=Depends(get_current_admin),
+):
+    repo = QuestionRepository(db)
+    obj = repo.get(question_id)
+    if not obj:
+        raise HTTPException(status_code=404, detail="السؤال غير موجود")
+
+    update_data = payload.model_dump(exclude_unset=True)
+    if update_data.get("question_data") is not None:
+        update_data["question_data"] = json.dumps(update_data["question_data"], ensure_ascii=False)
+
+    obj = repo.update(obj, update_data)
+    return _to_out(obj)
+
+
+@router.delete("/{question_id}")
+def delete_question(question_id: str, db: OrmSession = Depends(get_db), admin=Depends(get_current_admin)):
+    repo = QuestionRepository(db)
+    if not repo.get(question_id):
+        raise HTTPException(status_code=404, detail="السؤال غير موجود")
+
+    ResponseRepository(db).delete_by_question(question_id)
+    repo.delete(question_id)
+    return {"success": True}
+
+
+@router.post("/upload-image")
+def upload_image(file: UploadFile = File(...), admin=Depends(get_current_admin)):
+    ext = file.filename.rsplit(".", 1)[-1].lower() if file.filename and "." in file.filename else ""
+    if ext not in ALLOWED_IMAGE_EXTENSIONS:
+        raise HTTPException(status_code=400, detail="صيغة الصورة غير مدعومة")
+
+    os.makedirs(settings.UPLOADS_DIR, exist_ok=True)
+    unique_name = f"{uuid.uuid4().hex}.{ext}"
+    dest_path = os.path.join(settings.UPLOADS_DIR, unique_name)
+    with open(dest_path, "wb") as f:
+        f.write(file.file.read())
+
+    return {"path": f"/uploads/{unique_name}"}
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\core\config.py =====
+"""
+إعدادات التطبيق المركزية. تُقرأ من متغيرات البيئة مع قيم افتراضية آمنة
+للتشغيل المباشر بدون Docker.
+"""
+
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+class Settings:
+    APP_NAME: str = "نظام اختبارات التوظيف الإلكترونية - FastAPI"
+    API_V1_PREFIX: str = os.environ.get("API_V1_PREFIX", "/api/v1")
+    APP_VERSION: str = os.environ.get("APP_VERSION", "0")
+
+    HOST: str = os.environ.get("HOST", "0.0.0.0")
+    PORT: int = int(os.environ.get("PORT", "5051"))
+
+    # قاعدة بيانات SQLite (تُحفظ داخل db/data حتى تبقى بجانب طبقة الوصول للبيانات)
+    SQLITE_DB_PATH: str = os.environ.get(
+        "SQLITE_DB_PATH", str(BASE_DIR / "db" / "data" / "exam_system.db")
+    )
+
+    # عناوين الواجهة الأمامية المسموح لها بالاتصال (CORS)
+    _cors_raw: str = os.environ.get(
+        "CORS_ORIGINS", "http://localhost:5050,http://127.0.0.1:5050"
+    )
+    CORS_ORIGINS: list = [o.strip() for o in _cors_raw.split(",") if o.strip()]
+
+    # حساب الأدمن الافتراضي (يُزرع تلقائياً في أول تشغيل إن لم يوجد)
+    ADMIN_DEFAULT_USERNAME: str = os.environ.get("ADMIN_DEFAULT_USERNAME", "admin")
+    ADMIN_DEFAULT_PASSWORD: str = os.environ.get("ADMIN_DEFAULT_PASSWORD", "admin123")
+    ADMIN_DEFAULT_FULL_NAME: str = os.environ.get("ADMIN_DEFAULT_FULL_NAME", "مدير النظام")
+
+    # مدة صلاحية الجلسة (لكل من الأدمن والمتقدمين) بالساعات
+    SESSION_EXPIRE_HOURS: int = int(os.environ.get("SESSION_EXPIRE_HOURS", "12"))
+
+    # مجلدات الملفات
+    UPLOADS_DIR: str = os.environ.get("UPLOADS_DIR", str(BASE_DIR / "uploads"))
+    REPORTS_DIR: str = os.environ.get("REPORTS_DIR", str(BASE_DIR / "uploads" / "reports"))
+    FONTS_DIR: str = os.environ.get("FONTS_DIR", str(BASE_DIR / "assets" / "fonts"))
+
+    # Security
+    SECRET_KEY: str = "change-this-secret-key-in-production-32chars"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 480
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 7
+
+
+
+settings = Settings()
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\core\deps.py =====
+"""
+تبعيات (Dependencies) مشتركة تُستخدم عبر نقاط النهاية:
+- الحصول على جلسة قاعدة البيانات.
+- التحقق من هوية الأدمن الحالي عبر رمز الجلسة (Bearer Token أو Cookie).
+- التحقق من هوية المتقدم الحالي أثناء أداء الاختبار.
+"""
+
+from typing import Optional
+
+from fastapi import Cookie, Depends, Header, HTTPException, status
+from sqlalchemy.orm import Session as OrmSession
+
+from db.session import get_db
+from repositories.admin_repository import AdminRepository
+from repositories.applicant_repository import ApplicantRepository
+from repositories.session_repository import SessionRepository
+
+
+def _extract_token(authorization: Optional[str], cookie_token: Optional[str]) -> Optional[str]:
+    if authorization and authorization.lower().startswith("bearer "):
+        return authorization[7:].strip()
+    return cookie_token
+
+
+def get_current_admin(
+    authorization: Optional[str] = Header(default=None),
+    admin_session: Optional[str] = Cookie(default=None),
+    db: OrmSession = Depends(get_db),
+):
+    token = _extract_token(authorization, admin_session)
+    if not token:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="غير مصرح، الرجاء تسجيل الدخول")
+
+    session = SessionRepository(db).get_valid_by_token(token)
+    if not session or session.subject_type != "admin":
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="جلسة غير صالحة أو منتهية")
+
+    admin = AdminRepository(db).get(session.subject_id)
+    if not admin:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="حساب الأدمن غير موجود")
+    return admin
+
+
+def get_current_applicant(
+    authorization: Optional[str] = Header(default=None),
+    applicant_session: Optional[str] = Cookie(default=None),
+    db: OrmSession = Depends(get_db),
+):
+    token = _extract_token(authorization, applicant_session)
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="جلسة غير صالحة، الرجاء تسجيل الدخول من جديد",
+        )
+
+    session = SessionRepository(db).get_valid_by_token(token)
+    if not session or session.subject_type != "applicant":
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="جلسة غير صالحة أو منتهية")
+
+    applicant = ApplicantRepository(db).get(session.subject_id)
+    if not applicant:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="المتقدم غير موجود")
+    return applicant
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\core\security.py =====
+"""
+أدوات الأمان: تجزئة كلمات المرور (PBKDF2-HMAC-SHA256 عبر hashlib القياسية،
+بدون الاعتماد على مكتبات خارجية تحتاج بناء/ترجمة)، وتوليد رموز الجلسات
+(Session Tokens) وأكواد دخول المتقدمين.
+"""
+
+import hashlib
+import hmac
+import os
+import secrets
+import string
+from datetime import datetime, timedelta
+from typing import Optional, Any
+from jose import JWTError, jwt
+from core.config import settings
+
+PBKDF2_ITERATIONS = 260_000
+
+
+def _derive(password: str, salt: bytes, iterations: int = PBKDF2_ITERATIONS) -> bytes:
+    return hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, iterations)
+
+
+def hash_password(password: str) -> str:
+    """إرجاع تجزئة بصيغة 'salt_hex$digest_hex' لتخزينها في قاعدة البيانات."""
+    salt = os.urandom(16)
+    digest = _derive(password, salt)
+    return f"{salt.hex()}${digest.hex()}"
+
+
+def verify_password(password: str, password_hash: str) -> bool:
+    try:
+        salt_hex, digest_hex = password_hash.split("$")
+    except (ValueError, AttributeError):
+        return False
+    salt = bytes.fromhex(salt_hex)
+    expected = bytes.fromhex(digest_hex)
+    actual = _derive(password, salt)
+    return hmac.compare_digest(expected, actual)
+
+
+def generate_token(length: int = 48) -> str:
+    """توليد رمز جلسة عشوائي آمن (Bearer Token)."""
+    return secrets.token_urlsafe(length)
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
+    to_encode = data.copy()
+    expire = datetime.utcnow() + (
+        expires_delta or timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    )
+    to_encode.update({"exp": expire, "type": "access"})
+    return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+
+def generate_access_code(length: int = 8) -> str:
+    """توليد كود دخول قصير للمتقدمين (أحرف كبيرة وأرقام)."""
+    chars = string.ascii_uppercase + string.digits
+    return "".join(secrets.choice(chars) for _ in range(length))
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\db\base.py =====
+from sqlalchemy.orm import DeclarativeBase
+
+
+class Base(DeclarativeBase):
+    """القاعدة التصريحية المشتركة لكل نماذج SQLAlchemy في المشروع."""
+    pass
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\db\init_db.py =====
+"""
+تهيئة قاعدة البيانات: إنشاء كل الجداول (عبر Base.metadata) وزرع حساب
+الأدمن الافتراضي وبيانات تجريبية (نماذج وظائف وأسئلة) عند أول تشغيل فقط.
+"""
+
+import json
+
+import models  # noqa: F401  (يضمن تسجيل كل النماذج في Base.metadata)
+from core.config import settings
+from core.security import hash_password
+from db.base import Base
+from db.session import SessionLocal, engine
+from models.admin import Admin
+from models.job_model import JobModel
+from models.question import Question
+
+
+def init_db():
+    Base.metadata.create_all(bind=engine)
+    db = SessionLocal()
+    try:
+        _seed_admin(db)
+        _seed_sample_data(db)
+    finally:
+        db.close()
+
+
+def _seed_admin(db):
+    existing = db.query(Admin).filter(Admin.username == settings.ADMIN_DEFAULT_USERNAME).first()
+    if existing:
+        return
+    admin = Admin(
+        username=settings.ADMIN_DEFAULT_USERNAME,
+        password_hash=hash_password(settings.ADMIN_DEFAULT_PASSWORD),
+        full_name=settings.ADMIN_DEFAULT_FULL_NAME,
+    )
+    db.add(admin)
+    db.commit()
+    print(f"[DB] تم إنشاء حساب الأدمن الافتراضي: {settings.ADMIN_DEFAULT_USERNAME}")
+
+
+def _seed_sample_data(db):
+    if db.query(JobModel).count() > 0:
+        return
+
+    jm1 = JobModel(name="محاسب مالي", description="اختبار تقييم الكفاءة المالية والمحاسبية", duration_minutes=45)
+    jm2 = JobModel(name="مبرمج تطبيقات", description="اختبار تقييم مهارات البرمجة الأساسية", duration_minutes=60)
+    jm3 = JobModel(name="موظف إدخال بيانات", description="اختبار تقييم الدقة اللغوية وإدخال البيانات", duration_minutes=30)
+    db.add_all([jm1, jm2, jm3])
+    db.commit()
+    db.refresh(jm1)
+    db.refresh(jm2)
+    db.refresh(jm3)
+
+    def qd(data):
+        return json.dumps(data, ensure_ascii=False)
+
+    questions = [
+        Question(
+            job_model_id=jm1.id, q_type="mcq",
+            question_text="ما هي المعادلة الصحيحة لحساب صافي الربح؟",
+            question_data=qd({
+                "options": ["الإيرادات - المصروفات", "الإيرادات + المصروفات", "الأصول - الخصوم", "لا شيء مما سبق"],
+                "correct_index": 0,
+            }),
+            points=2, order_index=1,
+        ),
+        Question(
+            job_model_id=jm1.id, q_type="excel_formula",
+            question_text="اكتب معادلة إكسل لحساب مجموع الخلايا من A1 إلى A10",
+            question_data=qd({"answer_keywords": ["SUM(A1:A10)", "=SUM(A1:A10)"]}),
+            points=3, order_index=2,
+        ),
+        Question(
+            job_model_id=jm1.id, q_type="mcq",
+            question_text="أي القوائم المالية التالية يوضح المركز المالي للشركة في تاريخ معين؟",
+            question_data=qd({
+                "options": ["قائمة الدخل", "الميزانية العمومية", "قائمة التدفقات النقدية", "قائمة حقوق الملكية"],
+                "correct_index": 1,
+            }),
+            points=2, order_index=3,
+        ),
+        Question(
+            job_model_id=jm2.id, q_type="mcq",
+            question_text="ما هي لغة البرمجة المستخدمة بشكل أساسي في تطوير واجهات الويب من جهة العميل؟",
+            question_data=qd({"options": ["Python", "JavaScript", "C++", "SQL"], "correct_index": 1}),
+            points=2, order_index=1,
+        ),
+        Question(
+            job_model_id=jm2.id, q_type="code_correction",
+            question_text="صحح الخطأ في السطر البرمجي التالي: for i in range(10) print(i)",
+            question_data=qd({"answer_keywords": ["for i in range(10): print(i)", ":"]}),
+            points=3, order_index=2,
+        ),
+        Question(
+            job_model_id=jm3.id, q_type="language_check",
+            question_text='دقق الجملة التالية لغوياً واكتبها بالشكل الصحيح: "انا ذاهب الى المدرسه"',
+            question_data=qd({"answer_keywords": ["أنا ذاهب إلى المدرسة"]}),
+            points=2, order_index=1,
+        ),
+        Question(
+            job_model_id=jm3.id, q_type="mcq",
+            question_text="أي مما يلي يمثل الاستخدام الصحيح لهمزة القطع؟",
+            question_data=qd({"options": ["إحسان", "احسان", "اٍحسان", "ٳحسان"], "correct_index": 0}),
+            points=2, order_index=2,
+        ),
+    ]
+    db.add_all(questions)
+    db.commit()
+    print("[DB] تم إدخال بيانات تجريبية (نماذج وظائف وأسئلة) بنجاح.")
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\db\session.py =====
+"""
+إنشاء محرك SQLAlchemy وجلسة قاعدة البيانات لـ SQLite، مع تفعيل وضع WAL
+(Write-Ahead Logging) وضبط busy_timeout لدعم الكتابة المتزامنة من عدد
+كبير من المستخدمين (حتى 50 متقدماً) دون حدوث قفل لقاعدة البيانات.
+"""
+
+import os
+
+from sqlalchemy import create_engine, event
+from sqlalchemy.orm import sessionmaker
+
+from core.config import settings
+
+os.makedirs(os.path.dirname(settings.SQLITE_DB_PATH), exist_ok=True)
+
+engine = create_engine(
+    f"sqlite:///{settings.SQLITE_DB_PATH}",
+    connect_args={"check_same_thread": False, "timeout": 30},
+    pool_pre_ping=True,
+)
+
+
+@event.listens_for(engine, "connect")
+def _set_sqlite_pragma(dbapi_connection, connection_record):
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA journal_mode=WAL;")
+    cursor.execute("PRAGMA synchronous=NORMAL;")
+    cursor.execute("PRAGMA foreign_keys=ON;")
+    cursor.execute("PRAGMA busy_timeout=30000;")
+    cursor.close()
+
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+def get_db():
+    """تبعية FastAPI لتوفير جلسة قاعدة بيانات لكل طلب، مع إغلاقها تلقائياً بعده."""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\helpers\grading_helpers.py =====
+"""
+دوال مساعدة لتصحيح إجابات الأسئلة النصية (معادلات إكسل، تصحيح أكواد،
+تدقيق لغوي) عبر توحيد شكل النص العربي/الإنجليزي قبل المقارنة.
+"""
+
+import re
+
+
+def normalize_text(text) -> str:
+    if text is None:
+        return ""
+    text = str(text).strip()
+    text = re.sub(r"\s+", " ", text)
+    text = text.replace("أ", "ا").replace("إ", "ا").replace("آ", "ا")
+    text = text.replace("ى", "ي").replace("ة", "ه")
+    return text.lower()
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\helpers\pdf_helpers.py =====
+"""
+أدوات مساعدة مشتركة لتوليد تقارير PDF بدعم كامل للغة العربية: تسجيل الخط
+العربي (Noto Naskh Arabic إن وُجد)، تشكيل النص وضبط اتجاهه (RTL)، وكلاس
+مخصص لترقيم الصفحات تلقائياً بصيغة "صفحة X من Y".
+"""
+
+import os
+
+import arabic_reshaper
+from bidi.algorithm import get_display
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
+
+from core.config import settings
+
+FONT_REGULAR_PATH = os.path.join(settings.FONTS_DIR, "NotoNaskhArabic-Regular.ttf")
+FONT_BOLD_PATH = os.path.join(settings.FONTS_DIR, "NotoNaskhArabic-Bold.ttf")
+
+_REGULAR_FONT_NAME = "Helvetica"
+_BOLD_FONT_NAME = "Helvetica-Bold"
+_fonts_registered = False
+
+PAGE_WIDTH, PAGE_HEIGHT = A4
+MARGIN = 2 * cm
+RIGHT_X = PAGE_WIDTH - MARGIN
+
+
+def get_registered_fonts():
+    """تسجيل الخط العربي مرة واحدة فقط، مع الرجوع لـ Helvetica إن لم يوجد ملف الخط."""
+    global _fonts_registered, _REGULAR_FONT_NAME, _BOLD_FONT_NAME
+    if _fonts_registered:
+        return _REGULAR_FONT_NAME, _BOLD_FONT_NAME
+
+    if os.path.exists(FONT_REGULAR_PATH):
+        pdfmetrics.registerFont(TTFont("ArabicFont", FONT_REGULAR_PATH))
+        _REGULAR_FONT_NAME = "ArabicFont"
+
+    if os.path.exists(FONT_BOLD_PATH):
+        pdfmetrics.registerFont(TTFont("ArabicFont-Bold", FONT_BOLD_PATH))
+        _BOLD_FONT_NAME = "ArabicFont-Bold"
+    elif os.path.exists(FONT_REGULAR_PATH):
+        _BOLD_FONT_NAME = "ArabicFont"
+
+    _fonts_registered = True
+    return _REGULAR_FONT_NAME, _BOLD_FONT_NAME
+
+
+def ar(text) -> str:
+    """تشكيل النص العربي وضبط اتجاهه ليظهر بشكل صحيح داخل ملف PDF."""
+    if text is None:
+        return ""
+    reshaped = arabic_reshaper.reshape(str(text))
+    return get_display(reshaped)
+
+
+class NumberedCanvas(canvas.Canvas):
+    """كلاس وارث من canvas.Canvas يضيف ترقيم صفحات تلقائي 'صفحة X من Y'."""
+
+    def __init__(self, *args, **kwargs):
+        canvas.Canvas.__init__(self, *args, **kwargs)
+        self._saved_page_states = []
+
+    def showPage(self):
+        self._saved_page_states.append(dict(self.__dict__))
+        self._startPage()
+
+    def save(self):
+        num_pages = len(self._saved_page_states)
+        for state in self._saved_page_states:
+            self.__dict__.update(state)
+            self._draw_page_number(num_pages)
+            canvas.Canvas.showPage(self)
+        canvas.Canvas.save(self)
+
+    def _draw_page_number(self, total_pages):
+        regular_font, _ = get_registered_fonts()
+        self.setFont(regular_font, 9)
+        self.setFillColor(colors.HexColor("#666666"))
+        text = ar(f"صفحة {self._pageNumber} من {total_pages}")
+        self.drawCentredString(PAGE_WIDTH / 2, 1.2 * cm, text)
+        self.setStrokeColor(colors.HexColor("#cccccc"))
+        self.line(2 * cm, 1.6 * cm, PAGE_WIDTH - 2 * cm, 1.6 * cm)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\models\admin.py =====
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column
+
+from db.base import Base
+from models.mixins import TimestampMixin, UUIDPKMixin
+
+
+class Admin(Base, UUIDPKMixin, TimestampMixin):
+    """حساب مدير لوحة التحكم."""
+    __tablename__ = "admins"
+
+    username: Mapped[str] = mapped_column(String(64), unique=True, index=True, nullable=False)
+    password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
+    full_name: Mapped[str] = mapped_column(String(128), nullable=True)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\models\applicant.py =====
+
+from datetime import datetime
+from typing import Optional
+
+from sqlalchemy import DateTime, Float, ForeignKey, String
+from sqlalchemy.orm import Mapped, mapped_column
+
+from db.base import Base
+from models.mixins import TimestampMixin, UUIDPKMixin
+
+
+class Applicant(Base, UUIDPKMixin, TimestampMixin):
+    """متقدم لأداء اختبار التوظيف."""
+    __tablename__ = "applicants"
+
+    national_id: Mapped[str] = mapped_column(String(32), unique=True, index=True, nullable=False)
+    full_name: Mapped[str] = mapped_column(String(128), nullable=False)
+    #phone: Mapped[Optional[str]] = mapped_column(String(32), nullable=True)
+    phone: Mapped[str] = mapped_column(String(32), nullable=True)
+    job_model_id: Mapped[str] = mapped_column(String(36), ForeignKey("job_models.id"), nullable=False)
+    access_code: Mapped[str] = mapped_column(String(16), unique=True, index=True, nullable=False)
+    status: Mapped[str] = mapped_column(String(20), default="pending", nullable=False)  # pending, in_progress, finished
+
+    #exam_started_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    exam_started_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
+    #exam_finished_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    exam_finished_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
+    total_score: Mapped[float] = mapped_column(Float, default=0)
+    max_score: Mapped[float] = mapped_column(Float, default=0)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\models\job_model.py =====
+from sqlalchemy import Integer, String, Text
+from sqlalchemy.orm import Mapped, mapped_column
+
+from db.base import Base
+from models.mixins import TimestampMixin, UUIDPKMixin
+
+
+class JobModel(Base, UUIDPKMixin, TimestampMixin):
+    """نموذج الوظيفة (يحدد مدة الاختبار ومجموعة الأسئلة المرتبطة به)."""
+    __tablename__ = "job_models"
+
+    name: Mapped[str] = mapped_column(String(128), nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=True)
+    duration_minutes: Mapped[int] = mapped_column(Integer, default=60, nullable=False)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\models\mixins.py =====
+"""
+Mixins مشتركة لكل النماذج: مفتاح أساسي بصيغة UUID (وليس رقم تسلسلي)،
+وحقل تاريخ الإنشاء التلقائي.
+"""
+
+import uuid
+from datetime import datetime
+
+from sqlalchemy import DateTime, String
+from sqlalchemy.orm import Mapped, mapped_column
+
+
+def gen_uuid() -> str:
+    return str(uuid.uuid4())
+
+
+class UUIDPKMixin:
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
+
+
+class TimestampMixin:
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\models\question.py =====
+from typing import Optional
+
+from sqlalchemy import Float, ForeignKey, Integer, String, Text
+from sqlalchemy.orm import Mapped, mapped_column
+
+from db.base import Base
+from models.mixins import TimestampMixin, UUIDPKMixin
+
+
+class Question(Base, UUIDPKMixin, TimestampMixin):
+    """سؤال اختبار مرتبط بنموذج وظيفة معين."""
+    __tablename__ = "questions"
+
+    job_model_id: Mapped[str] = mapped_column(String(36), ForeignKey("job_models.id"), nullable=False)
+    q_type: Mapped[str] = mapped_column(String(30), nullable=False)  # mcq, excel_formula, code_correction, language_check
+    question_text: Mapped[str] = mapped_column(Text, nullable=False)
+    question_data: Mapped[str] = mapped_column(Text, nullable=False)  # JSON مخزّن كنص
+    image_path: Mapped[str] = mapped_column(String(255), nullable=True)
+    #image_path: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    points: Mapped[float] = mapped_column(Float, default=1)
+    order_index: Mapped[int] = mapped_column(Integer, default=0)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\models\response.py =====
+from datetime import datetime
+from typing import Optional
+
+from sqlalchemy import DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
+from sqlalchemy.orm import Mapped, mapped_column
+
+from db.base import Base
+from models.mixins import UUIDPKMixin
+
+
+class Response(Base, UUIDPKMixin):
+    """إجابة متقدم على سؤال معين (سجل واحد لكل زوج متقدم/سؤال)."""
+    __tablename__ = "responses"
+
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("applicants.id"), nullable=False)
+    question_id: Mapped[str] = mapped_column(String(36), ForeignKey("questions.id"), nullable=False)
+    #answer_data: Mapped[Optional[str]] = mapped_column(Text, nullable=True)  # JSON مخزّن كنص
+    answer_data: Mapped[str] = mapped_column(Text, nullable=True)  # JSON مخزّن كنص
+    is_correct: Mapped[int] = mapped_column(Integer, default=0)
+    score: Mapped[float] = mapped_column(Float, default=0)
+    answered_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+
+    __table_args__ = (UniqueConstraint("user_id", "question_id", name="uq_user_question"),)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\models\session.py =====
+from datetime import datetime
+
+from sqlalchemy import DateTime, Index, String
+from sqlalchemy.orm import Mapped, mapped_column
+
+from db.base import Base
+from models.mixins import TimestampMixin, UUIDPKMixin
+
+
+class Session(Base, UUIDPKMixin, TimestampMixin):
+    """
+    جلسات الدخول المخزّنة في قاعدة البيانات، وتُستخدم لكل من الأدمن
+    والمتقدمين (subject_type يميّز النوع). يحمل كل تسجيل دخول رمز جلسة
+    (Token) فريد وتاريخ انتهاء صلاحية.
+    """
+    __tablename__ = "sessions"
+
+    subject_type: Mapped[str] = mapped_column(String(20), nullable=False)  # admin | applicant
+    subject_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
+    token: Mapped[str] = mapped_column(String(128), unique=True, index=True, nullable=False)
+    expires_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+
+    __table_args__ = (
+        Index("ix_sessions_subject", "subject_type", "subject_id"),
+    )
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\models\violation.py =====
+from datetime import datetime
+from typing import Optional
+
+from sqlalchemy import DateTime, ForeignKey, String, Text
+from sqlalchemy.orm import Mapped, mapped_column
+
+from db.base import Base
+from models.mixins import UUIDPKMixin
+
+
+class Violation(Base, UUIDPKMixin):
+    """مخالفة مرصودة أثناء أداء الاختبار (تبديل تبويب، نسخ/لصق، ...)."""
+    __tablename__ = "violations"
+
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("applicants.id"), nullable=False)
+    violation_type: Mapped[str] = mapped_column(String(30), nullable=False)
+    #details: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    details: Mapped[str] = mapped_column(Text, nullable=True)
+    occurred_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\repositories\admin_repository.py =====
+from sqlalchemy.orm import Session as OrmSession
+
+from models.admin import Admin
+from repositories.base_repository import BaseRepository
+
+
+class AdminRepository(BaseRepository[Admin]):
+    def __init__(self, db: OrmSession):
+        super().__init__(Admin, db)
+
+    def get_by_username(self, username: str):
+        return self.db.query(Admin).filter(Admin.username == username).first()
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\repositories\applicant_repository.py =====
+from sqlalchemy.orm import Session as OrmSession
+
+from models.applicant import Applicant
+from repositories.base_repository import BaseRepository
+
+
+class ApplicantRepository(BaseRepository[Applicant]):
+    def __init__(self, db: OrmSession):
+        super().__init__(Applicant, db)
+
+    def get_by_access_code(self, access_code: str):
+        return self.db.query(Applicant).filter(Applicant.access_code == access_code).first()
+
+    def get_by_national_id(self, national_id: str):
+        return self.db.query(Applicant).filter(Applicant.national_id == national_id).first()
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\repositories\base_repository.py =====
+"""
+مستودع أساسي عام (Generic Base Repository) يوفر عمليات CRUD القياسية
+لأي نموذج SQLAlchemy، لضمان الاعتماد الموحّد على نمط الـ CRUD في كل
+أنحاء المشروع كما هو متفق عليه.
+"""
+
+from typing import Any, Dict, Generic, List, Optional, Type, TypeVar
+
+from sqlalchemy.orm import Session as OrmSession
+
+ModelType = TypeVar("ModelType")
+
+
+class BaseRepository(Generic[ModelType]):
+    def __init__(self, model: Type[ModelType], db: OrmSession):
+        self.model = model
+        self.db = db
+
+    def get(self, id: str) -> Optional[ModelType]:
+        return self.db.query(self.model).filter(self.model.id == id).first()
+
+    def get_by(self, **filters) -> Optional[ModelType]:
+        query = self.db.query(self.model)
+        for key, value in filters.items():
+            query = query.filter(getattr(self.model, key) == value)
+        return query.first()
+
+    def get_all(self, skip: int = 0, limit: int = 1000, **filters) -> List[ModelType]:
+        query = self.db.query(self.model)
+        for key, value in filters.items():
+            if value is not None:
+                query = query.filter(getattr(self.model, key) == value)
+        return query.offset(skip).limit(limit).all()
+
+    def count(self, **filters) -> int:
+        query = self.db.query(self.model)
+        for key, value in filters.items():
+            if value is not None:
+                query = query.filter(getattr(self.model, key) == value)
+        return query.count()
+
+    def create(self, obj_in: Dict[str, Any]) -> ModelType:
+        db_obj = self.model(**obj_in)
+        self.db.add(db_obj)
+        self.db.commit()
+        self.db.refresh(db_obj)
+        return db_obj
+
+    def update(self, db_obj: ModelType, obj_in: Dict[str, Any]) -> ModelType:
+        for key, value in obj_in.items():
+            if value is not None:
+                setattr(db_obj, key, value)
+        self.db.commit()
+        self.db.refresh(db_obj)
+        return db_obj
+
+    def delete(self, id: str) -> bool:
+        db_obj = self.get(id)
+        if not db_obj:
+            return False
+        self.db.delete(db_obj)
+        self.db.commit()
+        return True
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\repositories\job_model_repository.py =====
+from sqlalchemy.orm import Session as OrmSession
+
+from models.job_model import JobModel
+from repositories.base_repository import BaseRepository
+
+
+class JobModelRepository(BaseRepository[JobModel]):
+    def __init__(self, db: OrmSession):
+        super().__init__(JobModel, db)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\repositories\question_repository.py =====
+from sqlalchemy.orm import Session as OrmSession
+
+from models.question import Question
+from repositories.base_repository import BaseRepository
+
+
+class QuestionRepository(BaseRepository[Question]):
+    def __init__(self, db: OrmSession):
+        super().__init__(Question, db)
+
+    def list_by_job_model(self, job_model_id: str):
+        return (
+            self.db.query(Question)
+            .filter(Question.job_model_id == job_model_id)
+            .order_by(Question.order_index, Question.created_at)
+            .all()
+        )
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\repositories\response_repository.py =====
+from datetime import datetime
+
+from sqlalchemy.orm import Session as OrmSession
+
+from models.response import Response
+from repositories.base_repository import BaseRepository
+
+
+class ResponseRepository(BaseRepository[Response]):
+    def __init__(self, db: OrmSession):
+        super().__init__(Response, db)
+
+    def get_by_user_and_question(self, user_id: str, question_id: str):
+        return (
+            self.db.query(Response)
+            .filter(Response.user_id == user_id, Response.question_id == question_id)
+            .first()
+        )
+
+    def list_by_user(self, user_id: str):
+        return self.db.query(Response).filter(Response.user_id == user_id).all()
+
+    def delete_by_question(self, question_id: str):
+        self.db.query(Response).filter(Response.question_id == question_id).delete()
+        self.db.commit()
+
+    def upsert(self, user_id: str, question_id: str, answer_data, is_correct: bool, score: float):
+        """حفظ أو تحديث إجابة المتقدم (UPSERT) - يتعامل مع إعادة الإرسال بأمان."""
+        existing = self.get_by_user_and_question(user_id, question_id)
+        if existing:
+            existing.answer_data = answer_data
+            existing.is_correct = int(bool(is_correct))
+            existing.score = score
+            existing.answered_at = datetime.utcnow()
+            self.db.commit()
+            self.db.refresh(existing)
+            return existing
+        return self.create({
+            "user_id": user_id,
+            "question_id": question_id,
+            "answer_data": answer_data,
+            "is_correct": int(bool(is_correct)),
+            "score": score,
+        })
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\repositories\session_repository.py =====
+from datetime import datetime
+
+from sqlalchemy.orm import Session as OrmSession
+
+from models.session import Session as SessionModel
+from repositories.base_repository import BaseRepository
+
+
+class SessionRepository(BaseRepository[SessionModel]):
+    def __init__(self, db: OrmSession):
+        super().__init__(SessionModel, db)
+
+    def get_by_token(self, token: str):
+        return self.db.query(SessionModel).filter(SessionModel.token == token).first()
+
+    def get_valid_by_token(self, token: str):
+        session = self.get_by_token(token)
+        if session and session.expires_at > datetime.utcnow():
+            return session
+        return None
+
+    def delete_by_token(self, token: str) -> bool:
+        session = self.get_by_token(token)
+        if not session:
+            return False
+        self.db.delete(session)
+        self.db.commit()
+        return True
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\repositories\violation_repository.py =====
+from sqlalchemy.orm import Session as OrmSession
+
+from models.violation import Violation
+from repositories.base_repository import BaseRepository
+
+
+class ViolationRepository(BaseRepository[Violation]):
+    def __init__(self, db: OrmSession):
+        super().__init__(Violation, db)
+
+    def list_by_user(self, user_id: str):
+        return (
+            self.db.query(Violation)
+            .filter(Violation.user_id == user_id)
+            .order_by(Violation.occurred_at)
+            .all()
+        )
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\schemas\admin.py =====
+from typing import Optional
+
+from pydantic import BaseModel, ConfigDict
+
+
+class AdminLogin(BaseModel):
+    username: str
+    password: str
+
+
+class AdminOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: str
+    username: str
+    full_name: Optional[str] = None
+
+
+class AdminLoginResponse(BaseModel):
+    token: str
+    token_type: str = "bearer"
+    admin: AdminOut
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\schemas\applicant.py =====
+from datetime import datetime
+from typing import Optional
+
+from pydantic import BaseModel, ConfigDict
+
+
+class ApplicantCreate(BaseModel):
+    national_id: str
+    full_name: str
+    phone: Optional[str] = None
+    job_model_id: str
+
+
+class ApplicantCreatedOut(BaseModel):
+    id: str
+    access_code: str
+
+
+class ApplicantOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: str
+    national_id: str
+    full_name: str
+    phone: Optional[str] = None
+    job_model_id: str
+    status: str
+    exam_started_at: Optional[datetime] = None
+    exam_finished_at: Optional[datetime] = None
+    total_score: float
+    max_score: float
+
+
+class ApplicantWithJobOut(ApplicantOut):
+    job_model_name: Optional[str] = None
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\schemas\exam.py =====
+from typing import Any, Dict, List, Optional
+
+from pydantic import BaseModel
+
+
+class ExamLoginRequest(BaseModel):
+    access_code: str
+
+
+class AnswerPayload(BaseModel):
+    question_id: str
+    answer_data: Optional[Dict[str, Any]] = None
+
+
+class SaveResponseRequest(BaseModel):
+    question_id: str
+    answer_data: Optional[Dict[str, Any]] = None
+
+
+class SaveBatchRequest(BaseModel):
+    answers: List[AnswerPayload] = []
+
+
+class ViolationRequest(BaseModel):
+    violation_type: str
+    details: Optional[str] = None
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\schemas\job_model.py =====
+from typing import Optional
+
+from pydantic import BaseModel, ConfigDict
+
+
+class JobModelBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+    duration_minutes: int = 60
+
+
+class JobModelCreate(JobModelBase):
+    pass
+
+
+class JobModelUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    duration_minutes: Optional[int] = None
+
+
+class JobModelOut(JobModelBase):
+    model_config = ConfigDict(from_attributes=True)
+    id: str
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\schemas\question.py =====
+from typing import Any, Dict, Optional
+
+from pydantic import BaseModel
+
+
+class QuestionCreate(BaseModel):
+    job_model_id: str
+    q_type: str
+    question_text: str
+    question_data: Dict[str, Any]
+    points: float = 1
+    order_index: int = 0
+    image_path: Optional[str] = None
+
+
+class QuestionUpdate(BaseModel):
+    question_text: Optional[str] = None
+    question_data: Optional[Dict[str, Any]] = None
+    points: Optional[float] = None
+    order_index: Optional[int] = None
+    image_path: Optional[str] = None
+
+
+class QuestionOut(BaseModel):
+    id: str
+    job_model_id: str
+    q_type: str
+    question_text: str
+    question_data: Dict[str, Any]
+    image_path: Optional[str] = None
+    points: float
+    order_index: int
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\services\applicant_service.py =====
+"""
+منطق إضافي خاص بالمتقدمين لا يدخل ضمن الـ CRUD البسيط، مثل حذف المتقدم
+مع كل بياناته المرتبطة (الإجابات والمخالفات) في عملية واحدة متسقة.
+"""
+
+from sqlalchemy.orm import Session as OrmSession
+
+from repositories.applicant_repository import ApplicantRepository
+from repositories.response_repository import ResponseRepository
+from repositories.violation_repository import ViolationRepository
+
+
+class ApplicantService:
+    def __init__(self, db: OrmSession):
+        self.db = db
+        self.applicant_repo = ApplicantRepository(db)
+        self.response_repo = ResponseRepository(db)
+        self.violation_repo = ViolationRepository(db)
+
+    def delete_applicant(self, applicant_id: str) -> bool:
+        applicant = self.applicant_repo.get(applicant_id)
+        if not applicant:
+            return False
+
+        for r in self.response_repo.list_by_user(applicant_id):
+            self.db.delete(r)
+        for v in self.violation_repo.list_by_user(applicant_id):
+            self.db.delete(v)
+
+        self.db.delete(applicant)
+        self.db.commit()
+        return True
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\services\auth_service.py =====
+"""
+منطق المصادقة: تسجيل دخول الأدمن (بالتحقق من كلمة المرور وإنشاء جلسة
+موقّعة بالتوكن ومحفوظة في قاعدة البيانات)، وإنشاء جلسات المتقدمين أثناء
+دخولهم للاختبار بكود الدخول.
+"""
+
+from datetime import datetime, timedelta
+
+from sqlalchemy.orm import Session as OrmSession
+
+from core.config import settings
+from core.security import generate_token, verify_password
+from repositories.admin_repository import AdminRepository
+from repositories.session_repository import SessionRepository
+
+
+class AuthService:
+    def __init__(self, db: OrmSession):
+        self.db = db
+        self.admin_repo = AdminRepository(db)
+        self.session_repo = SessionRepository(db)
+
+    def login_admin(self, username: str, password: str):
+        admin = self.admin_repo.get_by_username(username)
+        if not admin or not verify_password(password, admin.password_hash):
+            return None, None
+
+        token = generate_token()
+        expires_at = datetime.utcnow() + timedelta(hours=settings.SESSION_EXPIRE_HOURS)
+        self.session_repo.create({
+            "subject_type": "admin",
+            "subject_id": admin.id,
+            "token": token,
+            "expires_at": expires_at,
+        })
+        return admin, token
+
+    def create_applicant_session(self, applicant_id: str) -> str:
+        token = generate_token()
+        expires_at = datetime.utcnow() + timedelta(hours=settings.SESSION_EXPIRE_HOURS)
+        self.session_repo.create({
+            "subject_type": "applicant",
+            "subject_id": applicant_id,
+            "token": token,
+            "expires_at": expires_at,
+        })
+        return token
+
+    def logout(self, token: str):
+        self.session_repo.delete_by_token(token)
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\services\exam_service.py =====
+"""
+منطق تصحيح الاختبارات وحساب النتائج النهائية واسترجاعها.
+"""
+
+import json
+from datetime import datetime
+
+from sqlalchemy.orm import Session as OrmSession
+
+from helpers.grading_helpers import normalize_text
+from repositories.applicant_repository import ApplicantRepository
+from repositories.job_model_repository import JobModelRepository
+from repositories.question_repository import QuestionRepository
+from repositories.response_repository import ResponseRepository
+from repositories.violation_repository import ViolationRepository
+
+
+class ExamService:
+    def __init__(self, db: OrmSession):
+        self.db = db
+        self.question_repo = QuestionRepository(db)
+        self.response_repo = ResponseRepository(db)
+        self.applicant_repo = ApplicantRepository(db)
+        self.violation_repo = ViolationRepository(db)
+        self.job_model_repo = JobModelRepository(db)
+
+    def grade_answer(self, question, answer_data):
+        q_data = json.loads(question.question_data)
+        points = question.points
+
+        if question.q_type == "mcq":
+            selected = answer_data.get("selected_index") if answer_data else None
+            correct = q_data.get("correct_index")
+            try:
+                is_correct = selected is not None and int(selected) == int(correct)
+            except (TypeError, ValueError):
+                is_correct = False
+            return is_correct, (points if is_correct else 0)
+
+        if question.q_type in ("excel_formula", "code_correction", "language_check"):
+            raw_answer = answer_data.get("text", "") if answer_data else ""
+            normalized_answer = normalize_text(raw_answer)
+            keywords = q_data.get("answer_keywords", [])
+            is_correct = any(
+                normalize_text(kw) and normalize_text(kw) in normalized_answer for kw in keywords
+            )
+            return is_correct, (points if is_correct else 0)
+
+        return False, 0
+
+    def save_and_grade(self, user_id: str, question_id: str, answer_data):
+        question = self.question_repo.get(question_id)
+        if not question:
+            raise ValueError("السؤال غير موجود")
+
+        is_correct, score = self.grade_answer(question, answer_data)
+        stored_answer = json.dumps(answer_data, ensure_ascii=False) if answer_data is not None else None
+        self.response_repo.upsert(user_id, question_id, stored_answer, is_correct, score)
+        return {"is_correct": is_correct, "score": score}
+
+    def finalize_exam(self, user_id: str):
+        applicant = self.applicant_repo.get(user_id)
+        if not applicant:
+            raise ValueError("المتقدم غير موجود")
+
+        questions = self.question_repo.list_by_job_model(applicant.job_model_id)
+        responses = {r.question_id: r for r in self.response_repo.list_by_user(user_id)}
+
+        total_score = 0.0
+        max_score = 0.0
+        details = []
+        for q in questions:
+            max_score += q.points
+            resp = responses.get(q.id)
+            score = resp.score if resp else 0
+            is_correct = bool(resp.is_correct) if resp else False
+            total_score += score
+            details.append({
+                "question_id": q.id,
+                "question_text": q.question_text,
+                "q_type": q.q_type,
+                "points": q.points,
+                "score": score,
+                "is_correct": is_correct,
+                "answer": json.loads(resp.answer_data) if resp and resp.answer_data else None,
+            })
+
+        applicant.status = "finished"
+        applicant.exam_finished_at = datetime.utcnow()
+        applicant.total_score = total_score
+        applicant.max_score = max_score
+        self.db.commit()
+
+        return {"total_score": total_score, "max_score": max_score, "details": details}
+
+    def get_result(self, user_id: str):
+        applicant = self.applicant_repo.get(user_id)
+        if not applicant:
+            raise ValueError("المتقدم غير موجود")
+
+        job_model = self.job_model_repo.get(applicant.job_model_id)
+        questions = self.question_repo.list_by_job_model(applicant.job_model_id)
+        responses = {r.question_id: r for r in self.response_repo.list_by_user(user_id)}
+
+        details = []
+        for q in questions:
+            resp = responses.get(q.id)
+            details.append({
+                "question_id": q.id,
+                "question_text": q.question_text,
+                "q_type": q.q_type,
+                "points": q.points,
+                "score": resp.score if resp else 0,
+                "is_correct": bool(resp.is_correct) if resp else False,
+                "answer": json.loads(resp.answer_data) if resp and resp.answer_data else None,
+            })
+
+        violations = self.violation_repo.list_by_user(user_id)
+
+        return {
+            "applicant": applicant,
+            "job_model_name": job_model.name if job_model else "",
+            "details": details,
+            "violations": violations,
+        }
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\services\pdf_service.py =====
+"""
+توليد تقرير PDF رسمي لنتيجة المتقدم، معتمداً على ExamService لجلب البيانات
+وعلى helpers/pdf_helpers لكل ما يخص التشكيل العربي وترقيم الصفحات.
+"""
+
+from datetime import datetime
+
+from reportlab.lib import colors
+from reportlab.lib.units import cm
+from sqlalchemy.orm import Session as OrmSession
+
+from helpers.pdf_helpers import MARGIN, PAGE_HEIGHT, PAGE_WIDTH, RIGHT_X, NumberedCanvas, ar, get_registered_fonts
+from services.exam_service import ExamService
+
+
+def _new_page_header(c, title, regular_font, bold_font):
+    c.setFillColor(colors.HexColor("#1a3c6e"))
+    c.rect(0, PAGE_HEIGHT - 2.4 * cm, PAGE_WIDTH, 2.4 * cm, fill=True, stroke=False)
+    c.setFillColor(colors.white)
+    c.setFont(bold_font, 16)
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 1.5 * cm, ar(title))
+    c.setFont(regular_font, 9)
+    c.drawCentredString(
+        PAGE_WIDTH / 2, PAGE_HEIGHT - 2.1 * cm,
+        ar(f"تاريخ الإصدار: {datetime.now().strftime('%Y-%m-%d %H:%M')}"),
+    )
+    return PAGE_HEIGHT - 3.2 * cm
+
+
+def _draw_field_row(c, y, label, value, regular_font, bold_font):
+    c.setFont(bold_font, 11)
+    c.setFillColor(colors.HexColor("#1a3c6e"))
+    c.drawRightString(RIGHT_X, y, ar(f"{label}:"))
+    c.setFont(regular_font, 11)
+    c.setFillColor(colors.black)
+    c.drawRightString(RIGHT_X - 4.5 * cm, y, ar(str(value) if value else "-"))
+    return y - 0.75 * cm
+
+
+def generate_result_pdf(db: OrmSession, user_id: str, output_path: str) -> str:
+    result = ExamService(db).get_result(user_id)
+    applicant = result["applicant"]
+    details = result["details"]
+    violations = result["violations"]
+
+    regular_font, bold_font = get_registered_fonts()
+
+    c = NumberedCanvas(output_path, pagesize=(PAGE_WIDTH, PAGE_HEIGHT))
+    y = _new_page_header(c, "تقرير نتيجة اختبار التوظيف الإلكتروني", regular_font, bold_font)
+
+    # بيانات المتقدم
+    y -= 0.3 * cm
+    c.setFont(bold_font, 12)
+    c.setFillColor(colors.HexColor("#1a3c6e"))
+    c.drawRightString(RIGHT_X, y, ar("بيانات المتقدم"))
+    y -= 0.9 * cm
+
+    started = applicant.exam_started_at.strftime("%Y-%m-%d %H:%M") if applicant.exam_started_at else "-"
+    finished = applicant.exam_finished_at.strftime("%Y-%m-%d %H:%M") if applicant.exam_finished_at else "-"
+
+    y = _draw_field_row(c, y, "الاسم الكامل", applicant.full_name, regular_font, bold_font)
+    y = _draw_field_row(c, y, "الرقم القومي", applicant.national_id, regular_font, bold_font)
+    y = _draw_field_row(c, y, "الوظيفة المتقدم لها", result["job_model_name"], regular_font, bold_font)
+    y = _draw_field_row(c, y, "وقت بدء الاختبار", started, regular_font, bold_font)
+    y = _draw_field_row(c, y, "وقت انتهاء الاختبار", finished, regular_font, bold_font)
+
+    # النتيجة النهائية
+    total_score = applicant.total_score or 0
+    max_score = applicant.max_score or 0
+    percentage = (total_score / max_score * 100) if max_score else 0
+
+    y -= 0.3 * cm
+    c.setFillColor(colors.HexColor("#f0f4f8"))
+    c.roundRect(MARGIN, y - 1.6 * cm, PAGE_WIDTH - 2 * MARGIN, 1.6 * cm, 6, fill=True, stroke=False)
+    c.setFillColor(colors.HexColor("#1a3c6e"))
+    c.setFont(bold_font, 14)
+    c.drawCentredString(
+        PAGE_WIDTH / 2, y - 0.7 * cm,
+        ar(f"النتيجة النهائية: {total_score} من {max_score} ({percentage:.1f}%)"),
+    )
+    c.setFont(regular_font, 10)
+    verdict = "ناجح" if percentage >= 60 else "غير مجتاز للحد الأدنى المطلوب"
+    c.drawCentredString(PAGE_WIDTH / 2, y - 1.3 * cm, ar(f"التقييم العام: {verdict}"))
+    y -= 2.3 * cm
+
+    if violations:
+        c.setFillColor(colors.HexColor("#8a1f1f"))
+        c.setFont(bold_font, 11)
+        c.drawRightString(RIGHT_X, y, ar(f"تنبيه: تم رصد {len(violations)} مخالفة أثناء أداء الاختبار"))
+        y -= 0.8 * cm
+
+    # تفاصيل الإجابات
+    y -= 0.2 * cm
+    c.setFillColor(colors.HexColor("#1a3c6e"))
+    c.setFont(bold_font, 12)
+    c.drawRightString(RIGHT_X, y, ar("تفاصيل الإجابات"))
+    y -= 0.6 * cm
+
+    col_q_x = RIGHT_X
+    col_score_center_x = MARGIN + 3.2 * cm
+    col_status_center_x = MARGIN + 1.3 * cm
+
+    def draw_table_header(y_pos):
+        c.setFillColor(colors.HexColor("#d9e2ec"))
+        c.rect(MARGIN, y_pos - 0.6 * cm, PAGE_WIDTH - 2 * MARGIN, 0.6 * cm, fill=True, stroke=False)
+        c.setFillColor(colors.HexColor("#1a3c6e"))
+        c.setFont(bold_font, 10)
+        c.drawRightString(col_q_x, y_pos - 0.42 * cm, ar("السؤال"))
+        c.drawCentredString(col_score_center_x, y_pos - 0.42 * cm, ar("الدرجة"))
+        c.drawCentredString(col_status_center_x, y_pos - 0.42 * cm, ar("الحالة"))
+        return y_pos - 0.9 * cm
+
+    y = draw_table_header(y)
+    c.setFont(regular_font, 9.5)
+
+    for idx, item in enumerate(details, start=1):
+        if y < 3.5 * cm:
+            c.showPage()
+            y = _new_page_header(c, "تقرير نتيجة اختبار التوظيف الإلكتروني", regular_font, bold_font)
+            y = draw_table_header(y)
+            c.setFont(regular_font, 9.5)
+
+        q_text = item["question_text"]
+        if len(q_text) > 65:
+            q_text = q_text[:62] + "..."
+
+        c.setFillColor(colors.black)
+        c.drawRightString(col_q_x, y, ar(f"{idx}. {q_text}"))
+        c.drawCentredString(col_score_center_x, y, ar(f"{item['score']} / {item['points']}"))
+
+        status_color = colors.HexColor("#1c7c37") if item["is_correct"] else colors.HexColor("#b02a2a")
+        c.setFillColor(status_color)
+        c.drawCentredString(col_status_center_x, y, ar("صحيحة" if item["is_correct"] else "غير صحيحة"))
+
+        y -= 0.65 * cm
+        c.setStrokeColor(colors.HexColor("#eeeeee"))
+        c.line(MARGIN, y + 0.2 * cm, PAGE_WIDTH - MARGIN, y + 0.2 * cm)
+
+    # التوقيعات
+    if y < 5 * cm:
+        c.showPage()
+        y = _new_page_header(c, "تقرير نتيجة اختبار التوظيف الإلكتروني", regular_font, bold_font)
+
+    y -= 1.5 * cm
+    c.setStrokeColor(colors.HexColor("#999999"))
+    c.setFont(regular_font, 10)
+    c.setFillColor(colors.black)
+    c.line(MARGIN, y, MARGIN + 5 * cm, y)
+    c.line(PAGE_WIDTH - MARGIN - 5 * cm, y, PAGE_WIDTH - MARGIN, y)
+    y -= 0.5 * cm
+    c.drawString(MARGIN, y, ar("توقيع لجنة التصحيح"))
+    c.drawRightString(PAGE_WIDTH - MARGIN, y, ar("توقيع مسؤول الموارد البشرية"))
+
+    # يجب استدعاء showPage() لتسجيل حالة آخر صفحة قبل الحفظ (خاصية NumberedCanvas)
+    c.showPage()
+    c.save()
+    return output_path
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\services\sync_service.py =====
+"""
+معالجة المزامنة اللحظية لإجابات المتقدمين، مع إعادة المحاولة تلقائياً
+عند حدوث قفل مؤقت لقاعدة البيانات نتيجة الكتابة المتزامنة من عدد كبير
+من المتقدمين في نفس اللحظة.
+"""
+
+import time
+
+from sqlalchemy.exc import OperationalError
+
+from services.exam_service import ExamService
+
+
+def process_single_answer(db, user_id: str, question_id: str, answer_data, max_retries: int = 3):
+    attempt = 0
+    last_error = None
+    while attempt < max_retries:
+        try:
+            result = ExamService(db).save_and_grade(user_id, question_id, answer_data)
+            return {"success": True, "question_id": question_id, "result": result}
+        except OperationalError as e:
+            db.rollback()
+            last_error = str(e)
+            attempt += 1
+            time.sleep(0.3 * attempt)
+        except ValueError as e:
+            return {"success": False, "question_id": question_id, "error": str(e)}
+    return {"success": False, "question_id": question_id, "error": last_error or "فشل حفظ الإجابة بعد عدة محاولات"}
+
+
+def process_batch(db, user_id: str, answers):
+    """answers: قائمة عناصر AnswerPayload تحتوي question_id و answer_data."""
+    results = []
+    for item in answers:
+        results.append(process_single_answer(db, user_id, item.question_id, item.answer_data))
+    return results
+
+
+===== Src: E:\docker\exam_system_fastapi_react\project\backend\main.py =====
+import os
+
+from fastapi import FastAPI
+
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.staticfiles import StaticFiles
+from contextlib import asynccontextmanager
+from fastapi import Request
+from fastapi.exceptions import ResponseValidationError
+from fastapi.responses import JSONResponse
+import logging
+
+from api.v1.router import api_router
+from core.config import settings
+from db.init_db import init_db
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+os.makedirs(settings.UPLOADS_DIR, exist_ok=True)
+os.makedirs(settings.REPORTS_DIR, exist_ok=True)
+os.makedirs(settings.FONTS_DIR, exist_ok=True)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Startup & shutdown events."""
+    logger.info("🚀 Starting Exam System...")
+    init_db()
+    logger.info("✅ Database initialized")
+    yield
+    logger.info("🛑 Shutting down...")
+
+app = FastAPI(
+    title=settings.APP_NAME,
+    version=settings.API_V1_PREFIX,
+    description="""
+## نظام إدارة المهام المؤسسي
+نظام متكامل لإدارة وتنفيذ اختبارات التوظيف الإلكترونية عبر الشبكة الداخلية
+    """,
+    docs_url="/docs",
+    redoc_url="/redoc",
+    lifespan=lifespan,
+)
+
+@app.exception_handler(ResponseValidationError)
+async def validation_exception_handler(request: Request, exc: ResponseValidationError):
+    print("─── DETAILED RESPONSE VALIDATION ERROR ───")
+    # استخراج الأخطاء كـ مصفوفة نصوص مباشرة دون المرور على كائنات SQLAlchemy
+    import json
+    try:
+        print(json.dumps(exc.errors(), indent=2, ensure_ascii=False))
+    except Exception:
+        print("فشل تحويل الخطأ لـ JSON، نكتفي بطباعة العناوين:")
+        for error in exc.errors():
+            print(error)
+    print("──────────────────────────────────────────")
+    
+    return JSONResponse(
+        status_code=500,
+        content={"message": "Response validation error"}
+    )
+# ── Middleware ──────────────────────────────────────────────────
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["*"],
+)
+app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.mount("/uploads", StaticFiles(directory=settings.UPLOADS_DIR), name="uploads")
+# ── Routes ─────────────────────────────────────────────────────
+from sqlalchemy.orm import Session as OrmSession
+from fastapi import APIRouter, Depends, HTTPException
+from db.session import get_db
+
+tester=APIRouter(prefix="/tester", tags=["tester"])
+@tester.get("")
+def list_applicants(
+    db: OrmSession = Depends(get_db),
+):
+    return {"ASAS":"ASSSSSSSSSSS"}
+
+api_router.include_router(tester)
+app.include_router(api_router)
+
+
+@app.on_event("startup")
+def on_startup():
+    init_db()
+
+
+@app.get("/", tags=["Health"])
+async def root():
+    return {
+        "name": settings.APP_NAME,
+        "version": settings.API_V1_PREFIX,
+        "status": "running",
+        "docs": "/docs",
+    }
+
+@app.get("/health", tags=["Health"])
+async def health():
+    return {"status": "ok"}
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=True)
+

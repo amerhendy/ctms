@@ -1,0 +1,61 @@
+# ---------- Database dumps & backups ----------
+db_sync/*.sql
+db_sync/*.log
+backups/
+*.7z
+*.zip
+*.tar
+*.tar.gz
+
+# ---------- Environment / secrets ----------
+.env
+.env.*
+!.env.example
+*.env
+secrets/
+*.pem
+*.key
+
+# ---------- Celery runtime state ----------
+backend/celerybeat-schedule
+backend/celerybeat-schedule.*
+backend/celerybeat.pid
+backend/*.pid
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ---------- Virtualenvs ----------
+.venv/
+venv/
+env/
+ENV/
+
+# ---------- Node (لو فيه فرونت إند) ----------
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# ---------- IDE / OS ----------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- Logs ----------
+*.log
+logs/

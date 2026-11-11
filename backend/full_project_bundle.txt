@@ -1,0 +1,1763 @@
+﻿==============================================
+📦 FULL PROJECT STRUCTURE (backend):
+┣━ 📂 .pytest_cache
+┃   ┣━ 📂 v
+┃   ┃   ┗━ 📂 cache
+┃   ┃       ┣━ 📜 lastfailed
+┃   ┃       ┗━ 📜 nodeids
+┃   ┣━ 📜 .gitignore
+┃   ┣━ 📜 CACHEDIR.TAG
+┃   ┗━ 📜 README.md
+┣━ 📂 app
+┃   ┣━ 📂 api
+┃   ┃   ┣━ 📂 v1
+┃   ┃   ┃   ┣━ 📂 endpoints
+┃   ┃   ┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 auth.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 auth.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 auth_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 department_managers.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 department_managers_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 JobLevels.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 JobLevels_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 location.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 location_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 notifications.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 notifications.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 notifications_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 organization.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 organization.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 organization_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 Recurring.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 Recurring_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 search.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 search.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 search_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 shares_delegations.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 shares_delegations.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 shares_delegations_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 tasks.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 tasks.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 tasks_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 TaskWorkflowStep_route.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 TaskWorkflow_route.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_assigns.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_assigns_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_attachments.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_attachments_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_comments.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_comments_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_steps.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 task_steps_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 timeLog.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 timeLog_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 transfers.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 transfers.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 transfers_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 users.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 users.cpython-312.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 users_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 user_contacts.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 user_contacts_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 user_stats.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 user_stats_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStep_route.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 WorkflowTemplate_route.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 workflow_router.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┃   ┃   ┣━ 📜 auth_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 department_managers_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 JobLevels_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 location_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 notifications_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 organization_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 Recurring_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 search_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 shares_delegations_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 tasks_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 TaskWorkflowStep_route.py
+┃   ┃   ┃   ┃   ┣━ 📜 TaskWorkflow_route.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_assigns_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_attachments_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_comments_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 task_steps_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 timeLog_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 transfers_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 users_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 user_contacts_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 user_stats_router.py
+┃   ┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStep_route.py
+┃   ┃   ┃   ┃   ┣━ 📜 WorkflowTemplate_route.py
+┃   ┃   ┃   ┃   ┣━ 📜 workflow_router.py
+┃   ┃   ┃   ┃   ┗━ 📜 __init__.py
+┃   ┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.py
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 core
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 config.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 config.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 permissions.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 security.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 security.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 utils.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┣━ 📜 config.py
+┃   ┃   ┣━ 📜 permissions.py
+┃   ┃   ┣━ 📜 security.py
+┃   ┃   ┣━ 📜 utils.py
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 db
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 enums.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 session.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 session.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┣━ 📜 enums.py
+┃   ┃   ┣━ 📜 session.py
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 helpers
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┗━ 📜 dept_manager_helper.cpython-311.pyc
+┃   ┃   ┗━ 📜 dept_manager_helper.py
+┃   ┣━ 📂 models
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 Delegation.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 Department.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 DepartmentManager.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 Favorite.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 JobLevel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 Location.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 Notification.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 NotificationSettings.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 RecurringTask.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 RecurringTaskLog.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 RecurringTaskModel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 RecurringTaskStepModel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 Task.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskAssignment.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskAttachment.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskComment.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskLog.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskShare.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskStep.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskStepDependency_Model.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskTimeLog.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskTransfer.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowModel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowStepDependency_Model.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowStepModel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 User.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 UserContact.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 UserLogs.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_contacts.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateModel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStepModel.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┣━ 📜 Delegation.py
+┃   ┃   ┣━ 📜 Department.py
+┃   ┃   ┣━ 📜 DepartmentManager.py
+┃   ┃   ┣━ 📜 Favorite.py
+┃   ┃   ┣━ 📜 JobLevel.py
+┃   ┃   ┣━ 📜 Location.py
+┃   ┃   ┣━ 📜 Notification.py
+┃   ┃   ┣━ 📜 NotificationSettings.py
+┃   ┃   ┣━ 📜 RecurringTaskLog.py
+┃   ┃   ┣━ 📜 RecurringTaskModel.py
+┃   ┃   ┣━ 📜 RecurringTaskStepModel.py
+┃   ┃   ┣━ 📜 structure.txt
+┃   ┃   ┣━ 📜 Task.py
+┃   ┃   ┣━ 📜 TaskAssignment.py
+┃   ┃   ┣━ 📜 TaskAttachment.py
+┃   ┃   ┣━ 📜 TaskComment.py
+┃   ┃   ┣━ 📜 TaskLog.py
+┃   ┃   ┣━ 📜 TaskShare.py
+┃   ┃   ┣━ 📜 TaskStep.py
+┃   ┃   ┣━ 📜 TaskStepDependency_Model.py
+┃   ┃   ┣━ 📜 TaskTimeLog.py
+┃   ┃   ┣━ 📜 TaskTransfer.py
+┃   ┃   ┣━ 📜 TaskWorkflowModel.py
+┃   ┃   ┣━ 📜 TaskWorkflowStepModel.py
+┃   ┃   ┣━ 📜 User.py
+┃   ┃   ┣━ 📜 UserContact.py
+┃   ┃   ┣━ 📜 UserLogs.py
+┃   ┃   ┣━ 📜 WorkflowTemplateModel.py
+┃   ┃   ┣━ 📜 WorkflowTemplateStepModel.py
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 repositories
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 auth_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 delegation_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 department_manager_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 department_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 favorite_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 job_level_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 location_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 log_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 notification_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 recurring_task_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskAssignments_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 taskShare_rep.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskStepDependency_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 taskStep_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowStep_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 taskWorkFlow_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_analytics_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_step_repo.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_contact_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_repository.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStep_rep.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 WorkflowTemplate_repo.cpython-311.pyc
+┃   ┃   ┣━ 📜 auth_repository.py
+┃   ┃   ┣━ 📜 comment_repository.py
+┃   ┃   ┣━ 📜 delegation_repo.py
+┃   ┃   ┣━ 📜 department_manager_repository.py
+┃   ┃   ┣━ 📜 department_repository.py
+┃   ┃   ┣━ 📜 favorite_repo.py
+┃   ┃   ┣━ 📜 job_level_repository.py
+┃   ┃   ┣━ 📜 location_repository.py
+┃   ┃   ┣━ 📜 log_repo.py
+┃   ┃   ┣━ 📜 notification_repository.py
+┃   ┃   ┣━ 📜 recurring_task_repo.py
+┃   ┃   ┣━ 📜 TaskAssignments_repo.py
+┃   ┃   ┣━ 📜 taskShare_rep.py
+┃   ┃   ┣━ 📜 TaskStepDependency_repo.py
+┃   ┃   ┣━ 📜 TaskWorkflowStep_repo.py
+┃   ┃   ┣━ 📜 taskWorkFlow_repo.py
+┃   ┃   ┣━ 📜 task_analytics_repository.py
+┃   ┃   ┣━ 📜 task_repo.py
+┃   ┃   ┣━ 📜 task_step_repo.py
+┃   ┃   ┣━ 📜 user_contact_repository.py
+┃   ┃   ┣━ 📜 user_repository.py
+┃   ┃   ┣━ 📜 WorkflowTemplateStep_rep.py
+┃   ┃   ┗━ 📜 WorkflowTemplate_repo.py
+┃   ┣━ 📂 schemas
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 attachments.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 auth.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 base.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 comments.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 delegations.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 departments.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 department_manager_sch.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 job_levels.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 locations.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 notifications.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 notification_settings.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 recurring_tasks.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 search.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 shares.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 tasks.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowStep_schema.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflow_schema.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_assignments.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_logs.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_steps.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 time_logs.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 transfers.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 urgency.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 users.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_contacts.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_logs.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_stats_schema.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStep_schema.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplate_schema.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 workflow_diagram.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc.135017202992272
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┣━ 📜 attachments.py
+┃   ┃   ┣━ 📜 auth.py
+┃   ┃   ┣━ 📜 base.py
+┃   ┃   ┣━ 📜 comments.py
+┃   ┃   ┣━ 📜 delegations.py
+┃   ┃   ┣━ 📜 departments.py
+┃   ┃   ┣━ 📜 department_manager_sch.py
+┃   ┃   ┣━ 📜 job_levels.py
+┃   ┃   ┣━ 📜 locations.py
+┃   ┃   ┣━ 📜 notifications.py
+┃   ┃   ┣━ 📜 notification_settings.py
+┃   ┃   ┣━ 📜 recurring_tasks.py
+┃   ┃   ┣━ 📜 search.py
+┃   ┃   ┣━ 📜 shares.py
+┃   ┃   ┣━ 📜 tasks.py
+┃   ┃   ┣━ 📜 TaskWorkflowStep_schema.py
+┃   ┃   ┣━ 📜 TaskWorkflow_schema.py
+┃   ┃   ┣━ 📜 task_assignments.py
+┃   ┃   ┣━ 📜 task_comment_sch.py
+┃   ┃   ┣━ 📜 task_logs.py
+┃   ┃   ┣━ 📜 task_steps.py
+┃   ┃   ┣━ 📜 time_logs.py
+┃   ┃   ┣━ 📜 transfers.py
+┃   ┃   ┣━ 📜 urgency.py
+┃   ┃   ┣━ 📜 users.py
+┃   ┃   ┣━ 📜 user_contacts.py
+┃   ┃   ┣━ 📜 user_logs.py
+┃   ┃   ┣━ 📜 user_stats_schema.py
+┃   ┃   ┣━ 📜 WorkflowTemplateStep_schema.py
+┃   ┃   ┣━ 📜 WorkflowTemplate_schema.py
+┃   ┃   ┣━ 📜 workflow_diagram.py
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 services
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 access_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 auth_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 automation.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 delegation_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 department_manager_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 department_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 job_level_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 location_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 log_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 log_service.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 notification_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 notification_service.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 permission_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 permission_service.cpython-312.pyc
+┃   ┃   ┃   ┣━ 📜 recurring_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 recurring_task_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 share_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 taskassignment_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflowStep_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 TaskWorkflow_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 task_step_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_contact_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 user_stats_service.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateService.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 WorkflowTemplateStepService.cpython-311.pyc
+┃   ┃   ┃   ┣━ 📜 __init__.cpython-311.pyc
+┃   ┃   ┃   ┗━ 📜 __init__.cpython-312.pyc
+┃   ┃   ┣━ 📜 access_service.py
+┃   ┃   ┣━ 📜 auth_service.py
+┃   ┃   ┣━ 📜 automation.py
+┃   ┃   ┣━ 📜 delegation_service.py
+┃   ┃   ┣━ 📜 department_manager_service.py
+┃   ┃   ┣━ 📜 department_service.py
+┃   ┃   ┣━ 📜 job_level_service.py
+┃   ┃   ┣━ 📜 location_service.py
+┃   ┃   ┣━ 📜 log_service.py
+┃   ┃   ┣━ 📜 notification_service.py
+┃   ┃   ┣━ 📜 permission_service.py
+┃   ┃   ┣━ 📜 recurring_service.py
+┃   ┃   ┣━ 📜 recurring_task_service.py
+┃   ┃   ┣━ 📜 share_service.py
+┃   ┃   ┣━ 📜 taskassignment_service.py
+┃   ┃   ┣━ 📜 TaskWorkflowStep_service.py
+┃   ┃   ┣━ 📜 TaskWorkflow_service.py
+┃   ┃   ┣━ 📜 task_comment_service.py
+┃   ┃   ┣━ 📜 task_service.py
+┃   ┃   ┣━ 📜 task_step_service.py
+┃   ┃   ┣━ 📜 user_contact_service.py
+┃   ┃   ┣━ 📜 user_service.py
+┃   ┃   ┣━ 📜 user_stats_service.py
+┃   ┃   ┣━ 📜 WorkflowStepDependencyService.py
+┃   ┃   ┣━ 📜 WorkflowTemplateService.py
+┃   ┃   ┣━ 📜 WorkflowTemplateStepService.py
+┃   ┃   ┗━ 📜 __init__.py
+┃   ┣━ 📂 tests
+┃   ┃   ┣━ 📂 __pycache__
+┃   ┃   ┃   ┣━ 📜 conftest.cpython-311-pytest-9.0.3.pyc
+┃   ┃   ┃   ┣━ 📜 conftest.cpython-314-pytest-9.0.3.pyc
+┃   ┃   ┃   ┗━ 📜 test_user_repository.cpython-311-pytest-9.0.3.pyc
+┃   ┃   ┣━ 📜 conftest.py
+┃   ┃   ┗━ 📜 test_user_repository.py
+┃   ┣━ 📂 __pycache__
+┃   ┃   ┣━ 📜 main.cpython-311.pyc
+┃   ┃   ┣━ 📜 worker.cpython-311.pyc
+┃   ┃   ┗━ 📜 __init__.cpython-311.pyc
+┃   ┣━ 📜 main.py
+┃   ┣━ 📜 worker.py
+┃   ┗━ 📜 __init__.py
+┣━ 📂 celery_beat_schedule
+┣━ 📂 storage
+┃   ┗━ 📂 attachments
+┃       ┣━ 📜 task_1002_1780441648.319491.csv
+┃       ┣━ 📜 task_1002_1780441648.319491.docx
+┃       ┣━ 📜 task_1002_1780441648.319491.pdf
+┃       ┣━ 📜 task_1002_1780441648.319491.pptx
+┃       ┣━ 📜 task_1002_1780441648.319491.xlsx
+┃       ┣━ 📜 task_1_1779529557.12139.pdf
+┃       ┣━ 📜 task_1_1779529557.12139.png
+┃       ┣━ 📜 task_2_1778879524.106649.png
+┃       ┣━ 📜 task_2_1778879626.307254.png
+┃       ┣━ 📜 task_2_1778880050.6689.png
+┃       ┗━ 📜 task_9_1779808299.661803.pdf
+┣━ 📜 backend_bundle.txt
+┣━ 📜 celerybeat-schedule
+┣━ 📜 docker - Shortcut.lnk
+┣━ 📜 Dockerfile
+┣━ 📜 files.ps1
+┣━ 📜 permissions_bundle.txt
+┣━ 📜 pyproject.toml
+┣━ 📜 recurring_system.txt
+┣━ 📜 requirements.txt
+┗━ 📜 seed.py
+==============================================
+
+================ SELECTED FILES CODE ===============
+
+
+===== Src: E:\docker\backend\app\api\v1\endpoints\Recurring_router.py =====
+import math
+from fastapi import APIRouter, Depends, Query,HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.exc import IntegrityError
+
+from typing import Optional
+from datetime import datetime, time
+from app.db.session import get_db
+from app.db.enums import  TaskPriority
+from app.models import (User)
+from app.schemas.base import PaginatedResponse
+from app.core.security import get_current_user
+from app.schemas.recurring_tasks import RecurringTaskCreate,RecurringTemplateUpdate, RecurringTaskOut, RecurringTaskLogOut
+
+from app.services.recurring_task_service import RecurringTaskService
+router = APIRouter(prefix="/recurrTasks", tags=["Recurring Tasks - المهام المتكررة"])
+NOWTIME=datetime.now().replace(tzinfo=None)
+
+# ─── الميزة 4: إدارة قوالب المهام المتكررة والدورية (Recurring Tasks CRUD) ───────────────────────────
+
+@router.post("/recurring", status_code=201)
+async def create_recurring_template(
+    payload: RecurringTaskCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    try:
+        return await RecurringTaskService.create_template(db, current_user, payload.model_dump())
+    except IntegrityError as e:
+        await db.rollback()
+        raise HTTPException(
+            status_code=400,
+            detail="حدث خطأ في تكامل البيانات. يرجى التأكد من صحة الكيانات المرتبطة (القسم أو الموظف)."
+        )
+ 
+@router.get("/recurring", response_model=PaginatedResponse[RecurringTaskOut])
+async def list_recurring_templates(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(10, ge=1),
+    search: Optional[str] = Query(None),
+    sort_by: str = Query("created_at"),
+    sort_order: str = Query("desc"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    print("__-_-_-_")
+    return await RecurringTaskService.get_paginated_templates(
+        db, current_user, page, page_size, search, sort_by, sort_order
+    )
+
+# تعديل نوع الـ response_model لضمان ظهور التوثيق الصحيح في Swagger
+@router.get("/recurring/logs", response_model=PaginatedResponse[RecurringTaskLogOut])
+async def get_recurring_logs(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(10, ge=1),
+    search: Optional[str] = Query(None),
+    sort_by: str = Query("run_at"),  # التغيير: الفرز الافتراضي بناءً على وقت التشغيل الموجود في اللوق
+    sort_order: str = Query("desc"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    جلب سجل عمليات التشغيل والأتمتة لعرضها في شاشة الـ LOG بالفرونت إند.
+    """
+    return await RecurringTaskService.get_paginated_logs(
+        db, page, page_size, search, sort_by, sort_order
+    )
+@router.post("/recurring/trigger-automation")
+async def trigger_automation(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user) # حماية المسار للأدمن فقط
+):
+    """
+    تشغيل يدوي فوري لمحرك الأتمتة لفحص وتوليد المهام الدورية ومراقبة النتائج.
+    """
+    # يمكنك تفعيل فحص صلاحية الأدمن هنا لزيادة الأمان المكتبي الموثق
+    return await RecurringTaskService.trigger_manual_automation(db, current_user)
+    summary = await execute_recurring_tasks_automation(db)
+    return summary
+
+@router.get("/recurring/trash", response_model=PaginatedResponse[RecurringTaskOut])
+async def list_deleted_recurring_templates(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(10, ge=1),
+    search: Optional[str] = Query(None),
+    sort_by: str = Query("created_at"),
+    sort_order: str = Query("desc"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """جلب سلة المهملات للقوالب المحذوفة ناعماً"""
+    return await RecurringTaskService.get_paginated_deleted_templates(
+        db, current_user, page, page_size, search, sort_by, sort_order
+    )
+
+
+@router.get("/recurring/{template_id}")
+async def get_recurring_template(
+    template_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    جلب تفاصيل قالب متكرر.
+    - الصلاحية: الأدمن، مدير البرنامج، منشئ القالب، أو مستخدم في نفس القسم.
+    """
+    return await RecurringTaskService.get_template_details(db, current_user, template_id)
+
+
+@router.patch("/recurring/{template_id}")
+async def update_recurring_template(
+    template_id: int,
+    payload: RecurringTemplateUpdate,  # استقبال كل البيانات هنا في جسم الطلب
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    تحديث شامل لقالب مهمة متكررة.
+    """
+    return await RecurringTaskService.update_template(db, current_user, template_id, payload)
+
+
+@router.delete("/recurring/{template_id}")
+async def delete_recurring_template(
+    template_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    حذف قالب مهمة متكررة (Soft Delete).
+    - الصلاحية: الأدمن، مدير البرنامج، منشئ القالب، أو مدير القسم المعني.
+    """
+    return await RecurringTaskService.delete_template(db, current_user, template_id)
+
+
+@router.post("/recurring/{template_id}/restore")
+async def restore_recurring_template(
+    template_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """استرجاع قالب محذوف ناعماً مع كافة خطواته التابعة"""
+    return await RecurringTaskService.restore_template(db, current_user, template_id)
+
+===== Src: E:\docker\backend\app\api\v1\endpoints\workflow_router.py =====
+# app/api/v1/endpoints/workflow.py
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.db.session import get_db
+from app.core.security import get_current_user
+from app.models.User import User
+from app.models import (WorkflowTemplate, WorkflowTemplateStep)
+from app.schemas.WorkflowTemplate_schema import WorkflowTemplateCreate,WorkflowTemplateOut,WorkflowTemplateUpdate
+from app.schemas.WorkflowTemplateStep_schema import TemplateStepCreate
+from app.schemas.TaskWorkflow_schema import WorkflowCreate,WorkflowOut,WorkflowStepOut
+from app.schemas.TaskWorkflowStep_schema import WorkflowStepOut,WorkflowStepComplete,WorkflowStepUpdate
+from app.services.TaskWorkflow_service import TaskWorkflowService
+from app.services.TaskWorkflowStep_service import TaskWorkflowStepService
+from app.services.access_service import AccessService
+from app.repositories.task_repo import TaskRepository
+from sqlalchemy import select
+from sqlalchemy.orm import selectinload
+
+router = APIRouter(prefix="/workflow", tags=["Workflow"])
+# ══════════════════════════════════════════════════════════════════════════════
+# خطوات الـ Workflow
+# ══════════════════════════════════════════════════════════════════════════════
+#عمل روت لتغيير حالة الخطوة
+@router.post("/test/{step_id}", status_code=204)
+async def test(
+    step_id: int,
+    notes:str | None = None,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """اختبارات"""
+    return await TaskWorkflowStepService.complete_step(db,step_id,notes,current_user)
+    
+
+===== Src: E:\docker\backend\app\api\v1\endpoints\WorkflowTemplate_route.py =====
+# app/api/v1/endpoints/WorkflowTemplate_route.py
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.db.session import get_db
+from app.core.security import get_current_user
+from app.models.User import User
+from app.schemas.WorkflowTemplate_schema import (
+    WorkflowTemplateCreate,
+    WorkflowTemplateOut,
+    WorkflowTemplateSummary,
+    WorkflowTemplateUpdate,
+    TemplateDiagramResponse,
+    TemplateDiagramUpdate,
+    TemplateStepImportOut,
+)
+from app.services.WorkflowTemplateService import WorkflowTemplateService
+
+router = APIRouter(prefix="/workflow/templates", tags=["Workflow Templates"])
+
+# ─── Endpoints الموجودة سابقاً ────────────────────────────────────
+
+@router.post("/", response_model=WorkflowTemplateOut)
+async def create_template(
+    data: WorkflowTemplateCreate,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    return await WorkflowTemplateService.create_template(db, data, user)
+
+
+@router.get("/", response_model=list[WorkflowTemplateSummary])
+async def list_templates(db: AsyncSession = Depends(get_db)):
+    return await WorkflowTemplateService.list_templates(db)
+
+
+@router.patch("/{template_id}", response_model=WorkflowTemplateOut)
+async def update_template(
+    template_id: int,
+    data: WorkflowTemplateUpdate,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    return await WorkflowTemplateService.update_template(db, template_id, data, user)
+
+
+@router.delete("/{template_id}")
+async def delete_template(
+    template_id: int,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    return await WorkflowTemplateService.delete_template(db, template_id, user)
+
+
+@router.patch("/{template_id}/toggle", response_model=WorkflowTemplateOut)
+async def toggle_template(
+    template_id: int,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    return await WorkflowTemplateService.toggle_template(db, template_id, user)
+
+
+# ══════════════════════════════════════════════════════════════════
+# 🆕 المهمة 5.1: Endpoints للـ Diagram الخاصة بالقوالب
+# ══════════════════════════════════════════════════════════════════
+
+@router.get("/{template_id}/diagram", response_model=TemplateDiagramResponse)
+async def get_template_diagram(
+    template_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    جلب قالب Workflow بصيغة ReactFlow (Nodes + Edges) لعرضه كـ رسم بياني.
+    """
+    template = await WorkflowTemplateService.get_template(db, template_id)
+    return WorkflowTemplateService.build_diagram(template)
+
+
+@router.put("/{template_id}/diagram", response_model=TemplateDiagramResponse)
+async def update_template_diagram(
+    template_id: int,
+    diagram_data: TemplateDiagramUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    تحديث قالب Workflow بالكامل بناءً على تعديلات المستخدم في ReactFlow.
+    - يستقبل Nodes و Edges جديدة.
+    - يقوم بحذف وإعادة إنشاء الخطوات.
+    - يُرجع الـ Diagram المحدث بعد الحفظ.
+    """
+    # 1. التأكد من وجود القالب
+    template = await WorkflowTemplateService.get_template(db, template_id)
+
+    # 2. تنفيذ التحديث
+    updated_template = await WorkflowTemplateService.update_template_from_diagram(
+        db=db,
+        template_id=template_id,
+        diagram_data=diagram_data,
+        current_user=current_user,
+    )
+
+    # 3. حفظ التغييرات
+    await db.commit()
+
+    # 4. إعادة الـ Diagram المحدث
+    return WorkflowTemplateService.build_diagram(updated_template)
+
+@router.get("/{template_id}/as-steps", response_model=list[TemplateStepImportOut])
+async def get_template_as_steps(
+    template_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    جلب خطوات قالب معين بصيغة قائمة خطية (Linear Steps) لاستيرادها داخل المهمة.
+    """
+    return await WorkflowTemplateService.get_template_as_steps(db, template_id)
+
+===== Src: E:\docker\backend\app\api\v1\endpoints\WorkflowTemplateStep_route.py =====
+from typing import List
+
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.db.session import get_db
+from app.core.security import get_current_user
+from app.schemas.WorkflowTemplateStep_schema import TemplateStepCreate, TemplateStepOut
+from app.services.WorkflowTemplateStepService import WorkflowTemplateStepService
+
+router = APIRouter(prefix="/workflow-templates/{template_id}/steps", tags=["Workflow Template Steps"])
+
+@router.post("/", response_model=TemplateStepOut)
+async def add_step(template_id: int, data: TemplateStepCreate, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    return await WorkflowTemplateStepService.add_step_to_template(db, template_id, data, user)
+
+@router.post("/bulk", response_model=List[TemplateStepOut])
+async def add_steps(
+    template_id: int, 
+    data: List[TemplateStepCreate],
+    db: AsyncSession = Depends(get_db), 
+    user = Depends(get_current_user)
+):
+    return await WorkflowTemplateStepService.add_multiple_steps(db, template_id, data, user)
+
+@router.patch("/{step_id}")
+async def update_step(step_id: int, data: TemplateStepCreate, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    # ملاحظة: يمكنك إنشاء Schema خاص للتحديث
+    return await WorkflowTemplateStepService.update_step(db, step_id, data, user)
+
+@router.delete("/{step_id}")
+async def delete_step(step_id: int, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    return await WorkflowTemplateStepService.delete_step(db, step_id, user)
+
+@router.post("/reorder")
+async def reorder_steps(template_id: int, new_order: list[int], db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
+    return await WorkflowTemplateStepService.reorder_steps(db, template_id, new_order, user)
+
+===== Src: E:\docker\backend\app\models\RecurringTaskLog.py =====
+#app/models/TaskLog.py
+from __future__ import annotations
+
+from datetime import datetime
+from typing import Optional, TYPE_CHECKING
+
+from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, func
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from app.db.session import Base
+
+if TYPE_CHECKING:
+    from app.models.RecurringTaskModel import RecurringTask
+
+
+class RecurringTaskLog(Base):
+    __tablename__ = "recurring_task_logs"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    recurring_task_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("recurring_tasks.id", ondelete="CASCADE"), nullable=False
+    )
+    status: Mapped[str] = mapped_column(String(20), nullable=False)
+    generated_task_id: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    error_message: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    run_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+    recurring_task: Mapped["RecurringTask"] = relationship(
+        "RecurringTask", back_populates="execution_logs"
+    )
+
+    def __repr__(self):
+        return f"<RecurringTaskLog {self.id} task={self.recurring_task_id} status={self.status}>"
+
+===== Src: E:\docker\backend\app\repositories\recurring_task_repo.py =====
+#app/repositories/recurring_task_repo.py
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, update
+from sqlalchemy.orm import selectinload
+
+from datetime import datetime
+from typing import Optional
+
+from app.models import RecurringTaskLog, User
+from app.models.RecurringTaskModel import RecurringTask
+from app.models.RecurringTaskStepModel import RecurringTaskStep
+from app.db.enums import GlobalRole
+from app.core.permissions import AccessService
+class RecurringTaskRepository:
+    @staticmethod
+    def get_base_query(current_user: User, include_deleted: bool = False):
+        query = select(RecurringTask).options(
+            selectinload(RecurringTask.steps.and_(RecurringTaskStep.deleted_at.is_(None)))
+        )
+        
+        if not include_deleted:
+            query = query.where(RecurringTask.deleted_at.is_(None))
+        
+        if AccessService.is_pm_or_admin(current_user):
+            query = query.where(RecurringTask.department_id == current_user.department_id)
+            
+        return query
+    @staticmethod
+    def get_base_query_trash(current_user: User):
+        query = select(RecurringTask).options(
+            selectinload(RecurringTask.steps.and_(RecurringTaskStep.deleted_at.is_(None)))
+        )
+        query = query.where(RecurringTask.deleted_at.isnot(None))
+        
+        if AccessService.is_pm_or_admin(current_user):
+            query = query.where(RecurringTask.department_id == current_user.department_id)
+            
+        return query
+    @staticmethod
+    async def get_by_id(db: AsyncSession, template_id: int, include_deleted: bool = False) -> Optional[RecurringTask]:
+        query = select(RecurringTask).options(
+            selectinload(RecurringTask.steps.and_(RecurringTaskStep.deleted_at.is_(None)))
+        ).where(RecurringTask.id == template_id)
+        
+        if not include_deleted:
+            query = query.where(RecurringTask.deleted_at.is_(None))
+            
+        result = await db.execute(query)
+        return result.scalar_one_or_none()
+
+    
+
+    @staticmethod
+    async def create(db: AsyncSession, template_data: dict) -> RecurringTask:
+        steps_data = template_data.pop("steps", [])
+        template = RecurringTask(**template_data)
+        
+        for step_dict in steps_data:
+            step = RecurringTaskStep(**step_dict)
+            template.steps.append(step)
+            
+        db.add(template)
+        return template
+
+    @staticmethod
+    async def update(db: AsyncSession, template: RecurringTask, update_data: dict) -> RecurringTask:
+        for key, value in update_data.items():
+            setattr(template, key, value)
+        await db.commit()
+        await db.refresh(template)
+        return template
+
+    @staticmethod
+    async def soft_delete_with_steps(db: AsyncSession, template: RecurringTask, deleted_time: datetime) -> None:
+        template.deleted_at = deleted_time
+        for step in template.steps:
+            step.deleted_at = deleted_time
+        await db.commit()
+
+    @staticmethod
+    async def restore_with_steps(db: AsyncSession, template: RecurringTask) -> None:
+        template.deleted_at = None
+        for step in template.steps:
+            step.deleted_at = None
+        await db.commit()
+
+    @staticmethod
+    def get_logs_base_query():
+        return select(RecurringTaskLog, RecurringTask.title.label("template_title")) \
+               .join(RecurringTask, RecurringTaskLog.recurring_task_id == RecurringTask.id)
+    
+    @staticmethod
+    async def get_all_by_department(db: AsyncSession, dept_id: int):
+        return await db.execute(select(RecurringTask).where(RecurringTask.department_id == dept_id, RecurringTask.deleted_at.is_(None)))
+
+    @staticmethod
+    async def soft_delete(db: AsyncSession, template: RecurringTask) -> None:
+        template.deleted_at = datetime.utcnow()
+        await db.commit()
+
+===== Src: E:\docker\backend\app\schemas\recurring_tasks.py =====
+#app/schemas/recurring_tasks.py
+from datetime import datetime, date, time
+from typing import Optional, List
+from pydantic import BaseModel, field_validator, model_validator, Field
+from app.db.enums import TaskPriority,RecurrencePattern
+
+
+# ─── نماذج الإدخال (Request Schemas)  ───
+
+class RecurringTaskUpdate(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    priority: Optional[TaskPriority] = None
+    recurrence_pattern: Optional[RecurrencePattern] = None
+    interval_value: Optional[int] = None
+    day_of_week: Optional[int] = None
+    day_of_month: Optional[int] = None
+    next_run_date: Optional[date] = None
+    run_time: Optional[time] = None
+    is_active: Optional[bool] = None
+
+
+
+# ─── نماذج المخرجات (Response Schemas) ───
+
+
+
+# ─── Schemas الخطوات (Recurring Task Steps) ───
+
+class RecurringTaskStepBase(BaseModel):
+    title: str = Field(..., min_length=2, max_length=255)
+    description: Optional[str] = None
+    step_order: int = Field(1, ge=1)
+    is_parallel: bool = False
+    assigned_department_id: Optional[int] = None
+    assigned_user_id: Optional[int] = None
+
+    @model_validator(mode="after")
+    def validate_assignment_xor(self):
+        has_dept = self.assigned_department_id is not None
+        has_user = self.assigned_user_id is not None
+
+        if has_dept and has_user:
+            raise ValueError("يجب تحديد إما القسم أو المستخدم للقيام بالخطوة، وليس كلاهما معاً.")
+        if not has_dept and not has_user:
+            raise ValueError("يجب تحديد جهة التكليف للخطوة (إما قسم أو مستخدم).")
+        return self
+
+
+class RecurringTaskStepCreate(RecurringTaskStepBase):
+    pass
+
+
+class RecurringTaskStepUpdate(BaseModel):
+    id: Optional[int] = None  # None يعبر عن خطوة جديدة، والـ ID يعبر عن خطوة مسجلة مسبقاً للتحديث
+    title: Optional[str] = Field(None, min_length=2, max_length=255)
+    description: Optional[str] = None
+    step_order: Optional[int] = Field(None, ge=1)
+    is_parallel: Optional[bool] = None
+    assigned_department_id: Optional[int] = None
+    assigned_user_id: Optional[int] = None
+
+
+class RecurringTaskStepOut(RecurringTaskStepBase):
+    id: int
+    recurring_task_id: int
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+# ─── Schemas القوالب المتكررة (Recurring Tasks) ───
+
+class RecurringTaskCreate(BaseModel):
+    title: str = Field(..., min_length=2, max_length=255)
+    description: Optional[str] = None
+    department_id: int = Field(1, ge=1, description="القسم يجب أن يكون صحيح")
+    priority: TaskPriority = TaskPriority.MEDIUM
+    recurrence_pattern: RecurrencePattern
+    interval_value: int = Field(1, ge=1, description="كل كم دورة يتكرر؟")
+    day_of_week: Optional[int] = Field(None, ge=0, le=6)
+    day_of_month: Optional[int] = Field(None, ge=1, le=31)
+    next_run_date: date = Field(..., description="تاريخ أول تشغيل تلقائي قادم")
+    run_time: time = Field(default=time(8, 0, 0), description="وقت التشغيل اليومي")
+    is_active: bool = True
+    steps: Optional[List[RecurringTaskStepCreate]] = []
+
+
+class RecurringTemplateUpdate(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    department_id: Optional[int] = None
+    priority: Optional[str] = None
+    recurrence_pattern: Optional[str] = None
+    interval_value: Optional[int] = None
+    day_of_week: Optional[int] = None
+    day_of_month: Optional[int] = None
+    next_run_date: Optional[str] = None
+    is_active: Optional[bool] = None
+    run_time: Optional[time] = None
+    steps: Optional[List[RecurringTaskStepUpdate]] = None  # لدعم التحديث الجزئي Diff Update
+
+    @field_validator("run_time", mode="before")
+    @classmethod
+    def parse_run_time(cls, value):
+        if isinstance(value, str):
+            try:
+                if len(value) == 5:
+                    return datetime.strptime(value, "%H:%M").time()
+                elif len(value) == 8:
+                    return datetime.strptime(value, "%H:%M:%S").time()
+            except ValueError:
+                raise ValueError("تنسيق الوقت غير صحيح، يجب أن يكون HH:MM أو HH:MM:SS")
+        return value
+
+
+class RecurringTaskOut(BaseModel):
+    id: int
+    title: str
+    description: Optional[str]
+    department_id: int
+    created_by: int
+    priority: TaskPriority
+    recurrence_pattern: RecurrencePattern
+    interval_value: int
+    day_of_week: Optional[int]
+    day_of_month: Optional[int]
+    next_run_date: date
+    run_time: time
+    is_active: bool
+    created_at: datetime
+    steps: List[RecurringTaskStepOut] = []
+
+    class Config:
+        from_attributes = True
+
+
+class RecurringTaskLogOut(BaseModel):
+    id: int
+    template_title: str
+    recurring_task_id: int
+    status: str
+    generated_task_id: Optional[int]
+    error_message: Optional[str]
+    run_at: datetime
+
+    class Config:
+        from_attributes = True
+
+===== Src: E:\docker\backend\app\services\recurring_service.py =====
+from datetime import datetime, date, time
+from sqlalchemy.future import select
+from sqlalchemy import and_
+from sqlalchemy.ext.asyncio import AsyncSession
+
+# استيراد الموديلات الرسمية والموثقة من نظامك
+from app.models import RecurringTask, Task, RecurringTaskLog, User 
+# استيراد دالة الإشعارات الذكية والـ WebSocket التي قمت ببنائها
+from app.services.notification_service import NotificationService 
+
+async def execute_recurring_tasks_automation(db: AsyncSession):
+    now_utc = datetime.utcnow()
+    today = now_utc.date()
+    current_time = now_utc.time()
+    
+    # جلب القوالب النشطة مع خطواتها غير المحذوفة
+    stmt = select(RecurringTask).options(
+        selectinload(RecurringTask.steps.and_(RecurringTaskStep.deleted_at.is_(None)))
+    ).where(
+        and_(
+            RecurringTask.is_active == True,
+            RecurringTask.deleted_at == None,
+            RecurringTask.next_run_date <= today
+        )
+    )
+    
+    result = await db.execute(stmt)
+    templates = result.scalars().all()
+    
+    executed_count = 0
+    for template in templates:
+        if template.next_run_date == today and template.run_time > current_time:
+            continue
+            
+        log_entry = RecurringTaskLog(recurring_task_id=template.id, run_at=now_utc)
+        
+        try:
+            task_priority = template.priority.upper() if template.priority else "MEDIUM"
+            
+            # 1. إنشاء المهمة الرئيسية
+            new_task = Task(
+                title=template.title,
+                description=template.description,
+                department_id=template.department_id,
+                priority=task_priority,
+                status="not_started",
+                created_by=template.created_by,
+                created_at=now_utc
+            )
+            db.add(new_task)
+            await db.flush()  # للحصول على new_task.id
+            
+            # 2. نسخ خطوات القالب وإدراجها كـ TaskSteps فعلية للمهمة
+            for t_step in template.steps:
+                task_step = TaskStep(
+                    task_id=new_task.id,
+                    title=t_step.title,
+                    description=t_step.description,
+                    step_order=t_step.step_order,
+                    is_parallel=t_step.is_parallel,
+                    status="pending",
+                    assigned_department_id=t_step.assigned_department_id,
+                    assigned_user_id=t_step.assigned_user_id,
+                    created_at=now_utc
+                )
+                db.add(task_step)
+
+            # 3. إرسال الإشعارات
+            user_stmt = select(User).where(User.department_id == template.department_id)
+            user_result = await db.execute(user_stmt)
+            department_users = user_result.scalars().all()
+            
+            for user in department_users:
+                await NotificationService.create(
+                    db=db,
+                    user_id=user.id,
+                    notification_type="task_assigned",
+                    title="📅 مهمة دورية تلقائية",
+                    body=f"قام النظام بإصدار مهمة دورية آلياً لقسمكم بعنوان: ({template.title}).",
+                    related_task_id=new_task.id,
+                    extra_data={"automation": True, "template_id": template.id},
+                    send_ws=True
+                )
+            
+            # 4. حساب تاريخ التشغيل القادم
+            template.next_run_date = calculate_next_run_date(template.next_run_date, template.recurrence_pattern, template.interval_value)
+            template.updated_at = now_utc
+            
+            log_entry.status = "success"
+            log_entry.generated_task_id = new_task.id
+            executed_count += 1
+            
+        except Exception as e:
+            await db.rollback()
+            log_entry.status = "failed"
+            log_entry.error_message = str(e)
+            
+        db.add(log_entry)
+        
+    await db.commit()
+    return {"status": "completed", "tasks_generated": executed_count}
+
+
+def calculate_next_run_date(current_date: date, pattern: str, interval: int) -> date:
+    from datetime import timedelta
+    if pattern == "daily":
+        return current_date + timedelta(days=interval)
+    elif pattern == "weekly":
+        return current_date + timedelta(weeks=interval)
+    elif pattern == "monthly":
+        import calendar
+        month = current_date.month - 1 + interval
+        year = current_date.year + month // 12
+        month = month % 12 + 1
+        day = min(current_date.day, calendar.monthrange(year, month)[1])
+        return date(year, month, day)
+    return current_date + timedelta(days=1)
+
+===== Src: E:\docker\backend\app\services\WorkflowStepDependencyService.py =====
+
+
+===== Src: E:\docker\backend\app\services\WorkflowTemplateService.py =====
+# app/services/WorkflowTemplateService.py
+from fastapi import HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+from datetime import datetime
+from sqlalchemy.orm import selectinload
+from sqlalchemy import select
+from app.models.WorkflowTemplateModel import WorkflowTemplate
+from app.models.WorkflowTemplateStepModel import WorkflowTemplateStep
+from app.repositories.WorkflowTemplate_repo import WorkflowTemplateRepository
+from app.schemas.WorkflowTemplate_schema import (
+    WorkflowTemplateCreate,
+    WorkflowTemplateUpdate,
+    TemplateDiagramResponse,
+    TemplateDiagramUpdate,
+    TemplateStepImportOut,
+)
+from app.schemas.workflow_diagram import (
+    WorkflowNodeSchema,
+    NodePositionSchema,
+    WorkflowNodeDataSchema,
+)
+from app.services.access_service import AccessService
+
+
+class WorkflowTemplateService:
+
+    @staticmethod
+    async def create_template(db: AsyncSession, data: WorkflowTemplateCreate, current_user):
+        AccessService.require_pm_or_admin(current_user)
+        existing = await WorkflowTemplateRepository.get_by_name(db, data.name)
+        if existing:
+            raise HTTPException(status_code=400, detail="يوجد قالب بهذا الاسم بالفعل")
+        template_data = data.model_dump(exclude={'steps'})
+        template_data['created_by'] = current_user.id
+        templateData = await WorkflowTemplateRepository.create(db, template_data)
+        template = await WorkflowTemplateRepository.get_by_id(db, templateData.id)
+        return template
+
+    @staticmethod
+    async def get_template(db: AsyncSession, template_id: int):
+        template = await WorkflowTemplateRepository.get_by_id(db, template_id)
+        if not template:
+            raise HTTPException(status_code=404, detail="القالب غير موجود")
+        return template
+
+    @staticmethod
+    async def update_template(db: AsyncSession, template_id: int, data: WorkflowTemplateUpdate, current_user):
+        AccessService.require_pm_or_admin(current_user)
+        template = await WorkflowTemplateService.get_template(db, template_id)
+        updated_template = await WorkflowTemplateRepository.update(db, template, data)
+        await db.commit()
+        return updated_template
+
+    @staticmethod
+    async def list_templates(db: AsyncSession):
+        return await WorkflowTemplateRepository.list_all(db)
+
+    @staticmethod
+    async def delete_template(db: AsyncSession, template_id: int, current_user):
+        AccessService.require_pm_or_admin(current_user)
+        template = await WorkflowTemplateService.get_template(db, template_id)
+        await WorkflowTemplateRepository.delete(db, template)
+        await db.commit()
+        return {"detail": "تم حذف القالب بنجاح"}
+
+    @staticmethod
+    async def toggle_template(db: AsyncSession, template_id: int, current_user):
+        AccessService.require_pm_or_admin(current_user)
+        template = await WorkflowTemplateService.get_template(db, template_id)
+        toggled = await WorkflowTemplateRepository.toggle_active(db, template)
+        await db.commit()
+        return toggled
+
+    # ══════════════════════════════════════════════════════════════════
+    # 🆕 دوال الـ Diagram الخاصة بالقوالب (مُحدثة مع الفلترة)
+    # ══════════════════════════════════════════════════════════════════
+
+    @staticmethod
+    def build_diagram(template: WorkflowTemplate) -> TemplateDiagramResponse:
+        """
+        يحول قالب Workflow إلى رسم بياني (Nodes + Edges).
+        تضمن التصفية هنا استبعاد أي خطوة معلمة كـ deleted_at.
+        """
+        if not template:
+            raise ValueError("لا يمكن بناء Diagram من قالب فارغ")
+
+        nodes_list = []
+
+        # 🆕 فلترة الخطوات النشطة فقط لضمان عدم بناء عقد للخطوات المحذوفة
+        active_steps = [s for s in template.steps if s.deleted_at is None]
+
+        # تجميع الخطوات حسب الـ order
+        steps_by_order: dict[int, list] = {}
+        for step in active_steps:
+            order = step.step_order
+            if order not in steps_by_order:
+                steps_by_order[order] = []
+            steps_by_order[order].append(step)
+
+        # بناء العقد مع حساب الإحداثيات
+        for order, steps_in_order in steps_by_order.items():
+            x_position = order * 250  # مسافة أفقية
+
+            for idx, step in enumerate(steps_in_order):
+                y_position = idx * 120  # مسافة رأسية للتوازي
+
+                node_data = WorkflowNodeDataSchema(
+                    label=step.title,
+                    description=step.description,
+                    status="pending",
+                    step_order=step.step_order,
+                    is_parallel=step.is_parallel,
+                    assigned_user_id=step.assigned_user_id,
+                    assigned_user_name=step.assigned_user.full_name if step.assigned_user else None,
+                    assigned_department_id=step.assigned_department_id,
+                    assigned_department_name=step.assigned_department.name if step.assigned_department else None,
+                    is_editable=True,
+                    is_completable=False,
+                )
+
+                node = WorkflowNodeSchema(
+                    id=str(step.id),
+                    type="step",
+                    position=NodePositionSchema(x=x_position, y=y_position),
+                    data=node_data,
+                )
+                nodes_list.append(node)
+
+        edges_list = []
+
+        return TemplateDiagramResponse(
+            template_id=template.id,
+            name=template.name,
+            description=template.description,
+            is_active=template.is_active,
+            nodes=nodes_list,
+            edges=edges_list,
+        )
+
+    @staticmethod
+    async def update_template_from_diagram(
+        db: AsyncSession,
+        template_id: int,
+        diagram_data: TemplateDiagramUpdate,
+        current_user,
+    ) -> WorkflowTemplate:
+        """
+        يقوم بتحديث قالب الـ Workflow بناءً على الـ Nodes و Edges المرسلة من ReactFlow.
+        - يُحدّث الخطوات الموجودة عند تطابق الـ ID الحقيقي.
+        - يُنشئ خطوات جديدة للعقد ذات الـ IDs المؤقتة أو الجديدة.
+        - يُنفّذ (Soft Delete) للخطوات المحذوفة من الواجهة.
+        """
+        # 1. التحقق من الصلاحيات
+        AccessService.require_pm_or_admin(current_user)
+
+        # 2. جلب القالب
+        template = await WorkflowTemplateService.get_template(db, template_id)
+
+        # 3. 🆕 خريطة بالخطوات الحالية النشطة فقط المقترنة بـ DB ID (int)
+        existing_steps = {step.id: step for step in template.steps if step.deleted_at is None}
+        
+        # مجموعة لتتبع الـ IDs التي تم التعامل معها في التحديث لتحديد المحذوف لاحقاً
+        processed_step_ids = set()
+
+        # 4. معالجة العقد (Nodes) القادمة من الواجهة
+        for node in diagram_data.nodes:
+            step_data = node.data
+
+            # فحص ما إذا كان node.id يعبر عن ID حقيقي في قاعدة البيانات أم مؤقت
+            is_valid_db_id = node.id.isdigit()
+            db_step_id = int(node.id) if is_valid_db_id else None
+
+            if db_step_id and db_step_id in existing_steps:
+                # ─── تحديث خطوة موجودة ───
+                step = existing_steps[db_step_id]
+                step.title = step_data.label
+                step.description = step_data.description or None
+                step.step_order = step_data.step_order
+                step.is_parallel = step_data.is_parallel
+                step.assigned_user_id = step_data.assigned_user_id
+                step.assigned_department_id = step_data.assigned_department_id
+                
+                processed_step_ids.add(db_step_id)
+                db.add(step)
+            else:
+                # ─── إنشاء خطوة جديدة ───
+                new_step = WorkflowTemplateStep(
+                    template_id=template.id,
+                    title=step_data.label,
+                    description=step_data.description or None,
+                    step_order=step_data.step_order,
+                    is_parallel=step_data.is_parallel,
+                    assigned_user_id=step_data.assigned_user_id,
+                    assigned_department_id=step_data.assigned_department_id,
+                )
+                db.add(new_step)
+
+        # 5. تنفيذ (Soft Delete) للخطوات التي تم حذفها من الـ Diagram
+        for step_id, step in existing_steps.items():
+            if step_id not in processed_step_ids:
+                step.deleted_at = datetime.utcnow()
+                db.add(step)
+
+        # 6. تنفيذ وتحديث الكيان
+        await db.flush()
+        
+        # 🆕 إعادة جلب القالب من الـ Repository لضمان تحميل قائمة steps المفلترة بدون المحذوفات
+        updated_template = await WorkflowTemplateRepository.get_by_id(db, template_id)
+        return updated_template
+
+    # ══════════════════════════════════════════════════════════════════
+    # 🆕 دالة تحويل القالب إلى خطوات خطية (as-steps)
+    # ══════════════════════════════════════════════════════════════════
+
+    @staticmethod
+    async def get_template_as_steps(db: AsyncSession, template_id: int) -> list[TemplateStepImportOut]:
+        """
+        جلب خطوات القالب مع تضمين علاقات المستخدم والقسم المنضمين
+        """
+        # جلب القالب مع عمل load مسبق للعلاقات الخاصة بالخطوات والمسؤولين
+        stmt = (
+            select(WorkflowTemplate)
+            .options(
+                selectinload(WorkflowTemplate.steps).selectinload(WorkflowTemplateStep.assigned_user),
+                selectinload(WorkflowTemplate.steps).selectinload(WorkflowTemplateStep.assigned_department)
+            )
+            .where(WorkflowTemplate.id == template_id)
+        )
+        result = await db.execute(stmt)
+        template = result.scalar_one_or_none()
+
+        if not template or not template.steps:
+            return []
+
+        imported_steps: list[TemplateStepImportOut] = []
+        
+        for step in template.steps:
+            # استخراج اسم الموظف أو القسم
+            assignee_name = None
+            if step.assigned_user:
+                assignee_name = getattr(step.assigned_user, 'full_name', None) or getattr(step.assigned_user, 'name', None)
+                
+            department_name = None
+            if step.assigned_department:
+                department_name = getattr(step.assigned_department, 'name', None)
+
+            imported_steps.append(
+                TemplateStepImportOut(
+                    temp_id=f"step_tpl_{step.id}",
+                    title=step.title,
+                    description=step.description,
+                    step_order=step.step_order,
+                    is_parallel=step.is_parallel,
+                    assigned_department_id=step.assigned_department_id,
+                    assigned_user_id=step.assigned_user_id,
+                    assignee_name=assignee_name,
+                    department_name=department_name,
+                    parent_temp_id=None
+                )
+            )
+
+        return imported_steps
+
+===== Src: E:\docker\backend\app\services\WorkflowTemplateStepService.py =====
+from typing import List
+
+from fastapi import HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.repositories.WorkflowTemplateStep_rep import WorkflowTemplateStepRepository
+from app.repositories.WorkflowTemplate_repo import WorkflowTemplateRepository
+from app.schemas.WorkflowTemplateStep_schema import TemplateStepCreate
+from app.services.access_service import AccessService
+
+class WorkflowTemplateStepService:
+
+    @staticmethod
+    async def add_step_to_template(db: AsyncSession, template_id: int, data: TemplateStepCreate, current_user):
+        # 1. التحقق من الصلاحيات
+        AccessService.require_pm_or_admin(current_user)
+        
+        # 2. التأكد من أن القالب موجود
+        template = await WorkflowTemplateRepository.get_by_id(db, template_id)
+        if not template:
+            raise HTTPException(status_code=404, detail="القالب غير موجود")
+
+        # 3. إنشاء الخطوة
+        step_data = data.model_dump()
+        step_data["template_id"] = template_id
+        return await WorkflowTemplateStepRepository.create(db, step_data)
+
+    @staticmethod
+    async def add_multiple_steps(db: AsyncSession, template_id: int, steps: List[TemplateStepCreate], user):
+        created_steps = []
+        for step_data in steps:
+            # تحويل البيانات وإضافة الـ template_id
+            step_dict = step_data.model_dump()
+            step_dict['template_id'] = template_id
+            
+            # استدعاء الـ Repository لإضافة خطوة واحدة
+            step = await WorkflowTemplateStepRepository.createMultiple(db, step_dict)
+            created_steps.append(step)
+        
+        await db.commit() # الحفظ النهائي لجميع الخطوات
+        return created_steps
+    
+    @staticmethod
+    async def get_template_steps(db: AsyncSession, template_id: int):
+        return await WorkflowTemplateStepRepository.get_steps_by_template(db, template_id)
+
+    @staticmethod
+    async def update_step(db: AsyncSession, step_id: int, data, current_user):
+        AccessService.require_pm_or_admin(current_user)
+        
+        step = await WorkflowTemplateStepRepository.get_step_by_id(db, step_id)
+        if not step:
+            raise HTTPException(status_code=404, detail="الخطوة غير موجودة")
+        
+        updated_step = await WorkflowTemplateStepRepository.update(db, step, data)
+        return updated_step
+
+    @staticmethod
+    async def delete_step(db: AsyncSession, step_id: int, current_user):
+        AccessService.require_pm_or_admin(current_user)
+        
+        step = await WorkflowTemplateStepRepository.get_step_by_id(db, step_id)
+        if not step:
+            raise HTTPException(status_code=404, detail="الخطوة غير موجودة")
+            
+        await WorkflowTemplateStepRepository.delete(db, step)
+        return {"detail": "تم حذف الخطوة بنجاح"}
+
+    @staticmethod
+    async def reorder_steps(db: AsyncSession, template_id: int, new_order: list[int], current_user):
+        """
+        دالة لترتيب الخطوات: تستقبل قائمة بـ IDs مرتبة حسب الترتيب الجديد
+        """
+        AccessService.require_pm_or_admin(current_user)
+        
+        steps = await WorkflowTemplateStepRepository.get_steps_by_template(db, template_id)
+        # منطق التحقق: هل كل الـ IDs المبعوثة تنتمي للقالب؟
+        step_map = {step.id: step for step in steps}
+        
+        if set(step_map.keys()) != set(new_order):
+            raise HTTPException(status_code=400, detail="قائمة الخطوات غير متطابقة مع خطوات القالب")
+
+        # تحديث الترتيب
+        for index, step_id in enumerate(new_order):
+            step = step_map[step_id]
+            step.step_order = index + 1
+            
+        return {"detail": "تم تحديث ترتيب الخطوات بنجاح"}
+
+===== Src: E:\docker\backend\app\schemas\workflow_diagram.py =====
+# app/schemas/workflow_diagram.py
+from __future__ import annotations
+from typing import Optional, List
+from datetime import datetime
+
+from pydantic import BaseModel, Field
+
+# سنستخدم نفس الـ Enums الموجودة في المشروع
+from app.db.enums import StepStatus, WorkflowStatus
+
+
+# ─── ١. إحداثيات العقدة (Node Position) ──────────────────────────
+class NodePositionSchema(BaseModel):
+    """إحداثيات (x, y) للعقدة داخل لوحة ReactFlow"""
+    x: float
+    y: float
+
+    model_config = {"from_attributes": True}
+
+
+# ─── ٢. البيانات الداخلية للعقدة (Node Data) ────────────────────
+class WorkflowNodeDataSchema(BaseModel):
+    """
+    البيانات التي ستظهر داخل العقدة وكيفية تعامل الـ Frontend معها.
+    تطابق الـ props اللي هتتبعت لـ CustomNode في React.
+    """
+    label: str = Field(..., description="العنوان الرئيسي المعروض على العقدة")
+    description: Optional[str] = Field(None, description="وصف مختصر للخطوة")
+    
+    # معلومات الحالة
+    status: StepStatus = Field(default=StepStatus.PENDING)
+    step_order: int = Field(..., description="ترتيب الخطوة (يستخدم لتحديد المتوازي)")
+    is_parallel: bool = Field(default=False, description="هل هذه الخطوة متوازية مع التي تسبقها؟")
+    
+    # المسؤولية
+    assigned_user_id: Optional[int] = None
+    assigned_user_name: Optional[str] = Field(None, description="اسم الموظف لعرضه سريعاً")
+    assigned_department_id: Optional[int] = None
+    assigned_department_name: Optional[str] = Field(None, description="اسم الإدارة لعرضه سريعاً")
+    
+    # التواقيت
+    started_at: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+    
+    # هل يمكن التعديل أو الإنهاء حالياً (يُحسب في الباك اند قبل الإرسال)
+    is_editable: bool = Field(default=False)
+    is_completable: bool = Field(default=False)
+
+    model_config = {"from_attributes": True}
+
+
+# ─── ٣. العقدة الكاملة (Node) كما يطلبها ReactFlow ──────────────
+class WorkflowNodeSchema(BaseModel):
+    """
+    هيكل العقدة المطابق تماماً لـ ReactFlow (React Flow uses 'id', 'type', 'position', 'data').
+    """
+    id: str = Field(..., description="يجب أن يكون نفس ID الخطوة من قاعدة البيانات ولكن محول إلى String")
+    type: str = Field(default="step", description="نوع العقدة (لتحديد الـ Custom Node في الفرونت)")
+    position: NodePositionSchema
+    data: WorkflowNodeDataSchema
+
+    model_config = {"from_attributes": True}
+
+
+# ─── ٤. الحافة (Edge) كما يطلبها ReactFlow ──────────────────────
+class WorkflowEdgeSchema(BaseModel):
+    """
+    هيكل الحافة المطابق لـ ReactFlow (تربط بين عقدتين).
+    """
+    id: str = Field(..., description="عادة تكون 'source-target'")
+    source: str = Field(..., description="ID العقدة الأب (السابقة)")
+    target: str = Field(..., description="ID العقدة الابن (التالية)")
+    type: str = Field(default="smoothstep", description="نوع الخط (smoothstep, straight, step)")
+    animated: bool = Field(default=False, description="تفعيل حركة السهم في الواجهة")
+
+    model_config = {"from_attributes": True}
+
+
+# ─── ٥. المخطط الرئيسي (Response) ─────────────────────────────────
+class WorkflowDiagramResponse(BaseModel):
+    """
+    الـ Response الرئيسي الذي سترجعه الـ API لعرض الـ Workflow.
+    """
+    workflow_id: int
+    task_id: int
+    workflow_status: WorkflowStatus
+    nodes: List[WorkflowNodeSchema] = Field(default_factory=list)
+    edges: List[WorkflowEdgeSchema] = Field(default_factory=list)
+
+    model_config = {"from_attributes": True}
+
+
+# ─── ٦. مخطط التحديث (Request) عندما يرسل الفرونت التعديلات ──────
+class WorkflowDiagramUpdate(BaseModel):
+    """
+    الـ Body الذي سيستقبله الباك اند عندما يقوم المستخدم بسحب العقد أو تغيير الروابط.
+    سيتم استخدامه في Endpoint الخاص بـ PUT /{task_id}/diagram
+    """
+    nodes: List[WorkflowNodeSchema]
+    edges: List[WorkflowEdgeSchema]
+
+    # يمكن إضافة validation للتأكد من عدم وجود تكرار أو دوائر مغلقة على مستوى الـ Pydantic
+    # لكننا سنتركها للـ Service (لأنها تحتاج DB)
+
+===== Src: E:\docker\backend\app\schemas\WorkflowTemplate_schema.py =====
+# app/schemas/WorkflowTemplate_schema.py
+from __future__ import annotations
+from typing import Optional, List
+from datetime import datetime
+from pydantic import BaseModel, model_validator, Field
+
+from .WorkflowTemplateStep_schema import TemplateStepCreate, TemplateStepOut
+# استيراد الـ schemas الخاصة بالـ Diagram من الملف الذي أنشأناه سابقاً
+from .workflow_diagram import (
+    WorkflowNodeSchema,
+    WorkflowEdgeSchema,
+    WorkflowDiagramResponse,  # نعيد استخدامه مع بعض التعديلات
+)
+
+# ─── الكود الموجود سابقاً ─────────────────────────────────────────
+
+class WorkflowTemplateCreate(BaseModel):
+    name: str
+    description: Optional[str] = None
+    steps: List[TemplateStepCreate]
+
+
+class WorkflowTemplateUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    is_active: Optional[bool] = None
+
+
+class WorkflowTemplateOut(BaseModel):
+    id: int
+    name: str
+    description: Optional[str]
+    is_active: bool
+    created_by: Optional[int]
+    created_at: datetime
+    steps: List[TemplateStepOut] = []
+
+    model_config = {"from_attributes": True}
+
+
+class WorkflowTemplateSummary(BaseModel):
+    id: int
+    name: str
+    description: Optional[str]
+    is_active: bool
+    created_by: Optional[int]
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+# ══════════════════════════════════════════════════════════════════
+# 🆕 المهمة 5.1: Schemas للـ Diagram الخاصة بالقوالب
+# ══════════════════════════════════════════════════════════════════
+
+class TemplateDiagramResponse(BaseModel):
+    """
+    استجابة الرسم البياني للقالب (مشابهة لـ WorkflowDiagramResponse ولكن بدون workflow_id/task_id)
+    """
+    template_id: int
+    name: str
+    description: Optional[str]
+    is_active: bool
+    nodes: List[WorkflowNodeSchema] = Field(default_factory=list)
+    edges: List[WorkflowEdgeSchema] = Field(default_factory=list)
+
+    model_config = {"from_attributes": True}
+
+
+class TemplateDiagramUpdate(BaseModel):
+    """
+    بيانات تحديث القالب من الرسم البياني (يستقبل nodes و edges من ReactFlow)
+    """
+    nodes: List[WorkflowNodeSchema]
+    edges: List[WorkflowEdgeSchema]
+
+    # التحقق من عدم تكرار الـ IDs
+    @model_validator(mode="after")
+    def validate_unique_ids(self):
+        node_ids = [node.id for node in self.nodes]
+        if len(node_ids) != len(set(node_ids)):
+            raise ValueError("يوجد تكرار في IDs العقد (يجب أن تكون فريدة)")
+        return self
+
+    model_config = {"from_attributes": True}
+
+# ══════════════════════════════════════════════════════════════════
+# 🆕 Schemas استخراج القالب كـ خطوات للمهام (as-steps)
+# ══════════════════════════════════════════════════════════════════
+
+class TemplateStepImportOut(BaseModel):
+    """
+    بيانات الخطوة المستخرجة من القالب والمجهزة للعرض في الواجهة أو الاستيراد
+    """
+    temp_id: str = Field(..., description="معرف مؤقت للخطوة لاستخدامه في ربط العلاقات محلياً")
+    title: str
+    description: Optional[str] = None
+    step_order: int
+    is_parallel: bool = False
+    assigned_department_id: Optional[int] = None
+    assigned_user_id: Optional[int] = None
+    
+    # 🆕 حقول الأسماء لإثراء بيانات المسؤول في الواجهة
+    assignee_name: Optional[str] = None
+    department_name: Optional[str] = None
+    
+    parent_temp_id: Optional[str] = Field(None, description="المعرف المؤقت للخطوة الأب إن وجد")
+
+    model_config = {"from_attributes": True}
+
+===== Src: E:\docker\backend\app\schemas\WorkflowTemplateStep_schema.py =====
+from __future__ import annotations
+from typing import Optional
+from pydantic import BaseModel, model_validator
+
+class TemplateStepCreate(BaseModel):
+    title                  : str
+    description            : Optional[str] = None
+    step_order             : int
+    is_parallel            : bool = False
+    assigned_department_id : Optional[int] = None
+    assigned_user_id       : Optional[int] = None
+
+    @model_validator(mode="after")
+    def must_have_assignee(self):
+        if not self.assigned_department_id and not self.assigned_user_id:
+            raise ValueError("كل خطوة لازم يكون ليها إدارة أو موظف مسؤول")
+        return self
+
+
+class TemplateStepOut(BaseModel):
+    id                     : int
+    title                  : str
+    description            : Optional[str]
+    step_order             : int
+    is_parallel            : bool
+    assigned_department_id : Optional[int]
+    assigned_user_id       : Optional[int]
+
+    model_config = {"from_attributes": True}
+
+

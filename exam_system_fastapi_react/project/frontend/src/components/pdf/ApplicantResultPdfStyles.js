@@ -1,0 +1,256 @@
+import { StyleSheet, Font } from '@react-pdf/renderer';
+
+const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+
+Font.register({
+  family: 'Tajawal',
+  fonts: [
+    { src: `${baseUrl}/fonts/Tajawal-Regular.ttf`, fontWeight: 'normal' },
+    { src: `${baseUrl}/fonts/Tajawal-Bold.ttf`, fontWeight: 'bold' },
+  ],
+});
+
+export const resultStyles = StyleSheet.create({
+  page: {
+    paddingTop: 70,
+    paddingBottom: 60,
+    paddingHorizontal: 30,
+    fontFamily: 'Tajawal',
+    fontSize: 9,
+    direction: 'rtl',
+    backgroundColor: '#ffffff',
+  },
+
+  /* ── Header / Footer ────────────────────────────── */
+  header: {
+    position: 'absolute',
+    top: 20, left: 30, right: 30,
+    borderBottomWidth: 1.5,
+    borderBottomColor: '#1e293b',
+    paddingBottom: 8,
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  headerTitle: { fontSize: 14, fontWeight: 'bold', color: '#0f172a' },
+  headerSub: { fontSize: 9, color: '#475569', marginTop: 2 },
+  footer: {
+    position: 'absolute',
+    bottom: 20, left: 30, right: 30,
+    borderTopWidth: 1,
+    borderTopColor: '#e2e8f0',
+    paddingTop: 6,
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    fontSize: 7,
+    color: '#64748b',
+  },
+
+  /* ── Cards ──────────────────────────────────────── */
+  card: {
+    borderWidth: 1,
+    borderColor: '#cbd5e1',
+    borderRadius: 6,
+    padding: 10,
+    marginBottom: 10,
+    backgroundColor: '#f8fafc',
+  },
+  cardTitle: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    color: '#1e293b',
+    marginBottom: 6,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#cbd5e1',
+    paddingBottom: 4,
+    textAlign: 'right',
+  },
+  infoGrid: { flexDirection: 'row-reverse', flexWrap: 'wrap',textAlign: 'right', },
+  infoItem: {
+    width: '48%',
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    paddingVertical: 2,
+    marginHorizontal: '1%',
+    textAlign: 'right',
+  },
+  infoLabel: { fontSize: 8, color: '#64748b',textAlign: 'right', textAlign: 'right',},
+  infoValue: { fontSize: 9, color: '#0f172a', fontWeight: 'bold',textAlign: 'right', },
+  scoreText: { color: '#1e40af', fontSize: 11,textAlign: 'right', },
+
+  /* ── Section ────────────────────────────────────── */
+  sectionTitle: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#1e293b',
+    marginTop: 8,
+    marginBottom: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: '#1e40af',
+    paddingBottom: 3,
+    textAlign: 'right',
+  },
+
+  /* ── Question Card ──────────────────────────────── */
+  questionCard: {
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
+    borderRadius: 5,
+    padding: 8,
+    marginBottom: 8,
+    backgroundColor: '#ffffff',
+    textAlign: 'right',
+  },
+  qHeader: {
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 5,
+    paddingBottom: 4,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#f1f5f9',
+    textAlign: 'right',
+  },
+  qNum: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#1e40af',
+    backgroundColor: '#dbeafe',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 3,
+  },
+  qType: {
+    fontSize: 7,
+    color: '#7c3aed',
+    backgroundColor: '#f3e8ff',
+    paddingHorizontal: 4,
+    paddingVertical: 1,
+    borderRadius: 2,
+    marginHorizontal: 4,
+  },
+  qPoints: { fontSize: 8, color: '#64748b' },
+  statusBadge: { paddingHorizontal: 6, paddingVertical: 2, borderRadius: 3,width: 50, textAlign: 'center', fontSize: 7, color: '#ffffff', fontWeight: 'bold', height: 14, lineHeight: 1.2, },
+  statusCorrect: { backgroundColor: '#16a34a' },
+  statusWrong: { backgroundColor: '#dc2626' },
+  statusEmpty: { backgroundColor: '#94a3b84d' },
+
+  qText: {
+    fontSize: 10,
+    color: '#0f172a',
+    fontWeight: 'bold',
+    marginBottom: 6,
+    lineHeight: 1.5,
+    textAlign: 'right',
+  },
+  qFooter: {
+    marginTop: 6,
+    paddingTop: 4,
+    borderTopWidth: 0.5,
+    borderTopColor: '#f1f5f9',
+    flexDirection: 'row-reverse',
+    justifyContent: 'flex-end',
+  },
+  qScore: { fontSize: 8, color: '#1e40af', fontWeight: 'bold' },
+
+  /* ── Options ────────────────────────────────────── */
+  optRow: {
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 5,
+    marginBottom: 3,
+    borderRadius: 3,
+    backgroundColor: '#f8fafc',
+    borderWidth: 0.5,
+    borderColor: '#e2e8f0',
+  },
+  optCorrect: { backgroundColor: '#f0fdf4', borderColor: '#86efac' },
+  optWrong: { backgroundColor: '#fef2f2', borderColor: '#fca5a5' },
+  optCorrectSelected: { backgroundColor: '#dcfce7', borderColor: '#22c55e' },
+  optText: { fontSize: 9, flex: 1, textAlign: 'right' },
+  optBadges: { flexDirection: 'row' },
+  badgeGreen: {
+    fontSize: 7,
+    color: '#15803d',
+    backgroundColor: '#dcfce7',
+    paddingHorizontal: 4,
+    paddingVertical: 1,
+    borderRadius: 2,
+    marginLeft: 3,
+  },
+  badgeBlue: {
+    fontSize: 7,
+    color: '#1e40af',
+    backgroundColor: '#dbeafe',
+    paddingHorizontal: 4,
+    paddingVertical: 1,
+    borderRadius: 2,
+  },
+
+  /* ── Info Boxes ─────────────────────────────────── */
+  infoBox: {
+    backgroundColor: '#f8fafc',
+    borderWidth: 0.5,
+    borderColor: '#e2e8f0',
+    borderRadius: 4,
+    padding: 6,
+    marginTop: 3,
+    marginBottom: 3,
+  },
+  boxGreen: {
+    backgroundColor: '#f0fdf4',
+    borderWidth: 0.5,
+    borderColor: '#bbf7d0',
+    borderRadius: 4,
+    padding: 6,
+    marginTop: 3,
+    marginBottom: 3,
+  },
+  boxBlue: {
+    backgroundColor: '#eff6ff',
+    borderWidth: 0.5,
+    borderColor: '#bfdbfe',
+    borderRadius: 4,
+    padding: 6,
+    marginTop: 3,
+    marginBottom: 3,
+  },
+  textBold: { fontWeight: 'bold', fontSize: 8, marginBottom: 2 },
+  textGreen: { color: '#15803d' },
+  textRed: { color: '#b91c1c' },
+  textMuted: { fontSize: 7, color: '#64748b', marginTop: 2 },
+  inlineHighlight: {
+    backgroundColor: '#fef3c7',
+    color: '#92400e',
+    fontSize: 9,
+    paddingHorizontal: 2,
+  },
+
+  /* ── Table ──────────────────────────────────────── */
+  table: {
+    borderWidth: 0.5,
+    borderColor: '#cbd5e1',
+    borderRadius: 3,
+    marginTop: 4,
+  },
+  tableRow: {
+    flexDirection: 'row-reverse',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#e2e8f0',
+    padding: 4,
+  },
+  tableHeader: { backgroundColor: '#f1f5f9' },
+  tableCol: { flex: 1, fontSize: 8, textAlign: 'right', paddingHorizontal: 2 },
+
+  /* ── Image ──────────────────────────────────────── */
+  image: {
+    width: '100%',
+    maxHeight: 180,
+    objectFit: 'contain',
+    marginTop: 4,
+    borderRadius: 3,
+    borderWidth: 0.5,
+    borderColor: '#e2e8f0',
+  },
+});

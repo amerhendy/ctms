@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    image: exam_system_backend:latest
+    container_name: exam_system_backend
+    restart: unless-stopped
+    ports:
+      - "5051:5051"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=5051
+      - CORS_ORIGINS=http://localhost:5050,http://127.0.0.1:5050
+      - ADMIN_DEFAULT_USERNAME=admin
+      - ADMIN_DEFAULT_PASSWORD=change-this-admin-password
+      - ADMIN_DEFAULT_FULL_NAME=مدير النظام
+      - SESSION_EXPIRE_HOURS=12
+    volumes:
+      # قاعدة بيانات SQLite تبقى محفوظة على القرص المحلي حتى عند إعادة بناء/تشغيل الحاوية
+      - ./backend/db/data:/app/db/data
+      # الصور المرفقة بالأسئلة وتقارير PDF المولّدة
+      - ./backend/uploads:/app/uploads
+
+  frontend:
+    build: ./frontend
+    image: exam_system_frontend:latest
+    container_name: exam_system_frontend
+    restart: unless-stopped
+    ports:
+      - "5050:5050"
+    depends_on:
+      - backend

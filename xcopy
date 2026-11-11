@@ -1,0 +1,30 @@
+========================================
+
+Two-step automated sync between HOME and WORK machines.
+
+STEP 1 - On HOME machine:
+   sync-both.bat backup
+
+   This creates a backup in .docker-backup\
+   Copy the entire .docker-backup folder to USB
+
+STEP 2 - On WORK machine:
+   Paste .docker-backup folder here
+   sync-both.bat restore
+
+   This restores all changes (merge mode)
+
+OPTIONS:
+   backup      - Create backup from current machine
+   restore     - Apply backup to current machine
+   status      - Show current Docker state
+
+EXAMPLE:
+   HOME:  sync-both.bat backup
+   USB:   Copy .docker-backup to USB
+   WORK:  Paste .docker-backup folder
+   WORK:  sync-both.bat restore
+
+Press any key to continue . . . 
+Terminate batch job (Y/N)? 
+Terminate batch job (Y/N)? 

@@ -1,0 +1,132 @@
+﻿==============================================
+📦 FULL PROJECT STRUCTURE (frontend):
+┣━ 📂 assets
+┃   ┣━ 📜 icon.ico
+┃   ┣━ 📜 logo.png
+┃   ┗━ 📜 logo.webp
+┣━ 📂 src
+┃   ┣━ 📂 api
+┃   ┃   ┣━ 📜 index.js
+┃   ┃   ┗━ 📜 workflow.js
+┃   ┣━ 📂 components
+┃   ┃   ┣━ 📂 common
+┃   ┃   ┃   ┣━ 📜 DepartmentTreeModal.jsx
+┃   ┃   ┃   ┣━ 📜 ErrorBoundary.jsx
+┃   ┃   ┃   ┣━ 📜 index.jsx
+┃   ┃   ┃   ┣━ 📜 pageheader.jsx
+┃   ┃   ┃   ┣━ 📜 PaginationProvider.jsx
+┃   ┃   ┃   ┣━ 📜 TaskCard.jsx
+┃   ┃   ┃   ┗━ 📜 TaskTimerControl.jsx
+┃   ┃   ┣━ 📂 dashboard
+┃   ┃   ┃   ┣━ 📜 AlertsSidebar.jsx
+┃   ┃   ┃   ┣━ 📜 DepartmentDistribution.jsx
+┃   ┃   ┃   ┣━ 📜 EisenhowerChart.jsx
+┃   ┃   ┃   ┣━ 📜 StatDisplayCard.jsx
+┃   ┃   ┃   ┗━ 📜 StatsGrid.jsx
+┃   ┃   ┣━ 📂 layout
+┃   ┃   ┃   ┣━ 📜 Header.jsx
+┃   ┃   ┃   ┣━ 📜 MainLayout.jsx
+┃   ┃   ┃   ┗━ 📜 Sidebar.jsx
+┃   ┃   ┣━ 📂 profile
+┃   ┃   ┃   ┣━ 📜 ProfileContactsManager.jsx
+┃   ┃   ┃   ┗━ 📜 ProfileDetailsGrid.jsx
+┃   ┃   ┣━ 📂 shared
+┃   ┃   ┃   ┗━ 📜 UserContactPopover.jsx
+┃   ┃   ┣━ 📜 NotificationToast.jsx
+┃   ┃   ┗━ 📜 ShareResponseModal.jsx
+┃   ┣━ 📂 constants
+┃   ┃   ┗━ 📜 theme.js
+┃   ┣━ 📂 hooks
+┃   ┃   ┣━ 📜 useDashboardData.js
+┃   ┃   ┣━ 📜 useDashboardStats.js
+┃   ┃   ┣━ 📜 useDashboardTasks.js
+┃   ┃   ┣━ 📜 useKanban.js
+┃   ┃   ┣━ 📜 useTheme.js
+┃   ┃   ┗━ 📜 useWebSocket.js
+┃   ┣━ 📂 modals
+┃   ┃   ┣━ 📜 CreateLocationFormModal.jsx
+┃   ┃   ┣━ 📜 DepartmentFormModal.jsx
+┃   ┃   ┣━ 📜 DepartmentTreeModal.jsx
+┃   ┃   ┣━ 📜 DeptUsersModal.jsx
+┃   ┃   ┣━ 📜 LevelFormModal.jsx
+┃   ┃   ┣━ 📜 LocationDepartmentsModal.jsx
+┃   ┃   ┣━ 📜 LocationUsersModal.jsx
+┃   ┃   ┣━ 📜 ManagerAssignmentModal.jsx
+┃   ┃   ┣━ 📜 RecurringTaskFormModal.jsx
+┃   ┃   ┣━ 📜 SubordinatesModal.jsx
+┃   ┃   ┣━ 📜 UserFormModal.jsx
+┃   ┃   ┗━ 📜 UserSearchSelect.jsx
+┃   ┣━ 📂 pages
+┃   ┃   ┣━ 📂 admin
+┃   ┃   ┃   ┣━ 📜 AdminLevelsPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminLocationPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminOrgPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminRecurringTasksPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminUsersPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminWorkflowMonitorPage.jsx
+┃   ┃   ┃   ┣━ 📜 AdminWorkflowTemplatesPage.jsx
+┃   ┃   ┃   ┣━ 📜 RecurringTaskFormModal.jsx
+┃   ┃   ┃   ┣━ 📜 RecurringTasksLogs.jsx
+┃   ┃   ┃   ┣━ 📜 RecurringTasksLogsModal.jsx
+┃   ┃   ┃   ┗━ 📜 UserFormModal.jsx
+┃   ┃   ┣━ 📂 auth
+┃   ┃   ┃   ┗━ 📜 LoginPage.jsx
+┃   ┃   ┣━ 📂 dashboard
+┃   ┃   ┃   ┣━ 📜 DashboardPage.jsx
+┃   ┃   ┃   ┗━ 📜 SidebarTree.jsx
+┃   ┃   ┣━ 📂 notifications
+┃   ┃   ┃   ┣━ 📜 NotificationDropdown.jsx
+┃   ┃   ┃   ┗━ 📜 NotificationsPage.jsx
+┃   ┃   ┣━ 📂 tasks
+┃   ┃   ┃   ┣━ 📂 TaskDetail
+┃   ┃   ┃   ┃   ┣━ 📂 TaskModels
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 AddStepModal.jsx
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 CreateWorkflowModal.jsx
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 KanbanBoard.jsx
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 KanbanColumn.jsx
+┃   ┃   ┃   ┃   ┃   ┣━ 📜 TransferRespondModal.jsx
+┃   ┃   ┃   ┃   ┃   ┗━ 📜 UrgencyResponseModal.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 SidebarTree.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskAssignmentsSection.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskAttachmentsSection.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskCommentsSection.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskDetailPage.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskLogsSection.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskSharesSection.jsx
+┃   ┃   ┃   ┃   ┣━ 📜 TaskStepsSection.jsx
+┃   ┃   ┃   ┃   ┗━ 📜 WorkflowSection.jsx
+┃   ┃   ┃   ┣━ 📜 DelegationsPage.jsx
+┃   ┃   ┃   ┣━ 📜 SearchPage.jsx
+┃   ┃   ┃   ┣━ 📜 ShareModal.jsx
+┃   ┃   ┃   ┣━ 📜 TaskFormModal.jsx
+┃   ┃   ┃   ┣━ 📜 TasksListPage.jsx
+┃   ┃   ┃   ┣━ 📜 TaskStepsManager.jsx
+┃   ┃   ┃   ┣━ 📜 TransferModal.jsx
+┃   ┃   ┃   ┗━ 📜 TransfersPage.jsx
+┃   ┃   ┗━ 📜 UserProfilePage.jsx
+┃   ┣━ 📂 stores
+┃   ┃   ┣━ 📜 authStore.js
+┃   ┃   ┗━ 📜 dashboardStore.js
+┃   ┣━ 📂 styles
+┃   ┃   ┗━ 📜 index.css
+┃   ┣━ 📂 utils
+┃   ┃   ┣━ 📜 db.js
+┃   ┃   ┣━ 📜 helpers.js
+┃   ┃   ┗━ 📜 transformers.js
+┃   ┣━ 📂 {api,components
+┃   ┃   ┗━ 📂 {common,tasks,layout,notifications},pages
+┃   ┃       ┗━ 📂 {auth,tasks,admin,dashboard},stores,hooks,utils,styles}
+┃   ┣━ 📜 App.jsx
+┃   ┗━ 📜 main.jsx
+┣━ 📜 .dockerignore
+┣━ 📜 app.ico
+┣━ 📜 Backend_project_bundle.txt
+┣━ 📜 BundlerTool.exe
+┣━ 📜 Dockerfile
+┣━ 📜 files.ps1
+┣━ 📜 index.html
+┣━ 📜 package-lock.json
+┣━ 📜 package.json
+┣━ 📜 postcss.config.js
+┣━ 📜 tailwind.config.js
+┗━ 📜 vite.config.js
