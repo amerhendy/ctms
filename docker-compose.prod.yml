@@ -1,0 +1,98 @@
+services:
+  # 1. قاعدة البيانات
+  postgres:
+    image: postgres:16-alpine
+    container_name: ctms_postgres
+    environment:
+      POSTGRES_DB: corporate_tasks
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ChangeThisStrongPassword123!
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  # 2. الكاش ووسيط الـ WebSockets
+  redis:
+    image: redis:7-alpine
+    container_name: ctms_redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  # 3. الباك إند (من صورتك المقفولة بدون فولدر كود)
+  backend:
+    image: amerhendy/ctms-backend:v1
+    container_name: ctms_backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:ChangeThisStrongPassword123!@postgres:5432/corporate_tasks
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      SECRET_KEY: put-a-very-long-random-secret-key-here
+      DEBUG: "false"
+      ALLOWED_ORIGINS: http://localhost,http://YOUR_SERVER_IP
+      GOOGLE_CLIENT_ID: ://googleusercontent.com
+    # شغلناه بـ 8 عمال بدون --reload عشان يتحمل 4000 موظف
+    command: gunicorn app.main:app --workers 8 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: always
+
+  # 4. Celery Worker (بيستخدم نفس صورة الباك إند الجاهزة، مفيش pip install كل مرة)
+  celery_worker:
+    image: amerhendy/ctms-backend:v1
+    container_name: ctms_celery_worker
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:ChangeThisStrongPassword123!@postgres:5432/corporate_tasks
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+    command: celery -A app.worker.celery_app worker --loglevel=info -c 4 --max-tasks-per-child=500
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: always
+
+  # 5. Celery Beat (بيستخدم نفس صورة الباك إند الجاهزة)
+  celery_beat:
+    image: amerhendy/ctms-backend:v1
+    container_name: ctms_celery_beat
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:ChangeThisStrongPassword123!@postgres:5432/corporate_tasks
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+    volumes:
+      - celery_beat_schedule:/app/celery_beat_schedule
+    command: celery -A app.worker.celery_app beat --loglevel=info
+    depends_on:
+      - redis
+      - celery_worker
+    restart: always
+
+  # 6. الفرونت إند (من صورتك المقفولة بدون فولدر كود)
+  frontend:
+    image: amerhendy/ctms-frontend:v1
+    container_name: ctms_frontend
+    restart: always
+
+volumes:
+  postgres_data:
+  redis_data:
+  celery_beat_schedule:
