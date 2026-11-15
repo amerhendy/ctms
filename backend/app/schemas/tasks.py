@@ -131,13 +131,4 @@ class TaskListItem(BaseModel):
     completed_at: Optional[datetime] = None
 
     class Config:
-<<<<<<< HEAD
         from_attributes = True
-
-
-class EisenhowerDistributionItem(BaseModel):
-    quadrant: str
-    count: int
-=======
-        from_attributes = True
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172

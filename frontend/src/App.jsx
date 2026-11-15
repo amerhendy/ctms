@@ -10,11 +10,7 @@ import ProfilePage from '@/pages/UserProfilePage'
 import DashboardPage from '@/pages/dashboard/DashboardPage'
 import TasksListPage from '@/pages/tasks/TasksListPage'
 import TaskDetailPage from '@/pages/tasks/TaskDetail/TaskDetailPage'
-<<<<<<< HEAD
-import TaskFormModal from '@/modals/tasks/TaskFormModal'
-=======
 import TaskFormModal from '@/pages/tasks/TaskFormModal'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 import TransfersPage from '@/pages/tasks/TransfersPage'
 import DelegationsPage from '@/pages/tasks/DelegationsPage'
 import SearchPage from '@/pages/tasks/SearchPage'
@@ -25,10 +21,6 @@ import AdminLocationPage from '@/pages/admin/AdminLocationPage'
 import AdminLevelsPage from '@/pages/admin/AdminLevelsPage'
 import AdminRecurringTasksPage from '@/pages/admin/AdminRecurringTasksPage'
 import RecurringTasksLogs from '@/pages/admin/RecurringTasksLogs' 
-<<<<<<< HEAD
-import RecurringTasksPage from '@/pages/RecurringTasksPage' 
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 import AdminWorkflowTemplatesPage from '@/pages/admin/AdminWorkflowTemplatesPage'
 import AdminWorkflowMonitorPage   from '@/pages/admin/AdminWorkflowMonitorPage'
 // محمود مختار - موسى كوست
@@ -111,10 +103,6 @@ export default function App() {
           
           <Route path="admin/recurring" element={<AdminRecurringTasksPage />} />
           <Route path="admin/recurring-tasks/logs" element={<RecurringTasksLogs />} />
-<<<<<<< HEAD
-          <Route path="admin/RecurringTasksPage" element={<RecurringTasksPage />} />
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
           <Route path="/admin/workflow-templates" element={<AdminWorkflowTemplatesPage />} />
           <Route path="/admin/workflow-monitor"   element={<AdminWorkflowMonitorPage />} />

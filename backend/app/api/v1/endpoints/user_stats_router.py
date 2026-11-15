@@ -56,10 +56,6 @@ async def get_department_stats(
     # 1. التحقق من صلاحية رؤية الإدارة (سنحتاج دالة مشابهة لـ can_view_user)
     if not await can_view_department(db, current_user, department_id):
         raise HTTPException(status_code=403, detail="Not enough permissions to view this department's stats")
-<<<<<<< HEAD
-     
-=======
     
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     # 2. استدعاء الخدمة المخصصة للإدارات
     return await UserStatsService.get_department_summary(db, department_id, start_date, end_date)

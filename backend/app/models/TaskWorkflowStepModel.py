@@ -50,15 +50,11 @@ class TaskWorkflowStep(Base):
 
     # العلاقات
     workflow            = relationship("TaskWorkflow", back_populates="steps")
-<<<<<<< HEAD
-    #dependencies        = relationship("TaskStepDependency", foreign_keys="[TaskStepDependency.child_step_id]",back_populates="child_step")
-=======
     dependencies        = relationship(
         "TaskWorkflowStepDependency", 
         foreign_keys="[TaskWorkflowStepDependency.child_step_id]",
         back_populates="child_step"
     )
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     assigned_department = relationship("Department", foreign_keys=[assigned_department_id])
     assigned_user       = relationship("User", foreign_keys=[assigned_user_id])
     completer           = relationship("User", foreign_keys=[completed_by])

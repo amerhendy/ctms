@@ -25,15 +25,7 @@ class TaskRepository:
             #favorites
             selectinload(Task.favorites),
             #steps
-<<<<<<< HEAD
-            selectinload(Task.steps).options(
-                selectinload(TaskStep.assignee).selectinload(User.contacts),
-                selectinload(TaskStep.department).selectinload(Department.job_level),
-                selectinload(TaskStep.children)
-                ),
-=======
             selectinload(Task.steps).options(selectinload(TaskStep.assignee).selectinload(User.contacts),selectinload(TaskStep.department)),
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             selectinload(Task.shares),
             selectinload(Task.comments),
             selectinload(Task.assignments).selectinload(TaskAssignment.user).joinedload(User.contacts),

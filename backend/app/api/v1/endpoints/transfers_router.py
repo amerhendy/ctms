@@ -183,11 +183,7 @@ async def respond_to_transfer(
     is_authorized = False
 
     # الاستثناء أ: الأدمن العام أو رئيس مجلس الإدارة له حق القرار دائماً
-<<<<<<< HEAD
-    if AccessService.is_pm_or_admin(current_user):
-=======
     if AccessService._is_global_admin(current_user):
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         is_authorized = True
 
     # الاستثناء ب: إذا كان المدير المباشر للموظف المستهدف هو رئيس مجلس الإدارة/الأدمن، يُسمح للموظف بالقبول بنفسه

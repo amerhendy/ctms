@@ -1,9 +1,5 @@
 from fastapi import HTTPException,BackgroundTasks
-<<<<<<< HEAD
-from datetime import datetime,timezone
-=======
 from datetime import datetime
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 from app.models import Task
 from app.repositories.task_repo import TaskRepository
 from app.repositories.task_step_repo import TaskStepRepository
@@ -12,12 +8,8 @@ from app.db.enums import GlobalRole, TaskStatus,  AssignmentType, UrgencyStatus,
 from app.schemas.base import  apply_pagination
 from app.schemas.tasks import TaskOut,TaskListItem
 from app.db.enums import GlobalRole, TaskStatus, AssignmentType, UrgencyStatus
-<<<<<<< HEAD
-
-=======
 from app.services.notification_service import NotificationService
 from app.services.log_service import LogService
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 from app.repositories.favorite_repo import FavoriteRepository
 from app.core.permissions import require_view_permission
 from app.core.permissions import get_task_permissions
@@ -30,16 +22,7 @@ from app.models.TaskStep import TaskStep
 from app.core.utils import logger
 from app.services.department_manager_service import DeptManagerService
 from app.services.task_step_service import TaskStepService
-<<<<<<< HEAD
-from app.services.notification_service import NotificationService
-from app.services.log_service import LogService
-from app.services.access_service import can_view_task,AccessService
 from app.repositories.delegation_repo import DelegationRepository
-from app.repositories.taskShare_rep import TaskShareRepository
-
-=======
-from app.repositories.delegation_repo import DelegationRepository
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 from app.core.utils import make_naive
 class TaskService:
     @staticmethod
@@ -205,27 +188,9 @@ class TaskService:
         
         logger.debug(f"DEBUG: Task ID is: {task_id}") # أضف هذا السطر
         logger.debug(f"DEBUG: Type of Task ID is: {type(task_id)}") # أضف هذا السطر
-<<<<<<< HEAD
-        #task = await TaskRepository.get_task_by_id(db=db,task_id=task_id,current_user=current_user)
-        task=await TaskService.get_task_or_404(db,task_id)
-        if not task:
-            raise HTTPException(404, "المهمة غير موجودة أو ليس لديك صلاحية الوصول إليها")
-        print("++++++++++++++++++++++++++++++++++++++++")
-        task_staff = await TaskService.get_task_staff(db, task)
-
-        # في حال كان المستخدم Admin أو PM، يُضاف معرفه تلقائياً إلى طاقم المهمة
-        if AccessService.is_pm_or_admin(current_user):
-            task_staff.add(current_user.id)
-
-        # فحص الصلاحية النهائي
-        if current_user.id not in task_staff:
-            raise HTTPException(status_code=404, detail="المهمة غير موجودة أو ليس لديك صلاحية الوصول إليها")
-        
-=======
         task = await TaskRepository.get_task_by_id(db=db,task_id=task_id,current_user=current_user)
         if not task:
             raise HTTPException(404, "المهمة غير موجودة أو ليس لديك صلاحية الوصول إليها")
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         
         await require_view_permission(db, current_user, task)
         task_out = TaskOut.from_orm(task)
@@ -463,14 +428,6 @@ class TaskService:
         return task
     
     @staticmethod
-<<<<<<< HEAD
-    async def get_MultipleDepsMangers(db, department_id):
-        target_user_ids=set()
-        # 1. جلب المديرين
-        managers = await DeptManagerService.get_managers_by_dept(db, department_id)
-        # 2. فلترة الأشخاص المستهدفين
-        
-=======
     async def get_task_staff(db, task):
         department_id=task.department_id
         # 1. جلب المديرين
@@ -478,7 +435,6 @@ class TaskService:
         
         # 2. فلترة الأشخاص المستهدفين
         target_user_ids = set()
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         
         if managers:
             # إضافة كل من هو مدير (سواء أساسي أو غير أساسي)
@@ -492,60 +448,6 @@ class TaskService:
             if oldest_user_id:
                 target_user_ids.add(oldest_user_id)
         return target_user_ids
-<<<<<<< HEAD
-
-    @staticmethod
-    async def get_task_staff(db, task):
-        target_user_ids = set()
-        department_id=task.department_id
-        Department_managers=await TaskService.get_MultipleDepsMangers(db, department_id)
-        target_user_ids.update(Department_managers)
-        creator_id=task.created_by
-        target_user_ids.add(creator_id)
-
-        #المعينيين للمهمة assigns
-        assigned_task_users = list({
-            assignment.user_id 
-            for assignment in task.assignments 
-            if getattr(assignment, 'user_id', None) is not None
-        })
-        target_user_ids.update(assigned_task_users)
-
-        #المشاركين
-        shares=await TaskShareRepository.get_shares_by_task_id(db, task.id)
-        current_time = datetime.now(timezone.utc)
-        valid_share_users = list({
-        share.shared_with_user_id 
-        for share in shares 
-            if getattr(share, 'shared_with_user_id', None) is not None 
-            and (share.expires_at is None or share.expires_at.replace(tzinfo=timezone.utc) > current_time)
-        })
-        target_user_ids.update(valid_share_users)
-
-        #المخصصين فى الخطوات
-        assigned_users = list({
-        step.assigned_user_id 
-            for step in task.steps 
-            if getattr(step, 'assigned_user_id', None) is not None
-        })
-        target_user_ids.update(assigned_users)
-
-        # الادارات المختصة
-        assigned_departments = list({
-            step.assigned_department_id 
-            for step in task.steps 
-            if getattr(step, 'assigned_department_id', None) is not None
-        })
-        for dep_id in assigned_departments:
-            # استدعاء الدالة لجلب مدراء الإدارة الحالية
-            dept_managers = await TaskService.get_MultipleDepsMangers(db, dep_id)
-            
-            # التأكد من أن النتيجة ليست فارغة ثم دمجها في مجموعة المستخدمين المستهدفة
-            if dept_managers:
-                target_user_ids.update(dept_managers)
-
-        return target_user_ids
-=======
         #logger.debug(department_managers)
         # 4. إرسال الإشعارات للخلفية
         for user_id in target_user_ids:
@@ -558,5 +460,4 @@ class TaskService:
                 task_id,
                 
             )
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         

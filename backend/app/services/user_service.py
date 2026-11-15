@@ -35,11 +35,7 @@ class UserService:
         
         # 3. تنظيف القيم (تحويل 0 إلى None للـ Foreign Keys)
         user_dict = data.model_dump(exclude={'password'})
-<<<<<<< HEAD
-        for field in ['department_id', 'job_level_id', 'work_location_id']:
-=======
         for field in ['department_id', 'manager_id', 'job_level_id', 'work_location_id']:
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             if user_dict.get(field) == 0:
                 user_dict[field] = None
         
@@ -205,11 +201,7 @@ class UserService:
                 filters["department_id"] = managed_ids
 
             # تطبيق قيود المدير
-<<<<<<< HEAD
-            #filters["is_active"] = True
-=======
             filters["is_active"] = True
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             # ملاحظة: هل تريد أيضاً قصر الموظفين على من هم تحت إدارته فقط؟ 
             # إذا نعم، استمر في استخدام filters["manager_id"] = current_user.id
 
@@ -217,36 +209,14 @@ class UserService:
         if target == 'menu':
             query = "" # أو منطق خاص بالقائمة
         else:
-<<<<<<< HEAD
-            query = UserRepository.get_users_filtered_query(db, filters)
-=======
             logger.debug(filters)
             query = UserRepository.get_users_filtered_query(db, filters)
 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         # 3. استدعاء الترقيم
         return await apply_pagination(
             db=db, base_query=query, model_class=User,
             page=page, page_size=page_size, sort_by=sort_by, sort_order=sort_order
         )
-<<<<<<< HEAD
-    
-    @staticmethod
-    async def list_users_for_others_service(db, current_user: User, filters: dict, page: int, page_size: int, sort_by: str, sort_order: str, target: str = None):
-        result= await UserService.list_users_service(db,current_user, filters, page, page_size, sort_by, sort_order)
-        result["items"] = [
-            {
-                "id": u.get('id'),
-                "employee_number":u.get('employee_number'),
-                "full_name": u.get('full_name'),
-                "job_title": u.get('job_title'),
-                "department_id": u.get('department_id'),
-                "avatar_url": getattr(u, 'avatar_url', None),
-            } for u in result["items"]
-        ]
-        return result
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
     @staticmethod
     async def change_user_password(db, target_user_id: int, data: UserPasswordChange, current_user: User):
@@ -296,29 +266,19 @@ class UserService:
             model_class=User,
             **params
         )
-<<<<<<< HEAD
-=======
         logger.debug(result["items"])
         
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         # 3. تنسيق البيانات
         result["items"] = [
             {
                 "id": u.get('id'),
-<<<<<<< HEAD
-                "employee_number":u.get('employee_number'),
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                 "full_name": u.get('full_name'),
                 "job_title": u.get('job_title'),
                 "department_id": u.get('department_id'),
                 "avatar_url": getattr(u, 'avatar_url', None),
             } for u in result["items"]
         ]
-<<<<<<< HEAD
-=======
         
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         return result
     
     @classmethod

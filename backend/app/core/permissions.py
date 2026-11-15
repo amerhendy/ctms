@@ -10,11 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.utils import logger
 from app.db.enums import GlobalRole
-<<<<<<< HEAD
-from app.models.RecurringTaskModel import RecurringTask
-=======
 from app.models.RecurringTask import RecurringTask
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 from app.models.Task import Task
 from app.models.User import User
 from app.services.access_service import AccessService  # ← المرجع الوحيد
@@ -112,11 +108,6 @@ def _is_shared_with(task: Task, user_id: int) -> bool:
 def _is_commenter(task: Task, user_id: int) -> bool:
     return _has_relation(task, user_id, "comments", "user_id")
 
-<<<<<<< HEAD
-def _is_steper(task: Task, user_id: int) -> bool:
-    return _has_relation(task, user_id, "steps", "assigned_user_id")
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 def _is_department_manager(user: User, task: Task) -> bool:
     """
@@ -176,24 +167,13 @@ async def get_task_permissions(
     is_shared       = _is_shared_with(task, user.id)
     is_commenter    = _is_commenter(task, user.id)
     is_dept_manager = _is_department_manager(user, task)
-<<<<<<< HEAD
-    is_steper       = _is_steper(task=task,user_id=user.id)
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     is_prog_manager = AccessService.is_program_manager(user)
 
     has_any_relation = any([
         is_creator, is_assignee, is_shared,
-<<<<<<< HEAD
-        is_commenter, is_dept_manager, is_prog_manager,is_steper
-    ])
-    logger.debug(has_any_relation)
-    logger.debug(is_steper)
-=======
         is_commenter, is_dept_manager, is_prog_manager,
     ])
 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     # ── حساب الصلاحيات ───────────────────────────────────────────────────────
     privileged = is_prog_manager or is_creator or is_dept_manager
 

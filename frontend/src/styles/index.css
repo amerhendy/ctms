@@ -192,13 +192,4 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .animated-edge {
   animation: dashFlow 0.8s linear infinite;
-<<<<<<< HEAD
-}
-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-  filter: invert(0.5); /* لجعل الأيقونة مرئية في الوضعين */
-}
-.dark input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-  filter: invert(1); /* قلب اللون في الوضع الليلي */
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 }

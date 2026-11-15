@@ -11,11 +11,7 @@ import useAuthStore from '@/stores/authStore'
 import { Avatar } from '@/components/common'
 import clsx from 'clsx'
 // 🌟 استيراد مكون المودال الشجري الخاص بك
-<<<<<<< HEAD
-import DepartmentTreeModal from '@/components/DepartmentTrees/DepartmentTreeModal'
-=======
 import DepartmentTreeModal from '@/modals/DepartmentTreeModal'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 export default function UserFormModal({ user, onClose, onSuccess }) {
   const { isAdmin } = useAuthStore()
@@ -66,12 +62,8 @@ export default function UserFormModal({ user, onClose, onSuccess }) {
                       can_transfer_external: !!user?.can_transfer_external,
                       is_active: user !== null ? !!user?.is_active : true,
                       work_location_id: user?.work_location_id?.toString() || '',
-<<<<<<< HEAD
-                      avatar_url:user?.avatar_url || ''
-=======
                       avatar_url:user?.avatar_url || 'full_name',
                       manager_id: user?.manager_id?.toString() || '',
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                     }
   })
 
@@ -95,12 +87,8 @@ export default function UserFormModal({ user, onClose, onSuccess }) {
         can_transfer_external: !!user.can_transfer_external,
         is_active: !!user.is_active,
         work_location_id: user.work_location_id?.toString() || '',
-<<<<<<< HEAD
-        avatar_url:user?.avatar_url || '',
-=======
         avatar_url:user?.avatar_url || 'full_name',
         manager_id: user?.manager_id?.toString() || '',
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
       })
 
       // العثور على اسم الإدارة الحالي لعرضه للمستخدم بدلاً من المعرف الرقمي
@@ -124,11 +112,7 @@ const handleDepartmentSelect = (node) => {
     
     setValue('department_id', deptId ? deptId.toString() : '', { shouldValidate: true });
     // مسح المدير المباشر عند تغيير القسم لأن القائمة ستتغير
-<<<<<<< HEAD
-
-=======
     setValue('manager_id', ''); 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     setSelectedDeptName(deptName || '— لا توجد (إدارة عليا / رئيسية) —');
 }
   const onSubmitForm = (data) => {
@@ -136,11 +120,7 @@ const handleDepartmentSelect = (node) => {
     const payload = { ...data };
 
     // 2. قائمة الحقول الرقمية التي يجب تحويلها إلى null عند الفراغ
-<<<<<<< HEAD
-    const numericFields = ['department_id', 'job_level_id', 'work_location_id'];
-=======
     const numericFields = ['department_id', 'job_level_id', 'work_location_id', 'manager_id'];
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     
     numericFields.forEach(field => {
       const val = payload[field];
@@ -370,8 +350,6 @@ const { data: departmentUsers, isLoading: isUsersLoading } = useQuery({
                 )}
               </div>
             </FormField>
-<<<<<<< HEAD
-=======
             <FormField label="المدير المباشر" className="dark:text-gray-200">
               <div className="relative">
                 <User className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none" />
@@ -404,7 +382,6 @@ const { data: departmentUsers, isLoading: isUsersLoading } = useQuery({
                 )}
               </div>
             </FormField>
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             
             <FormField label="المرتبة / المستوى التنظيمي" className="dark:text-gray-200">
               <select 

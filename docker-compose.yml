@@ -61,29 +61,6 @@ services:
       start_period: 40s
     restart: unless-stopped
 
-<<<<<<< HEAD
-  # ─── Odoo ERP ─────────────────────────────────────────────
-  odoo:
-    image: odoo:19.0
-    container_name: ctms_odoo
-    environment:
-      HOST: host.docker.internal
-      PORT: 5433
-      USER: odoo
-      PASSWORD: password
-      DB_NAME: ${ODOO_DB:-odoo}
-      REDIS_URL: redis://host.docker.internal:6379/0
-    ports:
-      - "8069:8069"
-      - "8071:8071"
-    volumes:
-      - ./odoo/addons:/mnt/extra-addons
-      - ./odoo/sources:/app
-      - odoo_data:/var/lib/odoo
-    restart: unless-stopped
-
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   # ─── Nginx (Reverse Proxy) ───────────────────────────────────
   nginx:
     image: nginx:alpine
@@ -96,10 +73,3 @@ services:
       - backend
       - frontend
     restart: unless-stopped
-<<<<<<< HEAD
-
-volumes:
-  odoo_data:
-    driver: local
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172

@@ -7,11 +7,7 @@ export const PRIORITY_CONFIG = {
   critical: { label: 'حرجة',    color: 'bg-red-100 text-red-700',      dot: 'bg-red-500'    },
 }
 
-<<<<<<< HEAD
-// Status config 
-=======
 // Status config
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 export const STATUS_CONFIG = {
   not_started: { label: 'لم تبدأ',      color: 'bg-gray-100 text-gray-600'   },
   in_progress:  { label: 'جارية',        color: 'bg-blue-100 text-blue-700'   },
@@ -19,15 +15,6 @@ export const STATUS_CONFIG = {
   cancelled:    { label: 'ملغاة',        color: 'bg-red-100 text-red-600'     },
 }
 
-<<<<<<< HEAD
-export const Step_STATUS_CONFIG={
-  pending: { label: 'قيد الانتظار',      color: 'border-slate-300 dark:border-slate-600'   },
-  in_progress:  { label: 'قيد التنفيذ',        color: 'border-blue-400 dark:border-blue-500'   },
-  completed:    { label: 'مكتملة',       color: 'border-green-400 dark:border-green-500' },
-  cancelled:    { label: 'متخطاه',        color: 'border-gray-400 dark:border-gray-500'     },
-}
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 // Eisenhower quadrant config
 export const EISENHOWER_CONFIG = {
   Q1_DO_FIRST:  { label: 'عاجل ومهم – افعله الآن',         color: 'bg-red-50 border-red-300',    text: 'text-red-700'   },

@@ -6,11 +6,7 @@ import toast from 'react-hot-toast'
 import { sharesApi } from '@/api'
 import { Avatar } from '@/components/common'
 import { formatDate, SHARE_PERMISSION_LABELS, getApiError } from '@/utils/helpers'
-<<<<<<< HEAD
-import ShareModal from '@/modals/tasks/ShareModal' 
-=======
 import ShareModal from '../ShareModal' 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 import UserContactPopover from '@/components/shared/UserContactPopover'
 import clsx from 'clsx'
 import { theme, resolveFieldState } from '@/constants/theme';

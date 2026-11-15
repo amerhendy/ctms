@@ -17,11 +17,7 @@ from app.models.Task import Task
 from app.models.DepartmentManager import DepartmentManager
 from app.schemas.TaskWorkflow_schema import WorkflowCreate, WorkflowStepCreate,WorkflowDiagramUpdate
 from app.models.TaskWorkflowStepModel import TaskWorkflowStep
-<<<<<<< HEAD
-from app.models.TaskStepDependency_Model import TaskStepDependency
-=======
 from app.models.TaskWorkflowStepDependency_Model import TaskWorkflowStepDependency
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 from app.schemas.TaskWorkflowStep_schema import WorkflowStepUpdate
 from app.services.access_service import AccessService, has_delegated_permission
@@ -69,10 +65,6 @@ class TaskWorkflowService:
         data: WorkflowCreate,
         current_user: User,
     ) -> TaskWorkflow:
-<<<<<<< HEAD
-        print("++++++++++++++++++++")
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         """ينشئ Workflow لمهمة — إما من قالب أو خطوات مخصصة."""
         task= await TaskService.get_task_or_404(db=db,task_id=task_id)
         # تأكد مفيش workflow موجود للمهمة دي
@@ -402,13 +394,8 @@ class TaskWorkflowService:
 
         # 7. معالجة الـ Dependencies (Edges)
         #    - حذف جميع الـ Dependencies القديمة للـ Workflow
-<<<<<<< HEAD
-        stmt_delete = delete(TaskStepDependency).where(
-            TaskStepDependency.child_step_id.in_(
-=======
         stmt_delete = delete(TaskWorkflowStepDependency).where(
             TaskWorkflowStepDependency.child_step_id.in_(
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                 [step.id for step in workflow.steps if step.deleted_at is None]
             )
         )
@@ -417,13 +404,8 @@ class TaskWorkflowService:
             if step.deleted_at is None:
                 # حذف الـ dependencies المرتبطة بهذه الخطوة
                 await db.execute(
-<<<<<<< HEAD
-                    delete(TaskStepDependency).where(
-                        TaskStepDependency.child_step_id == step.id
-=======
                     delete(TaskWorkflowStepDependency).where(
                         TaskWorkflowStepDependency.child_step_id == step.id
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                     )
                 )
 
@@ -465,11 +447,7 @@ class TaskWorkflowService:
                 )
 
             # إنشاء الاعتمادية الجديدة
-<<<<<<< HEAD
-            new_dep = TaskStepDependency(
-=======
             new_dep = TaskWorkflowStepDependency(
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                 parent_step_id=actual_source_id,
                 child_step_id=actual_target_id,
             )
@@ -605,13 +583,8 @@ class TaskWorkflowService:
         for step in workflow.steps:
             if step.deleted_at is None:
                 await db.execute(
-<<<<<<< HEAD
-                    delete(TaskStepDependency).where(
-                        TaskStepDependency.child_step_id == step.id
-=======
                     delete(TaskWorkflowStepDependency).where(
                         TaskWorkflowStepDependency.child_step_id == step.id
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                     )
                 )
 
@@ -668,11 +641,7 @@ class TaskWorkflowService:
                     "لا يمكن للخطوة أن تعتمد على نفسها"
                 )
 
-<<<<<<< HEAD
-            new_dep = TaskStepDependency(
-=======
             new_dep = TaskWorkflowStepDependency(
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                 parent_step_id=actual_source_id,
                 child_step_id=actual_target_id,
             )

@@ -2,11 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, and_
 from sqlalchemy.orm import selectinload
 from app.models.TaskWorkflowStepModel import TaskWorkflowStep
-<<<<<<< HEAD
-from app.models.TaskStepDependency_Model import TaskStepDependency
-=======
 from app.models.TaskWorkflowStepDependency_Model import TaskWorkflowStepDependency
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 class TaskWorkflowStepRepository:
 
@@ -49,13 +45,8 @@ class TaskWorkflowStepRepository:
     @staticmethod
     async def get_parent_dependencies(db: AsyncSession, step_id: int):
         """جلب كل الـ Parent IDs لخطوة معينة للتحقق من الحالة"""
-<<<<<<< HEAD
-        stmt = select(TaskStepDependency.parent_step_id).where(
-            TaskStepDependency.child_step_id == step_id
-=======
         stmt = select(TaskWorkflowStepDependency.parent_step_id).where(
             TaskWorkflowStepDependency.child_step_id == step_id
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         )
         result = await db.execute(stmt)
         return result.scalars().all()

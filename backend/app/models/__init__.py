@@ -8,11 +8,7 @@ from .JobLevel import JobLevel
 from .Location import Location
 from .Notification import Notification
 from .NotificationSettings import NotificationSettings
-<<<<<<< HEAD
-from .RecurringTaskModel import RecurringTask
-=======
 from .RecurringTask import RecurringTask
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 from .RecurringTaskLog import RecurringTaskLog
 from .Task import Task
 from .UserContact import UserContact

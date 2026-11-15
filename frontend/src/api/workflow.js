@@ -28,11 +28,6 @@ export const workflowTemplatesApi = {
    */
   updateDiagram: (templateId, data) =>
     api.put(`/workflow/templates/${templateId}/diagram`, data),
-<<<<<<< HEAD
-
-  getTemplateAsSteps: (templateId) => api.get(`/workflow/templates/${templateId}/as-steps`),
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 }
 
 // ── Task Workflow ─────────────────────────────────────────────────

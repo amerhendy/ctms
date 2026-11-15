@@ -1,9 +1,5 @@
 // src/pages/tasks/TaskDetail/TaskModels/WorkflowBuilderModal.jsx
-<<<<<<< HEAD
-import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
-=======
 import { useState, useCallback, useEffect, useMemo } from 'react'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 import ReactFlow, {
   Background,
   Controls,
@@ -39,23 +35,10 @@ import 'reactflow/dist/style.css'
 import { workflowApi, workflowTemplatesApi } from '@/api/workflow'
 import { detectCycle, getCycleErrorMessage } from '@/utils/graphUtils'
 import { autoLayout } from '@/utils/layoutUtils'
-<<<<<<< HEAD
-import SidebarTree from '@/components/DepartmentTrees/SidebarTree'
-
-
-
-const nodeTypes = {
-  step: CustomNode,
-}
-const edgeTypes = {
-  animated: AnimatedEdge,
-}
-=======
 import SidebarTree from '@/pages/tasks/TaskDetail/SidebarTree'
 
 
 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 // ── المكوّن الداخلي (الذي يستخدم ReactFlow) ──────────────────
 function WorkflowBuilderInner({
   taskId,
@@ -95,11 +78,6 @@ function WorkflowBuilderInner({
     setSelectedNodeId,
     applyLayout,      // من المهمة 7.2
     toggleParallel,   
-<<<<<<< HEAD
-    setEdges,
-    setNodes,
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   } = useWorkflowDiagram(initialNodes, initialEdges, { snapToGrid: true, snapGap: 15 })
 
   const [reactFlowInstance, setReactFlowInstance] = useState(null)
@@ -109,17 +87,11 @@ function WorkflowBuilderInner({
 
   const [showPickerModal, setShowPickerModal] = useState(false)
   const [pickerTarget, setPickerTarget] = useState(null) // 'user' | 'department'
-<<<<<<< HEAD
-  
-  
-  const edgesWithType = edges.map(edge => ({
-=======
 
   const edgeTypes = useMemo(() => ({
     animated: AnimatedEdge, // ← نفس النوع اللي استخدمناه في defaultEdgeOptions
   }), [])
     const edgesWithType = edges.map(edge => ({
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     ...edge,
     type: 'animated',
   }));
@@ -142,10 +114,6 @@ function WorkflowBuilderInner({
         step_order: nodes.length + 1,
       }
     )
-<<<<<<< HEAD
-    console.log(newNode)
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
     // فتح محرر التعديل فوراً
     setEditingNodeId(newNode.id)
@@ -308,112 +276,6 @@ const handleToggleParallel = useCallback(
   [toggleParallel]
 )
 // ── تعريف أنواع العقد المخصصة ──────────────────────────────────
-<<<<<<< HEAD
-// ── معالج تعديل العقدة ──────────────────────────────────────────
-const handleEditNodeFromNode = useCallback((nodeId) => {
-  // نبحث عن العقدة في القائمة
-  const node = nodes.find(n => n.id === nodeId);
-  if (node) {
-    setEditingNodeId(nodeId);
-    setEditFormData(node.data);
-  }
-}, [nodes]);
-
-// ── معالج حذف العقدة ────────────────────────────────────────────
-const handleDeleteNodeFromNode = useCallback((nodeIdToDelete) => {
-  // أ) إزالة العقدة من القائمة المحلية
-  setNodes((prevNodes) => prevNodes.filter((node) => node.id !== nodeIdToDelete))
-
-  // ب) إزالة الوصلات المرتبطة بالعقدة المحذوفة لتجنب وجود Dangling Edges
-  setEdges((prevEdges) =>
-    prevEdges.filter(
-      (edge) => edge.source !== nodeIdToDelete && edge.target !== nodeIdToDelete
-    )
-  )
-}, [setNodes, setEdges])
-
-// ── معالج إضافة خطوة بينية ──────────────────────────────────────
-const handleAddNodeBetween = useCallback((edgeId) => {
-  // 1. البحث عن الحافة المحددة
-  const edge = edges.find(e => e.id === edgeId);
-  if (!edge) return;
-
-  // 2. معرفة موقع المنتصف بين العقدتين
-  const sourceNode = nodes.find(n => n.id === edge.source);
-  const targetNode = nodes.find(n => n.id === edge.target);
-  if (!sourceNode || !targetNode) return;
-
-  // 3. حساب موقع المنتصف
-  const midX = (sourceNode.position.x + targetNode.position.x) / 2;
-  const midY = (sourceNode.position.y + targetNode.position.y) / 2;
-
-  // 4. إضافة عقدة جديدة في المنتصف
-  const newNode = addStepNode(
-    { x: midX, y: midY },
-    {
-      label: `خطوة ${nodes.length + 1}`,
-      step_order: Math.max(sourceNode.data.step_order || 0, targetNode.data.step_order || 0) + 0.5,
-    }
-  );
-
-  // 5. حذف الحافة القديمة وإضافة حافتين جديدتين
-  setEdges(prev => {
-    // حذف الحافة القديمة
-    const withoutOld = prev.filter(e => e.id !== edgeId);
-    // إضافة حافة من المصدر إلى العقدة الجديدة
-    const newEdge1 = {
-      id: `edge-${edge.source}-${newNode.id}`,
-      source: edge.source,
-      target: newNode.id,
-      type: 'animated',
-      animated: false,
-      style: { stroke: '#94a3b8', strokeWidth: 2 },
-    };
-    // إضافة حافة من العقدة الجديدة إلى الهدف
-    const newEdge2 = {
-      id: `edge-${newNode.id}-${edge.target}`,
-      source: newNode.id,
-      target: edge.target,
-      type: 'animated',
-      animated: false,
-      style: { stroke: '#94a3b8', strokeWidth: 2 },
-    };
-    return [...withoutOld, newEdge1, newEdge2];
-  });
-
-  toast.success('تم إضافة خطوة بينية');
-}, [nodes, edges, addStepNode, setEdges]);
-const handlersRef = useRef({
-    onToggleParallel: handleToggleParallel,
-    onEdit: handleEditNodeFromNode,
-    onDelete: handleDeleteNodeFromNode,
-    onAdd: handleAddNodeBetween,
-  });
-  // تحديث الـ ref كلما تغيرت الدوال
-  useEffect(() => {
-    handlersRef.current = {
-      onToggleParallel: handleToggleParallel,
-      onEdit: handleEditNodeFromNode,
-      onDelete: handleDeleteNodeFromNode,
-      onAdd: handleAddNodeBetween,
-    };
-  }, [handleToggleParallel, handleEditNodeFromNode, handleDeleteNodeFromNode, handleAddNodeBetween]);
-
-
-const nodesWithHandlers = useMemo(() => {
-  return nodes.map((node) => ({
-    ...node,
-    data: {
-      ...node.data,
-      nodeId: node.id,
-      onToggleParallel: handleToggleParallel,
-      onEdit: handleEditNodeFromNode,
-      onDelete: handleDeleteNodeFromNode,
-      onAdd: handleAddNodeBetween,
-    },
-  }))
-}, [nodes, handleToggleParallel, handleEditNodeFromNode, handleDeleteNodeFromNode, handleAddNodeBetween])
-=======
 const nodeTypes = useMemo(() => ({
   step: (props) => (
     <CustomNode
@@ -422,7 +284,6 @@ const nodeTypes = useMemo(() => ({
     />
   ),
 }), [handleToggleParallel])
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 // ── ٩. معالج الترتيب التلقائي ──────────────────────────────────
 const handleAutoLayout = useCallback(() => {
@@ -487,24 +348,14 @@ const handleAutoLayout = useCallback(() => {
         {/* ─── المحرر الرئيسي ────────────────────────────────────── */}
         <div className="flex-1 relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 min-h-[300px] h-full w-full">
           <ReactFlow
-<<<<<<< HEAD
-            nodes={nodesWithHandlers}
-            nodeTypes={nodeTypes}
-            edges={edgesWithType}
-            edgeTypes={edgeTypes}
-=======
             nodes={nodes}
             edges={edgesWithType}
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onInit={setReactFlowInstance}
-<<<<<<< HEAD
-=======
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             fitView
             fitViewOptions={{ padding: 0.2 }}
             minZoom={0.1}

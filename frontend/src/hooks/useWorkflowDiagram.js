@@ -105,10 +105,6 @@ export function useWorkflowDiagram(initialNodes = [], initialEdges = [], options
         assigned_department_name: null,
         is_editable: true,
         is_completable: false,
-<<<<<<< HEAD
-        parent_step_id:false
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
       }
 
       // إنشاء العقدة الجديدة
@@ -118,10 +114,6 @@ export function useWorkflowDiagram(initialNodes = [], initialEdges = [], options
         position: newPosition,
         data: { ...defaultData, ...data },
       }
-<<<<<<< HEAD
-=======
-
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
       setNodes((prevNodes) => [...prevNodes, newNode])
 
       // تحديد العقدة الجديدة
@@ -431,12 +423,6 @@ export function useWorkflowDiagram(initialNodes = [], initialEdges = [], options
     // دوال التحكم في التحديد
     setSelectedNodeId,
 
-<<<<<<< HEAD
-    setNodes,
-    setEdges,
-
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     // دوال التصدير
     getDiagramData,
     getWorkflowData,

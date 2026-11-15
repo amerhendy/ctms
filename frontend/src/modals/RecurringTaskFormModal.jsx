@@ -6,11 +6,7 @@ import { recurringTasksApi } from '@/api'
 import api from '@/api' 
 import clsx from 'clsx'
 // 🌟 استيراد المودل الشجري الجديد
-<<<<<<< HEAD
-import DepartmentTreeModal from '@/components/DepartmentTrees/DepartmentTreeModal'
-=======
 import DepartmentTreeModal from '@/modals/DepartmentTreeModal'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 
 const INITIAL_STATE = {

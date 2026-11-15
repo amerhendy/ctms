@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-//src/constants/theme.js
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 /**
  * ============================================================================
  *  theme.js — Enterprise Dashboard Design System
@@ -101,26 +97,11 @@ export const tokens = {
 
 // الحلقة الموحّدة عند التركيز (Focus Ring) لكل عناصر الإدخال
 const focusRing =
-<<<<<<< HEAD
-  'focus:outline-none focus:border-primary-500 dark:focus:ring-primary-400/40 dark:focus:border-primary-400';
-
-// الخلفية والحدود الأساسية المشتركة لحقول الإدخال في الوضعين
-const fieldSurface =clsx(
-  "w-full px-3.5 py-2.5 text-sm",
-  "bg-white dark:bg-slate-900",
-  "border-b-2 border-slate-300",
-  "transition-colors duration-200",
-  "text-slate-900 dark:text-slate-100",
-  "placeholder:text-slate-400 dark:placeholder:text-slate-500",
-  "appearance-none cursor-pointer"
-  )
-=======
   'focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 dark:focus:ring-primary-400/40 dark:focus:border-primary-400';
 
 // الخلفية والحدود الأساسية المشتركة لحقول الإدخال في الوضعين
 const fieldSurface =
   'bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500';
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 /* ============================================================================
  * 3) THEME OBJECT — الكائن الرئيسي المُصدَّر

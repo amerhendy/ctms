@@ -82,31 +82,4 @@ class TemplateDiagramUpdate(BaseModel):
             raise ValueError("يوجد تكرار في IDs العقد (يجب أن تكون فريدة)")
         return self
 
-<<<<<<< HEAD
-    model_config = {"from_attributes": True}
-
-# ══════════════════════════════════════════════════════════════════
-# 🆕 Schemas استخراج القالب كـ خطوات للمهام (as-steps)
-# ══════════════════════════════════════════════════════════════════
-
-class TemplateStepImportOut(BaseModel):
-    """
-    بيانات الخطوة المستخرجة من القالب والمجهزة للعرض في الواجهة أو الاستيراد
-    """
-    temp_id: str = Field(..., description="معرف مؤقت للخطوة لاستخدامه في ربط العلاقات محلياً")
-    title: str
-    description: Optional[str] = None
-    step_order: int
-    is_parallel: bool = False
-    assigned_department_id: Optional[int] = None
-    assigned_user_id: Optional[int] = None
-    
-    # 🆕 حقول الأسماء لإثراء بيانات المسؤول في الواجهة
-    assignee_name: Optional[str] = None
-    department_name: Optional[str] = None
-    
-    parent_temp_id: Optional[str] = Field(None, description="المعرف المؤقت للخطوة الأب إن وجد")
-
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     model_config = {"from_attributes": True}

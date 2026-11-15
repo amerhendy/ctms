@@ -19,14 +19,10 @@ from app.api.v1.endpoints.task_attachments_router import router as task_attachme
 from app.api.v1.endpoints.task_steps_router import router as task_steps_router
 from app.api.v1.endpoints.user_stats_router import router as user_stats
 from app.api.v1.endpoints.department_managers_router import router as department_managers
-<<<<<<< HEAD
-from app.api.v1.endpoints.WorkflowTemplate_route import router as WorkflowTemplate_route
-=======
 from .endpoints.WorkflowTemplate_route import router as WorkflowTemplate_route
 from .endpoints.WorkflowTemplateStep_route import router as WorkflowTemplateStep_route
 from .endpoints.TaskWorkflow_route import router as TaskWorkflow_route
 from .endpoints.TaskWorkflowStep_route import router as TaskWorkflowStep_route
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 api_router = APIRouter(prefix="/api/v1")
 
@@ -51,9 +47,6 @@ api_router.include_router(delegations_router)
 api_router.include_router(notif_router)
 api_router.include_router(search_router)
 api_router.include_router(WorkflowTemplate_route)
-<<<<<<< HEAD
-=======
 api_router.include_router(WorkflowTemplateStep_route)
 api_router.include_router(TaskWorkflow_route)
 api_router.include_router(TaskWorkflowStep_route)
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172

@@ -6,11 +6,7 @@ import { User, Mail, Lock, Shield, Save, CheckCircle, Link2Off } from 'lucide-re
 import toast from 'react-hot-toast'
 import { usersApi, authApi } from '@/api'
 import useAuthStore from '@/stores/authStore'
-<<<<<<< HEAD
-import { Avatar, FormField,Spinner } from '@/components/common'
-=======
 import { Avatar, FormField } from '@/components/common'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 import { getApiError } from '@/utils/helpers'
 import ProfileDetailsGrid from '@/components/profile/ProfileDetailsGrid'
 import ProfileContactsManager from '@/components/profile/ProfileContactsManager'

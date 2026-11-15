@@ -2,11 +2,6 @@
 from fastapi import HTTPException,BackgroundTasks
 from app.repositories.delegation_repo import DelegationRepository
 from app.repositories.user_repository import UserRepository
-<<<<<<< HEAD
-from datetime import date,datetime,timezone
-=======
-
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 from app.models import (Delegation)
 from app.services.notification_service import NotificationService
 from app.db.enums import GlobalRole
@@ -55,11 +50,7 @@ class DelegationService:
         perms_text = ", ".join(perms_array)
 
         background_tasks.add_task(
-<<<<<<< HEAD
-            NotificationService.create_notification_bg, "delegation_granted",  data.delegate_id,
-=======
             NotificationService.create, db, data.delegate_id, "delegation_granted",
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             "تم تفويض صلاحيات إليك", f'فوّضك {current_user.full_name} بصلاحيات: {perms_text}'
         )
 
@@ -71,12 +62,8 @@ class DelegationService:
         given = await DelegationRepository.get_given_delegations(db, current_user.id)
         received = await DelegationRepository.get_received_delegations(db, current_user.id)
         
-<<<<<<< HEAD
-        today = datetime.now()
-=======
         today = date.today()
 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         def format_delegation(d):
             return {
                 "id": d.id,

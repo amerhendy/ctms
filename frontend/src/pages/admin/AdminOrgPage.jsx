@@ -8,15 +8,9 @@ import { getApiError } from '@/utils/helpers'
 import PageHeader from '@/components/common/pageheader'
 import useAuthStore from '@/stores/authStore'
 import clsx from 'clsx'
-<<<<<<< HEAD
-import DeptUsersModal from '@/modals/department/DeptUsersModal'
-import DepartmentFormModal from '@/modals/department/DepartmentFormModal'
-import ManagerAssignmentModal from '@/modals/department/ManagerAssignmentModal'
-=======
 import DeptUsersModal from '@/modals/DeptUsersModal'
 import DepartmentFormModal from '@/modals/DepartmentFormModal'
 import ManagerAssignmentModal from '@/modals/ManagerAssignmentModal'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 export default function AdminOrgPage() {
   const { isPM,isAdmin,isAdminOrPM,isDepartmentManager } = useAuthStore()
@@ -148,11 +142,6 @@ export default function AdminOrgPage() {
           <div className="flex items-center gap-1.5 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
             
             {/* زر إدارة المديرين */}
-<<<<<<< HEAD
-            
-            {isAdminOrPM() && 
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             <button 
               onClick={() => { setSelectedDept(dept); setShowManagerModal(true); }}
               className="p-1.5 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30 rounded-lg transition-colors"
@@ -160,10 +149,6 @@ export default function AdminOrgPage() {
             >
               <UserCheck className="w-4 h-4" /> 
             </button>
-<<<<<<< HEAD
-            }
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             {/* زر عرض الموظفين الجديد */}
             <button 
               onClick={() => { setSelectedDept(dept); setShowUsersModal(true); }}

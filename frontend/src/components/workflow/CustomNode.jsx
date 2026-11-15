@@ -111,9 +111,6 @@ const NODE_STYLE_CONFIG = {
 }
 
 // ── المكوّن الرئيسي ──────────────────────────────────────────────
-<<<<<<< HEAD
-export default function CustomNode({ data, selected }) {
-=======
 export default function CustomNode({ 
   data, 
   selected, 
@@ -122,7 +119,6 @@ export default function CustomNode({
   onDelete,   // ← تأكد من وجودها هنا
   onAdd,      // ← تأكد من وجودها هنا
 }) {
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   const {
     label,
     description,
@@ -135,15 +131,6 @@ export default function CustomNode({
     assigned_department_id,
     is_completable = false,
     is_editable = false,
-<<<<<<< HEAD
-    // استخراج المعالجات من data مباشرةً
-    onToggleParallel,
-    onEdit,
-    onDelete,
-    onAdd,
-    nodeId,
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   } = data
 
   // جلب إعدادات الحالة واللون
@@ -368,8 +355,6 @@ export default function CustomNode({
             <div className="absolute inset-0 rounded-2xl bg-green-500/5 dark:bg-green-400/5" />
           </div>
         )}
-<<<<<<< HEAD
-=======
         {isHovered && (
   <div className="absolute -top-3 -right-3 flex gap-1 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 p-1">
     <button
@@ -392,7 +377,6 @@ export default function CustomNode({
     </button>
   </div>
 )}
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
       </div>
     </>

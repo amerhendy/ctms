@@ -53,13 +53,7 @@ class LogService:
         old_value: Optional[Any] = None,
         new_value: Optional[Any] = None,
         extra_data: Optional[str] = None,
-<<<<<<< HEAD
-        recurring_task_id: Optional[int] = None,
     ) -> TaskLog:
-        logger.debug("++++++++++++++++++++++++++++++++++")
-=======
-    ) -> TaskLog:
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         """
         Record an audit log entry for a task event.
         
@@ -82,47 +76,11 @@ class LogService:
             old_value=str(old_value) if old_value is not None else None,
             new_value=str(new_value) if new_value is not None else None,
             extra_data=extra_data,
-<<<<<<< HEAD
-            recurring_task_id=recurring_task_id,  # تمرير الحقل هنا
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         )
         db.add(log)
         await db.flush()
         return log
     
-<<<<<<< HEAD
-    @classmethod
-    async def log_action_bg(
-        cls,
-        task_id: Optional[int],
-        user_id: Optional[int],
-        action_type: str,
-        old_value: Optional[Any] = None,
-        new_value: Optional[Any] = None,
-        extra_data: Optional[str] = None,
-        recurring_task_id: Optional[int] = None,
-    ):
-        """تسجيل سجل المراجعة (Audit Log) في الخلفية باستخدام جلسة معزولة"""
-        async with AsyncSessionLocal() as session:
-            try:
-                await cls.log_action(
-                    db=session,
-                    task_id=task_id,
-                    user_id=user_id,
-                    action_type=action_type,
-                    old_value=old_value,
-                    new_value=new_value,
-                    extra_data=extra_data,
-                    recurring_task_id=recurring_task_id,
-                )
-                await session.commit()
-            except Exception as e:
-                await session.rollback()
-                logger.error(f"خطأ أثناء تسجيل الـ Log في الخلفية: {e}")
-                
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     @staticmethod
     async def userLog(
         db: AsyncSession,

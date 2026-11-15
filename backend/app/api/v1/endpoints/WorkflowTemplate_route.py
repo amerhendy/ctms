@@ -12,10 +12,6 @@ from app.schemas.WorkflowTemplate_schema import (
     WorkflowTemplateUpdate,
     TemplateDiagramResponse,
     TemplateDiagramUpdate,
-<<<<<<< HEAD
-    TemplateStepImportOut,
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 )
 from app.services.WorkflowTemplateService import WorkflowTemplateService
 
@@ -110,19 +106,4 @@ async def update_template_diagram(
     await db.commit()
 
     # 4. إعادة الـ Diagram المحدث
-<<<<<<< HEAD
     return WorkflowTemplateService.build_diagram(updated_template)
-
-@router.get("/{template_id}/as-steps", response_model=list[TemplateStepImportOut])
-async def get_template_as_steps(
-    template_id: int,
-    db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """
-    جلب خطوات قالب معين بصيغة قائمة خطية (Linear Steps) لاستيرادها داخل المهمة.
-    """
-    return await WorkflowTemplateService.get_template_as_steps(db, template_id)
-=======
-    return WorkflowTemplateService.build_diagram(updated_template)
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172

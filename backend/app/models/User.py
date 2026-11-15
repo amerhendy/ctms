@@ -23,11 +23,7 @@ if TYPE_CHECKING:
     from app.models.TaskComment import TaskComment
     from app.models.TaskAttachment import TaskAttachment
     from app.models.TaskTimeLog import TaskTimeLog
-<<<<<<< HEAD
-    from app.models.RecurringTaskModel import RecurringTask
-=======
     from app.models.RecurringTask import RecurringTask
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     from app.models.UserContact import UserContact   # سنضيفها بعد تعديل UserContact
     from app.models.DepartmentManager import DepartmentManager
     from app.models.TaskLog import TaskLog

@@ -2,49 +2,30 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-<<<<<<< HEAD
-import { Calendar, Trash2, CheckCircle, XCircle, Loader2, Plus, History } from 'lucide-react'
-import toast from 'react-hot-toast'
-import clsx from 'clsx'
-import { recurringTasksApi } from '@/api'
-=======
 import { Calendar, RefreshCw, Trash2, CheckCircle, XCircle,  Loader2,Plus, History } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { recurringTasksApi } from '@/api'
 //import RecurringTasksLogs from './RecurringTasksLogs'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 import RecurringTasksLogs from './RecurringTasksLogs'
 import RecurringTaskFormModal from '@/modals/RecurringTaskFormModal'
 import useAuthStore from '@/stores/authStore'
 import PageHeader from '@/components/common/pageheader'
 import PaginationProvider from '@/components/common/PaginationProvider'
-<<<<<<< HEAD
-import { theme } from '@/constants/theme'
-
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 export default function AdminRecurringTasksPage() {
   const qc = useQueryClient()
   const { isAdmin } = useAuthStore()
   const navigate = useNavigate()
-<<<<<<< HEAD
-  
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   // حالات التحكم في النوافذ المنبثقة (Modal States)
   const [isFormModalOpen, setIsFormModalOpen] = useState(false)
   const [selectedTemplateId, setSelectedTemplateId] = useState(null)
   const [isLogsModalOpen, setIsLogsModalOpen] = useState(false)
 
-<<<<<<< HEAD
-=======
   // 1. جلب كل القوالب المتكررة من السيرفر
   const { data: templates, isLoading } = useQuery({
     queryKey: ['recurring-templates'],
     queryFn: () => recurringTasksApi.listRecurringTasks().then(res => res.data?.items)
   })
 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   // 2. ميوتايشن التفعيل والتعطيل السريع (Toggle Status)
   const toggleActiveMutation = useMutation({
     mutationFn: ({ id, is_active }) => recurringTasksApi.updateRecurringTask(id, { is_active }),
@@ -69,28 +50,19 @@ export default function AdminRecurringTasksPage() {
     }
   })
 
-<<<<<<< HEAD
-=======
   // فتح المودال للإضافة الجديدة
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   const handleCreateClick = () => {
     setSelectedTemplateId(null)
     setIsFormModalOpen(true)
   }
 
-<<<<<<< HEAD
-=======
   // فتح المودال لتعديل قالب موجود
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   const handleEditClick = (id) => {
     setSelectedTemplateId(id)
     setIsFormModalOpen(true)
   }
 
-<<<<<<< HEAD
-=======
   // ترجمة أنماط التكرار لواجهة عربية مفهومة للمدراء
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   const translatePattern = (pattern) => {
     const dict = {
       daily: 'يومي',
@@ -106,36 +78,6 @@ export default function AdminRecurringTasksPage() {
     <div className="container mx-auto px-4 py-6 text-right" dir="rtl">
       
       {/* الهيدر العلوي */}
-<<<<<<< HEAD
-      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
-        <div>
-          <PageHeader title="أتمتة المهام المتكررة" icon={Calendar}>
-            <p className={theme.text.helper}>
-              إنشاء وجدولة قوالب المهام التشغيلية والدورية لإصدارها تلقائياً للأقسام.
-            </p>
-          </PageHeader>
-        </div>
-        <div className="flex items-center gap-2 self-start sm:self-auto">
-          {isAdmin() && (
-            <button 
-              onClick={() => setIsLogsModalOpen(true)}
-              className={clsx(theme.button.base, theme.button.secondary)}
-            >
-              <History className="w-3.5 h-3.5 text-slate-500" />
-              <span>سجل عمليات الأتمتة (Logs)</span>
-            </button>
-          )}
-          {isAdmin() && (
-            <button 
-              onClick={handleCreateClick}
-              className={clsx(theme.button.base, theme.button.primary)}
-            >
-              <Plus className="w-4 h-4" />
-              إنشاء قالب دوري جديد
-            </button>
-          )}
-        </div>
-=======
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-gray-100 pb-5">
         <div>
           <PageHeader title="أتمتة المهام المتكررة" icon={Calendar}>
@@ -164,20 +106,13 @@ export default function AdminRecurringTasksPage() {
                 إنشاء قالب دوري جديد
               </button>
             )}
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
       </div>
 
       {/* منطقة الجدول واستعراض البيانات */}
       <PaginationProvider storageKey="admin_recurring">
-<<<<<<< HEAD
-        {({ currentParams, handleSort }) => {
-          const { data: apiResponse, isLoading } = useQuery({
-            queryKey: ['recurring-templates', currentParams.page, currentParams.page_size, currentParams.search, currentParams.sort_by, currentParams.sort_order],
-=======
         {({ currentParams, handleSort, updateState }) => {
           const { data: apiResponse, isLoading } = useQuery({
             queryKey: ['recurring-templates', currentParams.page, currentParams.page_size,currentParams.search, currentParams.sort_by, currentParams.sort_order],
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             queryFn: () => {
               const cleanParams = {
                 page: currentParams.page,
@@ -192,137 +127,6 @@ export default function AdminRecurringTasksPage() {
             }
           })
 
-<<<<<<< HEAD
-          const templates = apiResponse?.items || []
-          const totalPages = apiResponse?.pages || 1
-          PaginationProvider.totalPages = totalPages;
-
-          return (
-            <div className="space-y-4">
-              
-              {/* شريط حالة البحث والفلترة */}
-              <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex flex-wrap gap-4 font-medium transition-colors">
-                <div>
-                  الحالة الحالية للبحث: 
-                  <span className="text-primary-600 dark:text-primary-400 font-bold ml-1">
-                    {currentParams.search || 'لا يوجد'}
-                  </span>
-                </div>
-                <div>
-                  الترتيب حسب: 
-                  <span className="text-primary-600 dark:text-primary-400 font-bold ml-1">
-                    {currentParams.sort_by} ({currentParams.sort_order})
-                  </span>
-                </div>
-                <div>
-                  الصفحة الحالية: 
-                  <span className="text-primary-600 dark:text-primary-400 font-bold ml-1">
-                    {currentParams.page}
-                  </span>
-                </div>
-              </div>
-
-              {/* منطقة الجدول واستعراض البيانات */}
-              {isLoading ? (
-                <div className={clsx(theme.emptyState.base, "bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 py-20")}>
-                  <Loader2 className="w-8 h-8 animate-spin text-primary-600" />
-                  <span className={theme.text.helper}>جاري جلب قوالب المهام المتكررة من النظام...</span>
-                </div>
-              ) : (
-                <div className={clsx(theme.card.base, "overflow-hidden p-0")}>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-right text-slate-500 dark:text-slate-400">
-                      <thead className="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-semibold">
-                        <tr>
-                          <th 
-                            onClick={() => handleSort('title')} 
-                            className="px-6 py-3.5 font-bold cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                          >
-                            عنوان قالب المهمة {currentParams.sort_by === 'title' ? (currentParams.sort_order === 'asc' ? ' 🔼' : ' 🔽') : ''}
-                          </th>
-                          <th className="px-6 py-3.5 font-bold">دورية التكرار</th>
-                          <th className="px-6 py-3.5 font-bold">الفاصل الزمني</th>
-                          <th 
-                            onClick={() => handleSort('next_run_date')} 
-                            className="px-6 py-3.5 font-bold cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                          >
-                            تاريخ النشر التلقائي القادم {currentParams.sort_by === 'next_run_date' ? (currentParams.sort_order === 'asc' ? ' 🔼' : ' 🔽') : ''}
-                          </th>
-                          <th className="px-6 py-3.5 font-bold">حالة الأتمتة</th>
-                          <th className="px-6 py-3.5 font-bold text-center">الإجراءات</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                        {templates?.map((t) => (
-                          <tr key={t.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors">
-                            <td className="px-6 py-4 font-semibold text-slate-900 dark:text-slate-100">{t.title}</td>
-                            <td className="px-6 py-4">
-                              <span className={clsx(theme.badge.base, theme.badge.info, "font-bold")}>
-                                {translatePattern(t.recurrence_pattern)}
-                              </span>
-                            </td>
-                            <td className="px-6 py-4 text-xs text-slate-600 dark:text-slate-300 font-medium">كل {t.interval_value}</td>
-                            <td className="px-6 py-4 text-xs text-slate-600 dark:text-slate-400 font-mono">
-                              <div className="flex items-center gap-1.5">
-                                <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                                <span>{t.next_run_date}</span>
-                              </div>
-                            </td>
-                            <td className="px-6 py-4">
-                              <button
-                                onClick={() => toggleActiveMutation.mutate({ id: t.id, is_active: !t.is_active })}
-                                disabled={toggleActiveMutation.isPending}
-                                className={clsx(
-                                  theme.badge.base,
-                                  "font-bold transition-colors cursor-pointer",
-                                  t.is_active ? theme.badge.success : theme.badge.danger
-                                )}
-                              >
-                                {t.is_active ? <CheckCircle className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
-                                {t.is_active ? 'نشط ويولّد مهام' : 'موقوف مؤقتاً'}
-                              </button>
-                            </td>
-                            <td className="px-6 py-4 text-center">
-                              <div className="flex items-center justify-center gap-3">
-                                <button 
-                                  onClick={() => handleEditClick(t.id)} 
-                                  className="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 text-xs font-bold transition-colors"
-                                >
-                                  تعديل الإعدادات
-                                </button>
-                                <button 
-                                  onClick={() => {
-                                    if (confirm('هل أنت متأكد من حذف قالب الأتمتة التشغيلي هذا؟ لن يتم توليد أي مهمة تابعة له في المستقبل.')) {
-                                      deleteMutation.mutate(t.id)
-                                    }
-                                  }}
-                                  disabled={deleteMutation.isPending}
-                                  className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors disabled:opacity-50"
-                                >
-                                  <Trash2 className="w-4 h-4" />
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                        {templates?.length === 0 && (
-                          <tr>
-                            <td colSpan="6" className={clsx(theme.emptyState.base, "py-12")}>
-                              <span className={theme.emptyState.text}>لا توجد قوالب مهام متكررة مجدولة حالياً في هذا القسم.</span>
-                            </td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
-            </div>
-          )
-        }}
-      </PaginationProvider>
-
-=======
           // استخراج المصفوفة القادمة من الباك إند بناءً على الـ Response الجديد
           const templates = apiResponse?.items || []
           const totalPages = apiResponse?.pages || 1
@@ -443,7 +247,6 @@ export default function AdminRecurringTasksPage() {
       </PaginationProvider>
 
 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
       {/* المودال الذكي للإضافة والتعديل التفاعلي */}
       {isFormModalOpen && (
         <RecurringTaskFormModal

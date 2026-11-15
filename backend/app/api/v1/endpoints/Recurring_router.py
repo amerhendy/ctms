@@ -1,11 +1,6 @@
 import math
 from fastapi import APIRouter, Depends, Query,HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-<<<<<<< HEAD
-from sqlalchemy.exc import IntegrityError
-
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 from typing import Optional
 from datetime import datetime, time
 from app.db.session import get_db
@@ -27,17 +22,6 @@ async def create_recurring_template(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-<<<<<<< HEAD
-    try:
-        return await RecurringTaskService.create_template(db, current_user, payload.model_dump())
-    except IntegrityError as e:
-        await db.rollback()
-        raise HTTPException(
-            status_code=400,
-            detail="حدث خطأ في تكامل البيانات. يرجى التأكد من صحة الكيانات المرتبطة (القسم أو الموظف)."
-        )
- 
-=======
     
     """
     إنشاء قالب مهمة متكررة.
@@ -45,7 +29,6 @@ async def create_recurring_template(
     """
     return await RecurringTaskService.create_template(db, current_user, payload.model_dump())
 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 @router.get("/recurring", response_model=PaginatedResponse[RecurringTaskOut])
 async def list_recurring_templates(
     page: int = Query(1, ge=1),
@@ -56,10 +39,6 @@ async def list_recurring_templates(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-<<<<<<< HEAD
-    print("__-_-_-_")
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     return await RecurringTaskService.get_paginated_templates(
         db, current_user, page, page_size, search, sort_by, sort_order
     )
@@ -81,37 +60,6 @@ async def get_recurring_logs(
     return await RecurringTaskService.get_paginated_logs(
         db, page, page_size, search, sort_by, sort_order
     )
-<<<<<<< HEAD
-@router.post("/recurring/trigger-automation")
-async def trigger_automation(
-    db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user) # حماية المسار للأدمن فقط
-):
-    """
-    تشغيل يدوي فوري لمحرك الأتمتة لفحص وتوليد المهام الدورية ومراقبة النتائج.
-    """
-    # يمكنك تفعيل فحص صلاحية الأدمن هنا لزيادة الأمان المكتبي الموثق
-    return await RecurringTaskService.trigger_manual_automation(db, current_user)
-    summary = await execute_recurring_tasks_automation(db)
-    return summary
-
-@router.get("/recurring/trash", response_model=PaginatedResponse[RecurringTaskOut])
-async def list_deleted_recurring_templates(
-    page: int = Query(1, ge=1),
-    page_size: int = Query(10, ge=1),
-    search: Optional[str] = Query(None),
-    sort_by: str = Query("created_at"),
-    sort_order: str = Query("desc"),
-    db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """جلب سلة المهملات للقوالب المحذوفة ناعماً"""
-    return await RecurringTaskService.get_paginated_deleted_templates(
-        db, current_user, page, page_size, search, sort_by, sort_order
-    )
-
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 @router.get("/recurring/{template_id}")
 async def get_recurring_template(
@@ -151,17 +99,6 @@ async def delete_recurring_template(
     """
     return await RecurringTaskService.delete_template(db, current_user, template_id)
 
-<<<<<<< HEAD
-
-@router.post("/recurring/{template_id}/restore")
-async def restore_recurring_template(
-    template_id: int,
-    db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """استرجاع قالب محذوف ناعماً مع كافة خطواته التابعة"""
-    return await RecurringTaskService.restore_template(db, current_user, template_id)
-=======
 @router.post("/recurring/trigger-automation")
 async def trigger_automation(
     db: AsyncSession = Depends(get_db),
@@ -177,4 +114,3 @@ async def trigger_automation(
 
 
 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172

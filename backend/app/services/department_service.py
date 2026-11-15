@@ -131,26 +131,9 @@ class DepartmentService:
         build_map(full_tree)
         
         # تحويل المدخلات إلى مجموعات لسرعة البحث
-<<<<<<< HEAD
-        if isinstance(department_ids, int):
-            dept_set = {department_ids}
-        elif department_ids:
-            dept_set = set(department_ids)
-        else:
-            dept_set = set()
-
-        if isinstance(location_ids, int):
-            loc_set = {location_ids}
-        elif location_ids:
-            loc_set = set(location_ids)
-        else:
-            loc_set = set()
-
-=======
         dept_set = set(department_ids) if department_ids else set()
         loc_set = set(location_ids) if location_ids else set()
         
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         # فلترة بناءً على القائمة (department_ids)
         if dept_set:
             return [node_map[d_id] for d_id in dept_set if d_id in node_map]

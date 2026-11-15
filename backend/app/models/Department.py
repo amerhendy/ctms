@@ -14,11 +14,7 @@ if TYPE_CHECKING:
     from .JobLevel import JobLevel
     from .User import User
     from .Task import Task
-<<<<<<< HEAD
-    from .RecurringTaskModel import RecurringTask
-=======
     from .RecurringTask import RecurringTask
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     from .DepartmentManager import DepartmentManager
 
 class Department(Base):

@@ -103,10 +103,6 @@ class NotificationService:
 
         return notif
         
-<<<<<<< HEAD
-
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     @classmethod
     async def notify_task_transfer(
         cls,
@@ -278,24 +274,6 @@ class NotificationService:
         await db.commit()
         return settings
     
-<<<<<<< HEAD
-    @classmethod
-    async def create_notification_bg(
-        cls,
-        notification_type: str,
-        user_id: int,
-        title: str,
-        body: str,
-        related_task_id: Optional[int] = None,
-        extra_data: Optional[dict] = None,
-        send_ws: bool = True,
-    ):
-        """إنشاء إشعار داخل مهمة خلفية مع إدارة معزولة لجلسة قاعدة البيانات"""
-        async with AsyncSessionLocal() as session:
-            try:
-                await cls.create(
-                    db=session,
-=======
     async def create_notification_bg(notification_type,user_id, title, body, related_task_id):
         # 1. افتح جلسة جديدة تماماً لكل مهمة خلفية
         async with AsyncSessionLocal() as session:
@@ -303,57 +281,10 @@ class NotificationService:
                 # 2. استدعِ الدالة الخاصة بك (مرر الـ session الجديدة)
                 await NotificationService.create(
                     session, 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                     user_id=user_id,
                     notification_type=notification_type,
                     title=title,
                     body=body,
-<<<<<<< HEAD
-                    related_task_id=related_task_id,
-                    extra_data=extra_data,
-                    send_ws=send_ws,
-                )
-                await session.commit()
-            except Exception as e:
-                await session.rollback()
-                # Log error using logger
-                print(f"Error in notification background task: {e}")
-                
-    @classmethod
-    async def create_bulk_notifications_bg(
-        cls,
-        user_ids: list[int],
-        notification_type: str,
-        title: str,
-        body: str,
-        related_task_id: Optional[int] = None,
-        extra_data: Optional[dict] = None,
-        send_ws: bool = True,
-    ):
-        """إنشاء إشعارات جماعية في الخلفية مع إدارة جلسة معزولة واحدة"""
-        if not user_ids:
-            return
-
-        async with AsyncSessionLocal() as session:
-            try:
-                # إزالة التكرار إن وجد
-                unique_user_ids = set(user_ids)
-                for u_id in unique_user_ids:
-                    await cls.create(
-                        db=session,
-                        user_id=u_id,
-                        notification_type=notification_type,
-                        title=title,
-                        body=body,
-                        related_task_id=related_task_id,
-                        extra_data=extra_data,
-                        send_ws=send_ws,
-                    )
-                await session.commit()
-            except Exception as e:
-                await session.rollback()
-                print(f"Error in bulk notification background task: {e}")
-=======
                     related_task_id=related_task_id
                 )
                 # 3. يجب عمل commit هنا لأنك خارج سياق الطلب
@@ -362,7 +293,6 @@ class NotificationService:
             except Exception as e:
                 print(f"Error in background task: {e}")
                 await session.rollback()
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                 
     @staticmethod
     async def trigger_next_steps_notifications(db: AsyncSession, workflow_id: int):

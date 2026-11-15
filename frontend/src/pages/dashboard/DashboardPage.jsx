@@ -15,11 +15,7 @@ import useDashboardStore from '@/stores/dashboardStore';
 //stats
 import { useDashboardStats } from '@/hooks/useDashboardStats';
 //components
-<<<<<<< HEAD
-import SidebarTree from '@/components/DepartmentTrees/dashboardSidebarTree'
-=======
 import SidebarTree from '@/pages/dashboard/SidebarTree'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 import { StatDisplayCard } from '@/components/dashboard/StatDisplayCard';
 import  EisenhowerChart from '@/components/dashboard/EisenhowerChart'
 import { StatsGrid } from '@/components/dashboard/StatsGrid'
@@ -127,15 +123,15 @@ export default function DashboardPage() {
             <>
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
               <span className={theme.text.label}>مهام منجزة</span>
-              <span className={clsx(theme.text.sectionTitle)}>{stats.completedTasksCount}</span>
+              <span className={clsx(theme.text.sectionTitle)}>{stats?.completedTasksCount}</span>
             </div>
             <div className="flex justify-between items-center border-b border-gray-100 pb-2">
               <span className={theme.text.label}>نسبة الالتزام</span>
-              <span className={clsx(theme.text.sectionTitle)}>{stats.commitmentRate?.toFixed(1)}%</span>
+              <span className={clsx(theme.text.sectionTitle)}>{stats?.commitmentRate?.toFixed(1)}%</span>
             </div>
             <div className="flex justify-between items-center">
               <span className={theme.text.label}>سرعة الأداء</span>
-              <span className={clsx(theme.text.sectionTitle)}>{stats.avgRelativeSpeed?.toFixed(1)}%</span>
+              <span className={clsx(theme.text.sectionTitle)}>{stats?.avgRelativeSpeed?.toFixed(1)}%</span>
             </div>
           </>
           )}
@@ -153,15 +149,15 @@ export default function DashboardPage() {
             <>
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                 <span className={theme.text.label}>ساعات العمل</span>
-                <span className={clsx(theme.text.sectionTitle)}>{stats.totalHours?.toFixed(1)} س</span>
+                <span className={clsx(theme.text.sectionTitle)}>{stats?.totalHours?.toFixed(1)} س</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                 <span className={theme.text.label}>التعليقات</span>
-                <span className={clsx(theme.text.sectionTitle)}>{stats.commentsCount}</span>
+                <span className={clsx(theme.text.sectionTitle)}>{stats?.commentsCount}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className={theme.text.label}>المفضلة</span>
-                <span className={clsx(theme.text.sectionTitle)}>{stats.favoritesCount}</span>
+                <span className={clsx(theme.text.sectionTitle)}>{stats?.favoritesCount}</span>
               </div>
             </>
           )}

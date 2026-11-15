@@ -1,11 +1,6 @@
 //components\common\index.jsx
 import clsx from 'clsx'
-<<<<<<< HEAD
-import { useState, useEffect, useRef,forwardRef } from 'react'
-import { Loader2, X, HelpCircle } from 'lucide-react'
-=======
 import { Loader2, X } from 'lucide-react'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 import { PRIORITY_CONFIG, STATUS_CONFIG, URGENCY_CONFIG } from '@/utils/helpers'
 import { theme } from '@/constants/theme';
 // ── Spinner ──────────────────────────────────────────────────────
@@ -187,56 +182,6 @@ export function ConfirmDialog({ open, onClose, onConfirm, title, message, danger
 }
 
 // ── Form field wrapper ───────────────────────────────────────────
-<<<<<<< HEAD
-export function FormField({ label, error, children, required, hint }) {
-  const [showTooltip, setShowTooltip] = useState(false);
-  const tooltipRef = useRef(null);
-
-  // إغلاق الـ Tooltip عند الضغط في أي مكان خارج الحاوية
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (tooltipRef.current && !tooltipRef.current.contains(event.target)) {
-        setShowTooltip(false);
-      }
-    }
-    if (showTooltip) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showTooltip]);
-
-  return (
-    <div className="space-y-1.5 relative">
-      {label && (
-        <div className="flex items-center gap-1.5 select-none">
-          <label className={`block text-sm font-medium ${theme.text.primary}`}>
-            {label}
-            {required && <span className="text-red-500 mr-1">*</span>}
-          </label>
-          
-          {/* أيقونة علامة الاستفهام والتلميح */}
-          {hint && (
-            <div className="relative inline-block" ref={tooltipRef}>
-              <button
-                type="button"
-                onClick={() => setShowTooltip(!showTooltip)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 focus:outline-none flex items-center"
-              >
-                <HelpCircle className="w-4 h-4 cursor-pointer" />
-              </button>
-
-              {/* صندوق الـ Tooltip المتجاوب مع الـ RTL */}
-              {showTooltip && (
-                <div className="absolute z-30 bottom-full right-0 mb-2 w-64 p-3 bg-slate-800 dark:bg-slate-700 text-white text-xs rounded-lg shadow-xl border border-slate-700 dark:border-slate-600 animate-in fade-in zoom-in-95 duration-150">
-                  <p className="leading-relaxed">{hint}</p>
-                  {/* السهم السفلي الصغير */}
-                  <div className="absolute top-full right-1.5 -mt-1 border-4 border-transparent border-t-slate-800 dark:border-t-slate-700" />
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-=======
 export function FormField({ label, error, children, required }) {
   return (
     <div className="space-y-1.5">
@@ -245,7 +190,6 @@ export function FormField({ label, error, children, required }) {
           {label}
           {required && <span className="text-red-500 mr-1">*</span>}
         </label>
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
       )}
       
       {children}
@@ -277,11 +221,7 @@ export function Select({ options = [], placeholder = 'اختر...', className = 
       <option value="" disabled>
         {placeholder}
       </option>
-<<<<<<< HEAD
-      {options.map((opt,key) => (
-=======
       {options.map((opt) => (
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         <option key={opt.value} value={opt.value}>
           {opt.label}
         </option>
@@ -365,11 +305,8 @@ export function Tabs({ tabs, activeTab, onChange }) {
 }
 
 export function ToggleSwitch({ checked, onChange, disabled }) {
-<<<<<<< HEAD
-=======
   console.log(checked);
   
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   return (
     <button
       type="button"
@@ -389,63 +326,4 @@ export function ToggleSwitch({ checked, onChange, disabled }) {
       />
     </button>
   );
-<<<<<<< HEAD
 }
-
-export const TextArea = forwardRef(function TextArea(
-  { className = '', value, onChange, ...props },
-  ref
-) {
-  const internalRef = useRef(null);
-
-  // إعادة حساب الارتفاع تلقائياً بناءً على المحتوى
-  const adjustHeight = () => {
-    const node = internalRef.current;
-    if (node) {
-      node.style.height = 'auto';
-      node.style.height = `${node.scrollHeight}px`;
-    }
-  };
-
-  // دالة دمج المرجع الداخلي مع المرجع الخارجي القادم من React Hook Form
-  const setCombinedRef = (node) => {
-    internalRef.current = node;
-    
-    if (typeof ref === 'function') {
-      ref(node);
-    } else if (ref) {
-      ref.current = node;
-    }
-  };
-
-  // التمدد التلقائي عند تغير الـ value القادم من الـ props أو عند أول Render
-  useEffect(() => {
-    adjustHeight();
-  }, [value]);
-
-  const handleChange = (e) => {
-    adjustHeight(); // 1. ضبط الارتفاع عند الإدخال
-    if (onChange) {
-      onChange(e); // 2. استدعاء onChange الخاصة بـ React Hook Form
-    }
-  };
-
-  return (
-    <textarea
-      ref={setCombinedRef}
-      value={value}
-      onChange={handleChange}
-      className={clsx(
-        theme?.input?.base,
-        'min-h-[2.5rem] py-2',
-        'max-h-60',
-        'focus:ring-2 focus:ring-indigo-500/20',
-        className
-      )}
-      {...props}
-    />
-  );
-});
-=======
-}
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172

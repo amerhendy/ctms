@@ -10,11 +10,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.session import Base
 
 if TYPE_CHECKING:
-<<<<<<< HEAD
-    from app.models.RecurringTaskModel import RecurringTask
-=======
     from app.models.RecurringTask import RecurringTask
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 
 class RecurringTaskLog(Base):

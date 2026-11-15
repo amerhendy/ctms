@@ -7,11 +7,7 @@ import { getApiError, formatDate } from '@/utils/helpers'
 import clsx from 'clsx'
 import { theme, resolveFieldState } from '@/constants/theme';
 import {Modal} from '@/components/common'
-<<<<<<< HEAD
-import SidebarTree from '@/components/DepartmentTrees/SidebarTree'
-=======
 import SidebarTree from '@/pages/tasks/TaskDetail/SidebarTree'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 export default function TaskStepsSection({ taskId, taskPermissions, task: initialTask }) {
   const queryClient = useQueryClient()
   const [addStepText, setAddStepText] = useState('')

@@ -1,72 +1,49 @@
 // src/pages/admin/AdminWorkflowTemplatesPage.jsx
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-<<<<<<< HEAD
-import { Plus, Search, LayoutTemplate } from 'lucide-react'
-import toast from 'react-hot-toast'
-import clsx from 'clsx'
-
-=======
 import {
   GitBranch, Plus, Edit, Trash2, ChevronDown, ChevronRight,
   ToggleLeft, ToggleRight, Building2, Users, Search,
-  GripVertical, ArrowUp, ArrowDown, X, Loader2, LayoutTemplate
+  ArrowUp, ArrowDown, X, Loader2, LayoutTemplate
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import clsx from 'clsx'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 import { workflowTemplatesApi } from '@/api/workflow'
 import { getApiError } from '@/utils/helpers'
 import { PageLoader, Modal } from '@/components/common'
 import PageHeader from '@/components/common/pageheader'
 import { theme } from '@/constants/theme'
-<<<<<<< HEAD
-import WorkflowBuilderModal from '@/pages/tasks/TaskDetail/TaskModels/WorkflowBuilderModal'
-import TemplateCard from '@/components/workflow/templateCard'
-import TemplateFormModal from '@/modals/workflow/TemplateFormModal'
-
-export default function AdminWorkflowTemplatesPage() {
-  const qc = useQueryClient()
-  const [selectedTemplate, setSelectedTemplate] = useState(null)
-  const [search, setSearch] = useState('')
-  const [filterActive, setFilterActive] = useState(null)
-  const [confirmDelete, setConfirmDelete] = useState(null)
-
-  const [isFormModalOpen, setIsFormModalOpen] = useState(false)
-  const [isBuilderModalOpen, setIsBuilderModalOpen] = useState(false)
-
-  const { data: templates = [], isLoading, refetch } = useQuery({
-=======
 import useAuthStore from '@/stores/authStore'
 import SidebarTree from '@/pages/tasks/TaskDetail/SidebarTree'
 import WorkflowBuilderModal from '@/pages/tasks/TaskDetail/TaskModels/WorkflowBuilderModal'
+
 // ══════════════════════════════════════════════════════════════════
-// مودال إنشاء / تعديل القالب
+// 1. مودال الإنشاء / التعديل السريع (Legacy / Quick Form Modal)
 // ══════════════════════════════════════════════════════════════════
 function TemplateFormModal({ template, onClose }) {
-  
   const qc = useQueryClient()
   const isEdit = !!template
 
-  const [showPickerModal, setShowPickerModal] = useState(false);
-  const[stepIndex,setStepIndex]=useState(0)
+  const [showPickerModal, setShowPickerModal] = useState(false)
+  const [stepIndex, setStepIndex] = useState(0)
 
   const [form, setForm] = useState({
-    name:        template?.name        || '',
+    name: template?.name || '',
     description: template?.description || '',
   })
 
   const [steps, setSteps] = useState(
     template?.steps?.length
       ? template.steps.map(s => ({
-          title:                  s.title,
-          description:            s.description || '',
-          step_order:             s.step_order,
-          is_parallel:            s.is_parallel,
+          title: s.title,
+          description: s.description || '',
+          step_order: s.step_order,
+          is_parallel: s.is_parallel,
           assigned_department_id: s.assigned_department_id || '',
-          assigned_user_id:       s.assigned_user_id || '',
+          assigned_user_id: s.assigned_user_id || '',
+          assigned_name: s.assigned_name || '',
         }))
-      : [{ title: '', description: '', step_order: 1, is_parallel: false, assigned_department_id: '', assigned_user_id: '' }]
+      : [{ title: '', description: '', step_order: 1, is_parallel: false, assigned_department_id: '', assigned_user_id: '', assigned_name: '' }]
   )
 
   const createMutation = useMutation({
@@ -93,7 +70,7 @@ function TemplateFormModal({ template, onClose }) {
 
   const addStep = () => setSteps(prev => [
     ...prev,
-    { title: '', description: '', step_order: prev.length + 1, is_parallel: false, assigned_department_id: '', assigned_user_id: '' }
+    { title: '', description: '', step_order: prev.length + 1, is_parallel: false, assigned_department_id: '', assigned_user_id: '', assigned_name: '' }
   ])
 
   const removeStep = (idx) =>
@@ -111,8 +88,6 @@ function TemplateFormModal({ template, onClose }) {
   }
 
   const handleSubmit = () => {
-    //console.log(assignedTo);
-    
     if (!form.name.trim()) return toast.error('اسم القالب مطلوب')
     const invalid = steps.find(s => !s.title.trim() || (!s.assigned_department_id && !s.assigned_user_id))
     if (invalid) return toast.error('كل خطوة لازم يكون ليها عنوان ومسؤول (إدارة أو موظف)')
@@ -120,12 +95,12 @@ function TemplateFormModal({ template, onClose }) {
     const payload = {
       ...form,
       steps: steps.map(s => ({
-        title:                  s.title,
-        description:            s.description || null,
-        step_order:             s.step_order,
-        is_parallel:            s.is_parallel,
+        title: s.title,
+        description: s.description || null,
+        step_order: s.step_order,
+        is_parallel: s.is_parallel,
         assigned_department_id: s.assigned_department_id ? parseInt(s.assigned_department_id) : null,
-        assigned_user_id:       s.assigned_user_id       ? parseInt(s.assigned_user_id)       : null,
+        assigned_user_id: s.assigned_user_id ? parseInt(s.assigned_user_id) : null,
       }))
     }
 
@@ -133,9 +108,8 @@ function TemplateFormModal({ template, onClose }) {
   }
 
   return (
-    <Modal open="true" onClose={onClose} title={isEdit ? 'تعديل القالب' : 'إنشاء قالب Workflow جديد'} size="lg">
+    <Modal open={true} onClose={onClose} title={isEdit ? 'تعديل القالب (سريع)' : 'إنشاء قالب سريع'} size="lg">
       <div className="space-y-4">
-
         {/* معلومات القالب */}
         <div className="grid grid-cols-2 gap-3">
           <div className={theme.field.wrapper}>
@@ -158,7 +132,6 @@ function TemplateFormModal({ template, onClose }) {
             />
           </div>
         </div>
-        
 
         {/* الخطوات */}
         <div>
@@ -224,11 +197,6 @@ function TemplateFormModal({ template, onClose }) {
                   className={clsx(theme.input.base, 'text-sm')}
                 />
                 <div className="flex gap-2">
-                  <input 
-                      type="hidden" 
-                      name={`steps[${idx}].assigned_id`} 
-                      value={step.assigned_user_id || step.assigned_department_id || ''} 
-                    />
                   <div className={clsx(
                       "flex-1 h-9 flex items-center px-3 text-sm rounded-lg border",
                       "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700",
@@ -236,10 +204,8 @@ function TemplateFormModal({ template, onClose }) {
                     )}>
                       {step.assigned_name || "لم يتم تحديد مسؤول بعد..."}
                   </div>
-                  
-                  {/* هنا يمكنك وضع زر يفتح "مودال" (Modal) يحتوي على SidebarTree لاختيار الموظف */}
                   <button 
-                    onClick={() => {setShowPickerModal(true); setStepIndex(idx);}} 
+                    onClick={() => { setShowPickerModal(true); setStepIndex(idx); }} 
                     className="h-9 px-3 text-xs bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200"
                   >
                     تحديد
@@ -307,43 +273,43 @@ function TemplateFormModal({ template, onClose }) {
           {isEdit ? 'حفظ التعديلات' : 'إنشاء القالب'}
         </button>
       </div>
-      {showPickerModal &&(
-                <Modal 
-                  open={showPickerModal} 
-                  onClose={() => setShowPickerModal(false)} 
-                  title="اختر المسؤول عن هذه الخطوة"
-                  size="md"
-                >
-                  <div className="h-[400px] overflow-y-auto">
-                    <SidebarTree 
-                      onSelectNode={(node) => {
-                        const isEmployee = !!node.full_name;
-                        const update = {
-                          assigned_department_id: isEmployee ? '' : node.id,
-                          assigned_user_id:       isEmployee ? node.id : '',
-                          assigned_name:          node.full_name || node.name
-                        };
-                        
-                        // تحديث الخطوة المختارة فقط
-                        setSteps(prev => prev.map((s, i) => i === stepIndex ? { ...s, ...update } : s));
-                        setShowPickerModal(false);
-                      }} 
-                    />
-                  </div>
-                </Modal>
-            )}
+
+      {/* مودال اختيار المسؤول من الشجرة */}
+      {showPickerModal && (
+        <Modal 
+          open={showPickerModal} 
+          onClose={() => setShowPickerModal(false)} 
+          title="اختر المسؤول عن هذه الخطوة"
+          size="md"
+        >
+          <div className="h-[400px] overflow-y-auto">
+            <SidebarTree 
+              onSelectNode={(node) => {
+                const isEmployee = !!node.full_name
+                const update = {
+                  assigned_department_id: isEmployee ? '' : node.id,
+                  assigned_user_id: isEmployee ? node.id : '',
+                  assigned_name: node.full_name || node.name
+                }
+                setSteps(prev => prev.map((s, i) => i === stepIndex ? { ...s, ...update } : s))
+                setShowPickerModal(false)
+              }} 
+            />
+          </div>
+        </Modal>
+      )}
     </Modal>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════
-// بطاقة قالب واحد
+// 2. بطاقة عرض قالب واحد
 // ══════════════════════════════════════════════════════════════════
-function TemplateCard({ template, onEdit, onToggle, onDelete }) {
+function TemplateCard({ template, onEditBuilder, onEditQuick, onToggle, onDelete }) {
   const [expanded, setExpanded] = useState(false)
 
   const statusColors = {
-    true:  'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800',
+    true: 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800',
     false: 'bg-slate-50 dark:bg-slate-800 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-700',
   }
 
@@ -354,14 +320,11 @@ function TemplateCard({ template, onEdit, onToggle, onDelete }) {
         ? 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50'
         : 'border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 opacity-70'
     )}>
-      {/* رأس البطاقة */}
       <div className="p-4 flex items-start gap-3">
-        {/* أيقونة */}
         <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center flex-shrink-0">
           <LayoutTemplate className="w-5 h-5 text-violet-600 dark:text-violet-400" />
         </div>
 
-        {/* المعلومات */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">
@@ -379,7 +342,6 @@ function TemplateCard({ template, onEdit, onToggle, onDelete }) {
           </p>
         </div>
 
-        {/* الأزرار */}
         <div className="flex items-center gap-1 flex-shrink-0">
           <button
             onClick={() => setExpanded(p => !p)}
@@ -389,11 +351,18 @@ function TemplateCard({ template, onEdit, onToggle, onDelete }) {
             {expanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </button>
           <button
-            onClick={() => onEdit(template)}
-            className="p-2 rounded-lg text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-            title="تعديل"
+            onClick={() => onEditBuilder(template)}
+            className="p-2 rounded-lg text-slate-400 hover:text-violet-500 hover:bg-violet-50 dark:hover:bg-violet-900/20 transition-colors"
+            title="تعديل عبر المحرر المرئي"
           >
             <Edit className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => onEditQuick(template)}
+            className="p-2 rounded-lg text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors text-xs font-bold"
+            title="تعديل سريع"
+          >
+            سريع
           </button>
           <button
             onClick={() => onToggle(template)}
@@ -405,9 +374,7 @@ function TemplateCard({ template, onEdit, onToggle, onDelete }) {
             )}
             title={template.is_active ? 'تعطيل' : 'تفعيل'}
           >
-            {template.is_active
-              ? <ToggleRight className="w-4 h-4" />
-              : <ToggleLeft  className="w-4 h-4" />}
+            {template.is_active ? <ToggleRight className="w-4 h-4" /> : <ToggleLeft className="w-4 h-4" />}
           </button>
           <button
             onClick={() => onDelete(template)}
@@ -419,11 +386,10 @@ function TemplateCard({ template, onEdit, onToggle, onDelete }) {
         </div>
       </div>
 
-      {/* خطوات القالب (قابلة للطي) */}
       {expanded && template.steps?.length > 0 && (
         <div className="border-t border-slate-100 dark:border-slate-700 px-4 py-3 space-y-2">
           {template.steps.map((step, idx) => (
-            <div key={step.id} className="flex items-start gap-3">
+            <div key={step.id || idx} className="flex items-start gap-3">
               <div className="flex flex-col items-center gap-1 flex-shrink-0">
                 <div className={clsx(
                   'w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold',
@@ -468,36 +434,37 @@ function TemplateCard({ template, onEdit, onToggle, onDelete }) {
 }
 
 // ══════════════════════════════════════════════════════════════════
-// الصفحة الرئيسية
+// 3. الصفحة الرئيسية لإدارة القوالب
 // ══════════════════════════════════════════════════════════════════
 export default function AdminWorkflowTemplatesPage() {
   const { isAdmin, isPM } = useAuthStore()
   const qc = useQueryClient()
-  const [showModal, setShowModal]       = useState(false)
-  const [editTemplate, setEditTemplate] = useState(null)
-  const [search, setSearch]             = useState('')
+
+  // حالات منفصلة ونظيفة تماماً لمنع أي تداخل
+  const [showQuickModal, setShowQuickModal] = useState(false)
+  const [quickTemplateEdit, setQuickTemplateEdit] = useState(null)
+
+  const [showBuilder, setShowBuilder] = useState(false)
+  const [editTemplateId, setEditTemplateId] = useState(null)
+
+  const [search, setSearch] = useState('')
   const [filterActive, setFilterActive] = useState(null)
   const [confirmDelete, setConfirmDelete] = useState(null)
 
-  const { data: templates = [], isLoading } = useQuery({
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
+  // جلب القوالب
+  const { data: templates = [], isLoading, refetch } = useQuery({
     queryKey: ['workflow-templates'],
     queryFn: () => workflowTemplatesApi.list().then(r => r.data),
   })
 
-<<<<<<< HEAD
+  // جلب الـ Diagram للقالب عند استخدام المحرر المرئي المتقدم
   const { data: templateDiagram } = useQuery({
-    queryKey: ['workflow-template-diagram', selectedTemplate?.id],
-    queryFn: () => workflowTemplatesApi.getDiagram(selectedTemplate.id).then(r => r.data),
-    enabled: !!selectedTemplate?.id && isBuilderModalOpen,
-=======
-  const { data: templateDiagram, isLoading: isLoadingDiagram } = useQuery({
     queryKey: ['workflow-template-diagram', editTemplateId],
     queryFn: () => workflowTemplatesApi.getDiagram(editTemplateId).then(r => r.data),
     enabled: !!editTemplateId && showBuilder,
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   })
 
+  // تفعيل/تعطيل القالب
   const toggleMutation = useMutation({
     mutationFn: ({ id, is_active }) => workflowTemplatesApi.update(id, { is_active }),
     onSuccess: (_, vars) => {
@@ -506,42 +473,8 @@ export default function AdminWorkflowTemplatesPage() {
     },
     onError: (err) => toast.error(getApiError(err)),
   })
-<<<<<<< HEAD
 
-  // handlers لإنشاء وتعديل النماذج
-  const openFormForCreate = () => {
-    setSelectedTemplate(null)
-    setIsFormModalOpen(true)
-  }
-
-  const openFormForEdit = (template) => {
-    setSelectedTemplate(template)
-    setIsFormModalOpen(true)
-  }
-
-  const closeFormModal = () => {
-    setSelectedTemplate(null)
-    setIsFormModalOpen(false)
-  }
-
-  // handlers للـ Diagram Builder
-  const openBuilderForEdit = (template) => {
-    setSelectedTemplate(template)
-    setIsBuilderModalOpen(true)
-  }
-
-  const closeBuilderModal = () => {
-    setSelectedTemplate(null)
-    setIsBuilderModalOpen(false)
-  }
-
-  const handleBuilderSuccess = () => {
-    refetch()
-    closeBuilderModal()
-  }
-
-=======
-    // دوال فتح/غلق المحرر
+  // دوال التحكم بالمحرر المرئي المتقدم
   const openBuilderForCreate = () => {
     setEditTemplateId(null)
     setShowBuilder(true)
@@ -558,12 +491,21 @@ export default function AdminWorkflowTemplatesPage() {
   }
 
   const handleBuilderSuccess = () => {
-    refetch() // إعادة تحميل القوائم
+    refetch()
     closeBuilder()
   }
 
+  // دوال التحكم بالنموذج السريع
+  const openQuickForCreate = () => {
+    setQuickTemplateEdit(null)
+    setShowQuickModal(true)
+  }
 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
+  const openQuickForEdit = (template) => {
+    setQuickTemplateEdit(template)
+    setShowQuickModal(true)
+  }
+
   // فلترة محلية
   const filtered = templates.filter(t => {
     const matchSearch = !search || t.name.toLowerCase().includes(search.toLowerCase())
@@ -571,11 +513,7 @@ export default function AdminWorkflowTemplatesPage() {
     return matchSearch && matchActive
   })
 
-<<<<<<< HEAD
   const activeCount = templates.filter(t => t.is_active).length
-=======
-  const activeCount   = templates.filter(t => t.is_active).length
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   const inactiveCount = templates.length - activeCount
 
   if (isLoading) return <PageLoader />
@@ -584,30 +522,29 @@ export default function AdminWorkflowTemplatesPage() {
     <div className="space-y-5 text-right" dir="rtl">
       {/* الترويسة */}
       <PageHeader title="قوالب الـ Workflow" icon={LayoutTemplate}>
-        <button
-<<<<<<< HEAD
-          onClick={openFormForCreate}
-=======
-          onClick={openBuilderForCreate}
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
-          className="btn-primary w-full sm:w-auto justify-center"
-        >
-          <Plus className="w-4 h-4" />
-          <span>قالب جديد</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={openQuickForCreate}
+            className="px-3 py-2 text-xs rounded-xl border border-primary-600 text-primary-600 hover:bg-primary-50 transition-colors"
+          >
+            + إنشاء سريع
+          </button>
+          <button
+            onClick={openBuilderForCreate}
+            className="btn-primary w-full sm:w-auto justify-center"
+          >
+            <Plus className="w-4 h-4" />
+            <span>قالب مرئي جديد</span>
+          </button>
+        </div>
       </PageHeader>
 
       {/* إحصائيات سريعة */}
       <div className="grid grid-cols-3 gap-3">
         {[
           { label: 'إجمالي القوالب', value: templates.length, color: 'text-slate-700 dark:text-slate-300', bg: 'bg-slate-100 dark:bg-slate-800' },
-<<<<<<< HEAD
           { label: 'نشطة', value: activeCount, color: 'text-green-700 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20' },
           { label: 'معطلة', value: inactiveCount, color: 'text-slate-400 dark:text-slate-500', bg: 'bg-slate-50 dark:bg-slate-800/50' },
-=======
-          { label: 'نشطة',           value: activeCount,       color: 'text-green-700 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20' },
-          { label: 'معطلة',          value: inactiveCount,     color: 'text-slate-400 dark:text-slate-500', bg: 'bg-slate-50 dark:bg-slate-800/50' },
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         ].map(stat => (
           <div key={stat.label} className={clsx('rounded-xl p-3 text-center', stat.bg)}>
             <div className={clsx('text-2xl font-bold', stat.color)}>{stat.value}</div>
@@ -629,13 +566,8 @@ export default function AdminWorkflowTemplatesPage() {
         </div>
         <div className="flex items-center gap-1.5">
           {[
-<<<<<<< HEAD
             { label: 'الكل', value: null },
             { label: 'النشطة', value: true },
-=======
-            { label: 'الكل',    value: null  },
-            { label: 'النشطة',  value: true  },
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             { label: 'المعطلة', value: false },
           ].map(tab => (
             <button
@@ -654,7 +586,7 @@ export default function AdminWorkflowTemplatesPage() {
         </div>
       </div>
 
-      {/* القائمة */}
+      {/* قائمة القوالب */}
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 gap-3">
           <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
@@ -665,11 +597,7 @@ export default function AdminWorkflowTemplatesPage() {
           </p>
           {!search && (
             <button
-<<<<<<< HEAD
-              onClick={openFormForCreate}
-=======
               onClick={openBuilderForCreate}
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
               className="text-sm text-primary-600 dark:text-primary-400 hover:underline"
             >
               أنشئ أول قالب الآن
@@ -682,12 +610,8 @@ export default function AdminWorkflowTemplatesPage() {
             <TemplateCard
               key={template.id}
               template={template}
-<<<<<<< HEAD
-              onEdit={openFormForEdit}
-              onOpenBuilder={openBuilderForEdit}
-=======
-              onEdit={openBuilderForEdit}
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
+              onEditBuilder={openBuilderForEdit}
+              onEditQuick={openQuickForEdit}
               onToggle={(t) => toggleMutation.mutate({ id: t.id, is_active: !t.is_active })}
               onDelete={(t) => setConfirmDelete(t)}
             />
@@ -695,34 +619,23 @@ export default function AdminWorkflowTemplatesPage() {
         </div>
       )}
 
-<<<<<<< HEAD
-      {/* مودال النماذج */}
-      {isFormModalOpen && (
-        <TemplateFormModal
-          template={selectedTemplate}
-          onClose={closeFormModal}
-        />
-      )}
-
-      {/* مودال الـ Builder */}
-      {isBuilderModalOpen && (
-        <WorkflowBuilderModal
-          mode="template"
-          templateId={selectedTemplate?.id}
-          existingDiagram={templateDiagram || null}
-          isEdit={!!selectedTemplate?.id}
-          onClose={closeBuilderModal}
-=======
-      {/* 🆕 مودال المحرر (للقوالب) */}
+      {/* مودال المحرر المرئي المتقدم */}
       {showBuilder && (
         <WorkflowBuilderModal
-          mode="template"  // 🆕 وضع القوالب
+          mode="template"
           templateId={editTemplateId}
           existingDiagram={templateDiagram || null}
           isEdit={!!editTemplateId}
           onClose={closeBuilder}
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
           onSuccess={handleBuilderSuccess}
+        />
+      )}
+
+      {/* مودال التعديل / الإنشاء السريع */}
+      {showQuickModal && (
+        <TemplateFormModal
+          template={quickTemplateEdit}
+          onClose={() => setShowQuickModal(false)}
         />
       )}
 
@@ -755,8 +668,4 @@ export default function AdminWorkflowTemplatesPage() {
       )}
     </div>
   )
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172

@@ -9,22 +9,6 @@ from datetime import datetime
 class AuthRepository:
     def __init__(self, db: AsyncSession):
         self.db = db
-<<<<<<< HEAD
-    
-    def setOptions(self,stmt):
-        return stmt.options(
-                joinedload(User.managed_departments) # جلب بيانات الإدارة التي يديرها
-            )
-
-
-    async def get_by_identifier(self, identifier: str):
-        stmt=select(User)
-        stmt=self.setOptions(stmt)
-        stmt=stmt.where(
-                (User.email == identifier) | 
-                (func.trim(User.employee_number) == identifier.strip())
-            )
-=======
 
     async def get_by_identifier(self, identifier: str):
         stmt = (
@@ -37,32 +21,10 @@ class AuthRepository:
                 (func.trim(User.employee_number) == identifier.strip())
             )
         )
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         result = await self.db.execute(stmt)
         return result.unique().scalar_one_or_none()
 
     async def get_by_google_id(self, google_id: str):
-<<<<<<< HEAD
-        stmt=select(User)
-        stmt=self.setOptions(stmt)
-        stmt=stmt.where(User.google_id == google_id)
-
-        result = await self.db.execute(stmt)
-        return result.scalar_one_or_none()
-    
-    async def get_by_id(self, user_id: int):
-        stmt=select(User)
-        stmt=self.setOptions(stmt)
-        stmt=stmt.where(User.id == user_id)
-        result = await self.db.execute(stmt)
-        return result.scalar_one_or_none()
-
-    async def get_by_email(self, email: str):
-        stmt=select(User)
-        stmt=self.setOptions(stmt)
-        stmt=stmt.where(User.email == email)
-        result = await self.db.execute(stmt)
-=======
         result = await self.db.execute(select(User).where(User.google_id == google_id))
         return result.scalar_one_or_none()
     
@@ -73,7 +35,6 @@ class AuthRepository:
 
     async def get_by_email(self, email: str):
         result = await self.db.execute(select(User).where(User.email == email))
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         return result.scalar_one_or_none()
 
     async def update_last_login(self, user_id: int):

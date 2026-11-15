@@ -3,10 +3,6 @@
 from pydantic import BaseModel
 from typing import Optional, List
 from app.schemas.tasks import TaskListItem
-<<<<<<< HEAD
-from app.schemas.tasks import EisenhowerDistributionItem
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 
 class EisenhowerStats(BaseModel):
     quadrant: str
@@ -53,10 +49,6 @@ class UserStatsResponse(BaseModel):
     urgent_count:int
     pending_count:int
     notification_count:int
-<<<<<<< HEAD
-    eisenhower_distribution:List[EisenhowerDistributionItem] 
-=======
     eisenhower_distribution:List[EisenhowerStats]
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     active_tasks:List[TaskListItem]
     transfared_tasks:List[TaskListItem]

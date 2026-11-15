@@ -20,15 +20,9 @@ import {
 } from '@/utils/helpers'
 import { theme, resolveFieldState } from '@/constants/theme';
 import useAuthStore from '@/stores/authStore'
-<<<<<<< HEAD
-import TaskFormModal from '@/modals/tasks/TaskFormModal'
-import TransferModal from '@/modals/tasks/TransferModal'
-import ShareModal from '@/modals/tasks/ShareModal'
-=======
 import TaskFormModal from '../TaskFormModal'
 import TransferModal from '../TransferModal'
 import ShareModal from '../ShareModal'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 import TaskCommentsSection from './TaskCommentsSection'
 import TaskAttachmentsSection from './TaskAttachmentsSection'
 import TaskAssignmentsSection from './TaskAssignmentsSection'
@@ -38,11 +32,7 @@ import TaskLogsSection from './TaskLogsSection'
 import UrgencyResponseModal from './TaskModels/UrgencyResponseModal'
 import TaskTimerControl from '@/components/common/TaskTimerControl'
 import TransferRespondModal from './TaskModels/TransferRespondModal'
-<<<<<<< HEAD
-import KanbanBoard from '@/modals/tasks/KanbanBoard'
-=======
 import KanbanBoard from './TaskModels/KanbanBoard'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 import { Avatar } from '@/components/common'
 import UserContactPopover from '@/components/shared/UserContactPopover'
 import WorkflowSection from './WorkflowSection'
@@ -53,11 +43,7 @@ export default function TaskDetailPage() {
   const navigate = useNavigate()
   const { user } = useAuthStore()
   const queryClient = useQueryClient()
-<<<<<<< HEAD
-  const [activeTab, setActiveTab] = useState('steps')
-=======
   const [activeTab, setActiveTab] = useState('workflow')
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   const [showEditModal, setShowEditModal] = useState(false)
   const [showTransfer, setShowTransfer] = useState(false)
   const [showShare, setShowShare] = useState(false)
@@ -120,22 +106,12 @@ export default function TaskDetailPage() {
   
   // الحسابات الذكية بعد التحويل لكائنات الترقيم (Micro-Pagination)
   const completedSteps = task.steps?.items?.filter(s => s.is_completed).length || 0;
-<<<<<<< HEAD
-  const totalSteps = task.steps.length || 0; // 🌟 تم تعديلها لتجلب الإجمالي الكلي من قاعدة البيانات مباشرة
-  
-
-  // تبويبات احترافية مع أيقونات
-  const tabs = [
-    //{ key: 'workflow',     label: 'Workflow',    icon: <GitBranch className="w-4 h-4" /> ,badge: task.workflow?.steps?.length || null},
-    { key: 'steps', label: 'الخطوات', icon: <ListTodo className="w-4 h-4" /> ,badge: totalSteps || null },
-=======
   const totalSteps = task.steps?.total || 0; // 🌟 تم تعديلها لتجلب الإجمالي الكلي من قاعدة البيانات مباشرة
 
   // تبويبات احترافية مع أيقونات
   const tabs = [
     { key: 'workflow',     label: 'Workflow',    icon: <GitBranch className="w-4 h-4" /> ,badge: task.workflow?.steps?.length || null},
     //{ key: 'steps', label: 'الخطوات', icon: <ListTodo className="w-4 h-4" /> ,badge: totalSteps || null },
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     { key: 'assignments', label: 'المنفذون', icon: <Users className="w-4 h-4" /> },
     { key: 'shares', label: 'المشاركون', icon: <Share2 className="w-4 h-4" /> },
     { key: 'comments', label: 'التعليقات', icon: <MessageSquare className="w-4 h-4" /> },
@@ -148,11 +124,7 @@ task.creator = task?.creator ?? task?.created_by_user ?? null;
     <div className={clsx(
         "min-h-screen transition-colors duration-300",
         "bg-slate-50 dark:bg-slate-950 pb-12"
-<<<<<<< HEAD
-      )}> 
-=======
       )}>
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 space-y-6">
         
         {/* Breadcrumb عصري */}
@@ -284,10 +256,6 @@ task.creator = task?.creator ?? task?.created_by_user ?? null;
                 )}
 
                 {(canEditTask || canDelete) && <div className="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-0.5" />}
-<<<<<<< HEAD
-=======
-
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                 {canEditTask && (
                   <button
                     onClick={() => setShowEditModal(true)}
@@ -324,28 +292,6 @@ task.creator = task?.creator ?? task?.created_by_user ?? null;
               </div>
               <ProgressBar value={task.progress_percentage} />
               {totalSteps > 0 && (
-<<<<<<< HEAD
-                <div className={clsx(
-                  "flex flex-col sm:flex-row justify-between sm:items-center gap-2 pt-2 text-xs border-t transition-colors",
-                  theme.card.border
-                )}>
-                  {/* الخطوات المنجزة */}
-                  <span className={clsx("flex items-center gap-1.5 font-medium", theme.text.muted)}>
-                    <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>
-                      تم إنجاز <strong className={clsx("font-semibold text-emerald-600 dark:text-emerald-400")}>{completedSteps}</strong> من <strong className={clsx("font-semibold", theme.text.primary)}>{totalSteps}</strong> {totalSteps === 1 ? 'خطوة' : 'خطوات'}
-                    </span>
-                  </span>
-                  
-                  {/* الخطوات المتبقية كـ Badge أنيق */}
-                  {task.progress_percentage < 100 && (
-                    <span className={clsx(
-                      "inline-flex items-center gap-1 self-start sm:self-auto px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide border transition-all",
-                      "bg-primary-50/60 dark:bg-primary-950/30 text-primary-600 dark:text-primary-400 border-primary-100/50 dark:border-primary-900/30"
-                    )}>
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
-                      متبقي {totalSteps - completedSteps} {totalSteps - completedSteps === 1 ? 'خطوة' : 'خطوات'}
-=======
                 <div className="flex justify-between items-center text-xs text-gray-500 mt-1">
                   <span className={clsx("flex items-center gap-1", theme.text.muted)}>
                     <CheckCircle className="w-3.5 h-3.5 text-green-500" />
@@ -354,7 +300,6 @@ task.creator = task?.creator ?? task?.created_by_user ?? null;
                   {task.progress_percentage < 100 && (
                     <span className="text-primary-600 dark:text-primary-400 font-medium">
                       متبقي في السجل {totalSteps - completedSteps} خطوة
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                     </span>
                   )}
                 </div>
@@ -423,33 +368,6 @@ task.creator = task?.creator ?? task?.created_by_user ?? null;
           {/* قسم التحكم بالوقت والـ Time Tracking الفعلي */}
           {canChangeStatus && (
             <div className={clsx(
-<<<<<<< HEAD
-              "px-5 sm:px-6 py-5 border-b transition-all duration-300",
-              theme.card.border,  // توحيد الحدود مع باقي البطاقات
-              "rounded-xl bg-gradient-to-l from-gray-500/50 to-transparent dark:from-gray-905/10 dark:to-transparent" // تدرج خفيف يعطي عمقاً بصرياً
-            )}>
-              <div className="space-y-3">
-                {/* عنوان جانبي لطيف يشير لطبيعة القسم */}
-                <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-100">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-                  </span>
-                  <span>مراقب وقت العمل الفعلي</span>
-                </div>
-
-                {/* متحكم المؤقت الفعلي */}
-                <div className={clsx(
-                  "p-1 rounded-xl transition-all duration-200",
-                  "bg-white/80 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800/60 shadow-sm"
-                )}>
-                  <TaskTimerControl 
-                    taskId={task.id} 
-                    canChangeStatus={canChangeStatus} 
-                  />
-                </div>
-              </div>
-=======
               "px-5 sm:px-6 pt-5 border-b",
               theme.card.border, // يوحد الحدود مع باقي البطاقات
               theme.card.subtle   // خلفية متوافقة مع الوضع الليلي والنهاري
@@ -458,7 +376,6 @@ task.creator = task?.creator ?? task?.created_by_user ?? null;
                 taskId={task.id} 
                 canChangeStatus={canChangeStatus} 
               />
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
             </div>
           )}
 
@@ -537,10 +454,7 @@ task.creator = task?.creator ?? task?.created_by_user ?? null;
 
             {/* عرض محتويات الأقسام */}
             <div className={clsx("p-5 sm:p-6", theme.card.subtle)}>
-<<<<<<< HEAD
-=======
               {activeTab === 'workflow'    && <WorkflowSection taskId={task.id} taskPermissions={perms} />} 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
               {activeTab === 'steps' && <KanbanBoard taskId={task.id} taskPermissions={perms} task={task} />}
               {activeTab === 'assignments' && <TaskAssignmentsSection taskId={task.id} taskPermissions={perms} task={task} />}
               {activeTab === 'shares' && <TaskSharesSection taskId={task.id} taskPermissions={perms} task={task} />}
@@ -611,21 +525,11 @@ task.creator = task?.creator ?? task?.created_by_user ?? null;
 
 // مكونات مساعدة داخلية لعرض البيانات الهيكلية
 function InfoItem({ icon, label, value, iconColor = "text-slate-400", labelColor = "text-slate-500" }) {
-<<<<<<< HEAD
-  const color = iconColor.replace("text-", "");
-  return (
-    <div className={clsx(
-      `flex flex-col gap-1.5 p-3 rounded-xl border-r-4 border-${color} transition-all duration-200`,
-      theme.card.subtle // الخلفية الموحدة من الثيم
-    )}>
-      
-=======
   return (
     <div className={clsx(
       "flex flex-col gap-1.5 p-3 rounded-xl border transition-all duration-200",
       theme.card.subtle // الخلفية الموحدة من الثيم
     )}>
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
       {/* الجزء العلوي: أيقونة + عنوان */}
       <div className={clsx("flex items-center gap-1.5 text-xs font-semibold", labelColor)}>
         <span className={iconColor}>{icon}</span>

@@ -1,19 +1,9 @@
 // src/pages/admin/RecurringTasksLogs.jsx
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-<<<<<<< HEAD
-import { Play, CheckCircle2, XCircle, RefreshCw, X, Loader2 } from 'lucide-react'
-import toast from 'react-hot-toast'
-import clsx from 'clsx'
-import { recurringTasksApi } from '@/api'
-import PaginationProvider from '@/components/common/PaginationProvider'
-import { theme } from '@/constants/theme'
-
-=======
 import { Play, CheckCircle2, XCircle, Clock, RefreshCw, X,Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { recurringTasksApi } from '@/api' // ملف الأكسيوس الرئيسي لتوجيه الطلبات
 import PaginationProvider from '@/components/common/PaginationProvider'
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 export default function RecurringTasksLogs({ onClose }) {
   const qc = useQueryClient()
 
@@ -27,162 +17,15 @@ export default function RecurringTasksLogs({ onClose }) {
   const triggerMutation = useMutation({
     mutationFn: () => recurringTasksApi.triggerAutomation(),
     onSuccess: (res) => {
-<<<<<<< HEAD
-      toast.success(`اكتمل الفحص الإداري! تم توليد (${res.data.tasks_generated}) مهمة جديدة.`)
-      qc.invalidateQueries(['recurring-logs'])
-    },
-    onError: () => {
-      toast.error('حدث خطأ أثناء تشغيل محرك الأتمتة الدوري')
-=======
       toast.success(`اكتمل الفحص الإداري! تم توليد (${res.data.tasks_generated}) مهمة جديدة.`);
       qc.invalidateQueries(['recurring-logs']); // تحديث الجدول فوراً
     },
     onError: () => {
       toast.error('حدث خطأ أثناء تشغيل محرك الأتمتة الدوري');
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     }
   })
 
   return (
-<<<<<<< HEAD
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onClick={onClose}>
-      <div 
-        className={clsx(
-          theme.card.base,
-          "h-full w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col p-0 shadow-2xl"
-        )} 
-        onClick={(e) => e.stopPropagation()}
-      >
-        
-        {/* 1. الهيدر وأزرار التحكم */}
-        <div className="p-6 pb-4 text-right flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800" dir="rtl">
-          <div>
-            <h2 className={theme.text.sectionTitle}>سجل عمليات نظام الأتمتة (Execution Logs)</h2>
-            <p className={clsx(theme.text.helper, "mt-1")}>تابع عمليات فحص الخادم، المهام الصادرة تلقائياً، والتوثيق الرقابي للأتمتة.</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => refetch()}
-              className={clsx(theme.button.base, theme.button.secondary, "p-2.5")}
-              title="تحديث البيانات"
-            >
-              <RefreshCw className="w-4 h-4 text-slate-500" />
-            </button>
-            
-            <button
-              onClick={() => triggerMutation.mutate()}
-              disabled={triggerMutation.isPending}
-              className={clsx(theme.button.base, theme.button.primary)}
-            >
-              <Play className="w-3.5 h-3.5 fill-current" />
-              <span>تشغيل محرك الأتمتة والفحص فوراً</span>
-            </button>
-
-            <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors mr-2 text-slate-500 dark:text-slate-400">
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-
-        {/* 2. منطقة المحتوى القابلة للتمرير */}
-        <div className="p-6 pt-4 flex-1 overflow-y-auto min-h-0 text-right bg-slate-50/50 dark:bg-slate-950/30" dir="rtl">
-          <PaginationProvider storageKey="admin_log_recurring">
-            {({ currentParams }) => {
-              const { data: apiResponse, isLoading } = useQuery({
-                queryKey: ['recurring-templates', currentParams.page, currentParams.page_size, currentParams.search, currentParams.sort_by, currentParams.sort_order],
-                queryFn: () => {
-                  const cleanParams = {
-                    page: currentParams.page,
-                    page_size: currentParams.page_size,
-                    sort_by: currentParams.sort_by || 'created_at',
-                    sort_order: currentParams.sort_order || 'desc'
-                  }
-                  if (currentParams.search && currentParams.search.trim() !== '') {
-                    cleanParams.search = currentParams.search.trim()
-                  }
-                  return recurringTasksApi.getRecurringTasksLog(cleanParams).then(res => res.data)
-                }
-              })
-              const logs = apiResponse?.items || []
-              const totalPages = apiResponse?.pages || 1
-              PaginationProvider.totalPages = totalPages
-
-              return (
-                <div className="space-y-4">
-                  
-                  {/* شريط معلومات البحث */}
-                  <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex flex-wrap gap-4 font-medium transition-colors">
-                    <div>الحالة الحالية للبحث: <span className="text-primary-600 dark:text-primary-400 font-bold">{currentParams.search || 'لا يوجد'}</span></div>
-                    <div>الترتيب حسب: <span className="text-primary-600 dark:text-primary-400 font-bold">{currentParams.sort_by} ({currentParams.sort_order})</span></div>
-                    <div>الصفحة الحالية: <span className="text-primary-600 dark:text-primary-400 font-bold">{currentParams.page}</span></div>
-                  </div>
-
-                  {isLoading ? (
-                    <div className={clsx(theme.emptyState.base, "bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 py-20")}>
-                      <Loader2 className="w-8 h-8 animate-spin text-primary-600" />
-                      <span className={theme.text.helper}>جاري تحميل سجلات الأتمتة الإدارية...</span>
-                    </div>
-                  ) : !logs || logs.length === 0 ? (
-                    <div className={clsx(theme.emptyState.base, "bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 py-12")}>
-                      <span className={theme.emptyState.text}>لا توجد سجلات تشغيل متوفرة حتى الآن في النظام.</span>
-                    </div>
-                  ) : (
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-sm text-right text-slate-500 dark:text-slate-400">
-                          <thead className="bg-slate-50 dark:bg-slate-900/80 text-slate-700 dark:text-slate-200 font-bold border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10">
-                            <tr>
-                              <th className="p-4">قالب المهمة الدوري</th>
-                              <th className="p-4">توقيت التشغيل الفعلي</th>
-                              <th className="p-4">حالة العملية</th>
-                              <th className="p-4">المهمة الناتجة للمكتب</th>
-                              <th className="p-4">تفاصيل الفشل والتقارير</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                            {logs.map((log) => (
-                              <tr key={log.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors">
-                                <td className="p-4 font-semibold text-slate-900 dark:text-slate-100">{log.template_title}</td>
-                                <td className="p-4 font-mono text-slate-500 dark:text-slate-400 text-[11px]">
-                                  {new Date(log.run_at).toLocaleString('ar-EG')}
-                                </td>
-                                <td className="p-4">
-                                  {log.status === 'success' || log.status === 'SUCCESS' ? (
-                                    <span className={clsx(theme.badge.base, theme.badge.success, "font-bold")}>
-                                      <CheckCircle2 className="w-3 h-3" /> ناجحة
-                                    </span>
-                                  ) : (
-                                    <span className={clsx(theme.badge.base, theme.badge.danger, "font-bold")}>
-                                      <XCircle className="w-3 h-3" /> فشلت
-                                    </span>
-                                  )}
-                                </td>
-                                <td className="p-4 font-medium text-primary-600 dark:text-primary-400">
-                                  {log.generated_task_id ? `مهمة رقم #${log.generated_task_id}` : '—'}
-                                </td>
-                                <td className="p-4 text-slate-400 max-w-xs truncate" title={log.error_message}>
-                                  {log.error_message ? (
-                                    <span className="text-red-500 dark:text-red-400 font-mono text-[11px] block text-wrap">{log.error_message}</span>
-                                  ) : (
-                                    <span className="text-slate-400">تمت جدولة الدورة القادمة بنجاح</span>
-                                  )}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )
-            }}
-          </PaginationProvider>
-        </div>
-
-      </div>
-    </div>
-=======
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
   <div className="bg-white rounded-xl shadow-2xl h-full w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col" onClick={(e) => e.stopPropagation()}>
     
@@ -317,6 +160,5 @@ export default function RecurringTasksLogs({ onClose }) {
     </div>
   </div>
 </div>
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   )
 }

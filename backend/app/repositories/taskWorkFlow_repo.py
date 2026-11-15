@@ -3,11 +3,7 @@ from sqlalchemy.orm import selectinload
 
 from app.models.TaskWorkflowModel import TaskWorkflow
 from app.models.TaskWorkflowStepModel import TaskWorkflowStep
-<<<<<<< HEAD
-from app.models.TaskStepDependency_Model import TaskStepDependency
-=======
 from app.models.TaskWorkflowStepDependency_Model import TaskWorkflowStepDependency
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
 from app.models.User import User
 
 
@@ -69,11 +65,7 @@ class TaskWorkflowRepository:
                 selectinload(TaskWorkflowStep.assigned_user),
                 selectinload(TaskWorkflowStep.assigned_department),
                 selectinload(TaskWorkflowStep.dependencies).selectinload(
-<<<<<<< HEAD
-                    TaskStepDependency.parent_step
-=======
                     TaskWorkflowStepDependency.parent_step
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
                 )  # تحميل الأب (الخطوة السابقة) ككامل عشان نعرض اسمها
             )
         )

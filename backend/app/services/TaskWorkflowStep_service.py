@@ -299,11 +299,7 @@ class TaskWorkflowStepService:
     ):
         """ينشئ خطوة جديدة في الـ workflow."""
         from app.services.TaskWorkflow_service import TaskWorkflowService
-<<<<<<< HEAD
-        from app.repositories.TaskStepDependency_repo import TaskWorkflowStepDependencyRepository
-=======
         from app.repositories.TaskWorkflowStepDependency_repo import TaskWorkflowStepDependencyRepository
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         workflow = await TaskWorkflowService.get_workflow_or_404(db, workflow_id)
         step_payload = step_data.model_dump(exclude={'parent_step_ids'})
         step_payload["workflow_id"] = workflow.id
@@ -335,11 +331,7 @@ class TaskWorkflowStepService:
 
         # 1. جلب كل الـ Ancestors (الأجداد) الخاصين بالـ parent_id
         # نحتاج دالة في الـ Repository تجلب سلسلة الاعتماديات كاملة
-<<<<<<< HEAD
-        from app.repositories.TaskStepDependency_repo import TaskWorkflowStepDependencyRepository
-=======
         from app.repositories.TaskWorkflowStepDependency_repo import TaskWorkflowStepDependencyRepository
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         visited = await TaskWorkflowStepDependencyRepository.get_all_ancestors(db, parent_id)
         
         # 2. إذا كان child_id موجوداً ضمن الأجداد، فهذا يعني وجود دائرة
@@ -354,11 +346,7 @@ class TaskWorkflowStepService:
         await TaskWorkflowStepService.validate_no_circular_dependency(db, child_step_id, parent_step_id)
         
         # 2. إذا مر التحقق بنجاح، نقوم بإنشاء الاعتمادية
-<<<<<<< HEAD
-        from app.repositories.TaskStepDependency_repo import TaskWorkflowStepDependencyRepository
-=======
         from app.repositories.TaskWorkflowStepDependency_repo import TaskWorkflowStepDependencyRepository
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         return await TaskWorkflowStepDependencyRepository.create_dependency(
             db, 
             child_step_id=child_step_id, 
@@ -374,11 +362,7 @@ class TaskWorkflowStepService:
 
         # 2. التحقق من أن جميع الأباء قد اكتملوا
         # نجلب كل الـ IDs للخطوات الأب
-<<<<<<< HEAD
-        from app.repositories.TaskStepDependency_repo import TaskWorkflowStepDependencyRepository
-=======
         from app.repositories.TaskWorkflowStepDependency_repo import TaskWorkflowStepDependencyRepository
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         parent_ids = await TaskWorkflowStepDependencyRepository.get_parent_step_ids(db, step_id)
         
         for parent_id in parent_ids:
@@ -402,11 +386,7 @@ class TaskWorkflowStepService:
     async def are_all_parents_completed(db: AsyncSession, step_id: int) -> bool:
         """تتأكد من أن جميع الأباء (Dependencies) قد تم إنهاؤهم."""
         # جلب الـ parent_ids
-<<<<<<< HEAD
-        from app.repositories.TaskStepDependency_repo import TaskWorkflowStepDependencyRepository
-=======
         from app.repositories.TaskWorkflowStepDependency_repo import TaskWorkflowStepDependencyRepository
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
         parent_ids = await TaskWorkflowStepDependencyRepository.get_parent_step_ids(db, step_id)
         
         for p_id in parent_ids:

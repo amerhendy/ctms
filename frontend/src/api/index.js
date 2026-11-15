@@ -128,10 +128,6 @@ export const statsApi = {
     updateStep: (taskId, stepId, data) => api.patch(`/Steps/${taskId}/${stepId}`, data),
     deleteStep: (taskId, stepId) => api.delete(`/Steps/${taskId}/${stepId}`),
     reorderSteps: (taskId, stepsOrderList) => api.put(`/Steps/${taskId}/reorder`, stepsOrderList),
-<<<<<<< HEAD
-    addBulkSteps: (taskId, stepsPayload) => api.post(`/Steps/bulk/${taskId}`, stepsPayload),
-=======
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   }
   // ─── المهام المتكررة (Recurring Tasks CRUD) ──────────────────────────
   export const recurringTasksApi = {
@@ -245,45 +241,22 @@ export const statsApi = {
   }
   // Locations
   export const LocationApi = {
-<<<<<<< HEAD
-    // جلب الشجرة التنظيمية مع دعم فلترة الحالة
-    getTree: (isActive = null) => {
-        const params = isActive !== 'all' ? { is_active: isActive } : {};
-        return api.get('/locations/tree', { params });
-    },
-    list: (params) => api.get('/locations', { params }),
-    getUsers: (deptId, page = 1, pageSize = 20, search = "") => {
-        return api.get(`/locations/${deptId}/users`, { 
-            params: { page, page_size: pageSize, q: search } 
-        });
-    },
-=======
     list: (params) => api.get('/locations', { params }),
     getUsers: (deptId, page = 1, pageSize = 20) => 
         api.get(`/locations/${deptId}/users`, { 
             params: { page, page_size: pageSize } 
         }),
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     getDepartments: (deptId, page = 1, pageSize = 20) => 
         api.get(`/locations/${deptId}/departments`, { 
             params: { page, page_size: pageSize } 
         }),
     createLocation: (data) => api.post('/locations', data),
     updateLocation: (id, data) => api.put(`/locations/${id}`, data),
-<<<<<<< HEAD
-    deleteLocation: (id) => api.delete(`/locations/${id}`),
-};
-  // ── Users ────────────────────────────────────────────────────────
-  export const usersApi = {
-    list: (params) => api.get('/users', { params }),
-    listForOthers: (params) => api.get('/users/UserListForOthers', { params }),
-=======
     deleteLocation: (id) => api.delete(`/locations/${id}`),             // إضافة هذه لاحقاً إذا احتجتها
   }
   // ── Users ────────────────────────────────────────────────────────
   export const usersApi = {
     list: (params) => api.get('/users', { params }),
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     get: (id) => api.get(`/users/${id}`),
     create: (data) => api.post('/users', data),
     update: (id, data) => api.patch(`/users/${id}`, data),

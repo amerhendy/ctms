@@ -25,11 +25,7 @@ class StepStatus(str, enum.Enum):
     PENDING     = "pending"
     IN_PROGRESS = "in_progress"
     COMPLETED   = "completed"
-<<<<<<< HEAD
-    CANCELLED     = "cancelled"
-=======
     SKIPPED     = "skipped"
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
     
 class TaskPriority(str, enum.Enum):
     LOW = "low"

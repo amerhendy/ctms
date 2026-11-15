@@ -43,21 +43,11 @@ function WorkflowDiagramInner({
     id: edge.id || `${edge.source}-${edge.target}-${index}`,
   }));
 
-<<<<<<< HEAD
-
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(processedEdges);
-  const reactFlowWrapper = useRef(null);
-  const [reactFlowInstance, setReactFlowInstance] = useState(null);
-
-
-=======
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   // تعريف edgeTypes باستخدام useMemo مع الاعتماديات الصحيحة
   const edgeTypes = useMemo(() => ({
     animated: (props) => (
@@ -75,13 +65,6 @@ function WorkflowDiagramInner({
       setNodes(initialNodes);
     }
   }, [initialNodes, setNodes]);
-<<<<<<< HEAD
-  useEffect(() => {
-    if (processedEdges.length > 0) {
-      setEdges(processedEdges);
-    }
-  }, [initialEdges, setEdges]);
-=======
 
   useEffect(() => {
     if (initialEdges.length > 0) {
@@ -89,7 +72,6 @@ function WorkflowDiagramInner({
     }
   }, [initialEdges, setEdges]);
 
->>>>>>> bba781d614bd14ebc2c7f825d5451eff39c0a172
   const onNodeClickHandler = useCallback(
     (event, node) => {
       if (onNodeClick) {
