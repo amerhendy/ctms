@@ -479,7 +479,7 @@ class TaskAnalyticsRepository:
     @staticmethod
     async def count_tasks_by_eisenhower(db: AsyncSession, task_ids: List[int]) -> Dict[str, int]:
         if not task_ids:
-            return {"Q1_DO_FIRST": 0, "Q2_SCHEDULE": 0, "Q3_DELEGATE": 0, "Q4_ELIMINATE": 0}
+            return [{"quadrant":"Q1_DO_FIRST","count":0},{"quadrant":"Q2_SCHEDULE","count":0},{"quadrant":"Q3_DELEGATE","count":0},{"quadrant":"Q4_ELIMINATE","count":0}]
 
         # ترجمة منطق الـ property إلى SQL Case expression
         # ملاحظة: تأكد من تطابق الشروط مع المنطق الفعلي لديك
@@ -502,6 +502,7 @@ class TaskAnalyticsRepository:
         for quadrant, count in data:
             if quadrant in counts:
                 counts[quadrant] = count
+        
         return [{"quadrant": k, "count": v} for k, v in counts.items()]
     
     @staticmethod

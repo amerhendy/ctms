@@ -2,6 +2,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, update, func, or_
 from sqlalchemy.orm import joinedload, load_only
+from sqlalchemy.orm import selectinload
 from app.models import User
 from app.models.DepartmentManager import DepartmentManager
 from datetime import datetime
@@ -29,8 +30,12 @@ class AuthRepository:
         return result.scalar_one_or_none()
     
     async def get_by_id(self, user_id: int):
-        
-        result = await self.db.execute(select(User).where(User.id == user_id))
+        stmt = (
+            select(User)
+            .options(selectinload(User.managed_departments))
+            .where(User.id == user_id)
+        )
+        result = await self.db.execute(stmt)
         return result.scalar_one_or_none()
 
     async def get_by_email(self, email: str):

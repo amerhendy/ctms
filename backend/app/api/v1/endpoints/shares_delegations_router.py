@@ -15,6 +15,7 @@ from app.schemas.delegations import DelegationCreate
 from app.core.security import get_current_user
 from app.services.share_service import ShareService
 from app.services.delegation_service import DelegationService
+from app.schemas.shares import ShareUpdateSchema
 shares_router = APIRouter(prefix="/shares", tags=["Task Shares"])
 delegations_router = APIRouter(prefix="/delegations", tags=["Delegations"])
 
@@ -51,6 +52,17 @@ async def revoke_share(
     """إلغاء مشاركة مهمة (حذف المشاركة)."""
     return await ShareService.revoke_share(db, share_id, current_user)
 
+@shares_router.patch("/shares/{share_id}")
+async def update_share(
+    share_id: int,
+    data: ShareUpdateSchema,
+    db = Depends(get_db),
+    current_user = Depends(get_current_user),
+    background_tasks: BackgroundTasks = BackgroundTasks(),
+):
+    return await ShareService.update_share(
+        db, share_id, data, current_user, background_tasks
+    )
 
 # ─── Delegations ─────────────────────────────────────────────
 

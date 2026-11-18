@@ -7,7 +7,7 @@ class TaskWorkflowStepDependency(Base):
     جدول يحدد الاعتماديات بين الخطوات (DAG).
     الخطوة 'child' لا يمكنها البدء إلا إذا انتهت 'parent'.
     """
-    __tablename__ = "task_workflow_step_dependencies"
+    __tablename__ = "task_step_dependencies"
 
     id              = Column(Integer, primary_key=True, index=True)
     parent_step_id  = Column(Integer, ForeignKey("task_workflow_steps.id", ondelete="CASCADE"), nullable=False)

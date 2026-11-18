@@ -2,12 +2,16 @@
 from sqlalchemy import select, or_
 from sqlalchemy.orm import selectinload, joinedload
 from app.models import TaskShare, Task,User
+from datetime import datetime, timezone
+
 class TaskShareRepository:
     @staticmethod
     async def CheckIfShare(db,task_id,shared_with_user_id):
         stm=select(TaskShare).where(
             TaskShare.task_id == task_id,
             TaskShare.shared_with_user_id == shared_with_user_id,
+            TaskShare.approval_status != "revoked",
+            (TaskShare.expires_at.is_(None)) | (TaskShare.expires_at > datetime.now(timezone.utc)),
         )
         result=await db.execute(stm)
         return result.scalar_one_or_none()

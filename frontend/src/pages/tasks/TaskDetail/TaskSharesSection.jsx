@@ -90,7 +90,7 @@ export default function TaskSharesSection({ taskId, taskPermissions, task }) {
           لا توجد أي تراخيص أو مشاركات خارجية مسجلة لهذه المهمة بعد.
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-2.5 max-h-80 overflow-y-auto pl-1 custom-scrollbar">
+        <div className="grid grid-cols-1 gap-2.5 max-h-80 overflow-y-auto pl-1 custom-scrollbar"> 
           {shares?.map((s) => {
             const isCurrentShareRevoking = revokeShareMutation.isPending && revokeShareMutation.variables === s.id;
             const isCurrentShareUpdating = updateShareMutation.isPending && updateShareMutation.variables?.shareId === s.id;

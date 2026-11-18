@@ -38,7 +38,7 @@ class TaskShare(Base):
     expires_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
-    __table_args__ = (UniqueConstraint("task_id", "shared_with_user_id", name="uq_share"),)
+    __table_args__ = (UniqueConstraint("task_id", "shared_with_user_id", name="uq_task_share_user"),)
 
     # Relationships
     task: Mapped["Task"] = relationship("Task", back_populates="shares")

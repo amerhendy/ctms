@@ -13,6 +13,8 @@ from app.repositories.log_repo import LogRepository
 from app.core.permissions import require_view_permission
 from app.schemas.base import PaginatedResponse, apply_pagination
 from app.core.utils import logger
+from app.core.utils import _get,_to_iso
+
 class LogService:
     @staticmethod
     async def get_task_logs(db, task_id, current_user, page, limit):
@@ -25,18 +27,25 @@ class LogService:
         # 2. تنفيذ الترقيم (باستخدام الموديل الذي جهزناه)
         base_query = await LogRepository.get_task_logs_query(task_id)
         paginated = await apply_pagination(db, base_query, TaskLog, page, limit)
-
+        formatted_items = []
         # 3. تنسيق البيانات (Data Mapping)
-        formatted_items = [{
-            "id": l.id,
-            "action_type": l.action_type,
-            "old_value": l.old_value,
-            "new_value": l.new_value,
-            "timestamp": l.timestamp.isoformat(),
-            "user_id": l.user_id,
-            "user_name": l.user.full_name if l.user else "النظام",
-            "avatar_url": l.user.avatar_url if l.user else None,
-        } for l in paginated["items"]]
+        for l in paginated["items"]:
+            username="النظام"
+            avatar_url=None
+            userData=_get(l,'user')
+            if userData:
+                username=_get(userData,'full_name') if userData else "النظام"
+                avatar_url=_get(userData,'avatar_url') if userData else None
+            formatted_items.append({
+                "id": _get(l, "id"),
+                "action_type": _get(l, "action_type"),
+                "old_value": _get(l, "old_value"),
+                "new_value": _get(l, "new_value"),
+                "timestamp": _to_iso(_get(l, "timestamp")),
+                "user_id": _get(l, "user_id"),
+                "user_name":username,
+                "avatar_url": avatar_url
+            })  
 
         return {
             **paginated,

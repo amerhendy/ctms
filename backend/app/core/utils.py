@@ -64,5 +64,13 @@ def setup_logger():
         
     return logger
 
+def _get(obj, key):
+    return obj[key] if isinstance(obj, dict) else getattr(obj, key)
+def _to_iso(value):
+    if value is None:
+        return None
+    if isinstance(value, str):
+        return value
+    return value.isoformat()
 # إنشاء نسخة عامة (Singleton) ليتم استيرادها
 logger = setup_logger()

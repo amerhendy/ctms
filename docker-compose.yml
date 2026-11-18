@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: ctms_backend
     environment:
-      DATABASE_URL: postgresql+asyncpg://postgres:password@host.docker.internal:5433/corporate_tasks
+      DATABASE_URL: postgresql+asyncpg://postgres:password@host.docker.internal:6432/corporate_tasks
       REDIS_URL: redis://host.docker.internal:6379/0
       CELERY_BROKER_URL: redis://host.docker.internal:6379/1
       CELERY_RESULT_BACKEND: redis://host.docker.internal:6379/2

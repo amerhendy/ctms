@@ -151,7 +151,8 @@ export const statsApi = {
   // ─── التعليقات (Comments) ───────────────────────────────────────────
   // نرسل البيانات بداخل params لأن الباك إند يستقبلها كـ Query Parameters
   export const commentsApi = {
-    addComment: (taskId, text) => api.post(`/comments/${taskId}`, null, { params: { comment_text: text } }),
+    //addComment: (taskId, text) => api.post(`/comments/${taskId}`, null, { params: { comment_text: text } }),
+    addComment: (taskId, comment_text) => api.post(`/comments/${taskId}`, { comment_text }),
     listComments: (taskId,params) => api.get(`/comments/${taskId}`, { params }),
     // نرسل النص الجديد أيضاً في الـ params كما هو محدد في الباك إند
     updateComment: (taskId, commentId, text) => api.patch(`/comments/${taskId}/${commentId}`, null, { params: { comment_text: text } }),
@@ -172,7 +173,9 @@ export const statsApi = {
     deleteAttachment: (taskId, attachmentId) => api.delete(`/taskAttachments/${taskId}/${attachmentId}`),
     downloadAttachment: (taskId, attachmentId) => {
       try {
-        return api.get(`/taskAttachments/${taskId}/${attachmentId}/getItem`)
+        return api.get(`/taskAttachments/${taskId}/${attachmentId}/getItem`, {
+          responseType: 'blob',
+        })
       } catch (error) {
         console.log(error);
       }
@@ -194,11 +197,8 @@ export const statsApi = {
     share: (data) => api.post('/shares', data),
     getForTask: (taskId) => api.get(`/shares/task/${taskId}`),
     revoke: (shareId) => api.delete(`/shares/${shareId}`),
-    updateShare: (shareId, permission, expiresAt) => 
-      api.put(`/shares/${shareId}`, { 
-        permission: permission || undefined, 
-        expires_at: expiresAt || undefined 
-      }),
+    // نبعته كما هو — undefined بيتجاهل في JSON، null بيتسجل صريح
+    updateShare: (shareId, payload) => api.patch(`/shares/${shareId}`, payload),
   }
 
   // ── Delegations ─────────────────────────────────────────────────

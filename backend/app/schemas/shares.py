@@ -21,10 +21,11 @@ class ShareCreate(BaseModel):
     )
 
 
-class ShareUpdate(BaseModel):
-    """نموذج لتحديث صلاحيات المشاركة الحالية أو تمديد وقتها"""
-    permission: Optional[SharePermission] = Field(None, description="تعديل نوع الصلاحية الممنوحة")
-    expires_at: Optional[datetime] = Field(None, description="تحديث أو إلغاء تاريخ انتهاء المشاركة")
+class ShareUpdateSchema(BaseModel):
+    shared_with_user_id: Optional[int] = None
+    permission: Optional[SharePermission] = None
+    expires_at: Optional[datetime] = None
+
 
 
 # ─── نماذج المخرجات والاستجابة (Response Schemas) ───

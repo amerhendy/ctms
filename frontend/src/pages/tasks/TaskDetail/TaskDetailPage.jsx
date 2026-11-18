@@ -429,26 +429,47 @@ task.creator = task?.creator ?? task?.created_by_user ?? null;
           )}>
             <div className={clsx("border-b px-4 sm:px-6", theme.card.border)}>
               <div className="flex gap-1 overflow-x-auto no-scrollbar">
-                {tabs.map(tab => (
-                  <button
-                    key={tab.key}
-                    onClick={() => setActiveTab(tab.key)}
-                    className={clsx(
-                      "flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px whitespace-nowrap",
-                      activeTab === tab.key
-                        ? "border-primary-500 text-primary-600 dark:text-primary-400"
-                        : clsx("border-transparent", theme.text.muted, "hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300")
-                    )}
-                  >
-                    {tab.icon}
-                    {tab.label}
-                    {tab.badge && (
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-600">
-                          {tab.badge}
-                        </span>
-                      )}
-                  </button>
-                ))}
+                {/* 1. يظهر على الموبايل فقط (أقل من sm) */}
+<div className="sm:hidden">
+  <label htmlFor="mobile-tabs" className="sr-only">اختر القسم</label>
+  <select
+    id="mobile-tabs"
+    value={activeTab}
+    onChange={(e) => setActiveTab(e.target.value)}
+    className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-2.5 text-sm font-bold text-slate-900 dark:text-white shadow-sm focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+  >
+    {tabs.map((tab) => (
+      <option key={tab.key} value={tab.key}>
+        {tab.label} {tab.badge ? `(${tab.badge})` : ''}
+      </option>
+    ))}
+  </select>
+</div>
+
+{/* 2. يظهر على التابلت والديسكتوب فقط (sm فأكبر) */}
+<div className="hidden sm:flex items-center border-b border-slate-200 dark:border-slate-800">
+  {tabs.map((tab) => (
+    <button
+      key={tab.key}
+      type="button"
+      onClick={() => setActiveTab(tab.key)}
+      className={clsx(
+        "flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px whitespace-nowrap cursor-pointer",
+        activeTab === tab.key
+          ? "border-primary-500 text-primary-600 dark:text-primary-400"
+          : clsx("border-transparent", theme.text.muted, "hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300")
+      )}
+    >
+      {tab.icon}
+      {tab.label}
+      {tab.badge && (
+        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-600">
+          {tab.badge}
+        </span>
+      )}
+    </button>
+  ))}
+</div>
               </div>
             </div>
 

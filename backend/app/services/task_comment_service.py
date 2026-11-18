@@ -1,6 +1,8 @@
 # app/services/task_comment_service.py
 from fastapi import HTTPException
 from datetime import datetime
+from typing import Optional
+from sqlalchemy import or_
 
 from app.core.utils import logger
 from app.schemas.base import get_task_or_404,apply_pagination
@@ -32,7 +34,7 @@ class CommentService:
         #add log
         await LogService.log_action(db, task_id, current_user.id, "comment_added", new_value=f"comment_id:{comment.id}")
         #get all recipients
-        recipients=await TaskService.get_people_intask(db,task)
+        recipients=await TaskService.get_task_staff(db,task)
         comment_payload = {
             "event": "comment_created",
             "task_id": task_id,
@@ -103,11 +105,30 @@ class CommentService:
         return {"message": "تم حذف التعليق بنجاح"}
 
     @staticmethod
-    async def list_comments(db, task_id: int,page:int,limit:int,current_user:User):
+    async def list_comments(db, task_id: int,page:int,limit:int,current_user:User,
+        search: Optional[str] = None,
+        from_date: Optional[datetime] = None,
+        to_date: Optional[datetime] = None,
+    ):
         task = await get_task_or_404(db, task_id)
         await require_view_permission(db, current_user, task)
         query=CommentRepository.base_query()
         base_query=query.where(TaskComment.task_id == task_id)
+        if search and search.strip():
+            s = f"%{search.strip()}%"
+            base_query = base_query.where(
+            or_(
+                TaskComment.comment_text.ilike(s),
+                TaskComment.user.has(User.full_name.ilike(s)),
+            )
+        )
+
+        # 📅 فلترة زمنية
+        if from_date:
+            base_query = base_query.where(TaskComment.created_at >= from_date)
+        if to_date:
+            base_query = base_query.where(TaskComment.created_at <= to_date)
+
         paginated_result = await apply_pagination(
             db=db,
             base_query=base_query,

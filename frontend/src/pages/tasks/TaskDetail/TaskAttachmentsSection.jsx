@@ -66,13 +66,34 @@ export default function TaskAttachmentsSection({ taskId, taskPermissions }) {
     try {
       setDownloadingFileId(file.id)
       const response = await attachmentsApi.downloadAttachment(taskId, file.id)
-      saveAs(response.data, file.file_name)
+
+      const blob = response.data
+
+      // تأكد إن الرد Blob فعلاً
+      if (!(blob instanceof Blob)) {
+        throw new Error('الرد ليس Blob — تحقق من responseType')
+      }
+
+      // لو الباك إند رجّع JSON خطأ متخزن جوه blob
+      if (blob.type.includes('application/json')) {
+        const text = await blob.text()
+        const err = JSON.parse(text)
+        throw new Error(err.detail || 'فشل تحميل الملف')
+      }
+
+      // جرّب تجيب اسم الملف من Content-Disposition
+      const disposition = response.headers?.['content-disposition'] || ''
+      const match = disposition.match(/filename\*?=(?:UTF-8'')?"?([^";]+)"?/i)
+      const serverFileName = match ? decodeURIComponent(match[1]) : null
+
+      saveAs(blob, serverFileName || file.file_name)
     } catch (error) {
-      toast.error('حدث خطأ فني أثناء تحميل الملف، يرجى المحاولة لاحقاً')
+      toast.error(error.message || 'حدث خطأ أثناء تحميل الملف')
     } finally {
       setDownloadingFileId(null)
     }
   }
+
 
   // حذف المرفق نهائياً من نظام إدارة الوثائق
   const deleteMutation = useMutation({

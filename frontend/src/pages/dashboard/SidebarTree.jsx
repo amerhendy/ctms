@@ -178,7 +178,7 @@ function TreeNode({ node, expandedIds, employeesMap, loadingEmployees, toggleNod
                     className="flex items-center gap-1 group py-1 px-2 hover:bg-gray-50 dark:hover:bg-gray-800"
                 >
                     <Avatar 
-                    src={mgr.avatar_url || emp?.avatar_url} 
+                    src={mgr.avatar_url || mgr?.avatar_url} 
                     name={mgr?.full_name || ''} 
                     size="sm" 
                     className="flex-shrink-0 border border-gray-100 dark:border-gray-700" 

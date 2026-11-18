@@ -94,11 +94,28 @@ export default function DashboardPage() {
   if (statsLoading) return <PageLoader />
   return (
     <div className={clsx("space-y-6 transition-colors duration-300")}>
-      <div className="w-full h-full overflow-y-auto py-2">
-        <h1 className={theme.text.pageTitle}>مرحباً، {user?.full_name?.split(' ')[0]} 👋</h1>
-        <Link to="/tasks/new" className={clsx(theme.button.base, theme.button.primary, "w-full sm:w-auto")}>
-          <Plus className="w-4 h-4" /> مهمة جديدة
-        </Link>
+        <div className="rounded-3xl bg-gradient-to-l from-slate-900 via-slate-900 to-slate-950 border border-slate-800 p-6 md:p-8 text-white relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              منظومة ادارة المهام لشركة مياه الشرب والصرف الصحى بشمال وجنوب سيناء
+            </div>
+            <h2 className="text-xl md:text-2xl font-black tracking-tight">
+              أهلاً بك، {user?.full_name?.split(' ')[0]} 👋
+            </h2>
+            <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
+              متابعة آنية للمهام التنفيذية، والقرارات والتكليفات، مع تدقيق شامل
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <Link to="/tasks/new" className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition-all transform active:scale-95 cursor-pointer">
+              <Plus className="w-4 h-4" /> مهمة جديدة
+            </Link>
+          </div>
+        </div>
       </div>
       {/* الشبكة الأساسية */}
       <div className="grid grid-cols-12 gap-4 sm:gap-6 relative">
@@ -123,15 +140,15 @@ export default function DashboardPage() {
             <>
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
               <span className={theme.text.label}>مهام منجزة</span>
-              <span className={clsx(theme.text.sectionTitle)}>{stats?.completedTasksCount}</span>
+              <span className={clsx(theme.text.sectionTitle)}>{stats?.completed_tasks_count}</span>
             </div>
             <div className="flex justify-between items-center border-b border-gray-100 pb-2">
               <span className={theme.text.label}>نسبة الالتزام</span>
-              <span className={clsx(theme.text.sectionTitle)}>{stats?.commitmentRate?.toFixed(1)}%</span>
+              <span className={clsx(theme.text.sectionTitle)}>{stats?.commitment_rate?.toFixed(1)}%</span>
             </div>
             <div className="flex justify-between items-center">
               <span className={theme.text.label}>سرعة الأداء</span>
-              <span className={clsx(theme.text.sectionTitle)}>{stats?.avgRelativeSpeed?.toFixed(1)}%</span>
+              <span className={clsx(theme.text.sectionTitle)}>{stats?.avg_relative_speed?.toFixed(1)}%</span>
             </div>
           </>
           )}
@@ -149,15 +166,15 @@ export default function DashboardPage() {
             <>
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                 <span className={theme.text.label}>ساعات العمل</span>
-                <span className={clsx(theme.text.sectionTitle)}>{stats?.totalHours?.toFixed(1)} س</span>
+                <span className={clsx(theme.text.sectionTitle)}>{stats?.total_hours?.toFixed(1)} س</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                 <span className={theme.text.label}>التعليقات</span>
-                <span className={clsx(theme.text.sectionTitle)}>{stats?.commentsCount}</span>
+                <span className={clsx(theme.text.sectionTitle)}>{stats?.comments_count}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className={theme.text.label}>المفضلة</span>
-                <span className={clsx(theme.text.sectionTitle)}>{stats?.favoritesCount}</span>
+                <span className={clsx(theme.text.sectionTitle)}>{stats?.favorites_count}</span>
               </div>
             </>
           )}
@@ -267,12 +284,24 @@ export default function DashboardPage() {
         <div className="p-4">
           <DepartmentDistribution data={stats?.department_distribution} />
         </div>
-        <div className="card bg-white dark:bg-transparent">
-          <h3 className="font-bold mb-3">المفضلة النشطة</h3>
-          {(stats?.active_favorites || []).map(t => (
-            <Link key={t.id} to={`/tasks/${t.id}`} className="block text-sm py-1">⭐ {t.title}</Link>
-          ))}
-        </div>
+        
+        
+        {!statsLoading && ( 
+          <div className="card bg-white dark:bg-transparent">
+            <h3 className="font-bold mb-3">المفضلة النشطة</h3>
+            
+            {stats?.active_favorites?.length > 0 ? (
+              stats.active_favorites.map(t => (
+                <Link key={t.id} to={`/tasks/${t.id}`} className="block text-sm py-1">
+                  ⭐ {t.title}
+                </Link>
+              ))
+            ) : (
+              <p className="text-sm text-gray-500">لا يوجد مهام مفضلة</p>
+            )}
+          </div>
+        
+        )}
         {!statsLoading && (
         <div className="card bg-transparent">
           <div className="flex items-center justify-between mb-3">
